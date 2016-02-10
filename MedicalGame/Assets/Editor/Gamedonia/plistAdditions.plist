@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>FacebookAppID</key>
+	<string>259105240914922</string>
+	<key>plistKeys</key>
+	<array>
+		<string>MinimumOSVersion</string>
+		<string>UIFileSharingEnabled</string>
+		<string>CFBundleURLTypes</string>
+		<string>UIBackgroundModes</string>
+		<string>FacebookAppID</string>
+	</array>
+	<key>UIFileSharingEnabled</key>
+	<false/>
+	<key>GoogleClientId</key>
+	<string>425843927874-iih5lof1a077rt0tc7no43la1jnn2ljj.apps.googleusercontent.com</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>
+        </string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb259105240914922</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.edenicgames.sdk</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.edenicgames.sdk</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.googleusercontent.apps.425843927874-iih5lof1a077rt0tc7no43la1jnn2ljj</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.425843927874-iih5lof1a077rt0tc7no43la1jnn2ljj</string>
+			</array>
+		</dict>
+	</array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>com.edenicgames.sdk</string>
+		<string>com.googleusercontent.apps.425843927874-iih5lof1a077rt0tc7no43la1jnn2ljj</string>
+	</array>
+	<key>NSAppTransportSecurity</key>
+<dict>
+   <key>NSAllowsArbitraryLoads</key>
+   <true/>
+</dict>
+</dict>
+</plist>
