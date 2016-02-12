@@ -50,8 +50,10 @@ public class Profile : MonoBehaviour {
 			if (userProfile != null && userProfile.profile ["nickname"] != null)
 				name.text = userProfile.profile ["nickname"] as string;
 
-			if (userProfile != null && userProfile.profile ["age"] != null)
-				age.text = userProfile.profile ["age"] as string;
+			if (userProfile != null && userProfile.profile ["age"] != null) {
+				string p_age = userProfile.profile ["age"].ToString ();
+				age.text = p_age;
+			}
 
 			if (userProfile != null && userProfile.profile ["email"] != null)
 				email.text = userProfile.profile ["email"] as string;
