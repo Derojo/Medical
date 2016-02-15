@@ -1,10 +1,11 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Login.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Profile_Create.cs">
     <Files>
-      <File FileName="Assets\Scripts\AddUser.cs" Line="24" Column="18" />
-      <File FileName="Assets\Scripts\Login.cs" Line="49" Column="27" />
+      <File FileName="Assets\Scripts\Profile_Create.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Profile.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\AddUser.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Login.cs" Line="1" Column="1" />
       <File FileName="Assets\Plugins\Gamedonia\GamedoniaRequest.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Startup.cs" Line="1" Column="1" />
     </Files>

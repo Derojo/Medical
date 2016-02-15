@@ -48,6 +48,7 @@
      <Compile Include="Assets\Scripts\AddUser.cs" />
      <Compile Include="Assets\Scripts\Login.cs" />
      <Compile Include="Assets\Scripts\Profile.cs" />
+     <Compile Include="Assets\Scripts\Profile_Create.cs" />
      <Compile Include="Assets\Scripts\Startup.cs" />
      <Compile Include="Assets\Scripts\UtilResize.cs" />
      <None Include="Assets\Plugins\Android\facebook\res\values\strings.xml" />
