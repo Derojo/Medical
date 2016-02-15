@@ -121,6 +121,10 @@
       <Project>{DA5C2514-FBEF-95D0-FD9A-D894A98B9625}</Project>
       <Name>MedicalGame.CSharp.Plugins</Name>
     </ProjectReference>
+    <ProjectReference Include="MedicalGame.CSharp.csproj">
+      <Project>{0BB1C819-94F2-F946-7B1A-50BC77B63062}</Project>
+      <Name>MedicalGame.CSharp</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Editor\Gamedonia\PostScriptTrigger.cs" />

@@ -81,10 +81,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Button.cs" />
-    <Compile Include="Assets\Scripts\SwipeManager.cs" />
-    <Compile Include="Assets\Scripts\TouchDirectionController.cs" />
-    <Compile Include="Assets\Scripts\TouchInput.cs" />
+    <Compile Include="Assets\Scripts\AddUser.cs" />
+    <Compile Include="Assets\Scripts\Login.cs" />
+    <Compile Include="Assets\Scripts\Profile.cs" />
+    <Compile Include="Assets\Scripts\Startup.cs" />
+    <Compile Include="Assets\Scripts\UtilResize.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
