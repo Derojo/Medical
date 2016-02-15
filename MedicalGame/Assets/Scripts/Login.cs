@@ -12,35 +12,42 @@ public class Login : MonoBehaviour {
 
 	public InputField email_input;
 	public InputField password_input;
-
+	private bool i_access = true;
 
 	private string email = "";
 	private string password = "";
 	private string errorMsg = "";
 	private string statusMsg = "";
 
+	void Awake() {
+		checkInternet ();
+	}
 	void Start() {
+		if (i_access) {
+			if (GamedoniaBackend.INSTANCE == null) {
 
-		if (  GamedoniaBackend.INSTANCE== null) {
-
-			statusMsg = "Missing Api Key/Secret. Check the README.txt for more info.";
+				statusMsg = "Missing Api Key/Secret. Check the README.txt for more info.";
+			}
 		}
+
 	}
 
 	void Update() {
-//		Debug.Log (GameObject.Find("username_input").GetComponent<Text>().text);
 		email = email_input.text;
 		password = password_input.text;
 	}
 
 	public void LoginUser() {
-		GamedoniaUsers.LoginUserWithEmail(email.ToLower(),password,OnLogin);
-		if (errorMsg != "") {
-			Debug.Log (errorMsg);
-		}
+		if (i_access) {
+			// Login with email and password, store session token
+			GamedoniaUsers.LoginUserWithEmail (email.ToLower (), password, OnLogin);
+			if (errorMsg != "") {
+				Debug.Log (errorMsg);
+			}
 
-		if (statusMsg != "") {
-			Debug.Log (statusMsg);
+			if (statusMsg != "") {
+				Debug.Log (statusMsg);
+			}
 		}
 	}
 
@@ -59,6 +66,18 @@ public class Login : MonoBehaviour {
 	public IEnumerator ChangeScene() {
 		yield return new WaitForSeconds (1f);
 		Application.LoadLevel("Profile");
+	}
+
+	private void checkInternet() {
+		GamedoniaBackend.isInternetConnectionAvailable(delegate (bool success) { 
+			if (success) { 
+				i_access = true;
+			} else {
+				i_access = false;
+				errorMsg = "No internet access";
+				Debug.Log(errorMsg);
+			}
+		});
 	}
 		
 }

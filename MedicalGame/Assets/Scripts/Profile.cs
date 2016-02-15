@@ -30,14 +30,10 @@ public class Profile : MonoBehaviour {
 	public void OnLogout(bool success) {
 
 		if (success) {
-
 			Application.LoadLevel("Login");
-
-		}else {
-
+		} else {
 			errorMsg = GamedoniaBackend.getLastError().ToString();
-			Debug.Log(errorMsg);	
-
+			Debug.Log(errorMsg);
 		}
 
 	}
@@ -45,7 +41,6 @@ public class Profile : MonoBehaviour {
 	void OnGetMe(bool success, GDUserProfile userProfile) {
 
 		if (success) {
-			Debug.Log ("success");
 			this.userProfile = userProfile;
 			if (userProfile != null && userProfile.profile ["nickname"] != null)
 				name.text = userProfile.profile ["nickname"] as string;
@@ -61,6 +56,5 @@ public class Profile : MonoBehaviour {
 			errorMsg = GamedoniaBackend.getLastError().ToString();
 			Debug.Log(errorMsg);
 		}
-
 	}
 }
