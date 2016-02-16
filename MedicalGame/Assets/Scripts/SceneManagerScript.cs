@@ -5,11 +5,7 @@ using UnityEditor.SceneManagement;
 public class SceneManagerScript : MonoBehaviour
 {
 
-    void Awake()
-    {
-        DontDestroyOnLoad(this);
-    }
-    //Loading Home Scene
+    //Loading Scenes
     public void LoadLevelPage(string changeScene)
     {
         EditorSceneManager.LoadScene(changeScene);
