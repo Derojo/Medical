@@ -83,7 +83,6 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\AddUser.cs" />
     <Compile Include="Assets\Scripts\ClampRectTransform.cs" />
-    <Compile Include="Assets\Scripts\DoNotDestroy.cs" />
     <Compile Include="Assets\Scripts\Login.cs" />
     <Compile Include="Assets\Scripts\Profile.cs" />
     <Compile Include="Assets\Scripts\Profile_Create.cs" />
