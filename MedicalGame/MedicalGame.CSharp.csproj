@@ -88,6 +88,7 @@
     <Compile Include="Assets\Scripts\Profile_Create.cs" />
     <Compile Include="Assets\Scripts\SceneManagerScript.cs" />
     <Compile Include="Assets\Scripts\Startup.cs" />
+    <Compile Include="Assets\Scripts\TimerScript.cs" />
     <Compile Include="Assets\Scripts\UtilResize.cs" />
   </ItemGroup>
   <ItemGroup>
