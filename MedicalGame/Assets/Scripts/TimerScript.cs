@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class TimerScript : MonoBehaviour {
 
@@ -19,7 +20,7 @@ public class TimerScript : MonoBehaviour {
 
         if(currentTimer <= 0)
         {
-            Application.LoadLevel("OutOfTimeScene");
+            SceneManager.LoadScene("OutOfTimeScene");
         }
 	}
 
