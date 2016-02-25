@@ -6,10 +6,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{E6CEF5EE-22F9-4FED-E03A-8F42DB79EC4D}</ProjectGuid>
+    <ProjectGuid>{5B6E4D5E-C3D0-C851-A304-E2139B8AF9EA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <AssemblyName>Assembly-UnityScript</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>Assets</BaseDirectory>
@@ -45,16 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\AddUser.cs" />
-     <Compile Include="Assets\Scripts\DoNotDestroy.cs" />
-     <Compile Include="Assets\Scripts\Login.cs" />
-     <Compile Include="Assets\Scripts\Profile.cs" />
-     <Compile Include="Assets\Scripts\ProfilePicture.cs" />
-     <Compile Include="Assets\Scripts\Profile_Create.cs" />
-     <Compile Include="Assets\Scripts\SceneManagerScript.cs" />
-     <Compile Include="Assets\Scripts\Startup.cs" />
-     <Compile Include="Assets\Scripts\TextureScale.cs" />
-     <Compile Include="Assets\Scripts\UtilResize.cs" />
+     <Compile Include="Assets\Loading Effect\Loading Effect.js" />
      <None Include="Assets\Plugins\Android\facebook\res\values\strings.xml" />
      <None Include="Assets\Plugins\Android\facebook\res\layout\com_facebook_picker_title_bar_stub.xml" />
      <None Include="Assets\Plugins\Android\facebook\AndroidManifest.xml" />
