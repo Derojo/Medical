@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Gamedonia.Backend;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Startup : MonoBehaviour {
 
@@ -9,10 +10,10 @@ public class Startup : MonoBehaviour {
 		GamedoniaUsers.LoginUserWithSessionToken (delegate (bool success) {
 			if (success) {
 				Debug.Log("profile");
-				Application.LoadLevel("Profile");
+				SceneManager.LoadScene("Profile");
 			} else {
 				Debug.Log("login");
-				Application.LoadLevel("Login");
+                SceneManager.LoadScene("Login");
 			}
 		});
 	}

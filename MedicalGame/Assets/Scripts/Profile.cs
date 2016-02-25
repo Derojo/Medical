@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 using Gamedonia.Backend;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 
 public class Profile : MonoBehaviour {
 
@@ -30,7 +30,7 @@ public class Profile : MonoBehaviour {
 	public void OnLogout(bool success) {
 
 		if (success) {
-			Application.LoadLevel("Login");
+			SceneManager.LoadScene("Login");
 		} else {
 			errorMsg = GamedoniaBackend.getLastError().ToString();
 			Debug.Log(errorMsg);

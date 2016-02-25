@@ -90,6 +90,7 @@
     <Compile Include="Assets\Scripts\TimerScript.cs" />
     <Compile Include="Assets\Scripts\UtilResize.cs" />
     <Compile Include="Assets\Scripts\foldOutScript.cs" />
+    <Compile Include="Assets\Scripts\popUpCTRLScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />

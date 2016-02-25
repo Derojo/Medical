@@ -7,6 +7,8 @@ using System.Text;
 using System;
 using Gamedonia.Backend;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class Login : MonoBehaviour {
 
@@ -65,7 +67,7 @@ public class Login : MonoBehaviour {
 
 	public IEnumerator ChangeScene() {
 		yield return new WaitForSeconds (1f);
-		Application.LoadLevel("Profile");
+		SceneManager.LoadScene("Profile");
 	}
 
 	private void checkInternet() {
