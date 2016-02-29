@@ -45,8 +45,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\AchievementManager.cs" />
      <Compile Include="Assets\Scripts\AddUser.cs" />
-     <Compile Include="Assets\Scripts\DoNotDestroy.cs" />
+     <Compile Include="Assets\Scripts\DestroyPopUpScript.cs" />
      <Compile Include="Assets\Scripts\Login.cs" />
      <Compile Include="Assets\Scripts\Profile.cs" />
      <Compile Include="Assets\Scripts\ProfilePicture.cs" />
@@ -54,7 +55,9 @@
      <Compile Include="Assets\Scripts\SceneManagerScript.cs" />
      <Compile Include="Assets\Scripts\Startup.cs" />
      <Compile Include="Assets\Scripts\TextureScale.cs" />
+     <Compile Include="Assets\Scripts\TimerScript.cs" />
      <Compile Include="Assets\Scripts\UtilResize.cs" />
+     <Compile Include="Assets\Scripts\foldOutScript.cs" />
      <None Include="Assets\Plugins\Android\facebook\res\values\strings.xml" />
      <None Include="Assets\Plugins\Android\facebook\res\layout\com_facebook_picker_title_bar_stub.xml" />
      <None Include="Assets\Plugins\Android\facebook\AndroidManifest.xml" />
