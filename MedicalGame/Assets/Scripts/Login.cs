@@ -56,8 +56,9 @@ public class Login : MonoBehaviour {
 	public void OnLogin (bool success) {
 		statusMsg = "";
 		if (success) {
-			GameObject.Find ("Login").GetComponent<Animator> ().SetInteger ("AnimState", 1);
-			StartCoroutine (ChangeScene());
+			//GameObject.Find ("Login").GetComponent<Animator> ().SetInteger ("AnimState", 1);
+			//StartCoroutine (ChangeScene());
+			SceneManager.LoadScene("Profile_Create");
 		} else {
 			errorMsg = GamedoniaBackend.getLastError().ToString();
 			Debug.Log(errorMsg);
@@ -65,10 +66,10 @@ public class Login : MonoBehaviour {
 
 	}
 
-	public IEnumerator ChangeScene() {
-		yield return new WaitForSeconds (1f);
-		SceneManager.LoadScene("Profile");
-	}
+//	public IEnumerator ChangeScene() {
+//		yield return new WaitForSeconds (1f);
+//		SceneManager.LoadScene("Profile");
+//	}
 
 	private void checkInternet() {
 		GamedoniaBackend.isInternetConnectionAvailable(delegate (bool success) { 

@@ -9,10 +9,12 @@ public class Startup : MonoBehaviour {
 	void Start () {
 		GamedoniaUsers.LoginUserWithSessionToken (delegate (bool success) {
 			if (success) {
-				Debug.Log("profile");
-				SceneManager.LoadScene("Profile");
+				if(PlayerPrefs.HasKey("createdProfile")) {
+					SceneManager.LoadScene("Home");
+				} else {
+					SceneManager.LoadScene("Profile_Create");
+				}
 			} else {
-				Debug.Log("login");
                 SceneManager.LoadScene("Login");
 			}
 		});
