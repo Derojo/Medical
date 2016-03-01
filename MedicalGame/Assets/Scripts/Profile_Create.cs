@@ -25,6 +25,7 @@ public class Profile_Create : MonoBehaviour {
 	private string errorMsg = "";
 	private GDUserProfile LoggedInUser;
 	private bool isValidated = false;
+	private bool Errors = false;
 
 	void Awake() {
 		if (errorData.Count != errorMessages.Count) {
@@ -37,6 +38,16 @@ public class Profile_Create : MonoBehaviour {
 	// Use this for initialization
 	void Start() {
 		GamedoniaUsers.GetMe(OnGetMe);
+	}
+
+	void Update() {
+		if (Errors) {
+			p_name.text = (p_name.isFocused ? (p_name.text == getErrorMessage (p_name.name) ? "" : p_name.text) : p_name.text);
+			p_age.text = (p_age.isFocused ? (p_age.text == getErrorMessage (p_age.name) ? "" : p_age.text) : p_age.text);
+			p_color.text = (p_color.isFocused ? (p_color.text == getErrorMessage (p_color.name) ? "" : p_color.text) : p_color.text);
+			p_hobby.text = (p_hobby.isFocused ? (p_hobby.text == getErrorMessage (p_hobby.name) ? "" : p_hobby.text) : p_hobby.text);
+			p_film.text = (p_film.isFocused ? (p_film.text == getErrorMessage (p_film.name) ? "" : p_film.text) : p_film.text);
+		}
 	}
 
 	public void AddUserInformation() {
@@ -67,28 +78,32 @@ public class Profile_Create : MonoBehaviour {
 	}
 
 	private void ChangeProfileDictionary() {
-		if(!isValidated) {
-			ValidateField (p_name);
-			LoggedInUser.profile ["name"] = (isValidated ? p_name.text : "");
-			ValidateField (p_age);
-			LoggedInUser.profile ["age"] = (isValidated ? int.Parse (p_age.text) : 0);
-			ValidateField (p_color);
-			LoggedInUser.profile ["color"] = (isValidated ? p_color.text : "");
-			ValidateField (p_hobby);
-			LoggedInUser.profile ["hobby"] = (isValidated ? p_hobby.text : "");
-			ValidateField (p_film);
-			LoggedInUser.profile ["film"] = (isValidated ? p_film.text : "");
+		isValidated = validateAll ();
+
+		if(isValidated) {
+			LoggedInUser.profile ["name"] =  p_name.text;
+			LoggedInUser.profile ["age"] = int.Parse (p_age.text);
+			LoggedInUser.profile ["color"] =  p_color.text;
+			LoggedInUser.profile ["hobby"] = p_hobby.text;
+			LoggedInUser.profile ["film"] = p_film.text;
 		}
 	}
 
 	public void ValidateField(InputField inputfield) {
+		Text icon = GameObject.Find (inputfield.name + "_check").GetComponent<Text> ();
 		if (inputfield.text == "") {
-			isValidated = false;
+			Errors = true;
 			changeInputColor (inputfield, error_color);
 			inputfield.text = getErrorMessage(inputfield.name);
+			// Hide succes icon if visibile
+			if (icon.enabled) {
+				icon.enabled = false;
+			}
 		} else {
 			if (inputfield.text != getErrorMessage (inputfield.name)) {
 				changeInputColor (inputfield, succes_color);
+				// Show succes icon
+				icon.enabled = true;
 			}
 
 		}
@@ -111,6 +126,19 @@ public class Profile_Create : MonoBehaviour {
 		string error = "";
 		errorData.TryGetValue (name, out error);
 		return error;
+	}
+
+	private bool validateAll() {
+		bool returnValue = true;
+		foreach(KeyValuePair<string,string> error in errorData)
+		{
+			InputField input = (InputField)GameObject.Find (error.Key).GetComponent<InputField>();
+			ValidateField (input);
+			if (input.text == error.Value) {
+				returnValue = false;
+			}
+		}
+		return returnValue;
 	}
 
 
