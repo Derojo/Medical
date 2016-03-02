@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 34710ac4abd4e8e438d1bb12941621aa
-timeCreated: 1456911568
+timeCreated: 1456912103
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -20,6 +20,10 @@ TextureImporter:
     21300026: bacground
     21300028: jTurn_btn
     21300030: hTurn_btn
+    21300032: t_login
+    21300034: b_login
+    21300036: b_login_pressed
+    21300038: input
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -339,6 +343,86 @@ TextureImporter:
         - {x: -383.5, y: -21.5}
         - {x: 383.5, y: -21.5}
         - {x: 383.5, y: 21.5}
+    - name: t_login
+      rect:
+        serializedVersion: 2
+        x: 815
+        y: 706
+        width: 416
+        height: 136
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -143, y: 68}
+        - {x: -208, y: -34}
+        - {x: -208, y: -68}
+        - {x: 20, y: -68}
+        - {x: 72, y: -44}
+        - {x: 72, y: 68}
+      - - {x: 115, y: 46}
+        - {x: 29, y: -66}
+        - {x: 29, y: -68}
+        - {x: 162, y: -68}
+        - {x: 208, y: -15}
+        - {x: 208, y: 46}
+      - - {x: 129, y: 68}
+        - {x: 126, y: 67}
+        - {x: 126, y: 51}
+        - {x: 130, y: 49}
+        - {x: 141, y: 49}
+        - {x: 143, y: 53}
+        - {x: 143, y: 65}
+        - {x: 141, y: 68}
+    - name: b_login
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 1671
+        width: 480
+        height: 92
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -238, y: 46}
+        - {x: -240, y: 44}
+        - {x: -240, y: -46}
+        - {x: 240, y: -46}
+        - {x: 240, y: 44}
+        - {x: 238, y: 46}
+    - name: b_login_pressed
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 1574
+        width: 480
+        height: 92
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -239, y: 46}
+        - {x: -240, y: 45}
+        - {x: -240, y: -45}
+        - {x: -239, y: -46}
+        - {x: 240, y: -46}
+        - {x: 240, y: 46}
+    - name: input
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 1779
+        width: 93
+        height: 93
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 3, y: 3, z: 3, w: 3}
+      outline:
+      - - {x: -46.5, y: 46.5}
+        - {x: -46.5, y: -46.5}
+        - {x: 46.5, y: -46.5}
+        - {x: 46.5, y: 46.5}
     outline: []
   spritePackingTag: 
   userData: 

@@ -47,6 +47,8 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\AchievementManager.cs" />
      <Compile Include="Assets\Scripts\AddUser.cs" />
+     <Compile Include="Assets\Scripts\AudioManagerScript.cs" />
+     <Compile Include="Assets\Scripts\ButtonAudioScript.cs" />
      <Compile Include="Assets\Scripts\DestroyPopUpScript.cs" />
      <Compile Include="Assets\Scripts\Login.cs" />
      <Compile Include="Assets\Scripts\Profile.cs" />
