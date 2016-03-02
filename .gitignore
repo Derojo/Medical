@@ -14,9 +14,11 @@ MedicalGame/Assets/Textures/
 MedicalGame/Assets/*.meta
 MedicalGame/ProjectSettings/*
 
-!MedicalGame/Assets/Scripts.meta
 !MedicalGame/Assets/Scenes.meta
 
+!MedicalGame/Assets/Scripts.meta
+!MedicalGame/Assets/Scenes.meta
+!MedicalGame/Assets/Textures/Sprites/
 
 # Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
 # should NOT be excluded as they contain compiler settings and other important
