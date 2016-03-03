@@ -12,9 +12,9 @@ public class foldOutScript : Toggle
         void Start()
         {
             startHeight = this.GetComponent<LayoutElement>().preferredHeight;
-            content = this.transform.Find("content").gameObject;
+            content = this.transform.Find("Content").gameObject;
 
-        }
+    }
 
         // Update is called once per frame
         void Update()
