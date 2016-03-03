@@ -27,7 +27,13 @@ public class Profile_Create : MonoBehaviour {
 	private bool isValidated = false;
 	private bool Errors = false;
 
+	private Loader loader = null;
+
+
 	void Awake() {
+		if (loader == null) {
+			loader = GameObject.Find ("Loader").GetComponent<Loader> ();
+		}
 		if (errorData.Count != errorMessages.Count) {
 			foreach (string message in errorMessages) {
 				string[] messageSplit = message.Split (':');
@@ -55,7 +61,7 @@ public class Profile_Create : MonoBehaviour {
 		ChangeProfileDictionary();
 		// Callback to Gamedonia server
 		if (isValidated) {
-			Loader.SetActive (true);
+			loader.enableLoader ();
 			GamedoniaUsers.UpdateUser (LoggedInUser.profile, delegate (bool success) {
 				if (success) {
 					Loader.SetActive (false);

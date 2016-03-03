@@ -12,7 +12,7 @@ namespace Gamedonia.Backend {
 		public static Texture2D ProfileImage;
 		Sprite sprite;
 		public Image p_image;
-		public GameObject loader;
+		public Loader loader;
 		private bool ImageIsLoaded = false;
 
 		WWW www;
@@ -27,7 +27,7 @@ namespace Gamedonia.Backend {
 			}
 		}
 		public void GetImageFromGallery() {
-				loader.SetActive (true);
+			loader.enableLoader ();
 				//createImage("file://D:\\Afbeeldingen\\wallpaper-1217815.jpg");
 				AndroidJNI.AttachCurrentThread ();
 //				//AndroidJNIHelper.debug = true;
@@ -56,7 +56,7 @@ namespace Gamedonia.Backend {
 			PlayerPrefs.SetString ("profile_path", Application.persistentDataPath + "/profile.png");
 
 			p_image.sprite = Sprite.Create(ProfileImage, new Rect(0, 0, new_width, new_height), new Vector2(0.5f, 0.5f));
-			loader.SetActive (false);
+			loader.disableLoader ();
 		}
 
 		public IEnumerator getProfilePicture (string filepath) {
