@@ -45,12 +45,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Loader.cs" />
      <Compile Include="Assets\Scripts\AchievementManager.cs" />
      <Compile Include="Assets\Scripts\AddUser.cs" />
      <Compile Include="Assets\Scripts\AudioManagerScript.cs" />
      <Compile Include="Assets\Scripts\ButtonAudioScript.cs" />
+     <Compile Include="Assets\Scripts\Data\Question.cs" />
+     <Compile Include="Assets\Scripts\Data\QuestionCategories.cs" />
+     <Compile Include="Assets\Scripts\Data\QuestionDatabase.cs" />
      <Compile Include="Assets\Scripts\DestroyPopUpScript.cs" />
+     <Compile Include="Assets\Scripts\Loader.cs" />
      <Compile Include="Assets\Scripts\Login.cs" />
      <Compile Include="Assets\Scripts\Profile.cs" />
      <Compile Include="Assets\Scripts\ProfilePicture.cs" />
