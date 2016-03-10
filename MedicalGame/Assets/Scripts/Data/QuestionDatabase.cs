@@ -26,7 +26,7 @@ public class QuestionDatabase : ScriptableObject {
 	public void RemoveAt( int index ) {
 		database.RemoveAt( index );
 	}
-	
+
 	public int COUNT {
 		get { return database.Count; }
 	}
@@ -35,7 +35,11 @@ public class QuestionDatabase : ScriptableObject {
 	public Question Question( int index ) {
 		return database.ElementAt( index );
 	}
-	
+
+	public List<Question> getAllQuestions() {
+		return database;
+	}
+
 	public void SortAlphabeticallyAtoZ() {
 		database.Sort((x, y) => string.Compare(x.q_Question, y.q_Question));
 	}
