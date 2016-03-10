@@ -9,7 +9,6 @@ bin-release/
 # MedicalGame unity
 MedicalGame/Library/*
 MedicalGame/Temp/*
-MedicalGame/Assets/Models/
 MedicalGame/Assets/*.meta
 MedicalGame/ProjectSettings/*
 
