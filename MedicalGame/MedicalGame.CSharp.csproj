@@ -123,6 +123,7 @@
     <Compile Include="Assets\Scripts\AddUser.cs" />
     <Compile Include="Assets\Scripts\AudioManagerScript.cs" />
     <Compile Include="Assets\Scripts\ButtonAudioScript.cs" />
+    <Compile Include="Assets\Scripts\CountDownTimer.cs" />
     <Compile Include="Assets\Scripts\Data\Question.cs" />
     <Compile Include="Assets\Scripts\Data\QuestionDatabase.cs" />
     <Compile Include="Assets\Scripts\DestroyPopUpScript.cs" />

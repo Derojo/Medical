@@ -7,9 +7,6 @@ public class AudioManagerScript : MonoBehaviour {
     private AudioSource normalButtonSound;
     private AudioSource sliderButtonSound;
 
-    // Use this for initialization
-
- 
 
     void Start () {
         AudioSource[] a_sources = GetComponents<AudioSource>();
