@@ -10,12 +10,15 @@ public class RuntimeData : MonoBehaviour {
 
 	void Awake() {
 		allQuestions = questions.getAllQuestions();
+		MatchManager.Instance.Load ();
 	}
+
 	void Start () {
+//		MatchManager.Instance.returnAllMatches();
 		for (int cnt = 0; cnt < allQuestions.Count; cnt++) {
-			Debug.Log (allQuestions [cnt].q_Question);
-			Debug.Log (allQuestions [cnt].q_AnswerA);
-			Debug.Log (allQuestions [cnt].q_AnswerB);
+//			Debug.Log (allQuestions [cnt].q_Question);
+//			Debug.Log (allQuestions [cnt].q_AnswerA);
+//			Debug.Log (allQuestions [cnt].q_AnswerB);
 		}
 	}
 	
