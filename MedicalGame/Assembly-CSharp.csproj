@@ -38,10 +38,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>D:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>D:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -87,9 +87,16 @@
      <Compile Include="Assets\Scripts\AddUser.cs" />
      <Compile Include="Assets\Scripts\AudioManagerScript.cs" />
      <Compile Include="Assets\Scripts\ButtonAudioScript.cs" />
+     <Compile Include="Assets\Scripts\Categories.cs" />
      <Compile Include="Assets\Scripts\CountDownTimer.cs" />
+     <Compile Include="Assets\Scripts\Data\Matches\Match.cs" />
+     <Compile Include="Assets\Scripts\Data\Matches\MatchManager.cs" />
+     <Compile Include="Assets\Scripts\Data\Matches\Matches.cs" />
+     <Compile Include="Assets\Scripts\Data\Matches\Turn.cs" />
+     <Compile Include="Assets\Scripts\Data\PrefabAttribute.cs" />
      <Compile Include="Assets\Scripts\Data\Question.cs" />
      <Compile Include="Assets\Scripts\Data\QuestionDatabase.cs" />
+     <Compile Include="Assets\Scripts\Data\Singleton.cs" />
      <Compile Include="Assets\Scripts\DestroyPopUpScript.cs" />
      <Compile Include="Assets\Scripts\Loader.cs" />
      <Compile Include="Assets\Scripts\Login.cs" />
@@ -139,6 +146,7 @@
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\ContrastComposite.shader" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\_Antialiasing\FXAAPreset3.shader" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\FisheyeShader.shader" />
+     <None Include="Assets\SDK_README.txt" />
      <None Include="Assets\Plugins\Android\facebook\res\layout\com_facebook_login_activity_layout.xml" />
      <None Include="Assets\Plugins\Android\facebook\res\drawable\com_facebook_top_button.xml" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\Contrast Stretch\Apply.shader" />
@@ -200,7 +208,6 @@
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\VignettingShader.shader" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\Tonemapper.shader" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\_BloomAndFlares\BrightPassFilter.shader" />
-     <None Include="Assets\SDK_README.txt" />
      <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\_Antialiasing\FXAA2.shader" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\ColorCorrection3DLut.shader" />
@@ -229,10 +236,10 @@
      <None Include="Assets\Plugins\OpenUDID\README.txt" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendForBloom.shader" />
  <Reference Include="UnityEngine.UI">
- <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
- <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
