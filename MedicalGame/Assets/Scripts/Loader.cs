@@ -1,21 +1,49 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Loader : MonoBehaviour {
 
 	public GameObject overlay;
 	public GameObject icon;
 	public GameObject mini;
+	public static Loader Instance;
 
-	void Start() {
+	void Awake()
+	{
+		if (Instance) {
+			DestroyImmediate (gameObject);
+		}
+		else
+		{
+			DontDestroyOnLoad(gameObject);
+			Instance = this;
+		}
+	}
+
+	void OnLevelWasLoaded(int level) {
 		disableLoader ();
 	}
+
+	public void LoadScene(string scene) {
+		StartCoroutine(LoadSceneIE(scene));
+	}
+
+	private IEnumerator LoadSceneIE(string scene) {
+		if (!gameObject.activeSelf) {
+			enableLoader ();
+		}
+		AsyncOperation async = SceneManager.LoadSceneAsync(scene);
+		while (!async.isDone) {
+			yield return null;
+		}
+	}
+
 	public void enableLoader() {
-		gameObject.SetActive (true);
+		gameObject.GetComponent<Canvas> ().enabled = true;
 		overlay.SetActive (true);
 		icon.SetActive (true);
-//		overlay.GetComponent<Animator>().SetBool ("Loading", true);
 		icon.GetComponent<Animator>().SetBool ("Loading", true);
 		StartCoroutine (activeMiniMan ());
 	}
@@ -31,7 +59,7 @@ public class Loader : MonoBehaviour {
 	}
 
 	public void disableLoader() {
-		gameObject.SetActive (false);
+		gameObject.GetComponent<Canvas> ().enabled = false;
 		overlay.SetActive (false);
 		icon.SetActive (false);
 		mini.SetActive (false);

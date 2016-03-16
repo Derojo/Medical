@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
-[Prefab("MatchManager", true)]
+[Prefab("MatchManager", true, "")]
 public class MatchManager : Singleton<MatchManager> {
 
 	public Matches matchManager;
@@ -14,29 +14,17 @@ public class MatchManager : Singleton<MatchManager> {
 	// Used for debugging, test purposes
 	public List<Match> matches;
 
-	[SerializeField]
 	public string currentMatchID;
 	public int currentCategory;
+	public Loader loader;
 
-	// Use this for initialization
-//	void Awake () {
-//
-//		if(instance == null)
-//		{
-//			instance = this;
-//			DontDestroyOnLoad(this.gameObject);
-//			return;
-//		}
-//		Destroy(this.gameObject);
-//
-//
-//	}
 
-	public bool Load() {Debug.Log ("test"); return true;}
+	public bool Load() {return true;}
+
 
 	void Start() {
-//		matches = new List<Match> ();
-//		matchManager = null;
+		matches = new List<Match> ();
+		matchManager = null;
 		if (matchManager == null) {
 			matchManager = new Matches ();
 		}
@@ -48,18 +36,18 @@ public class MatchManager : Singleton<MatchManager> {
 
 
 	public void StartNewMatch() {
+		Loader.Instance.enableLoader ();
 		// Generate Match code
-		string matchCode = GenerateMatchCode();
+//		string matchCode = GenerateMatchCode();
 		// Store for later use
-		currentMatchID = matchCode;
-		// Create match, set player ids, category id
-		Match match  = new Match(matchCode, 1, 1, "playing", 1, 1);
-		AddMatch (match);
-		// Switch to category scene
-		SceneManager.LoadScene("Category");
-
+//		currentMatchID = matchCode;
+//		// Create match, set player ids, category id
+//		Match match  = new Match(matchCode, 1, 1, "playing", 1, 1);
+//		AddMatch (match);
+//		// Switch to category scene
+		Loader.Instance.LoadScene("Category");
 	}
-
+		
 	private void AddMatch(Match match) {
 		matchManager.matches.Add (match);
 		Save ();

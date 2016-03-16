@@ -64,7 +64,7 @@ public class Categories : MonoBehaviour {
 	}
 
 	public void PlayMatch() {
-		SceneManager.LoadScene("Match");
+		Loader.Instance.LoadScene ("Home");
 	}
 
 	public categories GetRandomCat() {

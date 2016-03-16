@@ -10,10 +10,11 @@ public class RuntimeData : MonoBehaviour {
 
 	void Awake() {
 		allQuestions = questions.getAllQuestions();
-		MatchManager.Instance.Load ();
 	}
 
 	void Start () {
+		MatchManager.Instance.Load ();
+//		Loader.Instance.Load ();
 //		MatchManager.Instance.returnAllMatches();
 		for (int cnt = 0; cnt < allQuestions.Count; cnt++) {
 //			Debug.Log (allQuestions [cnt].q_Question);
@@ -21,7 +22,9 @@ public class RuntimeData : MonoBehaviour {
 //			Debug.Log (allQuestions [cnt].q_AnswerB);
 		}
 	}
-	
+	public void startMatch() {
+		MatchManager.Instance.StartNewMatch ();
+	}
 	// Update is called once per frame
 	void Update () {
 	

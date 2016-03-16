@@ -8,7 +8,7 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour {
 
 	public static T Instance {
 		get {
-
+			if (_instantiated) return _instance;
 			var type = typeof(T);
 			var objects = FindObjectsOfType<T>();
 
@@ -19,11 +19,11 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour {
 					Debug.LogWarning("There is more than one instance of Singleton of type \"" + type + "\". Keeping the first. Destroying the others.");
 					for (var i = 1; i < objects.Length; i++) DestroyImmediate(objects[i].gameObject);
 				}
-				DontDestroyOnLoad (_instance.gameObject);
+//				DontDestroyOnLoad (_instance.gameObject);
 				_instantiated = true;
 				return _instance;
 			}
-			if (_instantiated) return _instance;
+
 
 			var attribute = Attribute.GetCustomAttribute(type, typeof(PrefabAttribute)) as PrefabAttribute;
 			if (attribute == null) {
@@ -46,7 +46,12 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour {
 				Debug.LogWarning("There wasn't a component of type \"" + type + "\" inside prefab \"" + prefabName + "\". Creating one.");
 				Instance = gameObject.AddComponent<T>();
 			}
+			if (attribute.Parent != "") {
+				gameObject.transform.SetParent (GameObject.Find (attribute.Parent).transform,false);
+				 
+			}
 			if (attribute.Persistent) {
+				Debug.Log ("dont destroy"+attribute.Parent);
 				DontDestroyOnLoad (_instance.gameObject);
 			}
 			return _instance;
