@@ -7,22 +7,34 @@ public class CountDownTimer : MonoBehaviour {
     public Text timerText;
     private bool activateTime = false;
 
+    // timer fill
+    public float startTimer;
+    public float timerPercent;
+    public Image image;
+
+    //TimesupPopUp
+    public GameObject timeUpPopup;
 	// Use this for initialization
 	void Start ()
     {
-        //get the text component
-        timerText = GetComponent<Text>();   
+        startTimer = timeRemaining;
+        timeUpPopup.SetActive(false);
+        //Get loaded stuff
         timeRemaining = PlayerPrefs.GetFloat("remainingtime", 0.0f);
         
 	}// end start
 
+    //resetting timer
     public void OnButtonClick()
     {
-        if(timeRemaining == 0)
+        //resetting timer -> normally back to main menu
+        if (timeRemaining <= 0)
         {
             timeRemaining = 15f;
+            timerText.text = "";
         }
         activateTime = true;
+        timeUpPopup.SetActive(false);
     }
     // Update is called once per frame
     void Update()
@@ -30,19 +42,23 @@ public class CountDownTimer : MonoBehaviour {
         if (timeRemaining >= 0 && activateTime)
         {
             timeRemaining -= Time.deltaTime;
-            timerText.text = timeRemaining.ToString("f0");
+            timerPercent = timeRemaining / startTimer;
+            image.fillAmount = timerPercent;
+            //timerText.text = timeRemaining.ToString("f0");
             print(timeRemaining);
         }
 
-        if (timeRemaining <= 1)
+        if (timeRemaining <= 0)
         {
-            timerText.text = ("Helaas, de tijd is voorbij");
+            //timerText.text = "Helaas, de tijd is voorbij";
             activateTime = false;
+            timeUpPopup.SetActive(true);
         }
     }// end update
 
     void OnDestroy()
     {
+        //onn destroy timer to 0 and save
         timeRemaining = 0f;
         PlayerPrefs.SetFloat("remainingtime",timeRemaining);
         PlayerPrefs.Save();
