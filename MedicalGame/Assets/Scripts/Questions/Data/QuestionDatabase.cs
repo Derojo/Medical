@@ -40,6 +40,22 @@ public class QuestionDatabase : ScriptableObject {
 		return database;
 	}
 
+	public Question getRandomCategoryQuestion(int categoryID) {
+		List<Question> availableQuestions = getQuestionInCategory (categoryID);
+		Question randomQuestion = availableQuestions[Random.Range (0, availableQuestions.Count)];
+		return randomQuestion;
+	}
+		
+	public List<Question> getQuestionInCategory(int categoryID) {
+		List<Question> questionsInCategory = new List<Question> ();
+		for (int i = 0; i < database.Count; i++) {
+			if ((database [i].q_Cat+1) == categoryID) {
+				questionsInCategory.Add (database[i]);
+				Debug.Log (database [i].q_Question);
+			}
+		}
+		return questionsInCategory;
+	}
 	public void SortAlphabeticallyAtoZ() {
 		database.Sort((x, y) => string.Compare(x.q_Question, y.q_Question));
 	}

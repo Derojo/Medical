@@ -16,13 +16,14 @@ public class Categories : MonoBehaviour {
 
 	}
 
-	public Text catTitle;
+	public Text catTitle;                    
 	public GameObject TV_ENTERTAINMENT_a;
 	public GameObject GELOOF_CULTUUR_a;
 	public GameObject ZORG_WETENSCHAP_a;
 	public GameObject GESCHIEDENIS_a;
 	public GameObject SPORT_a;
 	public GameObject GEOGRAFIE_a;
+	public Image image;
 
 	// Use this for initialization
 	void Start () {
@@ -38,7 +39,7 @@ public class Categories : MonoBehaviour {
 		switch (catID) {
 			case (int)categories.TV_ENTERTAINMENT:
 				TV_ENTERTAINMENT_a.SetActive (true);
-				catTitle.text = "TV & Entertainment";
+				catTitle.text = "TV & Entertainment"; 
 				break;
 			case (int)categories.GELOOF_CULTUUR:
 				GELOOF_CULTUUR_a.SetActive (true);
@@ -63,8 +64,25 @@ public class Categories : MonoBehaviour {
 		}
 	}
 
+	public static string getCategoryNameById(int catID) {
+		switch (catID) {
+			case (int)categories.TV_ENTERTAINMENT:
+				return "TV & Entertainment"; 
+			case (int)categories.GELOOF_CULTUUR:
+				return "Geloof & Cultuur";
+			case (int)categories.ZORG_WETENSCHAP:
+				return "Zorg & Wetenschap";
+			case (int)categories.GESCHIEDENIS:
+				return "Geschiedenis";
+			case (int)categories.SPORT:
+				return "Sport";
+			case (int)categories.GEOGRAFIE:
+				return "Geografie";
+		}
+		return "";
+	}
 	public void PlayMatch() {
-		Loader.Instance.LoadScene ("Home");
+		Loader.Instance.LoadScene ("Match");
 	}
 
 	public categories GetRandomCat() {
@@ -72,5 +90,5 @@ public class Categories : MonoBehaviour {
 		categories category = (categories)A.GetValue (UnityEngine.Random.Range (0, A.Length));
 		return category;
 	}
-		
+
 }

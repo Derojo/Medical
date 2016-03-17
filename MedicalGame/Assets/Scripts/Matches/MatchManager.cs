@@ -38,12 +38,12 @@ public class MatchManager : Singleton<MatchManager> {
 	public void StartNewMatch() {
 		Loader.Instance.enableLoader ();
 		// Generate Match code
-//		string matchCode = GenerateMatchCode();
+		string matchCode = GenerateMatchCode();
 		// Store for later use
-//		currentMatchID = matchCode;
+		currentMatchID = matchCode;
 //		// Create match, set player ids, category id
-//		Match match  = new Match(matchCode, 1, 1, "playing", 1, 1);
-//		AddMatch (match);
+		Match match  = new Match(matchCode, 1, 1, "playing", 1, 1);
+		AddMatch (match);
 //		// Switch to category scene
 		Loader.Instance.LoadScene("Category");
 	}
