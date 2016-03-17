@@ -23,8 +23,8 @@ public class MatchManager : Singleton<MatchManager> {
 
 
 	void Start() {
-		matches = new List<Match> ();
-		matchManager = null;
+//		matches = new List<Match> ();
+//		matchManager = null;
 		if (matchManager == null) {
 			matchManager = new Matches ();
 		}
@@ -42,7 +42,7 @@ public class MatchManager : Singleton<MatchManager> {
 		// Store for later use
 		currentMatchID = matchCode;
 //		// Create match, set player ids, category id
-		Match match  = new Match(matchCode, 1, 1, "playing", 1, 1);
+		Match match  = new Match(matchCode, RuntimeData.Instance.LoggedInUser._id, "1", "playing", 1, 1, null);
 		AddMatch (match);
 //		// Switch to category scene
 		Loader.Instance.LoadScene("Category");
@@ -53,9 +53,13 @@ public class MatchManager : Singleton<MatchManager> {
 		Save ();
 	}
 
-	public void AddTurn(Turn turn, string match_ID) {
+	public void AddTurn(Turn turn, string match_ID = "") {
+		if (match_ID == "") {
+			match_ID = currentMatchID;
+		}
 		Match match = GetMatch (match_ID);
 		match.AddTurn (turn);
+		Save ();
 	}
 
 
@@ -68,9 +72,20 @@ public class MatchManager : Singleton<MatchManager> {
 		return null;
 	}
 
+	public int returnTurnId(string id = "") {
+		if (id == "") {
+			id = currentMatchID;
+		}
+		Match match = GetMatch (id);
+		if (match.m_trns == null) {
+			return 0;
+		} else {
+			return match.m_trns.Count;
+		}
+	}
+
 	public void returnAllMatches() {
 		Debug.Log (matchManager.matches.Count);
-//		Debug.Log (this.matchManager.matches.Count);
 	}
 
 	private void clearAllMatches() {

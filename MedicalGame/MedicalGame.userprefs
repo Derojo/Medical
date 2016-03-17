@@ -1,8 +1,8 @@
-﻿<Properties StartupItem="Assembly-CSharp.csproj">
+﻿<Properties StartupItem="MedicalGame.CSharp.Plugins.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Questions\QuestionManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Matches\MatchManager.cs">
     <Files>
-      <File FileName="Assets\Scripts\Questions\QuestionManager.cs" Line="57" Column="4" />
+      <File FileName="Assets\Scripts\Questions\QuestionManager.cs" Line="34" Column="53" />
       <File FileName="Assets\Scripts\Categories.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\ProfilePicture.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Profile_Create.cs" Line="1" Column="1" />
@@ -18,7 +18,7 @@
       <File FileName="Assets\Scripts\Loader.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Questions\Data\QuestionDatabase.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\RuntimeData.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Matches\MatchManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Matches\MatchManager.cs" Line="79" Column="31" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -13,13 +13,15 @@ public class QuestionManager : MonoBehaviour {
 	public Button AnswerB;
 	public Button AnswerC;
 	public Button AnswerD;
-	public GameObject toHome;
+	public GameObject Continue;
 	private int currentCategory;
+	private string nextScene = "";
 
 
 	void Start() {
-		currentCategory = MatchManager.Instance.currentCategory;
-//		// Get random question from current category
+//		currentCategory = MatchManager.Instance.currentCategory;
+		currentCategory = 2;
+		// Get random question from current category
 		currentQuestion = questionDatabase.getRandomCategoryQuestion(currentCategory);
 		SetCategoryTitle ();
 		SetQuestionReady ();
@@ -28,27 +30,33 @@ public class QuestionManager : MonoBehaviour {
 	public void checkAnswer(string Answer) {
 		Button selectedAnswer = getButtonByAnswer (Answer);
 		Button rightAnswer = getButtonByAnswer (currentQuestion.q_Correct);
+		int newturnID = MatchManager.Instance.returnTurnId() + 1;
+		Turn newTurn;
 		if (Answer == currentQuestion.q_Correct) {
-			selectedAnswer.GetComponent<Image> ().color = Color.green;
 			// Turn button color to green
-
-			// Change turn information
-
-			// Continue to next question
+			selectedAnswer.GetComponent<Image> ().color = Color.green;
+			// Change turn information -- Set player id to 1 - to be done: change to gamedonia player id
+			newTurn = new Turn(newturnID, RuntimeData.Instance.LoggedInUser._id, currentQuestion.q_Id, true);
+			// Set next question string
+			nextScene = "Category";
 		} else {
 			// Show correct answer
 			rightAnswer.GetComponent<Image> ().color = Color.green;
+			// Turn button color to red
 			selectedAnswer.GetComponent<Image> ().color = Color.red;
 			// Change turn information
-
-			// Turn button color to red
-
+			newTurn = new Turn(newturnID, RuntimeData.Instance.LoggedInUser._id, currentQuestion.q_Id, false); 
 			// Switch to home scene
+			nextScene = "Home";
 		}
-		toHome.SetActive (true);
+		// Save new turn to match
+		MatchManager.Instance.AddTurn(newTurn);
+		Continue.SetActive (true);
+
 	}
-	public void ToHome() {
-		Loader.Instance.LoadScene ("Home");
+		
+	public void switchScene() {
+		Loader.Instance.LoadScene (nextScene);
 	}
 
 	private Button getButtonByAnswer(string Answer) {
@@ -88,6 +96,5 @@ public class QuestionManager : MonoBehaviour {
 		AnswerC.GetComponentInChildren<Text>().text = currentQuestion.q_AnswerC;
 		AnswerD.GetComponentInChildren<Text>().text = currentQuestion.q_AnswerD;
 	}
-
 
 }

@@ -6,9 +6,9 @@ public class Match{
 	// Match ID
 	[SerializeField] public string m_ID;
 	// Player ID
-	[SerializeField] public float p_ID;
+	[SerializeField] public string p_ID;
 	// Opponent ID
-	[SerializeField] public float o_ID;
+	[SerializeField] public string o_ID;
 	// Match status
 	[SerializeField] public string m_status;
 	// Match current turn
@@ -20,7 +20,7 @@ public class Match{
 
 
 
-	public Match( string _m_ID, float _p_ID, float _o_ID, string _m_status, int _m_ct, float _m_cp, Turn _turn = null) {
+	public Match( string _m_ID, string _p_ID, string _o_ID, string _m_status, int _m_ct, float _m_cp, Turn _turn = null) {
 		m_ID = _m_ID;
 		p_ID = _p_ID;
 		o_ID = _o_ID;
