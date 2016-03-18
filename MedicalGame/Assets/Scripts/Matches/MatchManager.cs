@@ -42,7 +42,7 @@ public class MatchManager : Singleton<MatchManager> {
 		// Store for later use
 		currentMatchID = matchCode;
 //		// Create match, set player ids, category id
-		Match match  = new Match(matchCode, RuntimeData.Instance.LoggedInUser._id, "1", "playing", 1, 1, null);
+		Match match  = new Match(matchCode, RuntimeData.Instance.LoggedInUser._id, "56ea94f2e4b027e49c1ef3e1", "playing", 1, 1, null);
 		AddMatch (match);
 //		// Switch to category scene
 		Loader.Instance.LoadScene("Category");

@@ -9,19 +9,19 @@ public class AddUser : MonoBehaviour {
 		// First create the credentials object for the account. In this example email credentials are used
 
 		Credentials credentials = new Credentials();
-		credentials.email = "r.bakker@quiz.com";
+		credentials.email = "opponent@quiz.com";
 		credentials.password = "123";
 
 		// Create the user account with some profile data and attach it to the credentials created in the previous block  
 
 		GDUser user = new GDUser();
 		user.credentials = credentials;
-		user.profile["email"] = "r.bakker@quiz.com";
-		user.profile["name"] = "";
-		user.profile["color"] = "";
-		user.profile["hobby"] = "";
-		user.profile["film"] = "";
-		user.profile["age"] = 0;
+		user.profile["email"] = "opponent@quiz.com";
+		user.profile["name"] = "Tegenstander";
+		user.profile["color"] = "Rood";
+		user.profile["hobby"] = "Schaken";
+		user.profile["film"] = "Up";
+		user.profile["age"] = 23;
 
 		// Make the request to Gamedonia Backend to create the account and process the result in a block.   
 		GamedoniaUsers.CreateUser(user, delegate (bool success){

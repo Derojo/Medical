@@ -12,12 +12,15 @@ public class RuntimeData : Singleton<RuntimeData> {
 
 	void Awake() {
 //		allQuestions = questions.getAllQuestions();
+		if (LoggedInUser == null) {
+			GamedoniaUsers.GetMe (OnGetMe);
+		}
 	}
 
 
 	void Start () {
 		MatchManager.Instance.Load ();
-		GamedoniaUsers.GetMe (OnGetMe);
+
 	
 //		Loader.Instance.Load ();
 //		MatchManager.Instance.returnAllMatches();
@@ -38,8 +41,6 @@ public class RuntimeData : Singleton<RuntimeData> {
 	void OnGetMe(bool success, GDUserProfile userProfile) {
 		if (success) {
 			LoggedInUser = userProfile;
-		}else {
-			Loader.Instance.LoadScene ("Login");
 		}
 	}
 }
