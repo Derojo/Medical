@@ -55,7 +55,6 @@ public class CountDownTimer : MonoBehaviour {
 
         if (timeRemaining <= 0)
         {
-            //timerText.text = "Helaas, de tijd is voorbij";
             activateTime = false;
             timeUpPopup.SetActive(true);
         }
