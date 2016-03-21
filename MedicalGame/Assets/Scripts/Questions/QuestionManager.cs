@@ -34,9 +34,9 @@ public class QuestionManager : MonoBehaviour {
 		currentQuestion = questionDatabase.getRandomCategoryQuestion(currentCategory);
 		SetCategoryTitle ();
 		SetQuestionReady ();
-		Debug.Log (RuntimeData.Instance.LoggedInUser.profile ["name"] as string);
+//		Debug.Log (RuntimeData.Instance.LoggedInUser.profile ["name"] as string);
 		SetTurnRounds ();
-		playerName.text = RuntimeData.Instance.LoggedInUser.profile ["name"] as string;
+//		playerName.text = RuntimeData.Instance.LoggedInUser.profile ["name"] as string;
 	}
 
 	public void checkAnswer(string Answer) {
@@ -137,9 +137,11 @@ public class QuestionManager : MonoBehaviour {
 	private int getScore() {
 		int total = 0;
 		Match match = MatchManager.Instance.GetMatch (MatchManager.Instance.currentMatchID);
-		for(int i=0; i < match.m_trns.Count; i++) {
-			if (match.m_trns [i].t_st) {
-				total++;
+		if (match.m_trns != null) {
+			for (int i = 0; i < match.m_trns.Count; i++) {
+				if (match.m_trns [i].t_st) {
+					total++;
+				}
 			}
 		}
 		return total;
