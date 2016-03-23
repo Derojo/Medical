@@ -14,13 +14,13 @@ public class Match{
 	// Match current turn
 	[SerializeField] public int m_ct;
 	// Match current player
-	[SerializeField] public float m_cp;
+	[SerializeField] public string m_cp;
 	// Match turns
 	[SerializeField] public List<Turn> m_trns;
 
 
 
-	public Match( string _m_ID, string _p_ID, string _o_ID, string _m_status, int _m_ct, float _m_cp, Turn _turn = null) {
+	public Match( string _m_ID, string _p_ID, string _o_ID, string _m_status, int _m_ct, string _m_cp, Turn _turn = null) {
 		m_ID = _m_ID;
 		p_ID = _p_ID;
 		o_ID = _o_ID;

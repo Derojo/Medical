@@ -77,6 +77,8 @@ public class Profile_Create : MonoBehaviour {
 	void OnGetMe(bool success, GDUserProfile userProfile) {
 		if (success) {
 			LoggedInUser = userProfile;
+			// Set playerprefs, store so we dont need to use http requests when we dont need it
+			PlayerPrefs.SetString ("playerID", LoggedInUser._id); // Player id
 		}else {
 			errorMsg = GamedoniaBackend.getLastError().ToString();
 			Debug.Log(errorMsg);
@@ -88,10 +90,15 @@ public class Profile_Create : MonoBehaviour {
 
 		if(isValidated) {
 			LoggedInUser.profile ["name"] =  p_name.text;
+			PlayerPrefs.SetString ("playerName", p_name.text);
 			LoggedInUser.profile ["age"] = int.Parse (p_age.text);
+			PlayerPrefs.SetInt ("playerAge", int.Parse (p_age.text));
 			LoggedInUser.profile ["color"] =  p_color.text;
+			PlayerPrefs.SetString ("playerColor", p_color.text);
 			LoggedInUser.profile ["hobby"] = p_hobby.text;
+			PlayerPrefs.SetString ("playerHobby", p_hobby.text);
 			LoggedInUser.profile ["film"] = p_film.text;
+			PlayerPrefs.SetString ("playerFilm", p_film.text);
 		}
 	}
 

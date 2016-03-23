@@ -6,22 +6,15 @@ using Gamedonia.Backend;
 public class RuntimeData : Singleton<RuntimeData> {
 
 	public QuestionDatabase QuestionDatabase;
-	public GDUserProfile LoggedInUser;
 //	public List<Question> allQuestions;
 	// Use this for initialization
 
-	void Awake() {
-//		allQuestions = questions.getAllQuestions();
-		if (LoggedInUser == null) {
-			GamedoniaUsers.GetMe (OnGetMe);
-		}
-	}
 
 
 	void Start () {
 		MatchManager.Instance.Load ();
 
-	
+		Debug.Log(PlayerPrefs.GetString("playerID"));
 //		Loader.Instance.Load ();
 //		MatchManager.Instance.returnAllMatches();
 //		for (int cnt = 0; cnt < allQuestions.Count; cnt++) {
@@ -38,9 +31,4 @@ public class RuntimeData : Singleton<RuntimeData> {
 	
 	}
 
-	void OnGetMe(bool success, GDUserProfile userProfile) {
-		if (success) {
-			LoggedInUser = userProfile;
-		}
-	}
 }

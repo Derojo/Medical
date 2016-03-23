@@ -118,6 +118,8 @@ public class Login : MonoBehaviour {
 	public void OnLogin (bool success) {
 		statusMsg = "";
 		if (success) {
+			// Set playerprefs loggedIn to true so we dont need to log in again via http
+			PlayerPrefs.SetInt("loggedIn", 1);
 			SceneManager.LoadScene("Profile_Create");
 		} else {
 			loader.disableLoader();

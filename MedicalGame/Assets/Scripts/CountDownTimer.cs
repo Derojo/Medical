@@ -16,6 +16,9 @@ public class CountDownTimer : MonoBehaviour {
     //TimesupPopUp
     public GameObject timeUpPopup;
 
+	//QuestionManager
+	public QuestionManager questionManager;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -50,13 +53,13 @@ public class CountDownTimer : MonoBehaviour {
             timerPercent = timeRemaining / startTimer;
             image.fillAmount = timerPercent;
             timerText.text = timeRemaining.ToString("f0");
-            print(timeRemaining);
         }
 
-        if (timeRemaining <= 0)
+		if (timeRemaining <= 0 && activateTime)
         {
             activateTime = false;
             timeUpPopup.SetActive(true);
+			QuestionManager.Instance.checkAnswer ("");
         }
     }// end update
 
@@ -68,6 +71,4 @@ public class CountDownTimer : MonoBehaviour {
         PlayerPrefs.Save();
     }*/
   
-     
-	
 }

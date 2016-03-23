@@ -22,9 +22,10 @@ public class MatchManager : Singleton<MatchManager> {
 	public bool Load() {return true;}
 
 
-	void Start() {
-//		matches = new List<Match> ();
-//		matchManager = null;
+	void Awake() {
+
+		matches = new List<Match> ();
+		matchManager = null;
 		if (matchManager == null) {
 			matchManager = new Matches ();
 		}
@@ -32,6 +33,7 @@ public class MatchManager : Singleton<MatchManager> {
 		LoadMatches ();
 		matches = new List<Match> (); 
 		matches = matchManager.matches;
+		Debug.Log ("Loaded");
 	}
 
 
@@ -41,10 +43,16 @@ public class MatchManager : Singleton<MatchManager> {
 		string matchCode = GenerateMatchCode();
 		// Store for later use
 		currentMatchID = matchCode;
-//		// Create match, set player ids, category id
-		Match match  = new Match(matchCode, RuntimeData.Instance.LoggedInUser._id, "56ea94f2e4b027e49c1ef3e1", "playing", 1, 1, null);
+//		// Create match, set player ids, category id  !----- TO DO : Create auto match with gamedonia db -----!
+		Match match  = new Match(matchCode, PlayerPrefs.GetString("playerID"), "56ea94f2e4b027e49c1ef3e1", "playing", 1, PlayerPrefs.GetString("playerID"), null);
 		AddMatch (match);
 //		// Switch to category scene
+		Loader.Instance.LoadScene("Category");
+	}
+
+	public void LoadCurrentMatch(string id) {
+		Loader.Instance.enableLoader ();
+		currentMatchID = id;
 		Loader.Instance.LoadScene("Category");
 	}
 		
@@ -58,7 +66,11 @@ public class MatchManager : Singleton<MatchManager> {
 			match_ID = currentMatchID;
 		}
 		Match match = GetMatch (match_ID);
+
 		match.AddTurn (turn);
+		if (!turn.t_st) {
+			match.m_cp = match.o_ID;
+		}
 		Save ();
 	}
 
@@ -84,8 +96,8 @@ public class MatchManager : Singleton<MatchManager> {
 		}
 	}
 
-	public void returnAllMatches() {
-		Debug.Log (matchManager.matches.Count);
+	public List<Match> returnAllMatches() {
+		return matches;
 	}
 
 	private void clearAllMatches() {

@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class QuestionManager : MonoBehaviour {
+public class QuestionManager : Singleton<QuestionManager> {
 
 
 	public Question currentQuestion;
@@ -22,24 +22,29 @@ public class QuestionManager : MonoBehaviour {
 	public Sprite wrongRound;
 	public Text playerScore;
 	public Text playerName;
+	public GameObject Timer;
 	private int currentCategory;
 	private string nextScene = "";
 	private bool answeredQuestion = false;
 
 
+
+
 	void Start() {
 		currentCategory = MatchManager.Instance.currentCategory;
-//		currentCategory = 2;
 		// Get random question from current category
 		currentQuestion = questionDatabase.getRandomCategoryQuestion(currentCategory);
 		SetCategoryTitle ();
 		SetQuestionReady ();
-//		Debug.Log (RuntimeData.Instance.LoggedInUser.profile ["name"] as string);
 		SetTurnRounds ();
-//		playerName.text = RuntimeData.Instance.LoggedInUser.profile ["name"] as string;
+		playerName.text = PlayerPrefs.GetString("playerName");
 	}
 
 	public void checkAnswer(string Answer) {
+		// Hide Timer
+		if (Answer != "") {
+			Timer.SetActive (false);
+		}
 		if (!answeredQuestion) {
 			Button selectedAnswer = getButtonByAnswer (Answer);
 			Button rightAnswer = getButtonByAnswer (currentQuestion.q_Correct);
@@ -54,26 +59,30 @@ public class QuestionManager : MonoBehaviour {
 				// Change progress question image
 				playerRounds [MatchManager.Instance.returnTurnId ()].sprite = rightRound;
 				// Change turn information -- Set player id to 1 - to be done: change to gamedonia player id
-				newTurn = new Turn (newturnID, RuntimeData.Instance.LoggedInUser._id, currentQuestion.q_Id, true);
+				newTurn = new Turn (newturnID, PlayerPrefs.GetString("playerID"), currentQuestion.q_Id, true);
 				// Set next question string
 				nextScene = "Category";
 			} else {
-				// Show correct answer
-				rightAnswer.GetComponent<Image> ().sprite = goodAnswer;
-				rightAnswer.GetComponentInChildren<Text> ().color = Color.white;
-				// Turn button color to red
-				selectedAnswer.GetComponent<Image> ().sprite = wrongAnswer;
-				selectedAnswer.GetComponentInChildren<Text> ().color = Color.white;
-				// Change progress question image
-				playerRounds [MatchManager.Instance.returnTurnId ()].sprite = wrongRound;
+				if (Answer != "") {
+					// Show correct answer
+					rightAnswer.GetComponent<Image> ().sprite = goodAnswer;
+					rightAnswer.GetComponentInChildren<Text> ().color = Color.white;
+					// Turn button color to red
+					selectedAnswer.GetComponent<Image> ().sprite = wrongAnswer;
+					selectedAnswer.GetComponentInChildren<Text> ().color = Color.white;
+					// Change progress question image
+					playerRounds [MatchManager.Instance.returnTurnId ()].sprite = wrongRound;
+				}
 				// Change turn information
-				newTurn = new Turn (newturnID, RuntimeData.Instance.LoggedInUser._id, currentQuestion.q_Id, false); 
+				newTurn = new Turn (newturnID, PlayerPrefs.GetString("playerID"), currentQuestion.q_Id, false); 
 				// Switch to home scene
 				nextScene = "Home";
 			}
 			// Save new turn to match
 			MatchManager.Instance.AddTurn (newTurn);
-			Continue.SetActive (true);
+			if (Answer != "") {
+				Continue.SetActive (true);
+			}
 		}
 	}
 		
@@ -122,12 +131,14 @@ public class QuestionManager : MonoBehaviour {
 	private void SetTurnRounds() {
 		float total = 0;
 		Match match = MatchManager.Instance.GetMatch (MatchManager.Instance.currentMatchID);
-		for(int i=0; i < match.m_trns.Count; i++) {
-			if (match.m_trns [i].t_st) {
-				playerRounds [i].sprite = rightRound;
-				total++;
-			} else {
-				playerRounds [i].sprite = wrongRound;
+		if (match.m_trns != null) {
+			for (int i = 0; i < match.m_trns.Count; i++) {
+				if (match.m_trns [i].t_st) {
+					playerRounds [i].sprite = rightRound;
+					total++;
+				} else {
+					playerRounds [i].sprite = wrongRound;
+				}
 			}
 		}
 		playerScore.text = total.ToString ();
@@ -147,21 +158,5 @@ public class QuestionManager : MonoBehaviour {
 		return total;
 	}
 
-//	private IEnumerator fillImageOverTime(float time) {
-//		float animationTime = 0;
-//		while (animationTime < time) {
-//			animationTime += Time.deltaTime;
-//			if (animationTime / time > 0.5f) {
-//				if (animationTime / time > 0.7f) {
-//					test.fillAmount = animationTime / time * 1.2f;
-//				} else {
-//					test.fillAmount = animationTime / time * 1.3f;
-//				}
-//			} else {
-//				test.fillAmount = animationTime / time;
-//			}
-//			yield return null;
-//		}
-//	}
 
 }
