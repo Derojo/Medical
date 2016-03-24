@@ -51,11 +51,11 @@ public class QuestionDatabase : ScriptableObject {
 		for (int i = 0; i < database.Count; i++) {
 			if ((database [i].q_Cat+1) == categoryID) {
 				questionsInCategory.Add (database[i]);
-				Debug.Log (database [i].q_Question);
 			}
 		}
 		return questionsInCategory;
 	}
+
 	public void SortAlphabeticallyAtoZ() {
 		database.Sort((x, y) => string.Compare(x.q_Question, y.q_Question));
 	}

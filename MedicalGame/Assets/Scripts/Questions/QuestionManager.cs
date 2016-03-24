@@ -31,13 +31,13 @@ public class QuestionManager : Singleton<QuestionManager> {
 
 
 	void Start() {
-		currentCategory = MatchManager.Instance.currentCategory;
+		currentCategory = MatchManager.I.currentCategory;
 		// Get random question from current category
 		currentQuestion = questionDatabase.getRandomCategoryQuestion(currentCategory);
 		SetCategoryTitle ();
 		SetQuestionReady ();
 		SetTurnRounds ();
-		playerName.text = PlayerPrefs.GetString("playerName");
+		playerName.text = RuntimeData.I.PDB.profile [0].name;
 	}
 
 	public void checkAnswer(string Answer) {
@@ -48,7 +48,7 @@ public class QuestionManager : Singleton<QuestionManager> {
 		if (!answeredQuestion) {
 			Button selectedAnswer = getButtonByAnswer (Answer);
 			Button rightAnswer = getButtonByAnswer (currentQuestion.q_Correct);
-			int newturnID = MatchManager.Instance.returnTurnId () + 1;
+			int newturnID = MatchManager.I.returnTurnId () + 1;
 			Turn newTurn;
 			if (Answer == currentQuestion.q_Correct) {
 				// Set score
@@ -57,9 +57,9 @@ public class QuestionManager : Singleton<QuestionManager> {
 				rightAnswer.GetComponent<Image> ().sprite = goodAnswer;
 				rightAnswer.GetComponentInChildren<Text> ().color = Color.white;
 				// Change progress question image
-				playerRounds [MatchManager.Instance.returnTurnId ()].sprite = rightRound;
+				playerRounds [MatchManager.I.returnTurnId ()].sprite = rightRound;
 				// Change turn information -- Set player id to 1 - to be done: change to gamedonia player id
-				newTurn = new Turn (newturnID, PlayerPrefs.GetString("playerID"), currentQuestion.q_Id, true);
+				newTurn = new Turn (newturnID, RuntimeData.I.PDB.playerID, currentQuestion.q_Id, true);
 				// Set next question string
 				nextScene = "Category";
 			} else {
@@ -71,15 +71,15 @@ public class QuestionManager : Singleton<QuestionManager> {
 					selectedAnswer.GetComponent<Image> ().sprite = wrongAnswer;
 					selectedAnswer.GetComponentInChildren<Text> ().color = Color.white;
 					// Change progress question image
-					playerRounds [MatchManager.Instance.returnTurnId ()].sprite = wrongRound;
+					playerRounds [MatchManager.I.returnTurnId ()].sprite = wrongRound;
 				}
 				// Change turn information
-				newTurn = new Turn (newturnID, PlayerPrefs.GetString("playerID"), currentQuestion.q_Id, false); 
+				newTurn = new Turn (newturnID, RuntimeData.I.PDB.playerID, currentQuestion.q_Id, false); 
 				// Switch to home scene
 				nextScene = "Home";
 			}
 			// Save new turn to match
-			MatchManager.Instance.AddTurn (newTurn);
+			MatchManager.I.AddTurn (newTurn);
 			if (Answer != "") {
 				Continue.SetActive (true);
 			}
@@ -115,8 +115,6 @@ public class QuestionManager : Singleton<QuestionManager> {
 	}
 
 	private void SetCategoryTitle() {
-		Debug.Log (currentCategory);
-
 		CategoryTitle.text = Categories.getCategoryNameById(currentCategory);
 	}
 
@@ -130,7 +128,7 @@ public class QuestionManager : Singleton<QuestionManager> {
 
 	private void SetTurnRounds() {
 		float total = 0;
-		Match match = MatchManager.Instance.GetMatch (MatchManager.Instance.currentMatchID);
+		Match match = MatchManager.I.GetMatch (MatchManager.I.currentMatchID);
 		if (match.m_trns != null) {
 			for (int i = 0; i < match.m_trns.Count; i++) {
 				if (match.m_trns [i].t_st) {
@@ -147,7 +145,7 @@ public class QuestionManager : Singleton<QuestionManager> {
 
 	private int getScore() {
 		int total = 0;
-		Match match = MatchManager.Instance.GetMatch (MatchManager.Instance.currentMatchID);
+		Match match = MatchManager.I.GetMatch (MatchManager.I.currentMatchID);
 		if (match.m_trns != null) {
 			for (int i = 0; i < match.m_trns.Count; i++) {
 				if (match.m_trns [i].t_st) {

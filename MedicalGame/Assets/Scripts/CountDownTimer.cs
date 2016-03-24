@@ -59,7 +59,7 @@ public class CountDownTimer : MonoBehaviour {
         {
             activateTime = false;
             timeUpPopup.SetActive(true);
-			QuestionManager.Instance.checkAnswer ("");
+			QuestionManager.I.checkAnswer ("");
         }
     }// end update
 

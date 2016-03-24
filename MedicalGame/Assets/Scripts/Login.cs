@@ -119,7 +119,7 @@ public class Login : MonoBehaviour {
 		statusMsg = "";
 		if (success) {
 			// Set playerprefs loggedIn to true so we dont need to log in again via http
-			PlayerPrefs.SetInt("loggedIn", 1);
+			RuntimeData.I.PDB.loggedIn = true;
 			SceneManager.LoadScene("Profile_Create");
 		} else {
 			loader.disableLoader();

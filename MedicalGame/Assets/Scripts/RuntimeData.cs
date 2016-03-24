@@ -3,32 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using Gamedonia.Backend;
 
+[Prefab("RuntimeData", true, "")]
 public class RuntimeData : Singleton<RuntimeData> {
 
 	public QuestionDatabase QuestionDatabase;
+	public PlayerDB PDB;
+
 //	public List<Question> allQuestions;
 	// Use this for initialization
 
-
+	public bool Load() {return true;}
 
 	void Start () {
-		MatchManager.Instance.Load ();
+//		PlayerDatabase.changeValue ();
+//		Debug.Log (PlayerDatabase.testDictionary ["test1"]);
+		MatchManager.I.Load ();
+//		Debug.Log (PDB.profile [0].age);
+//		PDB.profile [0].age = 24;
+	}
 
-		Debug.Log(PlayerPrefs.GetString("playerID"));
-//		Loader.Instance.Load ();
-//		MatchManager.Instance.returnAllMatches();
-//		for (int cnt = 0; cnt < allQuestions.Count; cnt++) {
-//			Debug.Log (allQuestions [cnt].q_Question);
-//			Debug.Log (allQuestions [cnt].q_AnswerA);
-//			Debug.Log (allQuestions [cnt].q_AnswerB);
-//		}
-	}
 	public void startMatch() {
-		MatchManager.Instance.StartNewMatch ();
-	}
-	// Update is called once per frame
-	void Update () {
-	
+		MatchManager.I.StartNewMatch ();
 	}
 
 }

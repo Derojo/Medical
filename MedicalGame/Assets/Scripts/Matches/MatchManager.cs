@@ -33,7 +33,6 @@ public class MatchManager : Singleton<MatchManager> {
 		LoadMatches ();
 		matches = new List<Match> (); 
 		matches = matchManager.matches;
-		Debug.Log ("Loaded");
 	}
 
 
@@ -44,7 +43,7 @@ public class MatchManager : Singleton<MatchManager> {
 		// Store for later use
 		currentMatchID = matchCode;
 //		// Create match, set player ids, category id  !----- TO DO : Create auto match with gamedonia db -----!
-		Match match  = new Match(matchCode, PlayerPrefs.GetString("playerID"), "56ea94f2e4b027e49c1ef3e1", "playing", 1, PlayerPrefs.GetString("playerID"), null);
+		Match match  = new Match(matchCode, RuntimeData.I.PDB.playerID, "56ea94f2e4b027e49c1ef3e1", "playing", 1, RuntimeData.I.PDB.playerID, null);
 		AddMatch (match);
 //		// Switch to category scene
 		Loader.Instance.LoadScene("Category");

@@ -7,10 +7,12 @@ public class Startup : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		if (!PlayerPrefs.HasKey ("loggedIn")) {
+		RuntimeData.I.Load ();
+//		RuntimeData.I.PDB.clearAll ();
+		if (!RuntimeData.I.PDB.loggedIn) {
 			SceneManager.LoadScene ("Login");
 		} else {
-			if (PlayerPrefs.HasKey ("createdProfile")) {
+			if (RuntimeData.I.PDB.createdProfile) {
 				SceneManager.LoadScene ("Home");
 			} else {
 				GamedoniaUsers.LoginUserWithSessionToken (delegate (bool success) {

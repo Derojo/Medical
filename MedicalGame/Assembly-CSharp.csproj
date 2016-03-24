@@ -83,6 +83,7 @@
      <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\Twirl.cs" />
      <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\VignetteAndChromaticAberration.cs" />
      <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\Vortex.cs" />
+     <Compile Include="Assets\Scripts\Achievement.cs" />
      <Compile Include="Assets\Scripts\AchievementManager.cs" />
      <Compile Include="Assets\Scripts\AddUser.cs" />
      <Compile Include="Assets\Scripts\AudioManagerScript.cs" />
@@ -99,8 +100,8 @@
      <Compile Include="Assets\Scripts\Matches\Data\Matches.cs" />
      <Compile Include="Assets\Scripts\Matches\Data\Turn.cs" />
      <Compile Include="Assets\Scripts\Matches\MatchManager.cs" />
-     <Compile Include="Assets\Scripts\Player\Data\Player.cs" />
-     <Compile Include="Assets\Scripts\Player\PlayerManager.cs" />
+     <Compile Include="Assets\Scripts\Player\Data\PlayerDB.cs" />
+     <Compile Include="Assets\Scripts\Player\Data\PlayerProfile.cs" />
      <Compile Include="Assets\Scripts\Profile.cs" />
      <Compile Include="Assets\Scripts\ProfilePicture.cs" />
      <Compile Include="Assets\Scripts\Profile_Create.cs" />

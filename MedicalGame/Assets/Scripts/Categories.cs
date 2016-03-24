@@ -28,11 +28,11 @@ public class Categories : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		// Get current match
-		Match currentMatch = MatchManager.Instance.GetMatch (MatchManager.Instance.currentMatchID);
+		Match currentMatch = MatchManager.I.GetMatch (MatchManager.I.currentMatchID);
 
 		//Get random cat, show animation
-		MatchManager.Instance.currentCategory = (int)GetRandomCat();
-		ShowCategory (MatchManager.Instance.currentCategory);
+		MatchManager.I.currentCategory = (int)GetRandomCat();
+		ShowCategory (MatchManager.I.currentCategory);
 	}
 
 	public void ShowCategory(int catID) {
@@ -81,6 +81,7 @@ public class Categories : MonoBehaviour {
 		}
 		return "";
 	}
+
 	public void PlayMatch() {
 		Loader.Instance.LoadScene ("Match");
 	}
