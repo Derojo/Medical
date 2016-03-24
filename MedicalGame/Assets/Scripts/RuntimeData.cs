@@ -18,6 +18,7 @@ public class RuntimeData : Singleton<RuntimeData> {
 //		PlayerDatabase.changeValue ();
 //		Debug.Log (PlayerDatabase.testDictionary ["test1"]);
 		MatchManager.I.Load ();
+        AchievementManager.I.Load();
 //		Debug.Log (PDB.profile [0].age);
 //		PDB.profile [0].age = 24;
 	}

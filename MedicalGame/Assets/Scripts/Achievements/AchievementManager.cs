@@ -3,36 +3,54 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class AchievementManager : MonoBehaviour {
+[Prefab("AchievementManager", true, "")]
+public class AchievementManager : Singleton<AchievementManager> {
 
     public GameObject achievementPrefab;
 
-    public Sprite[] sprites;
+    //public Sprite[] sprites;
     private float fadeTime = 1.5f;
     public GameObject visualAchievement;
     public Dictionary<string, Achievement> achievements = new Dictionary<string, Achievement>();
+    public List<Achievement> achievementList = new List<Achievement>();     
 
     public Sprite unlockedSprite;
+    public Sprite lockedSprite;
 
-    private static AchievementManager instance;
-   /* public static AchievementManager Instance
+    /*  private static AchievementManager instance;
+
+      public static AchievementManager Instance
+      {
+          get
+          {
+              if (instance == null) //If the instance isn't instantiated we need to find it
+              {
+                  instance = GameObject.FindObjectOfType<AchievementManager>();
+              }
+              return AchievementManager.instance;
+          }
+      }*/
+    public bool Load() { return true; }
+
+
+    void OnEnable() {
+
+            achievements = new Dictionary<string, Achievement>();
+            CreateAllAchievements();
+        
+   
+    }
+    // Use this for initialization
+    void Start ()
     {
-        get
-        {
-            if(instance == null)
-            {
-                instance = GameObject.FindObjectOfType<AchievementManager>;
-            }
+
+        if (achievementList == null) {
+            achievementList = new List<Achievement>();
         }
-        return AchievementManager.instance; 
-    }*/
-
-	// Use this for initialization
-	void Start ()
-    {
+        //Deleting playerprefs for testing REMEMBER TO REMOVE
+        //PlayerPrefs.DeleteAll();
         //Creates the general achievments
-        CreateAchievement("AchievementHolder", "Mouse", "You Clicked the mouse button", 10, 0);
-        CreateAchievement("AchievementHolder", "Start", "Starten van je eerste spel", 5, 0);
+
     }
 	
 	// Update is called once per frame
@@ -43,34 +61,45 @@ public class AchievementManager : MonoBehaviour {
          if(Input.GetMouseButtonUp(1))
          {
             //Create visual achievement
-            EarnAchievement("Mouse");
+            EarnAchievement("Achievement 1");
          }
+
+         if(Input.GetKeyDown(KeyCode.S))
+        {
+            EarnAchievement("Achievement 2");
+        }
 
     }//end of update
 
     public void EarnAchievement(string title)
     {
+        
         if( achievements[title].EarnAchievement())
         {
             GameObject achievement = (GameObject)Instantiate(visualAchievement);
             SetAchievementInfo("EarnCanvas", achievement, title);
-            StartCoroutine(HideAchievement(achievement));
+            StartCoroutine(FadeAchievement(achievement));
         }
     }
 
+    public void CreateAllAchievements() {
+        for (int i = 0; i < achievementList.Count; i++) {
 
-   
- 
+            achievementList[i].LoadAchievement();
+            // Achievement newAchievement = new Achievement(achievementList[i].Name, achievementList[i].Description, achievementList[i].Points, achievementList[i].ASprite);
+            achievements.Add(achievementList[i].Name, achievementList[i]);
+        }
+    }
+    
     //Creat achievement prefab
     public void CreateAchievement(string parent, string title, string description, int points, int spriteIndex)
     {
         GameObject achievement = (GameObject)Instantiate(achievementPrefab);
-        Achievement newAchievement = new Achievement(name, description, points, spriteIndex, achievement);
+        //Achievement newAchievement = new Achievement(title, description, points, spriteIndex, achievement);
         //saving new achievements to dictionairy
-        achievements.Add(title, newAchievement);
+       // achievements.Add(title, newAchievement);
         SetAchievementInfo(parent, achievement, title);
         //StartCoroutine(FadeAchievement(achievement));
-
     }
     //Destroy achievement afeter 3 seconds
     public IEnumerator HideAchievement(GameObject achievement)
@@ -91,11 +120,15 @@ public class AchievementManager : MonoBehaviour {
         achievement.transform.GetChild(0).GetComponent<Text>().text = title;
         achievement.transform.GetChild(1).GetComponent<Text>().text = achievements[title].Description;
         achievement.transform.GetChild(2).GetComponent<Text>().text = achievements[title].Points.ToString();
-        achievement.transform.GetChild(3).GetComponent<Image>().sprite = sprites [achievements[title].SpriteIndex];
+        achievement.transform.GetChild(3).GetComponent<Image>().sprite = achievements[title].ASprite;
+
+        Debug.Log(achievements[title].Unlocked);
+
+        
     }
 
     //fade in/out
-    /*private IEnumerator FadeAchievement(GameObject achievement)
+    private IEnumerator FadeAchievement(GameObject achievement)
     {
         CanvasGroup canvasGroup = achievement.GetComponent<CanvasGroup>();
         float rate = 1.0f / fadeTime;
@@ -121,6 +154,22 @@ public class AchievementManager : MonoBehaviour {
 
         Destroy(achievement);
         
-    }*/
-        
+    }
+
+
+    public void checkAllAchievements() {
+        checkAchievement1();
+        checkAchievement2();
+
+    }
+
+    private void checkAchievement1() {
+
+    }
+
+    private void checkAchievement2()
+    {
+
+    }
+
 }
