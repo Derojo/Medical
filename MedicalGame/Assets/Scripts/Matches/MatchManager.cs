@@ -13,7 +13,6 @@ public class MatchManager : Singleton<MatchManager> {
 
 	// Used for debugging, test purposes
 	public List<Match> matches;
-
 	public string currentMatchID;
 	public int currentCategory;
 	public Loader loader;
@@ -21,15 +20,14 @@ public class MatchManager : Singleton<MatchManager> {
 
 	public bool Load() {return true;}
 
-
 	void Awake() {
+			
 
-		matches = new List<Match> ();
-		matchManager = null;
+
+//		matchManager = null;
 		if (matchManager == null) {
 			matchManager = new Matches ();
 		}
-
 		LoadMatches ();
 		matches = new List<Match> (); 
 		matches = matchManager.matches;
@@ -43,7 +41,7 @@ public class MatchManager : Singleton<MatchManager> {
 		// Store for later use
 		currentMatchID = matchCode;
 //		// Create match, set player ids, category id  !----- TO DO : Create auto match with gamedonia db -----!
-		Match match  = new Match(matchCode, RuntimeData.I.PDB.playerID, "56ea94f2e4b027e49c1ef3e1", "playing", 1, RuntimeData.I.PDB.playerID, null);
+		Match match  = new Match(matchCode, PlayerManager.I.player.playerID, "56ea94f2e4b027e49c1ef3e1", "playing", 1, PlayerManager.I.player.playerID, null);
 		AddMatch (match);
 //		// Switch to category scene
 		Loader.Instance.LoadScene("Category");
@@ -105,10 +103,17 @@ public class MatchManager : Singleton<MatchManager> {
 
 	public void Save() {
 		BinaryFormatter bf = new BinaryFormatter();
-		FileStream file = File.Create (Application.persistentDataPath + "/matches.gd");
+
+//		var unityJson = JsonUtility.ToJson(this);
+//		FileStream file = File.WriteAllText (Application.persistentDataPath + "/matches.json", unityJson);
+		FileStream file = File.Create(Application.persistentDataPath + "/matches.gd");
 		bf.Serialize(file, matchManager.matches);
 
+
 		file.Close();
+
+//		var unityJson = JsonUtility.ToJson(this);
+//		File.WriteAllText (Application.persistentDataPath + "/matches.json", unityJson);
 	}
 
 	public void LoadMatches() {
@@ -119,7 +124,14 @@ public class MatchManager : Singleton<MatchManager> {
 			matchManager.matches = (List<Match>)bf.Deserialize(file);
 			file.Close();
 		}
+//		if(File.Exists(Application.persistentDataPath + "/matches.json")) {
+//			string jsonString = File.ReadAllText (Application.persistentDataPath + "/matches.json");
+//
+//			CreateFromJSON (jsonString);
+//
+//		}
 	}
+
 
 	private string GenerateMatchCode() {
 		int desiredCodeLength = 15;

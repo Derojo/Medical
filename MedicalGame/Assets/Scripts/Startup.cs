@@ -8,11 +8,10 @@ public class Startup : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		RuntimeData.I.Load ();
-//		RuntimeData.I.PDB.clearAll ();
-		if (!RuntimeData.I.PDB.loggedIn) {
+		if (!PlayerManager.I.player.loggedIn) {
 			SceneManager.LoadScene ("Login");
 		} else {
-			if (RuntimeData.I.PDB.createdProfile) {
+			if (PlayerManager.I.player.createdProfile) {
 				SceneManager.LoadScene ("Home");
 			} else {
 				GamedoniaUsers.LoginUserWithSessionToken (delegate (bool success) {

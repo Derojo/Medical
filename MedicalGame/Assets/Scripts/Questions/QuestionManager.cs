@@ -37,7 +37,7 @@ public class QuestionManager : Singleton<QuestionManager> {
 		SetCategoryTitle ();
 		SetQuestionReady ();
 		SetTurnRounds ();
-		playerName.text = RuntimeData.I.PDB.profile [0].name;
+		playerName.text = PlayerManager.I.player.profile.name;
 	}
 
 	public void checkAnswer(string Answer) {
@@ -52,14 +52,14 @@ public class QuestionManager : Singleton<QuestionManager> {
 			Turn newTurn;
 			if (Answer == currentQuestion.q_Correct) {
 				// Set score
-				playerScore.text = getScore().ToString();
+				playerScore.text = (getScore()+1).ToString();
 				// Turn button color to green
 				rightAnswer.GetComponent<Image> ().sprite = goodAnswer;
 				rightAnswer.GetComponentInChildren<Text> ().color = Color.white;
 				// Change progress question image
 				playerRounds [MatchManager.I.returnTurnId ()].sprite = rightRound;
 				// Change turn information -- Set player id to 1 - to be done: change to gamedonia player id
-				newTurn = new Turn (newturnID, RuntimeData.I.PDB.playerID, currentQuestion.q_Id, true);
+				newTurn = new Turn (newturnID, PlayerManager.I.player.playerID, currentQuestion.q_Id, true);
 				// Set next question string
 				nextScene = "Category";
 			} else {
@@ -74,7 +74,7 @@ public class QuestionManager : Singleton<QuestionManager> {
 					playerRounds [MatchManager.I.returnTurnId ()].sprite = wrongRound;
 				}
 				// Change turn information
-				newTurn = new Turn (newturnID, RuntimeData.I.PDB.playerID, currentQuestion.q_Id, false); 
+				newTurn = new Turn (newturnID, PlayerManager.I.player.playerID, currentQuestion.q_Id, false); 
 				// Switch to home scene
 				nextScene = "Home";
 			}

@@ -95,7 +95,6 @@ public class Achievement
     
     public void LoadAchievement()
     {
-        Debug.Log(PlayerPrefs.GetInt(name));
         unlocked = PlayerPrefs.GetInt(name) == 1 ? true : false;
 
     }

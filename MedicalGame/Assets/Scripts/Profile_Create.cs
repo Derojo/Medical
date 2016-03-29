@@ -65,7 +65,7 @@ public class Profile_Create : MonoBehaviour {
 			GamedoniaUsers.UpdateUser (LoggedInUser.profile, delegate (bool success) {
 				if (success) {
 					Loader.SetActive (false);
-					RuntimeData.I.PDB.createdProfile = true;
+					PlayerManager.I.player.createdProfile = true;
 					SceneManager.LoadScene ("Home");
 				} else {
 					Debug.Log ("Error");
@@ -78,7 +78,7 @@ public class Profile_Create : MonoBehaviour {
 		if (success) {
 			LoggedInUser = userProfile;
 			// Set playerprefs, store so we dont need to use http requests when we dont need it
-			RuntimeData.I.PDB.playerID = LoggedInUser._id; // Player id
+			PlayerManager.I.player.playerID = LoggedInUser._id; // Player id
 		}else {
 			errorMsg = GamedoniaBackend.getLastError().ToString();
 			Debug.Log(errorMsg);
@@ -97,7 +97,7 @@ public class Profile_Create : MonoBehaviour {
 			LoggedInUser.profile ["film"] = p_film.text;
 
 			// Store locally
-			RuntimeData.I.PDB.changeProfile (new PlayerProfile (p_name.text, int.Parse (p_age.text), p_color.text, p_hobby.text, p_film.text));
+			PlayerManager.I.changeProfile (new PlayerProfile (p_name.text, int.Parse (p_age.text), p_color.text, p_hobby.text, p_film.text));
 		}
 	}
 
