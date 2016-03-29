@@ -48,8 +48,8 @@ public class AchievementManager : Singleton<AchievementManager> {
             achievementList = new List<Achievement>();
         }
         //Deleting playerprefs for testing REMEMBER TO REMOVE
-        //PlayerPrefs.DeleteAll();
-        //Creates the general achievments
+        PlayerPrefs.DeleteAll();
+     
 
     }
 	
@@ -61,12 +61,12 @@ public class AchievementManager : Singleton<AchievementManager> {
          if(Input.GetMouseButtonUp(1))
          {
             //Create visual achievement
-            EarnAchievement("Achievement 1");
+            EarnAchievement("Connecten");
          }
 
          if(Input.GetKeyDown(KeyCode.S))
         {
-            EarnAchievement("Achievement 2");
+            EarnAchievement("Vrienden worden?");
         }
 
     }//end of update
@@ -156,20 +156,25 @@ public class AchievementManager : Singleton<AchievementManager> {
         
     }
 
+    public void checkAchievementConnect()
+    {
+        EarnAchievement("Connecten");
+    }
 
-    public void checkAllAchievements() {
+    /*public void checkAllAchievements() {
         checkAchievement1();
         checkAchievement2();
 
     }
 
-    private void checkAchievement1() {
-
+    public void checkAchievementConnect()
+    {
+        EarnAchievement("Connecten");
     }
 
     private void checkAchievement2()
     {
 
-    }
+    }*/
 
 }
