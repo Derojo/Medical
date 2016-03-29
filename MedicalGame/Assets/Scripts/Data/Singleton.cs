@@ -23,7 +23,6 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour {
 				_instantiated = true;
 				return _instance;
 			}
-			Debug.Log ("test2");
 
 			var attribute = Attribute.GetCustomAttribute(type, typeof(PrefabAttribute)) as PrefabAttribute;
 			if (attribute == null) {

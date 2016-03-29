@@ -23,6 +23,7 @@ public class PlayerManager : Singleton<PlayerManager> {
 			player = new Player ();
 			Save ();
 		}
+		CheckCurrentRank ();
 	}
 		
 
@@ -40,6 +41,8 @@ public class PlayerManager : Singleton<PlayerManager> {
 			player = (Player)bf.Deserialize(file);
 			file.Close();
 		}
+
+
 	}
 
 	public void changeProfile(PlayerProfile playerprofile) {
@@ -49,17 +52,41 @@ public class PlayerManager : Singleton<PlayerManager> {
 
 	}
 
-	public string returnCurrentRank() {
+	public void CheckCurrentRank() {
 		for (int i = 0; i < ranks.Count; i++) {
-			string[] splitScope = ranks [i].levelScope.Split ("/");
+			string[] splitScope = ranks [i].levelScope.Split (new string[]{"/"}, System.StringSplitOptions.None);
 			if(int.Parse(splitScope[0]) > player.playerLvl &&  int.Parse(splitScope[1]) < player.playerLvl) {
-				return ranks [i].name;
+				player.playerRank = ranks [i].name;
 			}
 		}
 	}
 
-	public void checkLevelUp() {
-	
+	public int CurrentRankKey() {
+		int key = 0;
+		for (int i = 0; i < ranks.Count; i++) {
+			string[] splitScope = ranks [i].levelScope.Split (new string[]{"/"}, System.StringSplitOptions.None);
+			int low = int.Parse(splitScope[0]);
+			int high = int.Parse(splitScope[1]);
+			if(low > player.playerLvl && high < player.playerLvl) {
+				key = i;
+			}
+		}
+		return key;
+	}
+
+	public void CheckLevelUp() {
+		float neededXP = ranks [CurrentRankKey ()].reqXP;
+		// subtract player experience with needed experience
+		 float XPSum = neededXP - player.playerXP;
+		// We need to level up
+		if (XPSum <= 0) {
+			// Add 1 to new player level
+			player.playerLvl++;
+			// Check new ranking
+			CheckCurrentRank();
+			// Set remaining XP to playerXP
+			player.playerXP = Mathf.Abs (XPSum);
+		}
 	}
 
 	private void OnApplicationQuit() { Save (); }

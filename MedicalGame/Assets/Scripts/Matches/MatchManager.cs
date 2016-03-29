@@ -118,7 +118,6 @@ public class MatchManager : Singleton<MatchManager> {
 
 	public void LoadMatches() {
 		if(File.Exists(Application.persistentDataPath + "/matches.gd")) {
-			Debug.Log (Application.persistentDataPath + "/matches.gd");
 			BinaryFormatter bf = new BinaryFormatter();
 			FileStream file = File.Open(Application.persistentDataPath + "/matches.gd", FileMode.Open);
 			matchManager.matches = (List<Match>)bf.Deserialize(file);
