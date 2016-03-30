@@ -70,6 +70,7 @@
      <None Include="Assets\Materials\Mobile\Textures\Effects\ToonShading\Shaders\ToonBasic.shader" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\_DepthOfField\SeparableWeightedBlurDof34.shader" />
      <None Include="Assets\Plugins\Android\facebook\res\layout\com_facebook_picker_title_bar_stub.xml" />
+     <None Include="Assets\DOTween\readme.txt" />
      <None Include="Assets\Plugins\Android\facebook\AndroidManifest.xml" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\ShowAlphaChannel.shader" />
      <None Include="Assets\Plugins\Android\facebook\res\values\drawables.xml" />
@@ -109,6 +110,7 @@
      <None Include="Assets\SDK_README.txt" />
      <None Include="Assets\Materials\Velvet\Velvet.shader" />
      <None Include="Assets\Plugins\Android\facebook\res\drawable\com_facebook_picker_list_selector.xml" />
+     <None Include="Assets\DOTween\DOTween43.xml" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ToonShading\Shaders\ToonBasicOutline.shader" />
      <None Include="Assets\Plugins\Android\facebook\res\drawable\com_facebook_picker_list_selector_background_transition.xml" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\_DepthOfField\DepthOfField34.shader" />
@@ -153,6 +155,7 @@
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\SepiaToneEffect.shader" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\TwirlEffect.shader" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\VortexEffect.shader" />
+     <None Include="Assets\DOTween\DOTween50.xml" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\Contrast Stretch\Adaptation.shader" />
      <None Include="Assets\Plugins\Android\facebook\res\drawable\com_facebook_button_blue.xml" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\NoiseAndGrain.shader" />
@@ -160,6 +163,7 @@
      <None Include="Assets\Materials\Mobile\Textures\Effects\Projectors\Shaders\ProjectorMultiply.shader" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\VignettingShader.shader" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\Tonemapper.shader" />
+     <None Include="Assets\DOTween\DOTween46.xml" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\_BloomAndFlares\BrightPassFilter.shader" />
      <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\_Antialiasing\FXAA2.shader" />
@@ -223,6 +227,21 @@
  </Reference>
  <Reference Include="UnityEditor.WindowsStandalone.Extensions">
  <HintPath>D:/Program Files/Unity5/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween">
+ <HintPath>D:/Documenten/Medical/MedicalGame/Assets/DOTween/DOTween.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTweenEditor">
+ <HintPath>D:/Documenten/Medical/MedicalGame/Assets/DOTween/Editor/DOTweenEditor.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween46">
+ <HintPath>D:/Documenten/Medical/MedicalGame/Assets/DOTween/DOTween46.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween50">
+ <HintPath>D:/Documenten/Medical/MedicalGame/Assets/DOTween/DOTween50.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween43">
+ <HintPath>D:/Documenten/Medical/MedicalGame/Assets/DOTween/DOTween43.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
