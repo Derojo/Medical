@@ -15,7 +15,7 @@ public class QuestionManager : Singleton<QuestionManager> {
 	public Button AnswerC;
 	public Button AnswerD;
 	public GameObject Continue;
-	public List<Image> playerRounds = new List<Image> ();
+    public List<Image> playerRounds = new List<Image> ();
 	public Sprite goodAnswer;
 	public Sprite wrongAnswer;
 	public Sprite rightRound;
@@ -41,8 +41,9 @@ public class QuestionManager : Singleton<QuestionManager> {
 	}
 
 	public void checkAnswer(string Answer) {
-		// Hide Timer
-		if (Answer != "") {
+       
+        // Hide Timer
+        if (Answer != "") {
 			Timer.SetActive (false);
 		}
 		if (!answeredQuestion) {
@@ -50,7 +51,8 @@ public class QuestionManager : Singleton<QuestionManager> {
 			Button rightAnswer = getButtonByAnswer (currentQuestion.q_Correct);
 			int newturnID = MatchManager.I.returnTurnId () + 1;
 			Turn newTurn;
-			if (Answer == currentQuestion.q_Correct) {
+			if (Answer == currentQuestion.q_Correct)
+            {
 				// Set score
 				playerScore.text = (getScore()+1).ToString();
 				// Turn button color to green
@@ -62,10 +64,50 @@ public class QuestionManager : Singleton<QuestionManager> {
 				newTurn = new Turn (newturnID, PlayerManager.I.player.playerID, currentQuestion.q_Id, true);
 				// Set next question string
 				nextScene = "Category";
-			} else {
-				if (Answer != "") {
-					// Show correct answer
-					rightAnswer.GetComponent<Image> ().sprite = goodAnswer;
+                //total questions answered right counter
+                PlayerManager.I.player.rightAnswersTotal  ++;
+                //Row questions answered right counter
+                PlayerManager.I.player.rightAnswersRow ++;
+
+                //total right questions in TV_Entertainment
+                if(currentCategory ==1)
+                {  
+                    PlayerManager.I.player.entertainmentAnswers  ++;
+                }
+
+                //total right questions in Geloof_Cultuur
+                if (currentCategory == 2)
+                {
+                    PlayerManager.I.player.religionAnswers++;
+                }
+                //total right questions in Zorg_wetenschap
+                if (currentCategory == 3)
+                {
+                    PlayerManager.I.player.careAnswers ++;
+                }
+                //total right questions in Geschiedenis
+                if (currentCategory == 4)
+                {
+                    PlayerManager.I.player.historyAnswers++;
+                }
+                //total right questions in Sport
+                if (currentCategory == 5)
+                {
+
+                    PlayerManager.I.player.sportAnswers++;
+                }
+                //total right questions in Geografie
+                if (currentCategory == 6)
+                {
+
+                    PlayerManager.I.player.geographicAnswers++;
+                }
+            } else {
+				if (Answer != "")
+                {      
+                    Debug.Log(PlayerManager.I.player.rightAnswersRow);
+                    // Show correct answer
+                    rightAnswer.GetComponent<Image> ().sprite = goodAnswer;
 					rightAnswer.GetComponentInChildren<Text> ().color = Color.white;
 					// Turn button color to red
 					selectedAnswer.GetComponent<Image> ().sprite = wrongAnswer;
@@ -73,23 +115,32 @@ public class QuestionManager : Singleton<QuestionManager> {
 					// Change progress question image
 					playerRounds [MatchManager.I.returnTurnId ()].sprite = wrongRound;
 				}
-				// Change turn information
-				newTurn = new Turn (newturnID, PlayerManager.I.player.playerID, currentQuestion.q_Id, false); 
+                PlayerManager.I.player.rightAnswersRow = 0;
+                // Change turn information
+                newTurn = new Turn (newturnID, PlayerManager.I.player.playerID, currentQuestion.q_Id, false); 
 				// Switch to home scene
 				nextScene = "Home";
 			}
-			// Save new turn to match
-			MatchManager.I.AddTurn (newTurn);
-			if (Answer != "") {
-				Continue.SetActive (true);
+            // check for completed achievements
+            AchievementManager.I.checkAchievementAfterAnswer();
+            // Save new turn to match
+            MatchManager.I.AddTurn (newTurn);
+			if (Answer != "")
+            {
+				Continue.SetActive (true);    
 			}
 		}
 	}
 		
-	public void switchScene() {
+	public void switchScene()
+    {
+        if(nextScene == "Home")
+        {
+            PlayerManager.I.player.rightAnswersRow = 0;
+        }
 		Loader.Instance.LoadScene (nextScene);
 	}
-
+    
 	private Button getButtonByAnswer(string Answer) {
 		Button returnButton;
 		switch (Answer)
