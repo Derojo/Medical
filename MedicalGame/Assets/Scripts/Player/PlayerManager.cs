@@ -24,6 +24,7 @@ public class PlayerManager : Singleton<PlayerManager> {
 			Save ();
 		}
 		CheckCurrentRank ();
+		CheckLevelUp ();
 	}
 		
 
@@ -55,7 +56,10 @@ public class PlayerManager : Singleton<PlayerManager> {
 	public void CheckCurrentRank() {
 		for (int i = 0; i < ranks.Count; i++) {
 			string[] splitScope = ranks [i].levelScope.Split (new string[]{"/"}, System.StringSplitOptions.None);
-			if(int.Parse(splitScope[0]) > player.playerLvl &&  int.Parse(splitScope[1]) < player.playerLvl) {
+			int low = int.Parse(splitScope[0]);
+			int high = int.Parse(splitScope[1]);
+
+			if(player.playerLvl >= low && player.playerLvl <= high) {
 				player.playerRank = ranks [i].name;
 			}
 		}
@@ -74,6 +78,31 @@ public class PlayerManager : Singleton<PlayerManager> {
 		return key;
 	}
 
+	/**
+	 * Get experience percentage needed for experience bar
+	 * - retrun value is between 0 and 1 where 1 is 100 % and the total of the required experience
+	 */
+	public float GetExperiencePercentage() {
+		// Total experience required in current rank
+		float totalXP = ranks [CurrentRankKey ()].reqXP;
+		float PSum = (50 / totalXP) * 1f;
+
+		return PSum;
+//		float PSum = (totalXP/100) * player.playerXP;
+	}
+
+	public int GetRemainingLevels() {
+		// Total experience required in current rank
+		string[] splitScope = ranks [CurrentRankKey ()].levelScope.Split (new string[]{"/"}, System.StringSplitOptions.None);
+
+		return int.Parse(splitScope[1]) - player.playerLvl;
+		//		float PSum = (totalXP/100) * player.playerXP;
+	}
+
+	public string GetNextRankName() {
+		return ranks [(CurrentRankKey () + 1)].name;
+	}
+
 	public void CheckLevelUp() {
 		float neededXP = ranks [CurrentRankKey ()].reqXP;
 		// subtract player experience with needed experience
@@ -84,8 +113,14 @@ public class PlayerManager : Singleton<PlayerManager> {
 			player.playerLvl++;
 			// Check new ranking
 			CheckCurrentRank();
-			// Set remaining XP to playerXP
+			// Remaining experience;
+
 			player.playerXP = Mathf.Abs (XPSum);
+			// Check if we need to level up more then once
+			if (player.playerXP > neededXP) {
+				CheckLevelUp ();
+			} 
+
 		}
 	}
 
