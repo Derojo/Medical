@@ -73,6 +73,18 @@
     <Reference Include="UnityEditor.iOS.Extensions.Common">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
     </Reference>
+    <Reference Include="DOTween46">
+      <HintPath>Assets\DOTween\DOTween46.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween">
+      <HintPath>Assets\DOTween\DOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween50">
+      <HintPath>Assets\DOTween\DOTween50.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween43">
+      <HintPath>Assets\DOTween\DOTween43.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="MedicalGame.CSharp.Plugins.csproj">
@@ -143,7 +155,8 @@
     <Compile Include="Assets\Scripts\Player\Data\PlayerProfile.cs" />
     <Compile Include="Assets\Scripts\Player\Data\Rank.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerManager.cs" />
-    <Compile Include="Assets\Scripts\Profile.cs" />
+    <Compile Include="Assets\Scripts\Player\Profile.cs" />
+    <Compile Include="Assets\Scripts\Player\ShowPlayerInfoSmall.cs" />
     <Compile Include="Assets\Scripts\ProfilePicture.cs" />
     <Compile Include="Assets\Scripts\Profile_Create.cs" />
     <Compile Include="Assets\Scripts\Questions\Data\Question.cs" />
@@ -160,6 +173,12 @@
     <Compile Include="Assets\Scripts\foldOutScript.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\DOTween\DOTween.XML" />
+    <None Include="Assets\DOTween\DOTween43.xml" />
+    <None Include="Assets\DOTween\DOTween46.xml" />
+    <None Include="Assets\DOTween\DOTween50.xml" />
+    <None Include="Assets\DOTween\Editor\DOTweenEditor.XML" />
+    <None Include="Assets\DOTween\readme.txt" />
     <None Include="Assets\Materials\Mobile\Textures\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
     <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\BlendModesOverlay.shader" />
     <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\BlurEffectConeTaps.shader" />

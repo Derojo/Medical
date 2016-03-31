@@ -2,6 +2,9 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using DG.Tweening;
+
+
 
 [Prefab("AchievementManager", true, "")]
 public class AchievementManager : Singleton<AchievementManager> {
@@ -57,10 +60,7 @@ public class AchievementManager : Singleton<AchievementManager> {
 	void Update ()
     {
 
-         if(Input.GetKeyDown(KeyCode.S))
-        {
-            EarnAchievement("Vrienden worden?");
-        }
+     
 
     }//end of update
 
@@ -73,15 +73,31 @@ public class AchievementManager : Singleton<AchievementManager> {
             SetAchievementInfo("EarnCanvas", achievement, title);
             PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP + achievements[title].Points;
             PlayerManager.I.CheckLevelUp();
-            StartCoroutine(FadeAchievement(achievement));
+
+            //Tweening in/out
+            foreach (Text text in achievement.GetComponentsInChildren<Text>())
+            {
+                text.DOFade(1, 2f);
+                text.DOFade(0, 2f).SetDelay(5f);
+            }
+
+            foreach (Image img in achievement.GetComponentsInChildren<Image>())
+            {
+                img.DOFade(1, 2f);
+                img.DOFade(0, 2f).SetDelay(5f);
+            }
+
+            achievement.GetComponent<Image>().DOFade(1, 2f);
+            achievement.GetComponent<Image>().DOFade(0, 2f).SetDelay(5f) ;
+            Destroy(achievement, 8f);
         }
+
     }
 
     public void CreateAllAchievements() {
         for (int i = 0; i < achievementList.Count; i++) {
 
             achievementList[i].LoadAchievement();
-            // Achievement newAchievement = new Achievement(achievementList[i].Name, achievementList[i].Description, achievementList[i].Points, achievementList[i].ASprite);
             achievements.Add(achievementList[i].Name, achievementList[i]);
         }
     }
@@ -90,11 +106,8 @@ public class AchievementManager : Singleton<AchievementManager> {
     public void CreateAchievement(string parent, string title, string description, int points, int spriteIndex)
     {
         GameObject achievement = (GameObject)Instantiate(achievementPrefab);
-        //Achievement newAchievement = new Achievement(title, description, points, spriteIndex, achievement);
-        //saving new achievements to dictionairy
-       // achievements.Add(title, newAchievement);
         SetAchievementInfo(parent, achievement, title);
-        //StartCoroutine(FadeAchievement(achievement));
+       
     }
     //Destroy achievement afeter 3 seconds
     public IEnumerator HideAchievement(GameObject achievement)
@@ -117,39 +130,12 @@ public class AchievementManager : Singleton<AchievementManager> {
         achievement.transform.GetChild(2).GetComponent<Text>().text = achievements[title].Points.ToString();
         achievement.transform.GetChild(3).GetComponent<Image>().sprite = achievements[title].ASprite;
 
-       
-
-        
     }
 
-    //fade in/out
-    private IEnumerator FadeAchievement(GameObject achievement)
-    {
-        CanvasGroup canvasGroup = achievement.GetComponent<CanvasGroup>();
-        float rate = 1.0f / fadeTime;
 
-        int startAlpha = 0;
-        int endAlpha = 1;
+    
 
-        for (int i = 0; i < 2; i++)
-        {
-            float progress = 0.0f;
 
-            while (progress < 1.0)
-            {
-                canvasGroup.alpha = Mathf.Lerp(startAlpha, endAlpha, progress);
-
-                progress += rate * Time.deltaTime;
-                yield return null;
-            }
-            yield return new WaitForSeconds(2);
-            startAlpha = 1;
-            endAlpha = 0;
-        }
-
-        Destroy(achievement);
-        
-    }
     /************** Achievement terms*********************/
 
     // #1 Earning first time connect achievement

@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using DG.Tweening;
 
 public class QuestionManager : Singleton<QuestionManager> {
 
@@ -15,6 +16,7 @@ public class QuestionManager : Singleton<QuestionManager> {
 	public Button AnswerC;
 	public Button AnswerD;
 	public GameObject Continue;
+    public GameObject XPPopUp;
     public List<Image> playerRounds = new List<Image> ();
 	public Sprite goodAnswer;
 	public Sprite wrongAnswer;
@@ -53,10 +55,18 @@ public class QuestionManager : Singleton<QuestionManager> {
 			Turn newTurn;
 			if (Answer == currentQuestion.q_Correct)
             {
-				// Set score
-				playerScore.text = (getScore()+1).ToString();
-				// Turn button color to green
-				rightAnswer.GetComponent<Image> ().sprite = goodAnswer;
+                //Tweening
+                foreach (Text text in XPPopUp.GetComponentsInChildren<Text>())
+                {
+                    text.DOFade(1, 0.3f);
+                    text.DOFade(0, 0.2f).SetDelay(0.5f);
+                }
+                //set XP
+                PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP += 10;
+                // Set score
+                playerScore.text = (getScore()+1).ToString();
+                // Turn button color to green
+                rightAnswer.GetComponent<Image> ().sprite = goodAnswer;
 				rightAnswer.GetComponentInChildren<Text> ().color = Color.white;
 				// Change progress question image
 				playerRounds [MatchManager.I.returnTurnId ()].sprite = rightRound;
@@ -64,13 +74,28 @@ public class QuestionManager : Singleton<QuestionManager> {
 				newTurn = new Turn (newturnID, PlayerManager.I.player.playerID, currentQuestion.q_Id, true);
 				// Set next question string
 				nextScene = "Category";
+
                 //total questions answered right counter
                 PlayerManager.I.player.rightAnswersTotal  ++;
                 //Row questions answered right counter
                 PlayerManager.I.player.rightAnswersRow ++;
 
+                //Row questions XP count
+                if (PlayerManager.I.player.rightAnswersRow == 3)
+                {
+                    PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP += 20;
+                }
+                if (PlayerManager.I.player.rightAnswersRow == 6)
+                {
+                    PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP += 50;
+                }
+                if (PlayerManager.I.player.rightAnswersRow == 9)
+                {
+                    PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP += 100;
+                }
+
                 //total right questions in TV_Entertainment
-                if(currentCategory ==1)
+                if (currentCategory ==1)
                 {  
                     PlayerManager.I.player.entertainmentAnswers  ++;
                 }
@@ -105,7 +130,6 @@ public class QuestionManager : Singleton<QuestionManager> {
             } else {
 				if (Answer != "")
                 {      
-                    Debug.Log(PlayerManager.I.player.rightAnswersRow);
                     // Show correct answer
                     rightAnswer.GetComponent<Image> ().sprite = goodAnswer;
 					rightAnswer.GetComponentInChildren<Text> ().color = Color.white;
@@ -121,8 +145,10 @@ public class QuestionManager : Singleton<QuestionManager> {
 				// Switch to home scene
 				nextScene = "Home";
 			}
+
             // check for completed achievements
             AchievementManager.I.checkAchievementAfterAnswer();
+           
             // Save new turn to match
             MatchManager.I.AddTurn (newTurn);
 			if (Answer != "")
