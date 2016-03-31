@@ -19,12 +19,14 @@ public class PlayerManager : Singleton<PlayerManager> {
 
 	void Awake() {
 		LoadPlayer ();
+//		player = null;
 		if (player == null) {
 			player = new Player ();
 			Save ();
 		}
 		CheckCurrentRank ();
 		CheckLevelUp ();
+		Debug.Log (CurrentRankKey ());
 	}
 		
 
@@ -49,6 +51,7 @@ public class PlayerManager : Singleton<PlayerManager> {
 	public void changeProfile(PlayerProfile playerprofile) {
 		if (player.profile != null) {
 			player.profile = playerprofile;
+			Save ();
 		}
 
 	}
@@ -71,7 +74,7 @@ public class PlayerManager : Singleton<PlayerManager> {
 			string[] splitScope = ranks [i].levelScope.Split (new string[]{"/"}, System.StringSplitOptions.None);
 			int low = int.Parse(splitScope[0]);
 			int high = int.Parse(splitScope[1]);
-			if(low > player.playerLvl && high < player.playerLvl) {
+			if(low < player.playerLvl && high > player.playerLvl) {
 				key = i;
 			}
 		}
@@ -102,6 +105,15 @@ public class PlayerManager : Singleton<PlayerManager> {
 	public string GetNextRankName() {
 		return ranks [(CurrentRankKey () + 1)].name;
 	}
+
+	public Sprite GetRankSprite() {
+		return ranks [CurrentRankKey()].sprite;
+	}
+
+	public Sprite GetNextRankSprite() {
+		return ranks [(CurrentRankKey () + 1)].sprite;
+	}
+
 
 	public void CheckLevelUp() {
 		float neededXP = ranks [CurrentRankKey ()].reqXP;

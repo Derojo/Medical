@@ -22,7 +22,9 @@ public class Profile : MonoBehaviour {
 	public Image timeLineBranch1;
 	public Image timeLineBranch2;
 	public Text nextRankIn;
+	public Text levelText;
 	public Text nextRank;
+	public Image nextRankImg;
 	public GameObject nextRankInPanel;
 	public GameObject nextRankPanel;
 
@@ -32,6 +34,9 @@ public class Profile : MonoBehaviour {
 
 	void Start() {
 
+		GameObject.Find ("Profile").GetComponent<RectTransform> ().DOScale (0.8f,.5f).SetEase(Ease.InCubic);
+		GameObject.Find ("Profile").GetComponent<RectTransform> ().DOScale (1.2f, 1f).SetEase(Ease.InBack).SetDelay(.5f);
+		GameObject.Find ("Profile").GetComponent<RectTransform> ().DOScale (1, .7f).SetEase(Ease.OutElastic).SetDelay(1f);
 		/******** PLAYER INFO*********/
 		// Set player name info
 		playerName.DOText (PlayerManager.I.player.profile.name, 2f,true,ScrambleMode.All);
@@ -41,6 +46,8 @@ public class Profile : MonoBehaviour {
 		// Set player level info
 		playerLevel.text = "Level "+PlayerManager.I.player.playerLvl.ToString();
 		playerLevel.DOFade(1, 3f);
+		// Current rank sprite
+		rankingImg.sprite = PlayerManager.I.GetRankSprite();
 
 		/******** PROFILE PICTURE*********/
 		StartCoroutine (getProfilePicture (Application.persistentDataPath + "/profile.png"));
@@ -62,6 +69,9 @@ public class Profile : MonoBehaviour {
 		timeLine.DOFillAmount(1, 3f);
 		// first section
 		// Set value
+		if(PlayerManager.I.GetRemainingLevels() == 1) {
+			levelText.text = "level";
+		}
 		nextRankIn.text = PlayerManager.I.GetRemainingLevels ().ToString ();
 		// Tweening
 		foreach (Text text in nextRankInPanel.GetComponentsInChildren<Text>()) {
@@ -71,6 +81,7 @@ public class Profile : MonoBehaviour {
 		// Second section
 		// Set next rank text
 		nextRank.DOText (PlayerManager.I.GetNextRankName(), 2f,true,ScrambleMode.All).SetDelay(1.2f);
+		nextRankImg.sprite = PlayerManager.I.GetNextRankSprite ();
 		// Tweening
 		timeLineBranch1.DOFillAmount(1, 1f).SetEase(Ease.InCirc).SetDelay(0.5f);
 		timeLineBranch2.DOFillAmount(1, 1f).SetEase(Ease.InCirc).SetDelay(0.5f);

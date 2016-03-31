@@ -216,6 +216,21 @@
  <Reference Include="UnityEditor.TreeEditor">
  <HintPath>D:/Program Files/Unity5/Editor/Data/UnityExtensions/Unity/TreeEditor/Editor/UnityEditor.TreeEditor.dll</HintPath>
  </Reference>
+ <Reference Include="DOTween">
+ <HintPath>D:/Documenten/Medical/MedicalGame/Assets/DOTween/DOTween.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween43">
+ <HintPath>D:/Documenten/Medical/MedicalGame/Assets/DOTween/DOTween43.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween46">
+ <HintPath>D:/Documenten/Medical/MedicalGame/Assets/DOTween/DOTween46.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween50">
+ <HintPath>D:/Documenten/Medical/MedicalGame/Assets/DOTween/DOTween50.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTweenEditor">
+ <HintPath>D:/Documenten/Medical/MedicalGame/Assets/DOTween/Editor/DOTweenEditor.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>D:/Program Files/Unity5/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
  </Reference>
@@ -227,21 +242,6 @@
  </Reference>
  <Reference Include="UnityEditor.WindowsStandalone.Extensions">
  <HintPath>D:/Program Files/Unity5/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
- </Reference>
- <Reference Include="DOTween">
- <HintPath>D:/Documenten/Medical/MedicalGame/Assets/DOTween/DOTween.dll</HintPath>
- </Reference>
- <Reference Include="DOTweenEditor">
- <HintPath>D:/Documenten/Medical/MedicalGame/Assets/DOTween/Editor/DOTweenEditor.dll</HintPath>
- </Reference>
- <Reference Include="DOTween46">
- <HintPath>D:/Documenten/Medical/MedicalGame/Assets/DOTween/DOTween46.dll</HintPath>
- </Reference>
- <Reference Include="DOTween50">
- <HintPath>D:/Documenten/Medical/MedicalGame/Assets/DOTween/DOTween50.dll</HintPath>
- </Reference>
- <Reference Include="DOTween43">
- <HintPath>D:/Documenten/Medical/MedicalGame/Assets/DOTween/DOTween43.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

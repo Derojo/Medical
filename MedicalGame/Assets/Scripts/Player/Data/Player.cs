@@ -67,7 +67,7 @@ public class Player
              bool _createdProfile = false, 
              float _playerXP = 0, 
              string _playerRank = "",
-             int _playerLvl = 0, 
+             int _playerLvl = 1, 
              int _playedMatches = 0, 
              int _wonMatches = 0,
              int _wonMatchesRow = 0,
