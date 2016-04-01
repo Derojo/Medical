@@ -47,17 +47,27 @@ public class Achievement
         get { return sprite; }
         set { sprite = value; }
     }
+    [SerializeField]
+    private Sprite spriteb;
+
+    public Sprite BSprite
+    {
+        get { return spriteb; }
+        set { spriteb = value; }
+    }
 
     private GameObject achievementRef;
 
 
-    public Achievement(string name, string description, int points, Sprite a_sprite)
+    public Achievement(string name, string description, int points, Sprite a_sprite, Sprite b_sprite)
     {
         this.name = name;
         this.description = description;
         this.unlocked = false;
         this.points = points;
         this.sprite = a_sprite;
+        this.spriteb = b_sprite;
+
         LoadAchievement();
 
     }

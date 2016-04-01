@@ -20,19 +20,6 @@ public class AchievementManager : Singleton<AchievementManager> {
     public Sprite unlockedSprite;
     public Sprite lockedSprite;
 
-    /*  private static AchievementManager instance;
-
-      public static AchievementManager Instance
-      {
-          get
-          {
-              if (instance == null) //If the instance isn't instantiated we need to find it
-              {
-                  instance = GameObject.FindObjectOfType<AchievementManager>();
-              }
-              return AchievementManager.instance;
-          }
-      }*/
     public bool Load() { return true; }
 
 
@@ -51,7 +38,7 @@ public class AchievementManager : Singleton<AchievementManager> {
             achievementList = new List<Achievement>();
         }
         //Deleting playerprefs for testing REMEMBER TO REMOVE
-        PlayerPrefs.DeleteAll();
+       // PlayerPrefs.DeleteAll();
      
 
     }
@@ -87,8 +74,7 @@ public class AchievementManager : Singleton<AchievementManager> {
                 img.DOFade(0, 2f).SetDelay(5f);
             }
 
-            achievement.GetComponent<Image>().DOFade(1, 2f);
-            achievement.GetComponent<Image>().DOFade(0, 2f).SetDelay(5f) ;
+            //Destroy popup
             Destroy(achievement, 8f);
         }
 
@@ -125,10 +111,10 @@ public class AchievementManager : Singleton<AchievementManager> {
         achievement.transform.localScale = new Vector3(1, 1, 1);
         achievement.transform.localPosition = new Vector3(0,0, 0);
         // Getting achievement childeren
-        achievement.transform.GetChild(0).GetComponent<Text>().text = title;
-        achievement.transform.GetChild(1).GetComponent<Text>().text = achievements[title].Description;
-        achievement.transform.GetChild(2).GetComponent<Text>().text = achievements[title].Points.ToString();
-        achievement.transform.GetChild(3).GetComponent<Image>().sprite = achievements[title].ASprite;
+        achievement.transform.GetChild(1).GetComponent<Text>().text = title;
+        achievement.transform.GetChild(2).GetComponent<Text>().text = achievements[title].Description;
+        achievement.transform.GetChild(3).GetComponent<Text>().text = achievements[title].Points.ToString();
+        achievement.transform.GetChild(4).GetComponent<Image>().sprite = achievements[title].ASprite;
 
     }
 

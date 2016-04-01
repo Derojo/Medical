@@ -19,12 +19,12 @@ public class AchievementList : MonoBehaviour {
             AchievementManager.I.SetAchievementInfo("AchievementHolder", achievement, AchievementManager.I.achievementList[i].Name);
             if (AchievementManager.I.achievementList[i].Unlocked)
             {
+                achievement.transform.GetChild(4).GetComponent<Image>().sprite = AchievementManager.I.achievementList[i].ASprite;
 
-                achievement.GetComponent<Image>().sprite = AchievementManager.I.unlockedSprite;
             }
             else
             {
-                achievement.GetComponent<Image>().sprite = AchievementManager.I.lockedSprite;
+                achievement.transform.GetChild(4).GetComponent<Image>().sprite = AchievementManager.I.achievementList[i].BSprite;
             }
         }
     }
