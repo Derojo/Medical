@@ -24,7 +24,10 @@ public class QuestionManager : Singleton<QuestionManager> {
 	public Sprite wrongRound;
 	public Text playerScore;
 	public Text playerName;
+	public Image playerRankImg;
 	public GameObject Timer;
+	public Text xpText;
+	public GameObject xpCoins;
 	private int currentCategory;
 	private string nextScene = "";
 	private bool answeredQuestion = false;
@@ -40,6 +43,7 @@ public class QuestionManager : Singleton<QuestionManager> {
 		SetQuestionReady ();
 		SetTurnRounds ();
 		playerName.text = PlayerManager.I.player.profile.name;
+		playerRankImg.sprite = PlayerManager.I.GetRankSprite ();
 	}
 
 	public void checkAnswer(string Answer) {
@@ -63,6 +67,7 @@ public class QuestionManager : Singleton<QuestionManager> {
                 }
                 //set XP
                 PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP += 10;
+				showBrainCoinTween (1, 10);
                 // Set score
                 playerScore.text = (getScore()+1).ToString();
                 // Turn button color to green
@@ -84,14 +89,17 @@ public class QuestionManager : Singleton<QuestionManager> {
                 if (PlayerManager.I.player.rightAnswersRow == 3)
                 {
                     PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP += 20;
+					showBrainCoinTween (2, 20);
                 }
                 if (PlayerManager.I.player.rightAnswersRow == 6)
                 {
                     PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP += 50;
+					showBrainCoinTween (3, 50);
                 }
                 if (PlayerManager.I.player.rightAnswersRow == 9)
                 {
                     PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP += 100;
+					showBrainCoinTween (4, 100);
                 }
 
                 //total right questions in TV_Entertainment
@@ -187,9 +195,6 @@ public class QuestionManager : Singleton<QuestionManager> {
 				return null;
 		}
 	}
-	private void changeButtonColor(Color color) {
-		
-	}
 
 	private void SetCategoryTitle() {
 		CategoryTitle.text = Categories.getCategoryNameById(currentCategory);
@@ -233,5 +238,50 @@ public class QuestionManager : Singleton<QuestionManager> {
 		return total;
 	}
 
+	private void showBrainCoinTween(int numbers, int coinValue) {
+		switch (numbers) 
+		{
+		case 1:
+			// Tween 1 coin
+			popupCoin(xpCoins.transform.GetChild (0).GetComponent<RectTransform> (), xpCoins.transform.GetChild (0).GetComponent<Image> (), xpCoins.transform.GetChild (0).GetComponent<AudioSource> (), 70f, 0);
+			break;
+		case 2:
+			// Tween 2 coins
+			popupCoin(xpCoins.transform.GetChild (0).GetComponent<RectTransform> (), xpCoins.transform.GetChild (0).GetComponent<Image> (), xpCoins.transform.GetChild (0).GetComponent<AudioSource> (), 70f, 0);
+			popupCoin(xpCoins.transform.GetChild (1).GetComponent<RectTransform> (), xpCoins.transform.GetChild (1).GetComponent<Image> (), xpCoins.transform.GetChild (1).GetComponent<AudioSource> (), 80f, 0.1f);
+			break;
+		case 3:
+			// Tween 3 coins
+			popupCoin(xpCoins.transform.GetChild (0).GetComponent<RectTransform> (), xpCoins.transform.GetChild (0).GetComponent<Image> (), xpCoins.transform.GetChild (0).GetComponent<AudioSource> (), 70f, 0);
+			popupCoin(xpCoins.transform.GetChild (1).GetComponent<RectTransform> (), xpCoins.transform.GetChild (1).GetComponent<Image> (), xpCoins.transform.GetChild (1).GetComponent<AudioSource> (), 80f, 0.1f);
+			popupCoin(xpCoins.transform.GetChild (2).GetComponent<RectTransform> (), xpCoins.transform.GetChild (2).GetComponent<Image> (), xpCoins.transform.GetChild (2).GetComponent<AudioSource> (), 80f, 0.2f);
+			break;
+		case 4:
+			// Tween 4 coins
+			popupCoin(xpCoins.transform.GetChild (0).GetComponent<RectTransform> (), xpCoins.transform.GetChild (0).GetComponent<Image> (), xpCoins.transform.GetChild (0).GetComponent<AudioSource> (), 70f, 0);
+			popupCoin(xpCoins.transform.GetChild (1).GetComponent<RectTransform> (), xpCoins.transform.GetChild (1).GetComponent<Image> (), xpCoins.transform.GetChild (1).GetComponent<AudioSource> (), 80f, 0.1f);
+			popupCoin(xpCoins.transform.GetChild (2).GetComponent<RectTransform> (), xpCoins.transform.GetChild (2).GetComponent<Image> (), xpCoins.transform.GetChild (2).GetComponent<AudioSource> (), 80f, 0.2f);
+			popupCoin(xpCoins.transform.GetChild (3).GetComponent<RectTransform> (), xpCoins.transform.GetChild (3).GetComponent<Image> (), xpCoins.transform.GetChild (3).GetComponent<AudioSource> (), 70f, 0.3f);
+			break;
+		default:
+			break;
+		}
 
+		xpCoins.GetComponent<AudioSource> ().Play();
+		xpText.text = "+ "+coinValue.ToString();
+		xpText.DOFade (1, 1f).SetDelay(0f);
+		xpText.DOFade (0, 1f).SetDelay(1f);
+		
+	}
+
+	private void popupCoin(RectTransform rect, Image img, AudioSource audio,  float height, float delay=0) {
+
+		audio.PlayDelayed (delay);
+		audio.DOFade (1, .3f).SetDelay (delay);
+		rect.DOLocalMoveY ((rect.rect.y+height), 1f).SetEase (Ease.OutElastic).SetDelay (delay);
+		rect.DOScale (1.5f, 2f).SetEase (Ease.OutElastic).SetDelay (delay);
+		img.DOFade(0, .5f).SetEase(Ease.InExpo).SetDelay(delay+1);
+		rect.DOLocalMoveY ((rect.rect.y+10), .5f).SetEase(Ease.OutSine).SetDelay(delay+1);
+		// Show experience gained
+	}
 }

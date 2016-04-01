@@ -9,6 +9,7 @@ public class Startup : MonoBehaviour {
 	void Start () {
 		RuntimeData.I.Load ();
 		if (!PlayerManager.I.player.loggedIn) {
+			Debug.Log ("test");
 			SceneManager.LoadScene ("Login");
 		} else {
 			if (PlayerManager.I.player.createdProfile) {

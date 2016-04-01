@@ -13,20 +13,20 @@ public class PlayerManager : Singleton<PlayerManager> {
 
 	public Player player;
 
-
 	public bool Load() {return true;}
 
 
 	void Awake() {
+		
 		LoadPlayer ();
 //		player = null;
 		if (player == null) {
 			player = new Player ();
 			Save ();
+		} else {
 		}
 		CheckCurrentRank ();
 		CheckLevelUp ();
-		Debug.Log (CurrentRankKey ());
 	}
 		
 
@@ -41,7 +41,11 @@ public class PlayerManager : Singleton<PlayerManager> {
 		if(File.Exists(Application.persistentDataPath + "/player.gd")) {
 			BinaryFormatter bf = new BinaryFormatter();
 			FileStream file = File.Open(Application.persistentDataPath + "/player.gd", FileMode.Open);
-			player = (Player)bf.Deserialize(file);
+
+			Player _player = (Player)bf.Deserialize(file);
+			if (_player.loggedIn && _player.createdProfile) {
+				player = _player;
+			}
 			file.Close();
 		}
 
