@@ -41,10 +41,15 @@ public class MatchManager : Singleton<MatchManager> {
 		// Store for later use
 		currentMatchID = matchCode;
 //		// Create match, set player ids, category id  !----- TO DO : Create auto match with gamedonia db -----!
-		Match match  = new Match(matchCode, PlayerManager.I.player.playerID, "56ea94f2e4b027e49c1ef3e1", "playing", 1, PlayerManager.I.player.playerID, null);
+		Match match  = new Match(matchCode, PlayerManager.I.player.playerID, "56ea94f2e4b027e49c1ef3e1", "playing", 1, PlayerManager.I.player.playerID, 0, null);
 		AddMatch (match);
 //		// Switch to category scene
 		Loader.Instance.LoadScene("Category");
+	}
+
+	public void EndMatch() {
+		// Set status to finished
+		GetMatch(currentMatchID).m_status = "finished";
 	}
 
 	public void LoadCurrentMatch(string id) {
@@ -67,10 +72,23 @@ public class MatchManager : Singleton<MatchManager> {
 		match.AddTurn (turn);
 		if (!turn.t_st) {
 			match.m_cp = match.o_ID;
+		} else {
+			match.m_cp = match.p_ID;
 		}
 		Save ();
 	}
 
+	public void ChangeTurn(Turn turn) {
+		Match match = GetMatch (currentMatchID);
+		Debug.Log ((turn.t_ID - 1));
+		match.m_trns [(turn.t_ID - 1)] = turn;
+		Save ();
+	}
+	public void clearCurrentCategory() {
+		Match match = GetMatch (currentMatchID);
+		match.m_cc = 0;
+		Save ();
+	}
 
 	public Match GetMatch(string match_ID) {
 		for (int i = 0; i < matchManager.matches.Count; i++) {
@@ -79,6 +97,50 @@ public class MatchManager : Singleton<MatchManager> {
 			}
 		}
 		return null;
+	}
+
+	public List<Match> GetPlayingMatches(bool player) {
+		List<Match> tempList = new List<Match> ();
+		string pID = PlayerManager.I.player.playerID;
+		for (int i = 0; i < matchManager.matches.Count; i++) {
+			if (matchManager.matches[i].m_status == "playing") {
+				if (player) {
+					if (matchManager.matches [i].m_cp == pID) {
+						tempList.Add (matchManager.matches [i]);
+					}
+				} else {
+					
+					if (matchManager.matches [i].m_cp != pID) {
+						tempList.Add (matchManager.matches [i]);
+					}
+				}
+
+			}
+		}
+		return tempList;
+	}
+
+	public List<Match> GetFinishedMatches() {
+		List<Match> tempList = new List<Match> ();
+		for (int i = 0; i < matchManager.matches.Count; i++) {
+			if (matchManager.matches[i].m_status == "finished") {
+				tempList.Add(matchManager.matches[i]);
+			}
+		}
+		return tempList;
+	}
+
+	public int getMatchScore(string id) {
+		int total = 0;
+		Match match = GetMatch (id);
+		if (match.m_trns != null) {
+			for (int i = 0; i < match.m_trns.Count; i++) {
+				if (match.m_trns [i].t_st) {
+					total++;
+				}
+			}
+		}
+		return total;
 	}
 
 	public int returnTurnId(string id = "") {
@@ -93,10 +155,23 @@ public class MatchManager : Singleton<MatchManager> {
 		}
 	}
 
+	public List<int> GetQuestionsInMatch() {
+		List<int> returnValue = new List<int> ();
+		List<Turn> turns = GetMatch (currentMatchID).m_trns;
+		if (turns != null) {
+			for (int i = 0; i < turns.Count; i++) {
+				if (turns [i].p_ID == PlayerManager.I.player.playerID) {
+					returnValue.Add (turns [i].q_ID);
+				}
+			}
+		}
+		return returnValue;
+	}
+
 	public List<Match> returnAllMatches() {
 		return matches;
 	}
-
+		
 	private void clearAllMatches() {
 		matchManager.matches = new List<Match> ();
 	}

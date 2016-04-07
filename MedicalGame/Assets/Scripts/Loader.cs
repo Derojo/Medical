@@ -27,6 +27,7 @@ public class Loader : MonoBehaviour {
 	}
 
 	public void LoadScene(string scene) {
+
 		StartCoroutine(LoadSceneIE(scene));
 	}
 
@@ -49,6 +50,7 @@ public class Loader : MonoBehaviour {
 	}
 
 	public void enableBackground() {
+		gameObject.GetComponent<Canvas> ().enabled = true;
 		overlay.SetActive (true);
 		icon.GetComponent<Animator>().SetBool ("Loading_Background", true);
 	}

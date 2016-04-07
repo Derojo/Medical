@@ -15,18 +15,21 @@ public class Match{
 	[SerializeField] public int m_ct;
 	// Match current player
 	[SerializeField] public string m_cp;
+	// Match current category
+	[SerializeField] public int m_cc;
 	// Match turns
 	[SerializeField] public List<Turn> m_trns;
 
 
 
-	public Match( string _m_ID, string _p_ID, string _o_ID, string _m_status, int _m_ct, string _m_cp, Turn _turn = null) {
+	public Match( string _m_ID, string _p_ID, string _o_ID, string _m_status, int _m_ct, string _m_cp, int _m_cc, Turn _turn = null) {
 		m_ID = _m_ID;
 		p_ID = _p_ID;
 		o_ID = _o_ID;
 		m_status = _m_status;
 		m_ct = _m_ct;
 		m_cp = _m_cp;
+		m_cc = _m_cc;
 		if (_turn != null) {
 			m_trns.Add (_turn);
 		}

@@ -5,7 +5,7 @@ public class Turn{
 	// Match ID
 	[SerializeField] public int t_ID;
 	// Player ID
-	[SerializeField] string  p_ID;
+	[SerializeField] public string  p_ID;
 	// Opponent ID
 	[SerializeField] public int q_ID;
 	// Match status

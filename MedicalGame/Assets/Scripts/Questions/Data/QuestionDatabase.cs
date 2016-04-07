@@ -41,9 +41,16 @@ public class QuestionDatabase : ScriptableObject {
 	}
 
 	public Question getRandomCategoryQuestion(int categoryID) {
+		List<int> questionIds = MatchManager.I.GetQuestionsInMatch ();
 		List<Question> availableQuestions = getQuestionInCategory (categoryID);
 		Question randomQuestion = availableQuestions[Random.Range (0, availableQuestions.Count)];
-		return randomQuestion;
+		if (!questionIds.Contains (randomQuestion.q_Id)) {
+			return randomQuestion;
+		} else {
+			return getRandomCategoryQuestion (categoryID);
+		}
+
+
 	}
 		
 	public List<Question> getQuestionInCategory(int categoryID) {

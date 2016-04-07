@@ -209,6 +209,7 @@
      <None Include="Assets\Plugins\Android\facebook\res\layout\com_facebook_friendpickerfragment.xml" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\_Antialiasing\FXAAPreset2.shader" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\_BloomAndFlares\BlurAndFlares.shader" />
+     <None Include="Assets\Editor\Editor.ReorderableList.xml" />
      <None Include="Assets\Plugins\OpenUDID\README.txt" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendForBloom.shader" />
  <Reference Include="UnityEngine.Networking">

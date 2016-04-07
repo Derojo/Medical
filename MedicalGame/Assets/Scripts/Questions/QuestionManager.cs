@@ -36,6 +36,8 @@ public class QuestionManager : Singleton<QuestionManager> {
 
 
 	void Start() {
+		
+		
 		currentCategory = MatchManager.I.currentCategory;
 		// Get random question from current category
 		currentQuestion = questionDatabase.getRandomCategoryQuestion(currentCategory);
@@ -43,7 +45,7 @@ public class QuestionManager : Singleton<QuestionManager> {
 		SetQuestionReady ();
 		SetTurnRounds ();
 		playerName.text = PlayerManager.I.player.profile.name;
-		playerRankImg.sprite = PlayerManager.I.GetRankSprite ();
+		playerRankImg.sprite = PlayerManager.I.GetRankSprite();
 	}
 
 	public void checkAnswer(string Answer) {
@@ -55,8 +57,11 @@ public class QuestionManager : Singleton<QuestionManager> {
 		if (!answeredQuestion) {
 			Button selectedAnswer = getButtonByAnswer (Answer);
 			Button rightAnswer = getButtonByAnswer (currentQuestion.q_Correct);
-			int newturnID = MatchManager.I.returnTurnId () + 1;
+			Debug.Log (MatchManager.I.returnTurnId ());
+			int newturnID = (MatchManager.I.returnTurnId() != 9 ? (MatchManager.I.returnTurnId () + 1) : MatchManager.I.returnTurnId ());
+			Debug.Log (newturnID);
 			Turn newTurn;
+			/***************************** CORRECT ANSWER ********************************/
 			if (Answer == currentQuestion.q_Correct)
             {
                 //Tweening
@@ -65,16 +70,15 @@ public class QuestionManager : Singleton<QuestionManager> {
                     text.DOFade(1, 0.3f);
                     text.DOFade(0, 0.2f).SetDelay(0.5f);
                 }
-                //set XP
-                PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP += 10;
-				showBrainCoinTween (1, 10);
                 // Set score
                 playerScore.text = (getScore()+1).ToString();
                 // Turn button color to green
                 rightAnswer.GetComponent<Image> ().sprite = goodAnswer;
 				rightAnswer.GetComponentInChildren<Text> ().color = Color.white;
 				// Change progress question image
-				playerRounds [MatchManager.I.returnTurnId ()].sprite = rightRound;
+
+
+				playerRounds [(MatchManager.I.returnTurnId () == 9 ? 8 : MatchManager.I.returnTurnId ())].sprite = rightRound;
 				// Change turn information -- Set player id to 1 - to be done: change to gamedonia player id
 				newTurn = new Turn (newturnID, PlayerManager.I.player.playerID, currentQuestion.q_Id, true);
 				// Set next question string
@@ -85,56 +89,58 @@ public class QuestionManager : Singleton<QuestionManager> {
                 //Row questions answered right counter
                 PlayerManager.I.player.rightAnswersRow ++;
 
-                //Row questions XP count
-                if (PlayerManager.I.player.rightAnswersRow == 3)
-                {
-                    PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP += 20;
-					showBrainCoinTween (2, 20);
-                }
-                if (PlayerManager.I.player.rightAnswersRow == 6)
-                {
-                    PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP += 50;
-					showBrainCoinTween (3, 50);
-                }
-                if (PlayerManager.I.player.rightAnswersRow == 9)
-                {
-                    PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP += 100;
-					showBrainCoinTween (4, 100);
-                }
+				// Right answered questions in row,  set xp and show brain coins
 
-                //total right questions in TV_Entertainment
-                if (currentCategory ==1)
-                {  
-                    PlayerManager.I.player.entertainmentAnswers  ++;
-                }
+				switch (PlayerManager.I.player.rightAnswersRow)
+				{
+					case 3: 
+						PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP += 20;
+						showBrainCoinTween (2, 20);
+						break;
+					case 6:
+						PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP += 50;
+						showBrainCoinTween (3, 50);
+						break;
+					case 9:
+						PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP += 100;
+						showBrainCoinTween (4, 100);
+						PlayerManager.I.player.rightAnswersRow = 0;
+						break;
+					default:
+						PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP += 10;
+						showBrainCoinTween (1, 10);
+						break;
+				}
 
-                //total right questions in Geloof_Cultuur
-                if (currentCategory == 2)
-                {
-                    PlayerManager.I.player.religionAnswers++;
-                }
-                //total right questions in Zorg_wetenschap
-                if (currentCategory == 3)
-                {
-                    PlayerManager.I.player.careAnswers ++;
-                }
-                //total right questions in Geschiedenis
-                if (currentCategory == 4)
-                {
-                    PlayerManager.I.player.historyAnswers++;
-                }
-                //total right questions in Sport
-                if (currentCategory == 5)
-                {
+				// Keep data of good answered questions in category x
+				switch (currentCategory)
+				{
+					case 1: //total right questions in TV_Entertainment
+						PlayerManager.I.player.entertainmentAnswers  ++;
+						break;
+					case 2: //total right questions in Geloof_Cultuur
+						PlayerManager.I.player.religionAnswers++;
+						break;
+					case 3: //total right questions in Zorg_wetenschap
+						PlayerManager.I.player.careAnswers ++;
+						break;
+					case 4: //total right questions in Geschiedenis
+						PlayerManager.I.player.historyAnswers++;
+						break;
+					case 5: //total right questions in Sport
+						PlayerManager.I.player.sportAnswers++;
+						break;
+					case 6: //total right questions in Geografie
+						PlayerManager.I.player.geographicAnswers++;
+						break;
+				}
 
-                    PlayerManager.I.player.sportAnswers++;
-                }
-                //total right questions in Geografie
-                if (currentCategory == 6)
-                {
-
-                    PlayerManager.I.player.geographicAnswers++;
-                }
+				// Game ends when player has answered the 9th question correctly
+				if(newturnID == 9) {
+					// Change gamestate
+					MatchManager.I.EndMatch();
+				}
+			/***************************** WRONG ANSWER ********************************/		
             } else {
 				if (Answer != "")
                 {      
@@ -145,7 +151,7 @@ public class QuestionManager : Singleton<QuestionManager> {
 					selectedAnswer.GetComponent<Image> ().sprite = wrongAnswer;
 					selectedAnswer.GetComponentInChildren<Text> ().color = Color.white;
 					// Change progress question image
-					playerRounds [MatchManager.I.returnTurnId ()].sprite = wrongRound;
+					playerRounds [MatchManager.I.returnTurnId () == 9 ? 8 : MatchManager.I.returnTurnId ()].sprite = wrongRound;
 				}
                 PlayerManager.I.player.rightAnswersRow = 0;
                 // Change turn information
@@ -158,7 +164,12 @@ public class QuestionManager : Singleton<QuestionManager> {
             AchievementManager.I.checkAchievementAfterAnswer();
            
             // Save new turn to match
-            MatchManager.I.AddTurn (newTurn);
+			if (MatchManager.I.returnTurnId() != 9) {
+				MatchManager.I.AddTurn (newTurn);
+			} else {
+				MatchManager.I.ChangeTurn (newTurn);
+			}
+			
 			if (Answer != "")
             {
 				Continue.SetActive (true);    
@@ -168,10 +179,12 @@ public class QuestionManager : Singleton<QuestionManager> {
 		
 	public void switchScene()
     {
+		MatchManager.I.clearCurrentCategory ();
         if(nextScene == "Home")
         {
             PlayerManager.I.player.rightAnswersRow = 0;
         }
+		Loader.Instance.enableLoader ();
 		Loader.Instance.LoadScene (nextScene);
 	}
     

@@ -45,6 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Editor\AchievementManagerEditor.cs" />
      <Compile Include="Assets\Editor\Gamedonia\PostScriptTrigger.cs" />
      <Compile Include="Assets\Editor\ImageEffects\AntialiasingEditor.cs" />
      <Compile Include="Assets\Editor\ImageEffects\BloomAndFlaresEditor.cs" />
@@ -190,6 +191,7 @@
      <None Include="Assets\Plugins\Android\facebook\res\layout\com_facebook_friendpickerfragment.xml" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\_Antialiasing\FXAAPreset2.shader" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\_BloomAndFlares\BlurAndFlares.shader" />
+     <None Include="Assets\Editor\Editor.ReorderableList.xml" />
      <None Include="Assets\Plugins\OpenUDID\README.txt" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendForBloom.shader" />
  <Reference Include="UnityEngine.Networking">
@@ -242,6 +244,9 @@
  </Reference>
  <Reference Include="UnityEditor.WindowsStandalone.Extensions">
  <HintPath>D:/Program Files/Unity5/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="Editor.ReorderableList">
+ <HintPath>D:/Documenten/Medical/MedicalGame/Assets/Editor/Editor.ReorderableList.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

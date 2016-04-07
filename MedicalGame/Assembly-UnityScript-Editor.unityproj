@@ -6,10 +6,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{E6CEF5EE-22F9-4FED-E03A-8F42DB79EC4D}</ProjectGuid>
+    <ProjectGuid>{3B101BED-B5E1-C61A-D0DA-BDDADC3BC7F9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <AssemblyName>Assembly-UnityScript-Editor</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>Assets</BaseDirectory>
@@ -19,7 +19,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;UNITY_5_3_2;UNITY_5_3;UNITY_5;ENABLE_NEW_BUGREPORTER;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_SPRITE_POLYGON;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;INCLUDE_DIRECTX12;PLATFORM_SUPPORTS_MONO;ENABLE_LOCALIZATION;ENABLE_ANDROID_ATLAS_ETC1_COMPRESSION;ENABLE_EDITOR_TESTS_RUNNER;UNITY_ANDROID;UNITY_ANDROID_API;ENABLE_SUBSTANCE;ENABLE_TEXTUREID_MAP;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_LOG_MIXED_STACKTRACE;ENABLE_UNITYWEBREQUEST;PLATFORM_SUPPORTS_ADS_ID;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;DEVELOPMENT_BUILD;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_2;UNITY_5_3;UNITY_5;ENABLE_NEW_BUGREPORTER;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_SPRITE_POLYGON;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;INCLUDE_DIRECTX12;PLATFORM_SUPPORTS_MONO;ENABLE_LOCALIZATION;ENABLE_ANDROID_ATLAS_ETC1_COMPRESSION;ENABLE_EDITOR_TESTS_RUNNER;UNITY_ANDROID;UNITY_ANDROID_API;ENABLE_SUBSTANCE;ENABLE_TEXTUREID_MAP;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_LOG_MIXED_STACKTRACE;ENABLE_UNITYWEBREQUEST;PLATFORM_SUPPORTS_ADS_ID;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;DEVELOPMENT_BUILD;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_DUCK_TYPING</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
@@ -45,84 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\Antialiasing.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\Bloom.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\BloomAndFlares.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\BloomOptimized.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\Blur.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\BlurOptimized.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\CameraMotionBlur.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\ColorCorrectionCurves.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\ColorCorrectionLookup.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\ColorCorrectionRamp.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\ContrastEnhance.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\ContrastStretch.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\CreaseShading.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\DepthOfField.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\DepthOfFieldDeprecated.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\EdgeDetection.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\Fisheye.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\GlobalFog.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\Grayscale.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\ImageEffectBase.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\ImageEffects.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\MotionBlur.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\NoiseAndGrain.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\NoiseAndScratches.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\PostEffectsBase.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\PostEffectsHelper.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\Quads.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\ScreenOverlay.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\ScreenSpaceAmbientObscurance.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\ScreenSpaceAmbientOcclusion.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\SepiaTone.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\SunShafts.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\TiltShift.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\Tonemapping.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\Triangles.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\Twirl.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\VignetteAndChromaticAberration.cs" />
-     <Compile Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Scripts\Vortex.cs" />
-     <Compile Include="Assets\Scripts\Achievements\Achievement.cs" />
-     <Compile Include="Assets\Scripts\Achievements\AchievementList.cs" />
-     <Compile Include="Assets\Scripts\Achievements\AchievementManager.cs" />
-     <Compile Include="Assets\Scripts\AddUser.cs" />
-     <Compile Include="Assets\Scripts\AudioManagerScript.cs" />
-     <Compile Include="Assets\Scripts\ButtonAudioScript.cs" />
-     <Compile Include="Assets\Scripts\CanvasLoader.cs" />
-     <Compile Include="Assets\Scripts\Categories.cs" />
-     <Compile Include="Assets\Scripts\CountDownTimer.cs" />
-     <Compile Include="Assets\Scripts\Data\PrefabAttribute.cs" />
-     <Compile Include="Assets\Scripts\Data\Singleton.cs" />
-     <Compile Include="Assets\Scripts\DestroyPopUpScript.cs" />
-     <Compile Include="Assets\Scripts\HomeStartUp.cs" />
-     <Compile Include="Assets\Scripts\Loader.cs" />
-     <Compile Include="Assets\Scripts\Login.cs" />
-     <Compile Include="Assets\Scripts\Matches\CurrentMachtes.cs" />
-     <Compile Include="Assets\Scripts\Matches\Data\Match.cs" />
-     <Compile Include="Assets\Scripts\Matches\Data\Matches.cs" />
-     <Compile Include="Assets\Scripts\Matches\Data\Turn.cs" />
-     <Compile Include="Assets\Scripts\Matches\MatchManager.cs" />
-     <Compile Include="Assets\Scripts\Player\Data\Player.cs" />
-     <Compile Include="Assets\Scripts\Player\Data\PlayerProfile.cs" />
-     <Compile Include="Assets\Scripts\Player\Data\Rank.cs" />
-     <Compile Include="Assets\Scripts\Player\PlayerManager.cs" />
-     <Compile Include="Assets\Scripts\Player\Profile.cs" />
-     <Compile Include="Assets\Scripts\Player\ShowPlayerInfoSmall.cs" />
-     <Compile Include="Assets\Scripts\ProfilePicture.cs" />
-     <Compile Include="Assets\Scripts\Profile_Create.cs" />
-     <Compile Include="Assets\Scripts\Questions\Data\Question.cs" />
-     <Compile Include="Assets\Scripts\Questions\Data\QuestionDatabase.cs" />
-     <Compile Include="Assets\Scripts\Questions\QuestionManager.cs" />
-     <Compile Include="Assets\Scripts\RuntimeData.cs" />
-     <Compile Include="Assets\Scripts\SceneManagerScript.cs" />
-     <Compile Include="Assets\Scripts\Sound\BallBounce.cs" />
-     <Compile Include="Assets\Scripts\Sound\Popcorn.cs" />
-     <Compile Include="Assets\Scripts\Startup.cs" />
-     <Compile Include="Assets\Scripts\TextureScale.cs" />
-     <Compile Include="Assets\Scripts\TimerScript.cs" />
-     <Compile Include="Assets\Scripts\UtilResize.cs" />
-     <Compile Include="Assets\Scripts\foldOutScript.cs" />
+     <Compile Include="Assets\Rotorz\Reorderable List Field\Demo\Editor\DemoBehaviourUnityScriptEditor.js" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />
@@ -176,6 +99,7 @@
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\_DepthOfField\DepthOfField34.shader" />
      <None Include="Assets\Plugins\Android\facebook\res\values-he\strings.xml" />
      <None Include="Assets\Plugins\Android\facebook\res\layout\com_facebook_picker_title_bar.xml" />
+     <None Include="Assets\Rotorz\Reorderable List Field\!README.txt" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\_BloomAndFlares\MobileBlur.shader" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\SSAOShader.shader" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\ConvertDepth.shader" />
@@ -218,6 +142,7 @@
      <None Include="Assets\DOTween\DOTween50.xml" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\Contrast Stretch\Adaptation.shader" />
      <None Include="Assets\Plugins\Android\facebook\res\drawable\com_facebook_button_blue.xml" />
+     <None Include="Assets\Rotorz\Reorderable List Field\!LICENSE.txt" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\NoiseAndGrain.shader" />
      <None Include="Assets\Plugins\Android\facebook\res\drawable\com_facebook_loginbutton_silver.xml" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\Projectors\Shaders\ProjectorMultiply.shader" />
@@ -256,8 +181,26 @@
  <Reference Include="UnityEngine.Networking">
  <HintPath>D:/Program Files/Unity5/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
+ <Reference Include="UnityEditor.Networking">
+ <HintPath>D:/Program Files/Unity5/Editor/Data/UnityExtensions/Unity/Networking/Editor/UnityEditor.Networking.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Program Files/Unity5/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.UI">
+ <HintPath>D:/Program Files/Unity5/Editor/Data/UnityExtensions/Unity/GUISystem/Editor/UnityEditor.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.Advertisements">
+ <HintPath>D:/Program Files/Unity5/Editor/Data/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
+ </Reference>
+ <Reference Include="nunit.framework">
+ <HintPath>D:/Program Files/Unity5/Editor/Data/UnityExtensions/Unity/EditorTestsRunner/Editor/nunit.framework.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.EditorTestsRunner">
+ <HintPath>D:/Program Files/Unity5/Editor/Data/UnityExtensions/Unity/EditorTestsRunner/Editor/UnityEditor.EditorTestsRunner.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.TreeEditor">
+ <HintPath>D:/Program Files/Unity5/Editor/Data/UnityExtensions/Unity/TreeEditor/Editor/UnityEditor.TreeEditor.dll</HintPath>
  </Reference>
  <Reference Include="DOTween">
  <HintPath>D:/Documenten/Medical/MedicalGame/Assets/DOTween/DOTween.dll</HintPath>
@@ -271,10 +214,32 @@
  <Reference Include="DOTween50">
  <HintPath>D:/Documenten/Medical/MedicalGame/Assets/DOTween/DOTween50.dll</HintPath>
  </Reference>
+ <Reference Include="DOTweenEditor">
+ <HintPath>D:/Documenten/Medical/MedicalGame/Assets/DOTween/Editor/DOTweenEditor.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.Graphs">
+ <HintPath>D:/Program Files/Unity5/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.Android.Extensions">
+ <HintPath>D:/Program Files/Unity5/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.iOS.Extensions">
+ <HintPath>D:/Program Files/Unity5/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.WindowsStandalone.Extensions">
+ <HintPath>D:/Program Files/Unity5/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="Editor.ReorderableList">
+ <HintPath>D:/Documenten/Medical/MedicalGame/Assets/Editor/Editor.ReorderableList.dll</HintPath>
+ </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
       <Project>{AB26DBCC-8C5B-6BBA-E555-5C24FF75E35B}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+    <ProjectReference Include="Assembly-CSharp.csproj">
+      <Project>{E6CEF5EE-22F9-4FED-E03A-8F42DB79EC4D}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
+    <ProjectReference Include="Assembly-UnityScript.unityproj">
+      <Project>{5B6E4D5E-C3D0-C851-A304-E2139B8AF9EA}</Project>      <Name>Assembly-UnityScript</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

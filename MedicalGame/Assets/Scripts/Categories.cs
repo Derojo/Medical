@@ -31,7 +31,12 @@ public class Categories : MonoBehaviour {
 		Match currentMatch = MatchManager.I.GetMatch (MatchManager.I.currentMatchID);
 
 		//Get random cat, show animation
-		MatchManager.I.currentCategory = (int)GetRandomCat();
+		if (currentMatch.m_cc != 0) {
+			MatchManager.I.currentCategory = currentMatch.m_cc;
+		} else {
+			MatchManager.I.currentCategory = (int)GetRandomCat();
+		}
+		currentMatch.m_cc = MatchManager.I.currentCategory;
 		ShowCategory (MatchManager.I.currentCategory);
 	}
 
@@ -84,6 +89,11 @@ public class Categories : MonoBehaviour {
 
 	public void PlayMatch() {
 		Loader.Instance.LoadScene ("Match");
+	}
+
+	public void ToHome() {
+		PlayerManager.I.player.rightAnswersRow = 0;
+		Loader.Instance.LoadScene ("Home");
 	}
 
 	public categories GetRandomCat() {
