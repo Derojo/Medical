@@ -12,7 +12,13 @@ public class Categories : MonoBehaviour {
 		ZORG_WETENSCHAP	 = 3,
 		GESCHIEDENIS	 = 4,
 		SPORT			 = 5,
-		GEOGRAFIE		 = 6
+		GEOGRAFIE		 = 6,
+        GGZ_VERSLAVING   = 7,
+        OUDERENZORG      = 8,
+        ZIEKENHUISZORG   = 9,
+        ZORG_ALGEMEEN    = 10,
+        THUISZORG        = 11,
+        GEHANDICAPTEN    = 12
 
 	}
 
@@ -61,12 +67,31 @@ public class Categories : MonoBehaviour {
 			case (int)categories.SPORT:
 				SPORT_a.SetActive (true);
 				catTitle.text = "Sport";
-					break;
+				break;
 			case (int)categories.GEOGRAFIE:
 				GEOGRAFIE_a.SetActive(true);
 				catTitle.text = "Geografie";
 				break;
-		}
+            /************** health catagories*********************/
+            case (int)categories.GGZ_VERSLAVING:
+                catTitle.text = "GGZ & Verslavingszorg";
+                break;
+            case (int)categories.OUDERENZORG:
+                catTitle.text = "Ouderenzorg";
+                break;
+            case (int)categories.ZIEKENHUISZORG:
+                catTitle.text = "Ziekenhuiszorg";
+                break;
+            case (int)categories.ZORG_ALGEMEEN:
+                catTitle.text = "Zorg algemeen";
+                break;
+            case (int)categories.THUISZORG:
+                catTitle.text = "Thuiszorg";
+                break;
+            case (int)categories.GEHANDICAPTEN:
+                catTitle.text = "Gehandicaptenzorg";
+                break;
+        }
 	}
 
 	public static string getCategoryNameById(int catID) {
@@ -83,8 +108,21 @@ public class Categories : MonoBehaviour {
 				return "Sport";
 			case (int)categories.GEOGRAFIE:
 				return "Geografie";
-		}
-		return "";
+            /************** health catagories*********************/
+            case (int)categories.GGZ_VERSLAVING:
+                return "GGZ & verslavingszorg";
+            case (int)categories.OUDERENZORG:
+                return "Ouderenzorg";
+            case(int)categories.ZIEKENHUISZORG:
+                return "Ziekenhuiszorg";
+            case (int)categories.ZORG_ALGEMEEN:
+                return "Zorg algemeen";
+            case (int)categories.THUISZORG:
+                return "Thuiszorg";
+            case (int)categories.GEHANDICAPTEN:
+                return "Gehandicaptenzorg";
+        }
+        return "";
 	}
 
 	public void PlayMatch() {
