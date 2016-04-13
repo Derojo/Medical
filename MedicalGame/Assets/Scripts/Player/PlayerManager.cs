@@ -92,10 +92,10 @@ public class PlayerManager : Singleton<PlayerManager> {
 	public float GetExperiencePercentage() {
 		// Total experience required in current rank
 		float totalXP = ranks [CurrentRankKey ()].reqXP;
-		float PSum = (50 / totalXP) * 1f;
+		float PSum = (player.playerXP / totalXP) * 1f;
 
 		return PSum;
-//		float PSum = (totalXP/100) * player.playerXP;
+
 	}
 
 	public int GetRemainingLevels() {
@@ -103,7 +103,7 @@ public class PlayerManager : Singleton<PlayerManager> {
 		string[] splitScope = ranks [CurrentRankKey ()].levelScope.Split (new string[]{"/"}, System.StringSplitOptions.None);
 
 		return int.Parse(splitScope[1]) - player.playerLvl;
-		//		float PSum = (totalXP/100) * player.playerXP;
+	
 	}
 
 	public string GetNextRankName() {
@@ -130,7 +130,6 @@ public class PlayerManager : Singleton<PlayerManager> {
 			// Check new ranking
 			CheckCurrentRank();
 			// Remaining experience;
-
 			player.playerXP = Mathf.Abs (XPSum);
 			// Check if we need to level up more then once
 			if (player.playerXP > neededXP) {

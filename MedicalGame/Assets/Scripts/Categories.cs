@@ -13,12 +13,12 @@ public class Categories : MonoBehaviour {
 		GESCHIEDENIS	 = 4,
 		SPORT			 = 5,
 		GEOGRAFIE		 = 6,
-        GGZ_VERSLAVING   = 7,
-        OUDERENZORG      = 8,
-        ZIEKENHUISZORG   = 9,
-        ZORG_ALGEMEEN    = 10,
-        THUISZORG        = 11,
-        GEHANDICAPTEN    = 12
+       // GGZ_VERSLAVING   = 7,
+       // OUDERENZORG      = 8,
+       // ZIEKENHUISZORG   = 9,
+       // ZORG_ALGEMEEN    = 10,
+       // THUISZORG        = 11,
+        //GEHANDICAPTEN    = 12
 
 	}
 
@@ -73,7 +73,7 @@ public class Categories : MonoBehaviour {
 				catTitle.text = "Geografie";
 				break;
             /************** health catagories*********************/
-            case (int)categories.GGZ_VERSLAVING:
+           /* case (int)categories.GGZ_VERSLAVING:
                 catTitle.text = "GGZ & Verslavingszorg";
                 break;
             case (int)categories.OUDERENZORG:
@@ -90,7 +90,7 @@ public class Categories : MonoBehaviour {
                 break;
             case (int)categories.GEHANDICAPTEN:
                 catTitle.text = "Gehandicaptenzorg";
-                break;
+                break;*/
         }
 	}
 
@@ -109,7 +109,7 @@ public class Categories : MonoBehaviour {
 			case (int)categories.GEOGRAFIE:
 				return "Geografie";
             /************** health catagories*********************/
-            case (int)categories.GGZ_VERSLAVING:
+            /*case (int)categories.GGZ_VERSLAVING:
                 return "GGZ & verslavingszorg";
             case (int)categories.OUDERENZORG:
                 return "Ouderenzorg";
@@ -120,7 +120,8 @@ public class Categories : MonoBehaviour {
             case (int)categories.THUISZORG:
                 return "Thuiszorg";
             case (int)categories.GEHANDICAPTEN:
-                return "Gehandicaptenzorg";
+                return "Gehandicaptenzorg"; 
+            */
         }
         return "";
 	}
