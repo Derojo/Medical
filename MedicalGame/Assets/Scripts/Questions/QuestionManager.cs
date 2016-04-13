@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class QuestionManager : Singleton<QuestionManager> {
 
@@ -16,6 +17,7 @@ public class QuestionManager : Singleton<QuestionManager> {
 	public Button AnswerC;
 	public Button AnswerD;
 	public GameObject Continue;
+    public GameObject continueToEnd;
     public GameObject XPPopUp;
     public List<Image> playerRounds = new List<Image> ();
 	public Sprite goodAnswer;
@@ -76,8 +78,6 @@ public class QuestionManager : Singleton<QuestionManager> {
                 rightAnswer.GetComponent<Image> ().sprite = goodAnswer;
 				rightAnswer.GetComponentInChildren<Text> ().color = Color.white;
 				// Change progress question image
-
-
 				playerRounds [(MatchManager.I.returnTurnId () == 9 ? 8 : MatchManager.I.returnTurnId ())].sprite = rightRound;
 				// Change turn information -- Set player id to 1 - to be done: change to gamedonia player id
 				newTurn = new Turn (newturnID, PlayerManager.I.player.playerID, currentQuestion.q_Id, true);
@@ -104,7 +104,6 @@ public class QuestionManager : Singleton<QuestionManager> {
 					case 9:
 						PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP += 100;
 						showBrainCoinTween (4, 100);
-						PlayerManager.I.player.rightAnswersRow = 0;
 						break;
 					default:
 						PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP += 10;
@@ -137,9 +136,19 @@ public class QuestionManager : Singleton<QuestionManager> {
 
 				// Game ends when player has answered the 9th question correctly
 				if(newturnID == 9) {
-					// Change gamestate
-					MatchManager.I.EndMatch();
-				}
+                    //check all after game achievements
+                    AchievementManager.I.checkAchievementsAfterGame();
+                    // Change gamestate
+                    MatchManager.I.EndMatch();
+                    //turn on to endscreen button
+                    Continue.SetActive(false);
+                    continueToEnd.SetActive(true);
+                    // add games played
+                    PlayerManager.I.player.playedMatches++;
+                    StartCoroutine(ShowEndScreen());  
+                }
+
+
 			/***************************** WRONG ANSWER ********************************/		
             } else {
 				if (Answer != "")
@@ -160,11 +169,12 @@ public class QuestionManager : Singleton<QuestionManager> {
 				nextScene = "Home";
 			}
 
-            // check for completed achievements
+            // check for completed achievements & lvl up
             AchievementManager.I.checkAchievementAfterAnswer();
-           
+            PlayerManager.I.CheckLevelUp();
+
             // Save new turn to match
-			if (MatchManager.I.returnTurnId() != 9) {
+            if (MatchManager.I.returnTurnId() != 9) {
 				MatchManager.I.AddTurn (newTurn);
 			} else {
 				MatchManager.I.ChangeTurn (newTurn);
@@ -297,4 +307,12 @@ public class QuestionManager : Singleton<QuestionManager> {
 		rect.DOLocalMoveY ((rect.rect.y+10), .5f).SetEase(Ease.OutSine).SetDelay(delay+1);
 		// Show experience gained
 	}
+
+    //Waiting to change to end scene after Q9
+    IEnumerator ShowEndScreen()
+    {
+        yield return new WaitForSeconds(5);
+        //load end game scene
+        SceneManager.LoadScene("Match_End");
+    }
 }
