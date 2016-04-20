@@ -58,7 +58,7 @@ public class CountDownTimer : MonoBehaviour {
 		if (timeRemaining <= 0 && activateTime)
         {
             activateTime = false;
-			Loader.Instance.enableBackground ();
+			Loader.I.enableBackground ();
             timeUpPopup.SetActive(true);
 			QuestionManager.I.checkAnswer ("");
         }

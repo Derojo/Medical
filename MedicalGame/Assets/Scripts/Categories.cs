@@ -12,13 +12,13 @@ public class Categories : MonoBehaviour {
 		ZORG_WETENSCHAP	 = 3,
 		GESCHIEDENIS	 = 4,
 		SPORT			 = 5,
-		GEOGRAFIE		 = 6,
-       // GGZ_VERSLAVING   = 7,
-       // OUDERENZORG      = 8,
-       // ZIEKENHUISZORG   = 9,
-       // ZORG_ALGEMEEN    = 10,
-       // THUISZORG        = 11,
-        //GEHANDICAPTEN    = 12
+		GEOGRAFIE		 = 6
+//        GGZ_VERSLAVING   = 7,
+//        OUDERENZORG      = 8,
+//        ZIEKENHUISZORG   = 9,
+//        ZORG_ALGEMEEN    = 10,
+//        THUISZORG        = 11,
+//        GEHANDICAPTEN    = 12
 
 	}
 
@@ -127,12 +127,12 @@ public class Categories : MonoBehaviour {
 	}
 
 	public void PlayMatch() {
-		Loader.Instance.LoadScene ("Match");
+		Loader.I.LoadScene ("Match");
 	}
 
 	public void ToHome() {
 		PlayerManager.I.player.rightAnswersRow = 0;
-		Loader.Instance.LoadScene ("Home");
+		Loader.I.LoadScene ("Home");
 	}
 
 	public categories GetRandomCat() {
