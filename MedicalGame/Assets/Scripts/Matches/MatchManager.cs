@@ -223,31 +223,34 @@ public class MatchManager : Singleton<MatchManager> {
 		List<Match> yourTurn = MatchManager.I.GetPlayingMatches(false);
 
 		for (int i = 0; i < yourTurn.Count; i++) {
-//			Debug.Log (yourTurn [i].m_cp);
-			GamedoniaData.Search ("matches", "{_id: { $oid: '" + yourTurn[i].m_ID +"' } }", delegate (bool success, IList data) {
+			string matchID = yourTurn [i].m_ID;
+			GamedoniaData.Search ("matches", "{_id: { $oid: '" + matchID +"' } }", delegate (bool success, IList data) {
 				if (success) {
 					if (data != null) {
-						Match match = GetMatch()
-						Debug.Log(yourTurn[i].m_ID);
+						Match match = GetMatch(matchID);
+
 						Dictionary<string, object> matchD = (Dictionary<string, object>)data[0];
 						// Update match if we are the currentplayer
-//						if(matchD["m_cp"].ToString() == PlayerManager.I.player.playerID) {
-//							Debug.Log(yourTurn[i].m_cp);
-//							List<Turn> turns = new List<Turn>();
-//							List<object> t_turns = new List<object>();
-//							t_turns = (List<object>)matchD["m_trns"];
-//							foreach(Dictionary<string, object> t_turn  in t_turns) {
-//								Turn turn = new Turn(int.Parse(t_turn["t_ID"].ToString()), t_turn["p_ID"].ToString(), int.Parse(t_turn["q_ID"].ToString()), int.Parse(t_turn["c_ID"].ToString()), int.Parse(t_turn["t_st"].ToString()));
-//								turns.Add(turn);
-//							}
-
-//						}
-
+						if(matchD["m_cp"].ToString() == PlayerManager.I.player.playerID) {
+							List<Turn> turns = new List<Turn>();
+							List<object> t_turns = new List<object>();
+							t_turns = (List<object>)matchD["m_trns"];
+							foreach(Dictionary<string, object> t_turn  in t_turns) {
+								Turn turn = new Turn(int.Parse(t_turn["t_ID"].ToString()), t_turn["p_ID"].ToString(), int.Parse(t_turn["q_ID"].ToString()), int.Parse(t_turn["c_ID"].ToString()), int.Parse(t_turn["t_st"].ToString()));
+								turns.Add(turn);
+							}
+							match.m_cp = matchD["m_cp"].ToString();
+							match.m_trns = turns;
+							Save();
+						}
 					}
 				}
 			});
 		}
-		Save();
+
+		GameObject.FindObjectOfType<CurrentMatches>().updateMatches();
+
+
 	}
 	public List<Match> GetFinishedMatches() {
 		List<Match> tempList = new List<Match> ();

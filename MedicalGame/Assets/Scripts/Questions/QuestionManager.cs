@@ -59,11 +59,12 @@ public class QuestionManager : Singleton<QuestionManager> {
 			PlayerManager.I.GetPlayerInformationById (opponentId);
 		}
 		// Turn lists
+		playerTurnL = MatchManager.I.GetMatchTurnsByPlayerID (PlayerManager.I.player.playerID, null, MatchManager.I.currentMatchID);
+		oppTurnL = MatchManager.I.GetMatchTurnsByPlayerID (MatchManager.I.GetOppenentId(currentMatch),currentMatch);
 		currentCategory = MatchManager.I.currentCategory;
 		if (currentMatch.m_trns != null && currentMatch.m_trns.Count > 0) {
 			if (oppTurnL.Count > playerTurnL.Count) {
-				playerTurnL = MatchManager.I.GetMatchTurnsByPlayerID (PlayerManager.I.player.playerID, null, MatchManager.I.currentMatchID);
-				oppTurnL = MatchManager.I.GetMatchTurnsByPlayerID (MatchManager.I.GetOppenentId(currentMatch),currentMatch);
+
 				// Opponent played more turns, get his last turn
 				for (int i = 0; i < oppTurnL.Count; i++) {
 					if (oppTurnL [i].t_ID == playerTurnL.Count + 1) {
@@ -93,7 +94,7 @@ public class QuestionManager : Singleton<QuestionManager> {
 		}
 		if (!answeredQuestion) {
 			Button selectedAnswer = getButtonByAnswer (Answer);
-			Button rightAnswer = getButtonByAnswer (currentQuestion.q_Correct);z
+			Button rightAnswer = getButtonByAnswer (currentQuestion.q_Correct);
 			int newturnID = (playerTurnL.Count != 9 ? (playerTurnL.Count + 1) : playerTurnL.Count);
 			Turn newTurn;
 			/***************************** CORRECT ANSWER ********************************/

@@ -15,7 +15,6 @@ public class CurrentMatches : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		MatchManager.I.checkForUpdateMatches ();
-		updateMatches ();
 	}
 
 	public void LoadMatch(string id) {

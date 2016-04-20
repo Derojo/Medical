@@ -14,7 +14,7 @@ public class Categories : MonoBehaviour {
 		///ZORG_WETENSCHAP	 = 3,
 		//GESCHIEDENIS	 = 4,
 		//SPORT			 = 5,
-		GEOGRAFIE		 = 6,
+		//GEOGRAFIE		 = 6,
         GGZ            = 7,
         OUDERENZORG      = 8,
         ZIEKENHUISZORG   = 9,
