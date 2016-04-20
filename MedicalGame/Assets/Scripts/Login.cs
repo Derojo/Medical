@@ -120,7 +120,11 @@ public class Login : MonoBehaviour {
 		if (success) {
 			// Set playerprefs loggedIn to true so we dont need to log in again via http
 			PlayerManager.I.player.loggedIn = true;
-			SceneManager.LoadScene("Profile_Create");
+			if (!PlayerManager.I.player.createdProfile) {
+				SceneManager.LoadScene ("Profile_Create");
+			} else {
+				SceneManager.LoadScene ("Home");
+			}
 		} else {
 			loader.disableLoader();
 			errorMsg = GamedoniaBackend.getLastError().ToString();

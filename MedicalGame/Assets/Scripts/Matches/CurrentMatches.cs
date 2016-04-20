@@ -5,21 +5,34 @@ using UnityEngine.UI;
 using DG.Tweening;
 
 
-public class CurrentMachtes : MonoBehaviour {
+public class CurrentMatches : MonoBehaviour {
 
 	public List<Match> yourTurn;
 	public List<Match> hisTurn;
 	public List<Match> finishedMatches;
 	public GameObject currentGamesPanel;
+
 	// Use this for initialization
 	void Start () {
-		yourTurn = MatchManager.I.GetPlayingMatches(true);
-		hisTurn = MatchManager.I.GetPlayingMatches(false);
-		finishedMatches = MatchManager.I.GetFinishedMatches();
-		float delay = 0;
+		updateMatches ();
+	}
+
+	public void LoadMatch(string id) {
+		MatchManager.I.LoadCurrentMatch (id);
+	}
+
+	public void updateMatches() {
+		showYourTurnGames ();
+		showHisTurnGames ();
+		showFinishedGames ();
 		if (yourTurn.Count == 0 && hisTurn.Count == 0) {
 			currentGamesPanel.SetActive (false);
 		}
+	}
+
+	public void showYourTurnGames() {
+		yourTurn = MatchManager.I.GetPlayingMatches(true);
+		float delay = 0;
 		/************** YOUR TURN MATCHES *******************/
 		// Set turn bar above playing matches
 		if (yourTurn.Count != 0) {
@@ -39,7 +52,7 @@ public class CurrentMachtes : MonoBehaviour {
 			matchUI.name = matchId;
 			matchUI.transform.SetParent (this.transform, false);
 			// Set match information
-//			matchUI.GetC  = matchId;
+			//			matchUI.GetC  = matchId;
 			foreach(Transform child in matchUI.transform) {
 				if (child.name == "playerName") {
 					child.GetComponent<Text> ().text = matchId;
@@ -60,7 +73,11 @@ public class CurrentMachtes : MonoBehaviour {
 			matchUI.GetComponent<RectTransform>().DOScale (1, 1f).SetEase(Ease.OutExpo).SetDelay((.5f+delay));
 			delay += .2f;
 		}
+	}
 
+	public void showHisTurnGames() {
+		hisTurn = MatchManager.I.GetPlayingMatches(false);
+		float delay = 0;
 		/************** HIS TURN MATCHES *******************/
 		// Set turn bar above playing matches
 		if (hisTurn.Count != 0) {
@@ -95,13 +112,15 @@ public class CurrentMachtes : MonoBehaviour {
 				}
 			}
 
-			matchUI.GetComponent<Button> ().onClick.AddListener (delegate {LoadMatch (matchId); });
-
 			matchUI.GetComponent<RectTransform>().DOScale (1.1f, .5f).SetEase(Ease.InFlash).SetDelay(delay);
 			matchUI.GetComponent<RectTransform>().DOScale (1, 1f).SetEase(Ease.OutExpo).SetDelay((.5f+delay));
 			delay += .2f;
 		}
+	}
 
+	void showFinishedGames() {
+		finishedMatches = MatchManager.I.GetFinishedMatches();
+		float delay = 0;
 		/************** FINISHED MATCHES *******************/
 		// Set turn bar above finished matches
 		if (finishedMatches.Count != 0) {
@@ -135,21 +154,10 @@ public class CurrentMachtes : MonoBehaviour {
 				}
 			}
 
-//			matchUI.GetComponent<Button> ().onClick.AddListener (delegate {LoadMatch (matchId); });
-//
 			matchUI.GetComponent<RectTransform>().DOScale (1.15f, .5f).SetEase(Ease.InFlash).SetDelay(delay);
 			matchUI.GetComponent<RectTransform>().DOScale (1, 1f).SetEase(Ease.OutExpo).SetDelay((.5f+delay));
 			delay += .2f;
 		}
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
-	public void LoadMatch(string id) {
-		MatchManager.I.LoadCurrentMatch (id);
 	}
 
 }

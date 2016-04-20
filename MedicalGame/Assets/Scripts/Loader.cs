@@ -3,24 +3,14 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Loader : MonoBehaviour {
+[Prefab("Loader", true, "")]
+public class Loader : Singleton<Loader> {
 
 	public GameObject overlay;
 	public GameObject icon;
 	public GameObject mini;
-	public static Loader Instance;
 
-	void Awake()
-	{
-		if (Instance) {
-			DestroyImmediate (gameObject);
-		}
-		else
-		{
-			DontDestroyOnLoad(gameObject);
-			Instance = this;
-		}
-	}
+	public bool Load() {return true;}
 
 	void OnLevelWasLoaded(int level) {
 		disableLoader ();

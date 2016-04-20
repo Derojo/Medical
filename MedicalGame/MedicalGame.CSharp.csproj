@@ -147,7 +147,7 @@
     <Compile Include="Assets\Scripts\HomeStartUp.cs" />
     <Compile Include="Assets\Scripts\Loader.cs" />
     <Compile Include="Assets\Scripts\Login.cs" />
-    <Compile Include="Assets\Scripts\Matches\CurrentMachtes.cs" />
+    <Compile Include="Assets\Scripts\Matches\CurrentMatches.cs" />
     <Compile Include="Assets\Scripts\Matches\Data\Match.cs" />
     <Compile Include="Assets\Scripts\Matches\Data\Matches.cs" />
     <Compile Include="Assets\Scripts\Matches\Data\Turn.cs" />

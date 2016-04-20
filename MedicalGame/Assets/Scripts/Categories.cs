@@ -7,18 +7,20 @@ public class Categories : MonoBehaviour {
 
 	public enum categories
 	{
+
 		//TV_ENTERTAINMENT = 1,
 		//GELOOF_CULTUUR	 = 2,
 		///ZORG_WETENSCHAP	 = 3,
 		//GESCHIEDENIS	 = 4,
 		//SPORT			 = 5,
-		//GEOGRAFIE		 = 6,
+		GEOGRAFIE		 = 6,
         GGZ            = 7,
-        //OUDERENZORG      = 8,
-        //ZIEKENHUISZORG   = 9,
+        OUDERENZORG      = 8,
+        ZIEKENHUISZORG   = 9,
         ZORG_ALGEMEEN    = 10,
-        //TAND_HUISARTS    = 11,
-       // GEHANDICAPTEN    = 12
+        TAND_HUISARTS    = 11,
+        GEHANDICAPTEN    = 12
+
 
 	}
 
@@ -73,24 +75,24 @@ public class Categories : MonoBehaviour {
 				catTitle.text = "Geografie";
 				break;*/
                 /************** health catagories*********************/
-                 case (int)categories.GGZ:
-                     catTitle.text = "GGZ";
-                     break;
-            /*case (int)categories.OUDERENZORG:
+            case (int)categories.GGZ:
+                catTitle.text = "GGZ";
+                break;
+            case (int)categories.OUDERENZORG:
                 catTitle.text = "Ouderenzorg";
                 break;
             case (int)categories.ZIEKENHUISZORG:
                 catTitle.text = "Ziekenhuiszorg";
-                break;*/
+                break;
             case (int)categories.ZORG_ALGEMEEN:
-                     catTitle.text = "Algemeen";
-                     break;
-                /* case (int)categories.TAND_HUISARTS:
-                     catTitle.text = "Tandarts & Huisarts";
-                     break;
-                 case (int)categories.GEHANDICAPTEN:
-                     catTitle.text = "Gehandicaptenzorg";
-                     break;*/
+                catTitle.text = "Algemeen";
+                break;
+            case (int)categories.TAND_HUISARTS:
+                catTitle.text = "Tandarts & Huisarts";
+                break;
+            case (int)categories.GEHANDICAPTEN:
+                 catTitle.text = "Gehandicaptenzorg";
+                 break;
         }
     }
 
@@ -111,28 +113,28 @@ public class Categories : MonoBehaviour {
                 /************** health catagories*********************/
                 case (int)categories.GGZ:
                     return "GGZ";
-                /*case (int)categories.OUDERENZORG:
+                case (int)categories.OUDERENZORG:
                     return "Ouderenzorg";
                 case(int)categories.ZIEKENHUISZORG:
-                    return "Ziekenhuiszorg";*/
+                    return "Ziekenhuiszorg";
                 case (int)categories.ZORG_ALGEMEEN:
                     return "Algemeen";
-                /*case (int)categories.TAND_HUISARTS:
+                case (int)categories.TAND_HUISARTS:
                     return "Tandarts & Huisarts";
                 case (int)categories.GEHANDICAPTEN:
-                    return "Gehandicaptenzorg"; */
+                    return "Gehandicaptenzorg"; 
 
         }
         return "";
 	}
 
 	public void PlayMatch() {
-		Loader.Instance.LoadScene ("Match");
+		Loader.I.LoadScene ("Match");
 	}
 
 	public void ToHome() {
 		PlayerManager.I.player.rightAnswersRow = 0;
-		Loader.Instance.LoadScene ("Home");
+		Loader.I.LoadScene ("Home");
 	}
 
 	public categories GetRandomCat() {

@@ -9,11 +9,9 @@ public class Turn{
 	// Opponent ID
 	[SerializeField] public int q_ID;
 	// Match status
-	[SerializeField] public bool t_st;
+	[SerializeField] public int t_st;
 
-
-
-	public Turn( int _t_ID, string _p_ID, int _q_ID, bool _t_st) {
+	public Turn( int _t_ID = 0, string _p_ID = "", int _q_ID = 0, int _t_st = 0) {
 		t_ID = _t_ID;
 		p_ID = _p_ID;
 		q_ID = _q_ID;

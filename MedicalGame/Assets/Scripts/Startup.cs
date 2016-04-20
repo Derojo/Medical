@@ -2,28 +2,31 @@
 using Gamedonia.Backend;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
+using System.Collections;
 
 public class Startup : MonoBehaviour {
 
+	public string sceneName;
 	// Use this for initialization
 	void Start () {
 		RuntimeData.I.Load ();
 		if (!PlayerManager.I.player.loggedIn) {
-			Debug.Log ("test");
 			SceneManager.LoadScene ("Login");
 		} else {
 			if (PlayerManager.I.player.createdProfile) {
-				SceneManager.LoadScene ("Home");
+				sceneName = "Home";
 			} else {
-				GamedoniaUsers.LoginUserWithSessionToken (delegate (bool success) {
-					if (success) {
-						SceneManager.LoadScene ("Profile_Create");
-
-					} else {
-						SceneManager.LoadScene ("Login");
-					}
-				});
+				sceneName = "Profile_Create";
 			}
+			GamedoniaUsers.LoginUserWithSessionToken (delegate (bool success) {
+				if (success) {
+					SceneManager.LoadScene (sceneName);
+				} else {
+					SceneManager.LoadScene ("Login");
+				}
+			});
 		}
 	}
+
 }

@@ -47,7 +47,7 @@ public class CountDownTimer : MonoBehaviour {
 		if (timeRemaining <= 0 && activateTime)
         {
             activateTime = false;
-			Loader.Instance.enableBackground ();
+			Loader.I.enableBackground ();
             timeUpPopup.SetActive(true);
             AudioManagerScript.I.TimeUpSound.Play();
 			QuestionManager.I.checkAnswer ("");
