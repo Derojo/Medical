@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 
 [System.Serializable]
-public class Match{
+public class Match {
 	// Match ID
 	[SerializeField] public string m_ID;
+	// Players
+	[SerializeField] public List<string> u_ids;
 	// Player ID
 	[SerializeField] public string p_ID;
 	// Opponent ID
@@ -22,7 +24,7 @@ public class Match{
 
 
 
-	public Match( string _m_ID, string _p_ID, string _o_ID, string _m_status, int _m_ct, string _m_cp, int _m_cc, Turn _turn = null) {
+	public Match( string _m_ID="", List<string> _u_ids = null, string _p_ID="", string _o_ID="", string _m_status="", int _m_ct=0, string _m_cp="", int _m_cc=0, List<Turn> _turn = null) {
 		m_ID = _m_ID;
 		p_ID = _p_ID;
 		o_ID = _o_ID;
@@ -31,7 +33,10 @@ public class Match{
 		m_cp = _m_cp;
 		m_cc = _m_cc;
 		if (_turn != null) {
-			m_trns.Add (_turn);
+			m_trns = _turn;
+		}
+		if (_u_ids != null) {
+			u_ids = _u_ids;
 		}
 	}
 
@@ -40,5 +45,12 @@ public class Match{
 			m_trns = new List<Turn> ();
 		}
 		m_trns.Add (_turn);
+	}
+
+	public void AddPlayer(string p_id) {
+		if (u_ids == null) {
+			u_ids = new List<string> (2);
+		}
+		u_ids.Add (p_id);
 	}
 }
