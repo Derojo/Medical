@@ -11,7 +11,7 @@ public class CountDownTimer : MonoBehaviour {
     public float startTimer;
     public float timerPercent;
     public Image image;
-   
+    
 
     //TimesupPopUp
     public GameObject timeUpPopup;
@@ -31,45 +31,27 @@ public class CountDownTimer : MonoBehaviour {
 
     }// end start
 
-    //resetting timer
-   /* public void OnButtonClick()
-    {
-        //resetting timer -> normally back to main menu
-        if (timeRemaining <= 0)
-        {
-            timeRemaining = 15f;
-            timerText.text = "";
-        }
-        activateTime = true;
-        timeUpPopup.SetActive(false);
-    }*/
-
     // Update is called once per frame
     void Update()
     {
+        //activate timer
         if (timeRemaining >= 0 && activateTime)
         {
             timeRemaining -= Time.deltaTime;
             timerPercent = timeRemaining / startTimer;
             image.fillAmount = timerPercent;
             timerText.text = timeRemaining.ToString("f0");
-        }
 
+        }
+    
 		if (timeRemaining <= 0 && activateTime)
         {
             activateTime = false;
 			Loader.Instance.enableBackground ();
             timeUpPopup.SetActive(true);
+            AudioManagerScript.I.TimeUpSound.Play();
 			QuestionManager.I.checkAnswer ("");
         }
     }// end update
-
-    /*void OnDestroy()
-    {
-        //onn destroy timer to 0 and save
-        timeRemaining = 0f;
-        PlayerPrefs.SetFloat("remainingtime",timeRemaining);
-        PlayerPrefs.Save();
-    }*/
   
 }

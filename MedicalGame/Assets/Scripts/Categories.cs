@@ -7,18 +7,18 @@ public class Categories : MonoBehaviour {
 
 	public enum categories
 	{
-		TV_ENTERTAINMENT = 1,
-		GELOOF_CULTUUR	 = 2,
-		ZORG_WETENSCHAP	 = 3,
-		GESCHIEDENIS	 = 4,
-		SPORT			 = 5,
-		GEOGRAFIE		 = 6,
-       // GGZ_VERSLAVING   = 7,
-       // OUDERENZORG      = 8,
-       // ZIEKENHUISZORG   = 9,
-       // ZORG_ALGEMEEN    = 10,
-       // THUISZORG        = 11,
-        //GEHANDICAPTEN    = 12
+		//TV_ENTERTAINMENT = 1,
+		//GELOOF_CULTUUR	 = 2,
+		///ZORG_WETENSCHAP	 = 3,
+		//GESCHIEDENIS	 = 4,
+		//SPORT			 = 5,
+		//GEOGRAFIE		 = 6,
+        GGZ            = 7,
+        //OUDERENZORG      = 8,
+        //ZIEKENHUISZORG   = 9,
+        ZORG_ALGEMEEN    = 10,
+        //TAND_HUISARTS    = 11,
+       // GEHANDICAPTEN    = 12
 
 	}
 
@@ -48,7 +48,7 @@ public class Categories : MonoBehaviour {
 
 	public void ShowCategory(int catID) {
 		switch (catID) {
-			case (int)categories.TV_ENTERTAINMENT:
+			/*case (int)categories.TV_ENTERTAINMENT:
 				TV_ENTERTAINMENT_a.SetActive (true);
 				catTitle.text = "TV & Entertainment"; 
 				break;
@@ -71,31 +71,31 @@ public class Categories : MonoBehaviour {
 			case (int)categories.GEOGRAFIE:
 				GEOGRAFIE_a.SetActive(true);
 				catTitle.text = "Geografie";
-				break;
-            /************** health catagories*********************/
-           /* case (int)categories.GGZ_VERSLAVING:
-                catTitle.text = "GGZ & Verslavingszorg";
-                break;
-            case (int)categories.OUDERENZORG:
+				break;*/
+                /************** health catagories*********************/
+                 case (int)categories.GGZ:
+                     catTitle.text = "GGZ";
+                     break;
+            /*case (int)categories.OUDERENZORG:
                 catTitle.text = "Ouderenzorg";
                 break;
             case (int)categories.ZIEKENHUISZORG:
                 catTitle.text = "Ziekenhuiszorg";
-                break;
-            case (int)categories.ZORG_ALGEMEEN:
-                catTitle.text = "Zorg algemeen";
-                break;
-            case (int)categories.THUISZORG:
-                catTitle.text = "Thuiszorg";
-                break;
-            case (int)categories.GEHANDICAPTEN:
-                catTitle.text = "Gehandicaptenzorg";
                 break;*/
+            case (int)categories.ZORG_ALGEMEEN:
+                     catTitle.text = "Algemeen";
+                     break;
+                /* case (int)categories.TAND_HUISARTS:
+                     catTitle.text = "Tandarts & Huisarts";
+                     break;
+                 case (int)categories.GEHANDICAPTEN:
+                     catTitle.text = "Gehandicaptenzorg";
+                     break;*/
         }
-	}
+    }
 
 	public static string getCategoryNameById(int catID) {
-		switch (catID) {
+		switch (catID) {/*
 			case (int)categories.TV_ENTERTAINMENT:
 				return "TV & Entertainment"; 
 			case (int)categories.GELOOF_CULTUUR:
@@ -107,21 +107,21 @@ public class Categories : MonoBehaviour {
 			case (int)categories.SPORT:
 				return "Sport";
 			case (int)categories.GEOGRAFIE:
-				return "Geografie";
-            /************** health catagories*********************/
-            /*case (int)categories.GGZ_VERSLAVING:
-                return "GGZ & verslavingszorg";
-            case (int)categories.OUDERENZORG:
-                return "Ouderenzorg";
-            case(int)categories.ZIEKENHUISZORG:
-                return "Ziekenhuiszorg";
-            case (int)categories.ZORG_ALGEMEEN:
-                return "Zorg algemeen";
-            case (int)categories.THUISZORG:
-                return "Thuiszorg";
-            case (int)categories.GEHANDICAPTEN:
-                return "Gehandicaptenzorg"; 
-            */
+				return "Geografie";/*
+                /************** health catagories*********************/
+                case (int)categories.GGZ:
+                    return "GGZ";
+                /*case (int)categories.OUDERENZORG:
+                    return "Ouderenzorg";
+                case(int)categories.ZIEKENHUISZORG:
+                    return "Ziekenhuiszorg";*/
+                case (int)categories.ZORG_ALGEMEEN:
+                    return "Algemeen";
+                /*case (int)categories.TAND_HUISARTS:
+                    return "Tandarts & Huisarts";
+                case (int)categories.GEHANDICAPTEN:
+                    return "Gehandicaptenzorg"; */
+
         }
         return "";
 	}

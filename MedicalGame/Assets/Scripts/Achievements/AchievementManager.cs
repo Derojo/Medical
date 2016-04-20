@@ -57,6 +57,7 @@ public class AchievementManager : Singleton<AchievementManager> {
         if( achievements[title].EarnAchievement())
         {
             GameObject achievement = (GameObject)Instantiate(visualAchievement);
+            AudioManagerScript.I.achievementUnlockSound.Play();
             SetAchievementInfo("EarnCanvas", achievement, title);
             PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP + achievements[title].Points;
             PlayerManager.I.CheckLevelUp();

@@ -44,7 +44,7 @@ public class Profile : MonoBehaviour {
 		rankingName.text = PlayerManager.I.player.playerRank;
 		rankingName.DOFade(1, 3f);
 		// Set player level info
-		playerLevel.text = "Level "+PlayerManager.I.player.playerLvl.ToString();
+		playerLevel.text = "Level "+ PlayerManager.I.player.playerLvl.ToString();
 		playerLevel.DOFade(1, 3f);
 		// Current rank sprite
 		rankingImg.sprite = PlayerManager.I.GetRankSprite();

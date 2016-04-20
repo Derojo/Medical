@@ -33,7 +33,7 @@ public class QuestionManager : Singleton<QuestionManager> {
 	private int currentCategory;
 	private string nextScene = "";
 	private bool answeredQuestion = false;
-
+    
 
 
 
@@ -50,13 +50,15 @@ public class QuestionManager : Singleton<QuestionManager> {
 		playerRankImg.sprite = PlayerManager.I.GetRankSprite();
 	}
 
-	public void checkAnswer(string Answer) {
+	public void checkAnswer(string Answer)
+    {
        
         // Hide Timer
         if (Answer != "") {
-			Timer.SetActive (false);
-		}
-		if (!answeredQuestion) {
+			Timer.SetActive (false);       
+        }
+		if (!answeredQuestion)
+        {
 			Button selectedAnswer = getButtonByAnswer (Answer);
 			Button rightAnswer = getButtonByAnswer (currentQuestion.q_Correct);
 			Debug.Log (MatchManager.I.returnTurnId ());
@@ -152,7 +154,9 @@ public class QuestionManager : Singleton<QuestionManager> {
 			/***************************** WRONG ANSWER ********************************/		
             } else {
 				if (Answer != "")
-                {      
+                {
+                    //Sound
+                    AudioManagerScript.I.wrongAnwserSound.Play();   
                     // Show correct answer
                     rightAnswer.GetComponent<Image> ().sprite = goodAnswer;
 					rightAnswer.GetComponentInChildren<Text> ().color = Color.white;
@@ -182,8 +186,9 @@ public class QuestionManager : Singleton<QuestionManager> {
 			
 			if (Answer != "")
             {
-				Continue.SetActive (true);    
-			}
+				Continue.SetActive (true);
+                answeredQuestion = true;
+            }
 		}
 	}
 		
