@@ -95,10 +95,11 @@
      <Compile Include="Assets\Scripts\Data\PrefabAttribute.cs" />
      <Compile Include="Assets\Scripts\Data\Singleton.cs" />
      <Compile Include="Assets\Scripts\DestroyPopUpScript.cs" />
+     <Compile Include="Assets\Scripts\EndScreenScript.cs" />
      <Compile Include="Assets\Scripts\HomeStartUp.cs" />
      <Compile Include="Assets\Scripts\Loader.cs" />
      <Compile Include="Assets\Scripts\Login.cs" />
-     <Compile Include="Assets\Scripts\Matches\CurrentMachtes.cs" />
+     <Compile Include="Assets\Scripts\Matches\CurrentMatches.cs" />
      <Compile Include="Assets\Scripts\Matches\Data\Match.cs" />
      <Compile Include="Assets\Scripts\Matches\Data\Matches.cs" />
      <Compile Include="Assets\Scripts\Matches\Data\Turn.cs" />
@@ -123,6 +124,7 @@
      <Compile Include="Assets\Scripts\TimerScript.cs" />
      <Compile Include="Assets\Scripts\UtilResize.cs" />
      <Compile Include="Assets\Scripts\foldOutScript.cs" />
+     <Compile Include="Assets\Scripts\turnbasedtest.cs" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />
@@ -250,7 +252,6 @@
      <None Include="Assets\Plugins\Android\facebook\res\layout\com_facebook_friendpickerfragment.xml" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\_Antialiasing\FXAAPreset2.shader" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\_BloomAndFlares\BlurAndFlares.shader" />
-     <None Include="Assets\Editor\Editor.ReorderableList.xml" />
      <None Include="Assets\Plugins\OpenUDID\README.txt" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendForBloom.shader" />
  <Reference Include="UnityEngine.Networking">

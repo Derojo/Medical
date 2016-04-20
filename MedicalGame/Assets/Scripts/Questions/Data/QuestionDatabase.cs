@@ -53,6 +53,17 @@ public class QuestionDatabase : ScriptableObject {
 
 	}
 		
+	public Question getQuestionById(int questionID) {
+		Question question = null;
+		for (int i = 0; i < database.Count; i++) {
+			if (database [i].q_Id == questionID) {
+				question = database [i];
+			}
+		}
+		return question;
+
+	}
+
 	public List<Question> getQuestionInCategory(int categoryID) {
 		List<Question> questionsInCategory = new List<Question> ();
 		for (int i = 0; i < database.Count; i++) {

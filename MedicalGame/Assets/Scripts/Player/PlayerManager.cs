@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using Gamedonia.Backend;
 
 [Prefab("PlayerManager", true, "")]
 public class PlayerManager : Singleton<PlayerManager> {
@@ -12,7 +13,7 @@ public class PlayerManager : Singleton<PlayerManager> {
 	public List<Rank> ranks = new List<Rank>();
 
 	public Player player;
-
+	public Dictionary<string, object> currentOpponentInfo;
 	public bool Load() {return true;}
 
 
@@ -72,13 +73,17 @@ public class PlayerManager : Singleton<PlayerManager> {
 		}
 	}
 
-	public int CurrentRankKey() {
+	public int CurrentRankKey(int lvl = 0) {
+		if (lvl == 0) {
+			lvl = player.playerLvl;
+		}
+		Debug.Log (lvl);
 		int key = 0;
 		for (int i = 0; i < ranks.Count; i++) {
 			string[] splitScope = ranks [i].levelScope.Split (new string[]{"/"}, System.StringSplitOptions.None);
 			int low = int.Parse(splitScope[0]);
 			int high = int.Parse(splitScope[1]);
-			if(low < player.playerLvl && high > player.playerLvl) {
+			if(low < lvl && high > lvl) {
 				key = i;
 			}
 		}
@@ -110,15 +115,25 @@ public class PlayerManager : Singleton<PlayerManager> {
 		return ranks [(CurrentRankKey () + 1)].name;
 	}
 
-	public Sprite GetRankSprite() {
-		return ranks [CurrentRankKey()].sprite;
+	public Sprite GetRankSprite(int lvl = 0) {
+		Debug.Log (lvl);
+		return ranks [CurrentRankKey(lvl)].sprite;
 	}
 
 	public Sprite GetNextRankSprite() {
 		return ranks [(CurrentRankKey () + 1)].sprite;
 	}
 
+	public void GetPlayerInformationById(string playerID) {;
+		GamedoniaUsers.GetUser(playerID, delegate (bool success, GDUserProfile data) { 
+			if (success) {
+				//returnInformation["name"] = data.profile["name"].ToString();
+				currentOpponentInfo = data.profile;
 
+			}
+		});
+
+	}
 	public void CheckLevelUp() {
 		float neededXP = ranks [CurrentRankKey ()].reqXP;
 		// subtract player experience with needed experience

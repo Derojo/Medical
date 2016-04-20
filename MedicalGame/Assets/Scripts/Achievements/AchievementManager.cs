@@ -38,7 +38,7 @@ public class AchievementManager : Singleton<AchievementManager> {
             achievementList = new List<Achievement>();
         }
         //Deleting playerprefs for testing REMEMBER TO REMOVE
-       // PlayerPrefs.DeleteAll();
+//        PlayerPrefs.DeleteAll();
      
 
     }

@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class Categories : MonoBehaviour {
 
@@ -33,17 +34,38 @@ public class Categories : MonoBehaviour {
 	public GameObject GEOGRAFIE_a;
 	public Image image;
 
+	private List<Turn> playerTurns;
+	private List<Turn> oppTurns;
+
 	// Use this for initialization
 	void Start () {
 		// Get current match
 		Match currentMatch = MatchManager.I.GetMatch (MatchManager.I.currentMatchID);
-
+		playerTurns = MatchManager.I.GetMatchTurnsByPlayerID (PlayerManager.I.player.playerID, currentMatch);
+		oppTurns = MatchManager.I.GetMatchTurnsByPlayerID (MatchManager.I.GetOppenentId(currentMatch), currentMatch);
 		//Get random cat, show animation
 		if (currentMatch.m_cc != 0) {
 			MatchManager.I.currentCategory = currentMatch.m_cc;
 		} else {
-			MatchManager.I.currentCategory = (int)GetRandomCat();
+			if (currentMatch.m_trns != null && currentMatch.m_trns.Count > 0) {
+				if (oppTurns.Count > playerTurns.Count) {
+					// Opponent played more turns, get the next question
+//					int pt  = (playerTurns.Count == 0 ? 1 : playerTurns.Count);
+					for (int i = 0; i < oppTurns.Count; i++) {
+						if (oppTurns [i].t_ID == playerTurns.Count + 1) {
+							MatchManager.I.currentCategory = oppTurns [i].c_ID;
+						}
+					}
+//					int pt = ((oppTurns.Count - playerTurns.Count) == oppTurns.Count ? oppTurns.Count : (playerTurns.Count+1));
+//					MatchManager.I.currentCategory = oppTurns [(oppTurns.Count - pt)].c_ID; // Last category played by opponent.
+				}	else {
+					MatchManager.I.currentCategory = (int)GetRandomCat ();
+				}
+			} else {
+				MatchManager.I.currentCategory = (int)GetRandomCat ();
+			}
 		}
+
 		currentMatch.m_cc = MatchManager.I.currentCategory;
 		ShowCategory (MatchManager.I.currentCategory);
 	}

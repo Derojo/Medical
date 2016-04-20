@@ -14,6 +14,7 @@ public class CurrentMatches : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		MatchManager.I.checkForUpdateMatches ();
 		updateMatches ();
 	}
 
@@ -22,6 +23,7 @@ public class CurrentMatches : MonoBehaviour {
 	}
 
 	public void updateMatches() {
+		emptyObjects ();
 		showYourTurnGames ();
 		showHisTurnGames ();
 		showFinishedGames ();
@@ -30,6 +32,11 @@ public class CurrentMatches : MonoBehaviour {
 		}
 	}
 
+	public void emptyObjects() {
+		foreach (Transform child in transform) {
+			GameObject.Destroy(child.gameObject);
+		}
+	}
 	public void showYourTurnGames() {
 		yourTurn = MatchManager.I.GetPlayingMatches(true);
 		float delay = 0;
