@@ -44,8 +44,8 @@ public class QuestionManager : Singleton<QuestionManager> {
 	private string nextScene = "";
 	private bool answeredQuestion = false;
 	private string opponentId;
-	private List<Turn> playerTurnL;
-	private List<Turn> oppTurnL;
+	private List<Turn> playerTurnL = new List<Turn>();
+	private List<Turn> oppTurnL = new List<Turn>();
 
 
 
@@ -55,14 +55,16 @@ public class QuestionManager : Singleton<QuestionManager> {
 	void Start() {
 		Match currentMatch = MatchManager.I.GetMatch (MatchManager.I.currentMatchID);
 		opponentId = MatchManager.I.GetOppenentId (currentMatch);
+		Debug.Log ("opponentID" + opponentId);
 		if (opponentId != "") {
 			PlayerManager.I.GetPlayerInformationById (opponentId);
+
 		}
 		// Turn lists
-		playerTurnL = MatchManager.I.GetMatchTurnsByPlayerID (PlayerManager.I.player.playerID, null, MatchManager.I.currentMatchID);
-		oppTurnL = MatchManager.I.GetMatchTurnsByPlayerID (MatchManager.I.GetOppenentId(currentMatch),currentMatch);
 		currentCategory = MatchManager.I.currentCategory;
 		if (currentMatch.m_trns != null && currentMatch.m_trns.Count > 0) {
+			playerTurnL = MatchManager.I.GetMatchTurnsByPlayerID (PlayerManager.I.player.playerID, currentMatch);
+			oppTurnL = MatchManager.I.GetMatchTurnsByPlayerID (MatchManager.I.GetOppenentId(currentMatch),currentMatch);
 			if (oppTurnL.Count > playerTurnL.Count) {
 
 				// Opponent played more turns, get his last turn
