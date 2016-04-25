@@ -26,12 +26,18 @@ public class Categories : MonoBehaviour {
 	}
 
 	public Text catTitle;                    
-	public GameObject TV_ENTERTAINMENT_a;
-	public GameObject GELOOF_CULTUUR_a;
-	public GameObject ZORG_WETENSCHAP_a;
-	public GameObject GESCHIEDENIS_a;
-	public GameObject SPORT_a;
-	public GameObject GEOGRAFIE_a;
+//	public GameObject TV_ENTERTAINMENT_a;
+//	public GameObject GELOOF_CULTUUR_a;
+//	public GameObject ZORG_WETENSCHAP_a;
+//	public GameObject GESCHIEDENIS_a;
+//	public GameObject SPORT_a;
+//	public GameObject GEOGRAFIE_a;
+	public GameObject GGZ_a;
+	public GameObject OUDERENZORG_a;
+	public GameObject ZIEKENHUISZORG_a;
+	public GameObject TAND_HUISARTS_a;
+	public GameObject ZORG_ALGEMEEN_a;
+	public GameObject GEHANDICAPTEN_a;
 	public Image image;
 
 	private List<Turn> playerTurns;
@@ -99,21 +105,27 @@ public class Categories : MonoBehaviour {
                 /************** health catagories*********************/
             case (int)categories.GGZ:
                 catTitle.text = "GGZ";
+				GGZ_a.SetActive (true);
                 break;
             case (int)categories.OUDERENZORG:
                 catTitle.text = "Ouderenzorg";
+				OUDERENZORG_a.SetActive (true);
                 break;
             case (int)categories.ZIEKENHUISZORG:
                 catTitle.text = "Ziekenhuiszorg";
+				ZIEKENHUISZORG_a.SetActive (true);
                 break;
             case (int)categories.ZORG_ALGEMEEN:
                 catTitle.text = "Algemeen";
+				ZORG_ALGEMEEN_a.SetActive (true);
                 break;
             case (int)categories.TAND_HUISARTS:
                 catTitle.text = "Tandarts & Huisarts";
+				TAND_HUISARTS_a.SetActive (true);
                 break;
             case (int)categories.GEHANDICAPTEN:
                  catTitle.text = "Gehandicaptenzorg";
+				GEHANDICAPTEN_a.SetActive (true);
                  break;
         }
     }

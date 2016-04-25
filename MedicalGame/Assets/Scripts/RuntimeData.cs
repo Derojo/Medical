@@ -73,6 +73,9 @@ public class RuntimeData : Singleton<RuntimeData> {
 							Scene currentScene = SceneManager.GetActiveScene();
 							if(currentScene.name == "Home") {
 								GameObject.FindObjectOfType<CurrentMatches>().updateMatches();
+							} else if(currentScene.name == "") {
+								MatchManager.I.currentMatchID = match.m_ID;
+								Loader.I.LoadScene("Category");
 							}
 						} else {
 							Debug.Log ("Data is null");

@@ -58,13 +58,13 @@ public class QuestionManager : Singleton<QuestionManager> {
 		Debug.Log ("opponentID" + opponentId);
 		if (opponentId != "") {
 			PlayerManager.I.GetPlayerInformationById (opponentId);
-
+				
 		}
 		// Turn lists
 		currentCategory = MatchManager.I.currentCategory;
 		if (currentMatch.m_trns != null && currentMatch.m_trns.Count > 0) {
 			playerTurnL = MatchManager.I.GetMatchTurnsByPlayerID (PlayerManager.I.player.playerID, currentMatch);
-			oppTurnL = MatchManager.I.GetMatchTurnsByPlayerID (MatchManager.I.GetOppenentId(currentMatch),currentMatch);
+			oppTurnL = MatchManager.I.GetMatchTurnsByPlayerID (MatchManager.I.GetOppenentId(currentMatch), currentMatch);
 			if (oppTurnL.Count > playerTurnL.Count) {
 
 				// Opponent played more turns, get his last turn
@@ -98,6 +98,7 @@ public class QuestionManager : Singleton<QuestionManager> {
 			Button selectedAnswer = getButtonByAnswer (Answer);
 			Button rightAnswer = getButtonByAnswer (currentQuestion.q_Correct);
 			int newturnID = (playerTurnL.Count != 9 ? (playerTurnL.Count + 1) : playerTurnL.Count);
+			Debug.Log ("TURNID:" + newturnID);
 			Turn newTurn;
 			/***************************** CORRECT ANSWER ********************************/
 			if (Answer == currentQuestion.q_Correct)
@@ -109,7 +110,7 @@ public class QuestionManager : Singleton<QuestionManager> {
                     text.DOFade(0, 0.2f).SetDelay(0.5f);
                 }
                 // Set score
-                playerScore.text = (getScore()+1).ToString();
+				playerScore.text = (int.Parse(playerScore.text)+1).ToString();
                 // Turn button color to green
                 rightAnswer.GetComponent<Image> ().sprite = goodAnswer;
 				rightAnswer.GetComponentInChildren<Text> ().color = Color.white;
@@ -172,6 +173,7 @@ public class QuestionManager : Singleton<QuestionManager> {
 
 				// Game ends when player has answered the 9th question correctly
 				if(newturnID == 9) {
+					MatchManager.I.ChangeLastTurn (newTurn, true);
                     //check all after game achievements
                     AchievementManager.I.checkAchievementsAfterGame();
                     // Change gamestate
@@ -210,10 +212,10 @@ public class QuestionManager : Singleton<QuestionManager> {
             PlayerManager.I.CheckLevelUp();
 
             // Save new turn to match
-            if (MatchManager.I.returnTurnId() != 9) {
+			if (playerTurnL.Count != 9) {
 				MatchManager.I.AddTurn (newTurn);
 			} else {
-				MatchManager.I.ChangeTurn (newTurn);
+				MatchManager.I.ChangeLastTurn (newTurn, false);
 			}
 			
 			if (Answer != "")
@@ -323,19 +325,6 @@ public class QuestionManager : Singleton<QuestionManager> {
 		}
 		oppScore.text = total.ToString ();
 
-	}
-
-	private int getScore() {
-		int total = 0;
-		Match match = MatchManager.I.GetMatch (MatchManager.I.currentMatchID);
-		if (match.m_trns != null) {
-			for (int i = 0; i < match.m_trns.Count; i++) {
-				if (match.m_trns [i].t_st == 1) {
-					total++;
-				}
-			}
-		}
-		return total;
 	}
 
 	private void showBrainCoinTween(int numbers, int coinValue) {

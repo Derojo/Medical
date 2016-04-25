@@ -79,6 +79,7 @@ public class Profile_Create : MonoBehaviour {
 			LoggedInUser = userProfile;
 			// Set playerprefs, store so we dont need to use http requests when we dont need it
 			PlayerManager.I.player.playerID = LoggedInUser._id; // Player id
+			fillExistingProfile ();
 		}else {
 			errorMsg = GamedoniaBackend.getLastError().ToString();
 			Debug.Log(errorMsg);
@@ -153,5 +154,11 @@ public class Profile_Create : MonoBehaviour {
 		return returnValue;
 	}
 
-
+	private void fillExistingProfile() {
+		p_name.text = (LoggedInUser.profile ["name"].ToString() != "" ? LoggedInUser.profile ["name"].ToString() : "");
+		p_age.text = ( LoggedInUser.profile ["age"].ToString() != "0" ? LoggedInUser.profile ["age"].ToString () : "0");
+		p_color.text = (LoggedInUser.profile ["color"].ToString() != "" ? LoggedInUser.profile ["color"].ToString() : "");
+		p_hobby.text = (LoggedInUser.profile ["hobby"].ToString() != "" ? LoggedInUser.profile ["hobby"].ToString() : "");
+		p_film.text = (LoggedInUser.profile ["film"].ToString() != "" ? LoggedInUser.profile ["film"].ToString() : "");
+	}
 }

@@ -129,10 +129,18 @@ public class PlayerManager : Singleton<PlayerManager> {
 			if (success) {
 				//returnInformation["name"] = data.profile["name"].ToString();
 				currentOpponentInfo = data.profile;
-
 			}
 		});
+	}
 
+	public Dictionary<string, object> GetPlayerById(string playerID) {
+		Dictionary<string, object> returnprofile = new Dictionary<string, object> ();
+		GamedoniaUsers.GetUser(playerID, delegate (bool success, GDUserProfile data) { 
+			if (success) {
+				returnprofile = data.profile;
+			}
+		});
+		return returnprofile;
 	}
 	public void CheckLevelUp() {
 		float neededXP = ranks [CurrentRankKey ()].reqXP;
