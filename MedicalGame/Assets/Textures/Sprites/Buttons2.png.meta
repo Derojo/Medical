@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 34710ac4abd4e8e438d1bb12941621aa
-timeCreated: 1460646931
+timeCreated: 1461594407
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -18,12 +18,12 @@ TextureImporter:
     21300022: willekeurig_btn
     21300024: invite_btn
     21300026: bacground
-    21300028: jTurn_btn
+    21300028: Beindigdespellen_btn
     21300030: hTurn_btn
     21300032: t_login
     21300034: b_login
     21300036: b_login_pressed
-    21300038: input
+    21300038: Spelen
     21300040: Buttons2_1
     21300042: t_profile
     21300044: profile_round
@@ -254,8 +254,10 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: -384.5, y: 32.5}
-        - {x: -384.5, y: -32.5}
-        - {x: 384.5, y: -32.5}
+        - {x: -384.5, y: -30.5}
+        - {x: -382.5, y: -32.5}
+        - {x: 382.5, y: -32.5}
+        - {x: 384.5, y: -30.5}
         - {x: 384.5, y: 32.5}
     - name: Buttons2_0
       rect:
@@ -328,36 +330,22 @@ TextureImporter:
         - {x: -384.5, y: -512.5}
         - {x: 384.5, y: -512.5}
         - {x: 384.5, y: 512.5}
-    - name: jTurn_btn
+    - name: Beindigdespellen_btn
       rect:
         serializedVersion: 2
-        x: 46
-        y: 1969
-        width: 768
-        height: 43
+        x: 36
+        y: 1939
+        width: 766
+        height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -384, y: 21.5}
-        - {x: -384, y: -21.5}
-        - {x: 384, y: -21.5}
-        - {x: 384, y: 21.5}
-    - name: hTurn_btn
-      rect:
-        serializedVersion: 2
-        x: 46
-        y: 1906
-        width: 767
-        height: 43
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 5, y: 5, z: 5, w: 5}
-      outline:
-      - - {x: -383.5, y: 21.5}
-        - {x: -383.5, y: -21.5}
-        - {x: 383.5, y: -21.5}
-        - {x: 383.5, y: 21.5}
+      - - {x: -383, y: 32}
+        - {x: -383, y: -31}
+        - {x: -382, y: -32}
+        - {x: 383, y: -32}
+        - {x: 383, y: 32}
     - name: t_login
       rect:
         serializedVersion: 2
@@ -369,25 +357,28 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -143, y: 68}
-        - {x: -208, y: -34}
+      - - {x: -5, y: 68}
+        - {x: -158, y: 68}
+        - {x: -208, y: -33}
         - {x: -208, y: -68}
-        - {x: 20, y: -68}
-        - {x: 72, y: -44}
-        - {x: 72, y: 68}
-      - - {x: 115, y: 46}
-        - {x: 29, y: -66}
+        - {x: 21, y: -68}
+        - {x: 72, y: -22}
+        - {x: 72, y: 54}
+        - {x: 71, y: 59}
+      - - {x: 125, y: 46}
+        - {x: 31, y: -63}
         - {x: 29, y: -68}
         - {x: 162, y: -68}
-        - {x: 208, y: -15}
-        - {x: 208, y: 46}
-      - - {x: 129, y: 68}
+        - {x: 208, y: -34}
+        - {x: 208, y: 41}
+        - {x: 207, y: 46}
+      - - {x: 127, y: 68}
         - {x: 126, y: 67}
-        - {x: 126, y: 51}
-        - {x: 130, y: 49}
-        - {x: 141, y: 49}
-        - {x: 143, y: 53}
-        - {x: 143, y: 65}
+        - {x: 126, y: 55}
+        - {x: 127, y: 49}
+        - {x: 142, y: 49}
+        - {x: 143, y: 51}
+        - {x: 143, y: 67}
         - {x: 141, y: 68}
     - name: b_login
       rect:
@@ -423,21 +414,24 @@ TextureImporter:
         - {x: -239, y: -46}
         - {x: 240, y: -46}
         - {x: 240, y: 46}
-    - name: input
+    - name: Spelen
       rect:
         serializedVersion: 2
-        x: 37
-        y: 1779
-        width: 93
-        height: 93
+        x: 35
+        y: 1799
+        width: 480
+        height: 92
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 3, y: 3, z: 3, w: 3}
+      border: {x: 3, y: 0, z: 3, w: 0}
       outline:
-      - - {x: -46.5, y: 46.5}
-        - {x: -46.5, y: -46.5}
-        - {x: 46.5, y: -46.5}
-        - {x: 46.5, y: 46.5}
+      - - {x: -239, y: 46}
+        - {x: -240, y: 45}
+        - {x: -240, y: -45}
+        - {x: -239, y: -46}
+        - {x: 240, y: -46}
+        - {x: 240, y: 45}
+        - {x: 239, y: 46}
     - name: Buttons2_1
       rect:
         serializedVersion: 2
@@ -464,26 +458,26 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 105.5, y: 51.5}
-        - {x: 50.5, y: 51.5}
-        - {x: -2.5, y: 33.5}
-        - {x: -55.5, y: 51.5}
+      - - {x: 96.5, y: 51.5}
+        - {x: 30.5, y: 51.5}
+        - {x: -20.5, y: 34.5}
+        - {x: -68.5, y: 51.5}
         - {x: -109.5, y: 51.5}
         - {x: -191.5, y: -37.5}
         - {x: -191.5, y: -51.5}
-        - {x: 167.5, y: -51.5}
-        - {x: 191.5, y: -22.5}
+        - {x: 166.5, y: -51.5}
+        - {x: 191.5, y: -30.5}
         - {x: 191.5, y: 51.5}
-        - {x: 149.5, y: 51.5}
-        - {x: 118.5, y: 46.5}
-      - - {x: 100.5, y: 51.5}
-        - {x: 88.5, y: 51.5}
-        - {x: 86.5, y: 50.5}
+        - {x: 160.5, y: 51.5}
+        - {x: 121.5, y: 44.5}
+      - - {x: 99.5, y: 51.5}
+        - {x: 89.5, y: 51.5}
+        - {x: 86.5, y: 48.5}
         - {x: 86.5, y: 39.5}
-        - {x: 87.5, y: 35.5}
-        - {x: 99.5, y: 35.5}
-        - {x: 102.5, y: 36.5}
-        - {x: 102.5, y: 50.5}
+        - {x: 90.5, y: 35.5}
+        - {x: 98.5, y: 35.5}
+        - {x: 102.5, y: 40.5}
+        - {x: 102.5, y: 47.5}
     - name: profile_round
       rect:
         serializedVersion: 2
@@ -690,18 +684,14 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 35, y: -24}
-        - {x: 32, y: -22}
-        - {x: 67, y: 19}
-        - {x: 68, y: 22}
-        - {x: 68, y: 66}
-        - {x: 52, y: 82}
-        - {x: 0, y: 82}
-        - {x: -68, y: -6}
+      - - {x: 0, y: 81}
+        - {x: -17, y: 76}
+        - {x: -68, y: -31}
         - {x: -68, y: -82}
-        - {x: 14, y: -82}
-        - {x: 39, y: -40}
-        - {x: 39, y: -30}
+        - {x: 17, y: -82}
+        - {x: 64, y: -6}
+        - {x: 64, y: 56}
+        - {x: 56, y: 81}
     - name: Profiel
       rect:
         serializedVersion: 2
@@ -750,14 +740,14 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 4, y: 70}
-        - {x: -19, y: 62}
-        - {x: -65, y: -41}
+      - - {x: 60, y: 70}
+        - {x: -1, y: 70}
+        - {x: -65, y: -29}
         - {x: -65, y: -70}
-        - {x: 53, y: -70}
-        - {x: 65, y: -65}
-        - {x: 65, y: 66}
-        - {x: 60, y: 70}
+        - {x: 52, y: -70}
+        - {x: 60, y: -62}
+        - {x: 65, y: -17}
+        - {x: 65, y: 68}
     - name: Achievement_icon
       rect:
         serializedVersion: 2

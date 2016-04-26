@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class AudioManagerScript : Singleton<AudioManagerScript>
 {
 
-    
     private AudioSource normalButtonSound;
     private AudioSource sliderButtonSound;
     public AudioSource wrongAnwserSound;
@@ -32,8 +31,4 @@ public class AudioManagerScript : Singleton<AudioManagerScript>
         sliderButtonSound.Play();
     }
 
-    // Update is called once per frame
-    void Update () {
-	
-	}
 }

@@ -20,6 +20,8 @@ public class QuestionManager : Singleton<QuestionManager> {
 	public GameObject Continue;
     public GameObject continueToEnd;
     public GameObject XPPopUp;
+    public bool winAnim = false;
+    public bool loseAnim = false;
 
 	public Sprite goodAnswer;
 	public Sprite wrongAnswer;
@@ -58,7 +60,8 @@ public class QuestionManager : Singleton<QuestionManager> {
 		Debug.Log ("opponentID" + opponentId);
 		if (opponentId != "") {
 			PlayerManager.I.GetPlayerInformationById (opponentId);
-				
+            winAnim = false;
+            loseAnim = false;		
 		}
 		// Turn lists
 		currentCategory = MatchManager.I.currentCategory;
@@ -120,7 +123,8 @@ public class QuestionManager : Singleton<QuestionManager> {
 				newTurn = new Turn (newturnID, PlayerManager.I.player.playerID, currentQuestion.q_Id, currentCategory, 1);
 				// Set next question string
 				nextScene = "Category";
-
+                //set bool win animation
+                winAnim = true;
                 //total questions answered right counter
                 PlayerManager.I.player.rightAnswersTotal  ++;
                 //Row questions answered right counter
@@ -197,6 +201,8 @@ public class QuestionManager : Singleton<QuestionManager> {
 					selectedAnswer.GetComponentInChildren<Text> ().color = Color.white;
 					// Change progress question image
 					playerTurns.transform.GetChild((playerTurnL.Count == 9 ? 8 : playerTurnL.Count)).GetComponent<Image>().sprite = wrongRound;
+                    //set lose animation
+                    loseAnim = true;
 				}
                 PlayerManager.I.player.rightAnswersRow = 0;
                 // Change turn information
