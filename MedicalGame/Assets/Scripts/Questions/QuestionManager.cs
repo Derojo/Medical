@@ -203,6 +203,8 @@ public class QuestionManager : Singleton<QuestionManager> {
 					playerTurns.transform.GetChild((playerTurnL.Count == 9 ? 8 : playerTurnL.Count)).GetComponent<Image>().sprite = wrongRound;
                     //set lose animation
                     loseAnim = true;
+                    //sound
+                    AudioManagerScript.I.wrongAnwserSound.Play();
 				}
                 PlayerManager.I.player.rightAnswersRow = 0;
                 // Change turn information

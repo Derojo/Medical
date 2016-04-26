@@ -15,7 +15,7 @@ public class PlayerManager : Singleton<PlayerManager> {
 	public Player player;
 	public Dictionary<string, object> currentOpponentInfo;
 	public bool Load() {return true;}
-
+    public bool lvlUp = false;
 
 	void Awake() {
 		
@@ -150,12 +150,15 @@ public class PlayerManager : Singleton<PlayerManager> {
 		if (XPSum <= 0) {
 			// Add 1 to new player level
 			player.playerLvl++;
+            //setting lvlUp bool to true for popup
+            lvlUp = true;
 			// Check new ranking
 			CheckCurrentRank();
 			// Remaining experience;
 			player.playerXP = Mathf.Abs (XPSum);
 			// Check if we need to level up more then once
-			if (player.playerXP > neededXP) {
+			if (player.playerXP > neededXP)
+            {
 				CheckLevelUp ();
 			} 
 

@@ -153,6 +153,7 @@
     <Compile Include="Assets\Scripts\Matches\Data\Matches.cs" />
     <Compile Include="Assets\Scripts\Matches\Data\Turn.cs" />
     <Compile Include="Assets\Scripts\Matches\MatchManager.cs" />
+    <Compile Include="Assets\Scripts\Matches\ScrollEvent.cs" />
     <Compile Include="Assets\Scripts\OppCharacterAnim.cs" />
     <Compile Include="Assets\Scripts\Player\Data\Player.cs" />
     <Compile Include="Assets\Scripts\Player\Data\PlayerProfile.cs" />

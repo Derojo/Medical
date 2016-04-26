@@ -10,14 +10,16 @@ public class AudioManagerScript : Singleton<AudioManagerScript>
     public AudioSource wrongAnwserSound;
     public AudioSource achievementUnlockSound;
     public AudioSource TimeUpSound;
-
+    public AudioSource lvlUpSound;
+    
     void Start() {
         AudioSource[] a_sources = GetComponents<AudioSource>();
         normalButtonSound = a_sources[0];
         sliderButtonSound = a_sources[1];
         wrongAnwserSound = a_sources[2];
         achievementUnlockSound = a_sources[3];
-        TimeUpSound = a_sources[4];  
+        TimeUpSound = a_sources[4];
+        lvlUpSound = a_sources[5];
     }
 
     //Normal button function
