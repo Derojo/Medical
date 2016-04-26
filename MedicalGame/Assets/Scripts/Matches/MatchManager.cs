@@ -237,7 +237,7 @@ public class MatchManager : Singleton<MatchManager> {
 	}
 
 	public void checkForUpdateMatches() {
-		List<Match> yourTurn = GetPlayingMatches (false, false);
+		List<Match> yourTurn = GetPlayingMatches (true, false);
 		if (yourTurn.Count > 0) {
 			for (int i = 0; i < yourTurn.Count; i++) {
 				string matchID = yourTurn [i].m_ID;
@@ -308,7 +308,7 @@ public class MatchManager : Singleton<MatchManager> {
 					}
 				}
 			}
-			score = oppScore.ToString () + "-" + playerScore.ToString ();
+			score = playerScore.ToString ()+ "-" +oppScore.ToString ();
 		}
 		return score;
 	}

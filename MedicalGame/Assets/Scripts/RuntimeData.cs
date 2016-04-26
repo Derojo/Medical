@@ -44,6 +44,7 @@ public class RuntimeData : Singleton<RuntimeData> {
 		Hashtable payload = notification["payload"] != null ? (Hashtable) notification["payload"] : new Hashtable();
 		string type = payload.ContainsKey("type") ? payload["type"].ToString() : "";
 		string matchID = payload.ContainsKey("notif_id") ? payload["notif_id"].ToString() : "";
+		string oppName = payload.ContainsKey("notif_name") ? payload["notif_name"].ToString() : "";
 		switch(type) {
 
 		case "matchStart":
@@ -96,11 +97,13 @@ public class RuntimeData : Singleton<RuntimeData> {
 
 			break;
 		case "matchFinish":
-				match = MatchManager.I.GetMatch (matchID);
+			Debug.Log ("MATCH FINISH");
+			Match finishMatch = MatchManager.I.GetMatch (matchID);
 
 			GamedoniaData.Search ("matches", "{_id: { $oid: '" + matchID +"' } }", delegate (bool success, IList data) {
 				if (success) {
 					if (data != null) {
+						Debug.Log ("MATCH FOUND PROCESS INFORMATION");
 						// *************** Server side match information ********************
 						Dictionary<string, object> matchD = (Dictionary<string, object>)data[0];
 						List<Turn> turns = new List<Turn>();
@@ -113,15 +116,15 @@ public class RuntimeData : Singleton<RuntimeData> {
 						}
 						List<string> uids = JsonMapper.ToObject<List<string>>(JsonMapper.ToJson(matchD["u_ids"]));
 						// *************** Update local match ********************
-						match.u_ids = uids;
-						match.m_cc = 0;
-						match.m_trns = turns;
-						match.m_cp = PlayerManager.I.player.playerID;
-						match.m_status = matchD["m_status"].ToString();
-						if(currentScene.name == "Home" && !goToMatch) {
-							GameObject.FindObjectOfType<CurrentMatches>().updateMatches();
-						}
-						ShowFinishedMatchPopup(match);
+						finishMatch.u_ids = uids;
+						finishMatch.m_cc = 0;
+						finishMatch.m_trns = turns;
+						finishMatch.m_cp = PlayerManager.I.player.playerID;
+						finishMatch.m_status = matchD["m_status"].ToString();
+
+						Debug.Log("Show popup");
+						Debug.Log(oppName);
+						Loader.I.showFinishedPopup (oppName);
 					} else {
 						Debug.Log ("Data is null");
 					}
@@ -137,14 +140,15 @@ public class RuntimeData : Singleton<RuntimeData> {
 		}
 	}
 
-	private void ShowFinishedMatchPopup(Match match) {
-		string opponentId = MatchManager.I.GetOppenentId (match);
-		GamedoniaUsers.GetUser (opponentId, delegate (bool success, GDUserProfile data) { 
-			if (success) {
-				Dictionary<string, object> oppProfile = new Dictionary<string, object> ();
-				Loader.I.showFinishedPopup (oppProfile ["name"].ToString ());
-			}
-		});
-	}
+//	private void ShowFinishedMatchPopup(Match match) {
+//		Debug.Log ("Show Popup");
+//		string opponentId = MatchManager.I.GetOppenentId (match);
+//		GamedoniaUsers.GetUser (opponentId, delegate (bool success, GDUserProfile data) { 
+//			if (success) {
+//				Dictionary<string, object> oppProfile = new Dictionary<string, object> ();
+//				Loader.I.showFinishedPopup (oppProfile ["name"].ToString ());
+//			}
+//		});
+//	}
 
 }

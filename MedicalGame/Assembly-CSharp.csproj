@@ -91,6 +91,7 @@
      <Compile Include="Assets\Scripts\ButtonAudioScript.cs" />
      <Compile Include="Assets\Scripts\CanvasLoader.cs" />
      <Compile Include="Assets\Scripts\Categories.cs" />
+     <Compile Include="Assets\Scripts\CharacterAnim.cs" />
      <Compile Include="Assets\Scripts\CountDownTimer.cs" />
      <Compile Include="Assets\Scripts\Data\PrefabAttribute.cs" />
      <Compile Include="Assets\Scripts\Data\Singleton.cs" />
@@ -105,6 +106,7 @@
      <Compile Include="Assets\Scripts\Matches\Data\Turn.cs" />
      <Compile Include="Assets\Scripts\Matches\MatchManager.cs" />
      <Compile Include="Assets\Scripts\Matches\ScrollEvent.cs" />
+     <Compile Include="Assets\Scripts\OppCharacterAnim.cs" />
      <Compile Include="Assets\Scripts\Player\Data\Player.cs" />
      <Compile Include="Assets\Scripts\Player\Data\PlayerProfile.cs" />
      <Compile Include="Assets\Scripts\Player\Data\Rank.cs" />

@@ -338,21 +338,31 @@ public class QuestionManager : Singleton<QuestionManager> {
 		{
 		case 1:
 			// Tween 1 coin
+			xpCoins.transform.GetChild (0).gameObject.SetActive(true);
 			popupCoin(xpCoins.transform.GetChild (0).GetComponent<RectTransform> (), xpCoins.transform.GetChild (0).GetComponent<Image> (), xpCoins.transform.GetChild (0).GetComponent<AudioSource> (), 70f, 0);
 			break;
 		case 2:
 			// Tween 2 coins
+			xpCoins.transform.GetChild (0).gameObject.SetActive(true);
+			xpCoins.transform.GetChild (1).gameObject.SetActive(true);
 			popupCoin(xpCoins.transform.GetChild (0).GetComponent<RectTransform> (), xpCoins.transform.GetChild (0).GetComponent<Image> (), xpCoins.transform.GetChild (0).GetComponent<AudioSource> (), 70f, 0);
 			popupCoin(xpCoins.transform.GetChild (1).GetComponent<RectTransform> (), xpCoins.transform.GetChild (1).GetComponent<Image> (), xpCoins.transform.GetChild (1).GetComponent<AudioSource> (), 80f, 0.1f);
 			break;
 		case 3:
 			// Tween 3 coins
+			xpCoins.transform.GetChild (0).gameObject.SetActive(true);
+			xpCoins.transform.GetChild (1).gameObject.SetActive(true);
+			xpCoins.transform.GetChild (2).gameObject.SetActive(true);
 			popupCoin(xpCoins.transform.GetChild (0).GetComponent<RectTransform> (), xpCoins.transform.GetChild (0).GetComponent<Image> (), xpCoins.transform.GetChild (0).GetComponent<AudioSource> (), 70f, 0);
 			popupCoin(xpCoins.transform.GetChild (1).GetComponent<RectTransform> (), xpCoins.transform.GetChild (1).GetComponent<Image> (), xpCoins.transform.GetChild (1).GetComponent<AudioSource> (), 80f, 0.1f);
 			popupCoin(xpCoins.transform.GetChild (2).GetComponent<RectTransform> (), xpCoins.transform.GetChild (2).GetComponent<Image> (), xpCoins.transform.GetChild (2).GetComponent<AudioSource> (), 80f, 0.2f);
 			break;
 		case 4:
 			// Tween 4 coins
+			xpCoins.transform.GetChild (0).gameObject.SetActive(true);
+			xpCoins.transform.GetChild (1).gameObject.SetActive(true);
+			xpCoins.transform.GetChild (2).gameObject.SetActive(true);
+			xpCoins.transform.GetChild (3).gameObject.SetActive(true);
 			popupCoin(xpCoins.transform.GetChild (0).GetComponent<RectTransform> (), xpCoins.transform.GetChild (0).GetComponent<Image> (), xpCoins.transform.GetChild (0).GetComponent<AudioSource> (), 70f, 0);
 			popupCoin(xpCoins.transform.GetChild (1).GetComponent<RectTransform> (), xpCoins.transform.GetChild (1).GetComponent<Image> (), xpCoins.transform.GetChild (1).GetComponent<AudioSource> (), 80f, 0.1f);
 			popupCoin(xpCoins.transform.GetChild (2).GetComponent<RectTransform> (), xpCoins.transform.GetChild (2).GetComponent<Image> (), xpCoins.transform.GetChild (2).GetComponent<AudioSource> (), 80f, 0.2f);
@@ -377,6 +387,7 @@ public class QuestionManager : Singleton<QuestionManager> {
 		rect.DOScale (1.5f, 2f).SetEase (Ease.OutElastic).SetDelay (delay);
 		img.DOFade(0, .5f).SetEase(Ease.InExpo).SetDelay(delay+1);
 		rect.DOLocalMoveY ((rect.rect.y+10), .5f).SetEase(Ease.OutSine).SetDelay(delay+1);
+		StartCoroutine(hideCoin(delay+1.5f, rect.transform.gameObject));
 		// Show experience gained
 	}
 
@@ -387,4 +398,10 @@ public class QuestionManager : Singleton<QuestionManager> {
         //load end game scene
         SceneManager.LoadScene("Match_End");
     }
+
+	private IEnumerator hideCoin(float time, GameObject coin) {
+		yield return new WaitForSeconds (time);
+		coin.SetActive(false);
+		
+	}
 }

@@ -66,6 +66,13 @@ public class Loader : Singleton<Loader> {
 	}
 
 	public void showFinishedPopup(string playerName) {
+		gameObject.GetComponent<Canvas> ().enabled = true;
+		Scene currentScene = SceneManager.GetActiveScene();
+		if(currentScene.name == "Home") {
+			GameObject.FindObjectOfType<CurrentMatches>().updateMatches();
+		}
+		Debug.Log ("SET FINISHED TO ACTIVE");
+		Debug.Log (finished.name);
 		finished.SetActive (true);
 //		enableBackground ();
 
@@ -77,11 +84,16 @@ public class Loader : Singleton<Loader> {
 		}
 		finished.transform.DOScale(1.1f, 0.5f);
 		finished.transform.DOScale(1, 0.2f).SetDelay(0.5f);
+		StartCoroutine (HideFinishedPopup (2f));
 	}
 
-	public void HidePopups() {
-		Debug.Log ("moii");
+	public IEnumerator HideFinishedPopup(float time) {
+		yield return new WaitForSeconds(time);
+		finished.transform.DOScale (1.1f, 0.4f).SetEase (Ease.InFlash);
+		finished.transform.DOScale (0f, 0.1f).SetEase (Ease.OutSine).SetDelay(0.5f);;
+		yield return new WaitForSeconds(0.5f);
 		finished.SetActive (false);
+		gameObject.GetComponent<Canvas> ().enabled = false;
 	}
 
 }

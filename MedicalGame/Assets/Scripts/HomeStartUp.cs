@@ -30,6 +30,7 @@ public class HomeStartUp : MonoBehaviour {
         //Debug.Log(PlayerManager.I.lvlUp);
         if (PlayerManager.I.lvlUp)
         {
+			lvlPopUp.SetActive (true);
             StartCoroutine(hideLvlUp());
         }
 	}
@@ -37,10 +38,11 @@ public class HomeStartUp : MonoBehaviour {
     //Playing sound function
     public void onClick()
     {
-        Debug.Log("test");
-        lvlPopUp.SetActive(false);
-        PlayerManager.I.lvlUp = false;
-        soundPlay = false;  
+		if (PlayerManager.I.lvlUp) {
+			lvlPopUp.SetActive (false);
+			PlayerManager.I.lvlUp = false;
+			soundPlay = false;  
+		}
     }
 
     //hiding popup after x secs
