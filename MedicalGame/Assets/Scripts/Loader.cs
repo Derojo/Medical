@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 [Prefab("Loader", true, "")]
 public class Loader : Singleton<Loader> {
@@ -9,6 +10,7 @@ public class Loader : Singleton<Loader> {
 	public GameObject overlay;
 	public GameObject icon;
 	public GameObject mini;
+	public GameObject finished;
 
 	public bool Load() {return true;}
 
@@ -61,6 +63,25 @@ public class Loader : Singleton<Loader> {
 	private IEnumerator activeMiniMan() {
 		yield return new WaitForSeconds (0.2f);
 		mini.SetActive (true);
+	}
+
+	public void showFinishedPopup(string playerName) {
+		finished.SetActive (true);
+//		enableBackground ();
+
+		finished.transform.GetChild (2).GetComponent<Text> ().text = "Helaas je hebt verloren van " + playerName;
+		finished.GetComponent<Image> ().DOFade (1, 0.5f);
+		finished.transform.GetComponentInChildren<Image> ().DOFade (1, 0.5f);
+		foreach (Text text in finished.transform.GetComponentsInChildren<Text>()) {
+			text.DOFade (1, 0.5f);
+		}
+		finished.transform.DOScale(1.1f, 0.5f);
+		finished.transform.DOScale(1, 0.2f).SetDelay(0.5f);
+	}
+
+	public void HidePopups() {
+		Debug.Log ("moii");
+		finished.SetActive (false);
 	}
 
 }

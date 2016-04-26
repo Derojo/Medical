@@ -183,6 +183,8 @@ public class MatchManager : Singleton<MatchManager> {
 		}
 		if (finish) {
 			match.m_status = "finished";
+			match.m_cp = GetOppenentId (match);
+			// Gamedonia server script handles opponent push message
 		}
 		if (turn.t_st == 0) {
 			match.m_cp = GetOppenentId (match);
@@ -235,42 +237,46 @@ public class MatchManager : Singleton<MatchManager> {
 	}
 
 	public void checkForUpdateMatches() {
-		List<Match> yourTurn = GetPlayingMatches (true, false);
-		for (int i = 0; i < yourTurn.Count; i++) {
-			string matchID = yourTurn [i].m_ID;
-			GamedoniaData.Search ("matches", "{_id: { $oid: '" + matchID +"' } }", delegate (bool success, IList data) {
-				if (success) {
-					if (data != null) {
-						Match match = GetMatch(matchID);
+		List<Match> yourTurn = GetPlayingMatches (false, false);
+		if (yourTurn.Count > 0) {
+			for (int i = 0; i < yourTurn.Count; i++) {
+				string matchID = yourTurn [i].m_ID;
+				GamedoniaData.Search ("matches", "{_id: { $oid: '" + matchID + "' } }", delegate (bool success, IList data) {
+					if (success) {
+						if (data != null) {
+							Match match = GetMatch (matchID);
 
-						Dictionary<string, object> matchD = (Dictionary<string, object>)data[0];
-						// Update match if we are the currentplayer
-						if(matchD["m_cp"].ToString() == PlayerManager.I.player.playerID || matchD["m_status"].ToString() == "finished") {
-							if(match.u_ids[0] == "") {
-								List<string> uids = JsonMapper.ToObject<List<string>>(JsonMapper.ToJson(matchD["u_ids"]));
-								match.u_ids[0] = uids[0];
-							}
+							Dictionary<string, object> matchD = (Dictionary<string, object>)data [0];
 
-							List<Turn> turns = new List<Turn>();
-							List<object> t_turns = new List<object>();
-							t_turns = (List<object>)matchD["m_trns"];
-							foreach(Dictionary<string, object> t_turn  in t_turns) {
-								Turn turn = new Turn(int.Parse(t_turn["t_ID"].ToString()), t_turn["p_ID"].ToString(), int.Parse(t_turn["q_ID"].ToString()), int.Parse(t_turn["c_ID"].ToString()), int.Parse(t_turn["t_st"].ToString()));
-								turns.Add(turn);
+							// Update match if we are the currentplayer
+							if (matchD ["m_cp"].ToString () == PlayerManager.I.player.playerID || matchD ["m_status"].ToString () == "finished") {
+								Debug.Log ("currentplayer:" + matchD ["m_cp"].ToString ());
+								if (match.u_ids [0] == "") {
+									List<string> uids = JsonMapper.ToObject<List<string>> (JsonMapper.ToJson (matchD ["u_ids"]));
+									match.u_ids [0] = uids [0];
+								}
+
+								List<Turn> turns = new List<Turn> ();
+								List<object> t_turns = new List<object> ();
+								t_turns = (List<object>)matchD ["m_trns"];
+								foreach (Dictionary<string, object> t_turn  in t_turns) {
+									Turn turn = new Turn (int.Parse (t_turn ["t_ID"].ToString ()), t_turn ["p_ID"].ToString (), int.Parse (t_turn ["q_ID"].ToString ()), int.Parse (t_turn ["c_ID"].ToString ()), int.Parse (t_turn ["t_st"].ToString ()));
+									turns.Add (turn);
+								}
+								match.m_cp = matchD ["m_cp"].ToString ();
+								match.m_trns = turns;
+								Save ();
+								checkUpdates = true;
+							} else {
+								checkUpdates = true;
 							}
-							match.m_cp = matchD["m_cp"].ToString();
-							match.m_trns = turns;
-							Save();
 						}
 					}
-
-					checkUpdates = true;
-				}
-			});
+				});
+			} 
+		} else {
+			checkUpdates = true;
 		}
-			
-
-
 	}
 	public List<Match> GetFinishedMatches() {
 		List<Match> tempList = new List<Match> ();

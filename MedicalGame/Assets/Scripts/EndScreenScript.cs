@@ -39,7 +39,7 @@ public class EndScreenScript : MonoBehaviour {
 
         /******** PLAYER INFO*********/
         //set match score
-        matchScore.text = (MatchManager.I.getMatchScore(MatchManager.I.currentMatchID)).ToString() + ("-0");
+        //matchScore.text = (MatchManager.I.getMatchScore(MatchManager.I.currentMatchID)).ToString() + ("-0");
 		// Set ranking name info
 		rankingName.text = PlayerManager.I.player.playerRank;
 		rankingName.DOFade(1, 3f);

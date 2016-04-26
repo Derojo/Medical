@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using DG.Tweening;
 using Gamedonia.Backend;
+using UnityEngine.EventSystems;
 
 
 public class CurrentMatches : MonoBehaviour {
@@ -26,8 +27,9 @@ public class CurrentMatches : MonoBehaviour {
 		while(MatchManager.I.checkUpdates == false) {
 			yield return null;
 		}
-		Loader.I.disableLoader ();
+		yield return new WaitForSeconds (0.1f);
 		updateMatches ();
+		Loader.I.disableLoader ();
 	}
 
 	public void LoadMatch(string id) {
@@ -66,6 +68,7 @@ public class CurrentMatches : MonoBehaviour {
 			Match match = MatchManager.I.GetMatch (matchId);
 			string opponentId = MatchManager.I.GetOppenentId (match);
 			GameObject matchUI = Instantiate (Resources.Load ("MatchUIRow")) as GameObject;
+			matchUI.SetActive (false);
 			// Set all the information, playername, score etc
 			setChildInformation (opponentId, matchId, matchUI, "yourTurn", i);
 
@@ -100,6 +103,7 @@ public class CurrentMatches : MonoBehaviour {
 			Match match = MatchManager.I.GetMatch (matchId);
 			string opponentId = MatchManager.I.GetOppenentId (match);
 			GameObject matchUI = Instantiate (Resources.Load ("MatchUIRow")) as GameObject;
+			matchUI.SetActive (false);
 			setChildInformation (opponentId, matchId, matchUI, "hisTurn", i);
 			// Housekeeping
 			matchUI.name = matchId;
@@ -131,6 +135,7 @@ public class CurrentMatches : MonoBehaviour {
 			Match match = MatchManager.I.GetMatch (matchId);
 			string opponentId = MatchManager.I.GetOppenentId (match);
 			GameObject matchUI = Instantiate (Resources.Load ("MatchUIRow")) as GameObject;
+			matchUI.SetActive (false);
 			setChildInformation (opponentId, matchId, matchUI, "finished", i);
 			// Housekeeping
 			matchUI.name = matchId;
@@ -139,51 +144,59 @@ public class CurrentMatches : MonoBehaviour {
 			//			matchUI.GetC  = matchId;
 
 
-			matchUI.GetComponent<RectTransform>().DOScale (1.15f, .5f).SetEase(Ease.InFlash).SetDelay(delay);
+			matchUI.GetComponent<RectTransform>().DOScale (1.1f, .5f).SetEase(Ease.InFlash).SetDelay(delay);
 			matchUI.GetComponent<RectTransform>().DOScale (1, 1f).SetEase(Ease.OutExpo).SetDelay((.5f+delay));
 			delay += .2f;
 		}
 	}
 
 	private void setChildInformation(string oppId, string matchId, GameObject parent, string listname, int i) {
-		GamedoniaUsers.GetUser(oppId, delegate (bool success, GDUserProfile data) { 
-			if (success) {
-				Dictionary<string, object> oppProfile = new Dictionary<string, object> ();
-				oppProfile = data.profile;
-				foreach(Transform child in parent.transform) {
-					if (child.name == "playerName") {
-						if (oppId != "") {
-							child.GetComponent<Text> ().text = oppProfile ["name"].ToString ();
-						} else {
-							child.GetComponent<Text> ().text = "Willekeurige tegenstander";
-						}
-					}
-					if (child.name == "Score") {
-						child.GetComponent<Text> ().text = MatchManager.I.getMatchScore (matchId, oppId);
-					}
-					if (child.name == "line") {
-						if(listname == "yourTurn") {
-							if (yourTurn.Count == 1 || (yourTurn.Count-1) == i) {
-								child.gameObject.SetActive (false);
-							}
-						} else if (listname == "hisTurn") {
-							if (hisTurn.Count == 1 || (hisTurn.Count-1) == i) {
-								child.gameObject.SetActive (false);
-							}
-						} else if (listname == "finished") {
-							if (finishedMatches.Count == 1 || (finishedMatches.Count-1) == i) {
-								child.gameObject.SetActive (false);
+		if (oppId != "") {
+			GamedoniaUsers.GetUser (oppId, delegate (bool success, GDUserProfile data) { 
+				if (success) {
+					Dictionary<string, object> oppProfile = new Dictionary<string, object> ();
+					oppProfile = data.profile;
+					foreach (Transform child in parent.transform) {
+						if (child.name == "playerName") {
+							if (oppId != "") {
+								child.GetComponent<Text> ().text = oppProfile ["name"].ToString ();
 							}
 						}
-					}
-					if(child.name == "rankImg") {
-						if (oppId != "") {
-							child.GetComponent<Image>().sprite = PlayerManager.I.GetRankSprite (int.Parse(oppProfile ["lvl"].ToString()));
+						if (child.name == "Score") {
+							child.GetComponent<Text> ().text = MatchManager.I.getMatchScore (matchId, oppId);
+						}
+						if (child.name == "line") {
+							if (listname == "yourTurn") {
+								if (yourTurn.Count == 1 || (yourTurn.Count - 1) == i) {
+									child.gameObject.SetActive (false);
+								}
+							} else if (listname == "hisTurn") {
+								if (hisTurn.Count == 1 || (hisTurn.Count - 1) == i) {
+									child.gameObject.SetActive (false);
+								}
+							} else if (listname == "finished") {
+								if (finishedMatches.Count == 1 || (finishedMatches.Count - 1) == i) {
+									child.gameObject.SetActive (false);
+								}
+							}
+						}
+						if (child.name == "rankImg") {
+							if (oppId != "") {
+								child.GetComponent<Image> ().sprite = PlayerManager.I.GetRankSprite (int.Parse (oppProfile ["lvl"].ToString ()));
+							}
 						}
 					}
+					parent.SetActive (true);
+				}
+			});
+		} else {
+			foreach (Transform child in parent.transform) {
+				if (child.name == "Score") {
+					child.GetComponent<Text> ().text = MatchManager.I.getMatchScore (matchId, oppId);
 				}
 			}
-		});
+			parent.SetActive (true);
+		}
 	}
 
 }

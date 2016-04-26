@@ -176,8 +176,6 @@ public class QuestionManager : Singleton<QuestionManager> {
 					MatchManager.I.ChangeLastTurn (newTurn, true);
                     //check all after game achievements
                     AchievementManager.I.checkAchievementsAfterGame();
-                    // Change gamestate
-                    MatchManager.I.EndMatch();
                     //turn on to endscreen button
                     Continue.SetActive(false);
                     continueToEnd.SetActive(true);
