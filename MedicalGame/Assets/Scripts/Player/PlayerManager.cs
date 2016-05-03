@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using Gamedonia.Backend;
+using System;
 
 [Prefab("PlayerManager", true, "")]
 public class PlayerManager : Singleton<PlayerManager> {
@@ -24,7 +25,6 @@ public class PlayerManager : Singleton<PlayerManager> {
 		if (friends == null) {
 			friends = new Dictionary<string, object>();
 		}
-		LoadFriends ();
 //		player = null;
 		if (player == null) {
 			player = new Player ();
@@ -35,7 +35,6 @@ public class PlayerManager : Singleton<PlayerManager> {
 		CheckLevelUp ();
 	}
 		
-
 	public void Save() {
 		BinaryFormatter bf = new BinaryFormatter();
 		FileStream file = File.Create(Application.persistentDataPath + "/player.gd");
@@ -59,11 +58,12 @@ public class PlayerManager : Singleton<PlayerManager> {
 	}
 
 	public void LoadFriends() {
-		GamedoniaUsers.GetUser(player.playerID, delegate (bool success, GDUserProfile data) { 
-			if (success) {
+		GamedoniaUsers.GetMe(delegate (bool success, GDUserProfile data){
+			if (success){
 				friends = (Dictionary<string, object>)data.profile["friends"];
 			}
 		});
+
 	}
 
 	public void changeProfile(PlayerProfile playerprofile) {
@@ -139,6 +139,7 @@ public class PlayerManager : Singleton<PlayerManager> {
 			if (success) {
 				//returnInformation["name"] = data.profile["name"].ToString();
 				currentOpponentInfo = data.profile;
+				currentOpponentInfo.Add("_id", data._id);
 			}
 		});
 	}
@@ -180,6 +181,85 @@ public class PlayerManager : Singleton<PlayerManager> {
 		Dictionary<string, object> profile = GetPlayerById (player.playerID);
 		profile ["friends"] = friends;
 		GamedoniaUsers.UpdateUser (profile);
+	}
+		
+	public List<int> GetFriendAttributes(string id) {
+		List<int> attributesList = new List<int>();
+		// Get friend by id from dictionary
+		if (friends.Count > 0) {
+			if (friends.ContainsKey (id)) {
+				List<object> attributes = new List<object> ();
+				attributes = (List<object>)friends [id];
+				for (int i = 0; i < attributes.Count; i++) {
+					attributesList.Add (Convert.ToInt32 (attributes [i]));
+				}
+			}
+		} 
+
+
+		return attributesList;
+	}
+
+	public void UnlockNewAttribute(string id = "") {
+		// Get friend by id from dictionary
+		if(id == "") {
+			id = currentOpponentInfo["_id"].ToString();
+		}
+	
+		List<int> attributesList = GetFriendAttributes (id);
+
+		if (attributesList.Count == 0) {
+			attributesList.Add (0);
+		} else {
+			attributesList.Add (attributesList.Count);
+		}
+
+		string attributeName = GetPlayerAttribute (attributesList.Count);
+		if (friends.ContainsKey (id)) {
+			Dictionary<string, object> updateProfile = new Dictionary<string, object> ();
+			friends [id] = attributesList;
+			updateProfile ["_id"] = player.playerID;
+			updateProfile ["friends"] = friends;
+			GamedoniaUsers.UpdateUser(updateProfile, delegate (bool success) {
+				if (success) {
+					Debug.Log("Updated user information");
+				} 
+			});
+		}
+
+	}
+
+	public string GetPlayerAttribute (int key, string id = "") {
+		string attribute = "";
+		// Get player (opponent, friend)
+		if(id == "") {
+			attribute = currentOpponentInfo [DetermineWhichAttribute(key)].ToString();
+		}
+		// Store unlocked attribute state in own player profile
+
+		// Return unlocked attribute
+		return attribute;
+	}
+
+
+	private string DetermineWhichAttribute(int key) {
+		string attributeKey = "";
+		switch (key)
+		{
+			case 0:
+				attributeKey = "age";
+				break;
+			case 1:
+				attributeKey = "color";
+				break;
+			case 2:
+				attributeKey = "hobby";
+				break;
+			case 3:
+				attributeKey = "film";
+				break;
+		}
+		return attributeKey;
 	}
 
 	private void OnApplicationQuit() { Save (); }

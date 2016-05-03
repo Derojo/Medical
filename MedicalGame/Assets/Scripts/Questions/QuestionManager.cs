@@ -196,6 +196,7 @@ public class QuestionManager : Singleton<QuestionManager> {
                     if (int.Parse(playerScore.text) >= int.Parse(oppScore.text))
                     {
                         MatchManager.I.winningMatch = true;
+						PlayerManager.I.UnlockNewAttribute ();
                     }
                 }
 

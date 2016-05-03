@@ -21,6 +21,7 @@ public class Startup : MonoBehaviour {
 			}
 			GamedoniaUsers.LoginUserWithSessionToken (delegate (bool success) {
 				if (success) {
+					PlayerManager.I.LoadFriends ();
 					SceneManager.LoadScene (sceneName);
 				} else {
 					SceneManager.LoadScene ("Login");
