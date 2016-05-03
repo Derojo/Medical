@@ -185,7 +185,18 @@ public class QuestionManager : Singleton<QuestionManager> {
                     continueToEnd.SetActive(true);
                     // add games played
                     PlayerManager.I.player.playedMatches++;
-                    StartCoroutine(ShowEndScreen());  
+                    StartCoroutine(ShowEndScreen());
+                    //Player loses
+                    if(int.Parse(playerScore.text) <= int.Parse(oppScore.text))
+                    {
+                        MatchManager.I.winningMatch = false;
+                    }
+
+                    //Player wins
+                    if (int.Parse(playerScore.text) >= int.Parse(oppScore.text))
+                    {
+                        MatchManager.I.winningMatch = true;
+                    }
                 }
 
 
