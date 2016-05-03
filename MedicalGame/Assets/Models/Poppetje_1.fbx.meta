@@ -1,0 +1,147 @@
+fileFormatVersion: 2
+guid: 87d32e01f1fe2d04eb63459a4bdb6527
+timeCreated: 1462286196
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Broek_0
+    100002: Chest_JNT
+    100004: Collar_JNT
+    100006: Hoofd_0
+    100008: joint1
+    100010: joint14
+    100012: joint14 1
+    100014: joint15
+    100016: joint15 1
+    100018: joint16
+    100020: joint16 1
+    100022: joint17
+    100024: joint17 1
+    100026: joint19
+    100028: joint2
+    100030: joint20
+    100032: joint21
+    100034: joint23
+    100036: joint24
+    100038: joint25
+    100040: joint26
+    100042: joint26 1
+    100044: joint3
+    100046: joint6
+    100048: joint7
+    100050: L_Hip_JNT
+    100052: L_Shoulder_JNT
+    100054: Pet_0
+    100056: //RootNode
+    100058: R_Hip_JNT
+    100060: R_Shoulder_JNT
+    100062: Shirt_0
+    400000: Broek_0
+    400002: Chest_JNT
+    400004: Collar_JNT
+    400006: Hoofd_0
+    400008: joint1
+    400010: joint14
+    400012: joint14 1
+    400014: joint15
+    400016: joint15 1
+    400018: joint16
+    400020: joint16 1
+    400022: joint17
+    400024: joint17 1
+    400026: joint19
+    400028: joint2
+    400030: joint20
+    400032: joint21
+    400034: joint23
+    400036: joint24
+    400038: joint25
+    400040: joint26
+    400042: joint26 1
+    400044: joint3
+    400046: joint6
+    400048: joint7
+    400050: L_Hip_JNT
+    400052: L_Shoulder_JNT
+    400054: Pet_0
+    400056: //RootNode
+    400058: R_Hip_JNT
+    400060: R_Shoulder_JNT
+    400062: Shirt_0
+    2300000: Hoofd_0
+    2300002: Pet_0
+    3300000: Hoofd_0
+    3300002: Pet_0
+    4300000: Hoofd_0
+    4300002: Pet_0
+    4300004: Shirt_0
+    4300006: Broek_0
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Broek_0
+    13700002: Shirt_0
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 180
+    normalImportMode: 1
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
