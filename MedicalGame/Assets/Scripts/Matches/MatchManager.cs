@@ -18,6 +18,7 @@ public class MatchManager : Singleton<MatchManager> {
 	public string currentMatchID;
 	public int currentCategory;
 	public bool checkUpdates = false;
+	public bool winningMatch = false;
 
 
 	public bool Load() {return true;}
@@ -61,6 +62,10 @@ public class MatchManager : Singleton<MatchManager> {
 				} else { 
 					// We found a random player, delete entry from randomqueue
 					GamedoniaData.Delete("randomqueue",((IDictionary) data[0])["_id"].ToString(), null);
+					// Add player to friend list
+					if(!PlayerManager.I.friends.ContainsKey(((IDictionary) data[0])["uid"].ToString())) {
+						PlayerManager.I.AddFriend(((IDictionary) data[0])["uid"].ToString());
+					}
 					// Get match from matches table
 					GamedoniaData.Search ("matches", "{_id: { $oid: '"+((IDictionary) data[0])["m_ID"].ToString()+"' } }", 1, "{m_trns:1}" , delegate (bool _success, IList match) {
 						if (success) {
@@ -84,16 +89,6 @@ public class MatchManager : Singleton<MatchManager> {
 							} 
 						}
 					});
-					// Store oppenent ID
-//					match.AddPlayer(((IDictionary) data[0])["uid"].ToString());
-
-
-					// Delete entry from randomqueue table before adding the new created match;
-					//					GamedoniaData.Delete("randomqueue", ((IDictionary) data[0])["_id"].ToString(), delegate (bool rsuccess){
-					//						if(rsuccess) {
-
-					//						}
-					//					}); 
 
 				}
 			
@@ -245,7 +240,12 @@ public class MatchManager : Singleton<MatchManager> {
 					if (success) {
 						if (data != null) {
 							Match match = GetMatch (matchID);
+							// Add friend if it is a new player
+							string oppId = MatchManager.I.GetOppenentId(match);
 
+							if(!PlayerManager.I.friends.ContainsKey(oppId)) {
+								PlayerManager.I.AddFriend(oppId);
+							}
 							Dictionary<string, object> matchD = (Dictionary<string, object>)data [0];
 
 							// Update match if we are the currentplayer
@@ -278,6 +278,7 @@ public class MatchManager : Singleton<MatchManager> {
 			checkUpdates = true;
 		}
 	}
+
 	public List<Match> GetFinishedMatches() {
 		List<Match> tempList = new List<Match> ();
 		for (int i = 0; i < matchManager.matches.Count; i++) {
@@ -342,18 +343,6 @@ public class MatchManager : Singleton<MatchManager> {
 		return (match.u_ids[0] != PlayerManager.I.player.playerID ? match.u_ids[0] : match.u_ids[1]);
 
 	}
-//
-//	public int returnTurnId(string id = "") {
-//		if (id == "") {
-//			id = currentMatchID;
-//		}
-//		Match match = GetMatch (id);
-//		if (match.m_trns == null) {
-//			return 0;
-//		} else {
-//			return match.m_trns.Count;
-//		}
-//	}
 
 	public List<int> GetQuestionsInMatch() {
 		List<int> returnValue = new List<int> ();
@@ -446,9 +435,6 @@ public class MatchManager : Singleton<MatchManager> {
 		dicMatch ["m_cp"] = match.m_cp;
 		dicMatch ["m_trns"] = match.m_trns;
 
-
-
-
 		return dicMatch;
 		
 	}
@@ -462,5 +448,7 @@ public class MatchManager : Singleton<MatchManager> {
 
 		GamedoniaData.Create ("randomqueue", randomGame);
 	}
+
+
 		
 }

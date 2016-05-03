@@ -1,29 +1,30 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Categories.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player\Data\PlayerProfile.cs">
     <Files>
-      <File FileName="Assets\Scripts\RuntimeData.cs" Line="126" Column="26" />
-      <File FileName="Assets\Scripts\EndScreenScript.cs" Line="55" Column="32" />
-      <File FileName="Assets\Scripts\Matches\CurrentMatches.cs" Line="166" Column="71" />
+      <File FileName="Assets\Scripts\AddUser.cs" Line="29" Column="3" />
+      <File FileName="Assets\Scripts\RuntimeData.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\EndScreenScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Matches\CurrentMatches.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Questions\QuestionManager.cs" Line="390" Column="67" />
       <File FileName="Assets\Scripts\turnbasedtest.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Startup.cs" Line="1" Column="1" />
       <File FileName="Assets\Plugins\Android\AndroidManifest.xml" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Matches\Data\Match.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Matches\MatchManager.cs" Line="311" Column="62" />
+      <File FileName="Assets\Scripts\Matches\MatchManager.cs" Line="63" Column="90" />
       <File FileName="Assets\Scripts\Matches\Data\Turn.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\AddUser.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Login.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player\Profile.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player\PlayerManager.cs" Line="19" Column="2" />
+      <File FileName="Assets\Scripts\Player\PlayerManager.cs" Line="15" Column="11" />
       <File FileName="Assets\Scripts\SceneManagerScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Loader.cs" Line="76" Column="29" />
-      <File FileName="Assets\Scripts\Categories.cs" Line="57" Column="46" />
+      <File FileName="Assets\Scripts\Loader.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Categories.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\CountDownTimer.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Player\Profile_Create.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Achievements\AchievementManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Matches\ScrollEvent.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\HomeStartUp.cs" Line="33" Column="4" />
+      <File FileName="Assets\Scripts\HomeStartUp.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Player\Data\Player.cs" Line="61" Column="35" />
+      <File FileName="Assets\Scripts\Player\Data\PlayerProfile.cs" Line="10" Column="16" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

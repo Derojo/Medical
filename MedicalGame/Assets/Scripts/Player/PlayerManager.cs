@@ -14,12 +14,17 @@ public class PlayerManager : Singleton<PlayerManager> {
 
 	public Player player;
 	public Dictionary<string, object> currentOpponentInfo;
+	public Dictionary<string, object> friends;
 	public bool Load() {return true;}
     public bool lvlUp = false;
 
 	void Awake() {
 		
 		LoadPlayer ();
+		if (friends == null) {
+			friends = new Dictionary<string, object>();
+		}
+		LoadFriends ();
 //		player = null;
 		if (player == null) {
 			player = new Player ();
@@ -47,10 +52,18 @@ public class PlayerManager : Singleton<PlayerManager> {
 			if (_player.loggedIn && _player.createdProfile) {
 				player = _player;
 			}
+
 			file.Close();
 		}
+			
+	}
 
-
+	public void LoadFriends() {
+		GamedoniaUsers.GetUser(player.playerID, delegate (bool success, GDUserProfile data) { 
+			if (success) {
+				friends = (Dictionary<string, object>)data.profile["friends"];
+			}
+		});
 	}
 
 	public void changeProfile(PlayerProfile playerprofile) {
@@ -77,7 +90,6 @@ public class PlayerManager : Singleton<PlayerManager> {
 		if (lvl == 0) {
 			lvl = player.playerLvl;
 		}
-		Debug.Log (lvl);
 		int key = 0;
 		for (int i = 0; i < ranks.Count; i++) {
 			string[] splitScope = ranks [i].levelScope.Split (new string[]{"/"}, System.StringSplitOptions.None);
@@ -108,7 +120,6 @@ public class PlayerManager : Singleton<PlayerManager> {
 		string[] splitScope = ranks [CurrentRankKey ()].levelScope.Split (new string[]{"/"}, System.StringSplitOptions.None);
 
 		return int.Parse(splitScope[1]) - player.playerLvl;
-	
 	}
 
 	public string GetNextRankName() {
@@ -116,7 +127,6 @@ public class PlayerManager : Singleton<PlayerManager> {
 	}
 
 	public Sprite GetRankSprite(int lvl = 0) {
-		Debug.Log (lvl);
 		return ranks [CurrentRankKey(lvl)].sprite;
 	}
 
@@ -142,6 +152,7 @@ public class PlayerManager : Singleton<PlayerManager> {
 		});
 		return returnprofile;
 	}
+
 	public void CheckLevelUp() {
 		float neededXP = ranks [CurrentRankKey ()].reqXP;
 		// subtract player experience with needed experience
@@ -161,8 +172,14 @@ public class PlayerManager : Singleton<PlayerManager> {
             {
 				CheckLevelUp ();
 			} 
-
 		}
+	}
+
+	public void AddFriend(string name) {
+		friends.Add (name, new List<int> ());
+		Dictionary<string, object> profile = GetPlayerById (player.playerID);
+		profile ["friends"] = friends;
+		GamedoniaUsers.UpdateUser (profile);
 	}
 
 	private void OnApplicationQuit() { Save (); }
