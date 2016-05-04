@@ -140,6 +140,7 @@
     <Compile Include="Assets\Scripts\CanvasLoader.cs" />
     <Compile Include="Assets\Scripts\Categories.cs" />
     <Compile Include="Assets\Scripts\CharacterAnim.cs" />
+    <Compile Include="Assets\Scripts\ChatTestScript.cs" />
     <Compile Include="Assets\Scripts\CountDownTimer.cs" />
     <Compile Include="Assets\Scripts\Data\PrefabAttribute.cs" />
     <Compile Include="Assets\Scripts\Data\Singleton.cs" />

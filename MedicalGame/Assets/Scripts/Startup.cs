@@ -15,7 +15,8 @@ public class Startup : MonoBehaviour {
 			SceneManager.LoadScene ("Login");
 		} else {
 			if (PlayerManager.I.player.createdProfile) {
-				sceneName = "Home";
+                sceneName = "Home";
+                //sceneName = "TestingChatScene";
 			} else {
 				sceneName = "Profile_Create";
 			}
