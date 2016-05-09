@@ -51,13 +51,11 @@ public class QuestionManager : Singleton<QuestionManager> {
 
 
 
-	void Awake() {
-
-	}
 	void Start() {
+		// Match initialization 
 		Match currentMatch = MatchManager.I.GetMatch (MatchManager.I.currentMatchID);
 		opponentId = MatchManager.I.GetOppenentId (currentMatch);
-		Debug.Log ("opponentID" + opponentId);
+
 		if (opponentId != "") {
 			PlayerManager.I.GetPlayerInformationById (opponentId);
             winAnim = false;
@@ -91,6 +89,8 @@ public class QuestionManager : Singleton<QuestionManager> {
 		SetQuestionReady ();
 	}
 
+
+	/** Check whether the given answer is correct or not correct, switch to next category or home scene according to the outcome**/
 	public void checkAnswer(string Answer) {
        
         // Hide Timer
@@ -101,7 +101,6 @@ public class QuestionManager : Singleton<QuestionManager> {
 			Button selectedAnswer = getButtonByAnswer (Answer);
 			Button rightAnswer = getButtonByAnswer (currentQuestion.q_Correct);
 			int newturnID = (playerTurnL.Count != 9 ? (playerTurnL.Count + 1) : playerTurnL.Count);
-			Debug.Log ("TURNID:" + newturnID);
 			Turn newTurn;
 			/***************************** CORRECT ANSWER ********************************/
 			if (Answer == currentQuestion.q_Correct)
@@ -131,7 +130,6 @@ public class QuestionManager : Singleton<QuestionManager> {
                 PlayerManager.I.player.rightAnswersRow ++;
 
 				// Right answered questions in row,  set xp and show brain coins
-
 				switch (PlayerManager.I.player.rightAnswersRow)
 				{
 					case 3: 

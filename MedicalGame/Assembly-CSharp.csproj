@@ -96,7 +96,6 @@
      <Compile Include="Assets\Scripts\Data\PrefabAttribute.cs" />
      <Compile Include="Assets\Scripts\Data\Singleton.cs" />
      <Compile Include="Assets\Scripts\DestroyPopUpScript.cs" />
-     <Compile Include="Assets\Scripts\EndScreenScript.cs" />
      <Compile Include="Assets\Scripts\HomeStartUp.cs" />
      <Compile Include="Assets\Scripts\Loader.cs" />
      <Compile Include="Assets\Scripts\Login.cs" />
@@ -104,6 +103,7 @@
      <Compile Include="Assets\Scripts\Matches\Data\Match.cs" />
      <Compile Include="Assets\Scripts\Matches\Data\Matches.cs" />
      <Compile Include="Assets\Scripts\Matches\Data\Turn.cs" />
+     <Compile Include="Assets\Scripts\Matches\EndScreenScript.cs" />
      <Compile Include="Assets\Scripts\Matches\MatchManager.cs" />
      <Compile Include="Assets\Scripts\Matches\ScrollEvent.cs" />
      <Compile Include="Assets\Scripts\OppCharacterAnim.cs" />

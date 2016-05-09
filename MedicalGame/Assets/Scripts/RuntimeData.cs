@@ -72,7 +72,7 @@ public class RuntimeData : Singleton<RuntimeData> {
 							List<string> uids = JsonMapper.ToObject<List<string>>(JsonMapper.ToJson(matchD["u_ids"]));
 							// Add friend to list
 							string oppId = MatchManager.I.GetOppenentId(match);
-							if(!PlayerManager.I.friends.ContainsKey(oppId)) {
+							if(!PlayerManager.I.friends.ContainsKey(oppId) && oppId!= "") {
 								PlayerManager.I.AddFriend(oppId);
 							}
 							// *************** Update local match ********************

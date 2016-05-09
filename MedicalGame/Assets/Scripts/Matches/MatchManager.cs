@@ -19,6 +19,7 @@ public class MatchManager : Singleton<MatchManager> {
 	public int currentCategory;
 	public bool checkUpdates = false;
 	public bool winningMatch = false;
+	public int lastAttributeKey = -1;
 
 
 	public bool Load() {return true;}
@@ -63,7 +64,7 @@ public class MatchManager : Singleton<MatchManager> {
 					// We found a random player, delete entry from randomqueue
 					GamedoniaData.Delete("randomqueue",((IDictionary) data[0])["_id"].ToString(), null);
 					// Add player to friend list
-					if(!PlayerManager.I.friends.ContainsKey(((IDictionary) data[0])["uid"].ToString())) {
+					if(!PlayerManager.I.friends.ContainsKey(((IDictionary) data[0])["uid"].ToString()) && ((IDictionary) data[0])["uid"].ToString() != "") {
 						PlayerManager.I.AddFriend(((IDictionary) data[0])["uid"].ToString());
 					}
 					// Get match from matches table
@@ -243,7 +244,7 @@ public class MatchManager : Singleton<MatchManager> {
 							// Add friend if it is a new player
 							string oppId = MatchManager.I.GetOppenentId(match);
 
-							if(!PlayerManager.I.friends.ContainsKey(oppId)) {
+							if(!PlayerManager.I.friends.ContainsKey(oppId) && oppId != "") {
 								PlayerManager.I.AddFriend(oppId);
 							}
 							Dictionary<string, object> matchD = (Dictionary<string, object>)data [0];
@@ -265,6 +266,7 @@ public class MatchManager : Singleton<MatchManager> {
 								}
 								match.m_cp = matchD ["m_cp"].ToString ();
 								match.m_trns = turns;
+								match.m_status = matchD ["m_status"].ToString ();;
 								Save ();
 								checkUpdates = true;
 							} else {

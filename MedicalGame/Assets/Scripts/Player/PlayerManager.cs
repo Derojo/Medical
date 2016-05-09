@@ -6,6 +6,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using Gamedonia.Backend;
 using System;
+using LitJson_Gamedonia;
+
 
 [Prefab("PlayerManager", true, "")]
 public class PlayerManager : Singleton<PlayerManager> {
@@ -187,9 +189,11 @@ public class PlayerManager : Singleton<PlayerManager> {
 		List<int> attributesList = new List<int>();
 		// Get friend by id from dictionary
 		if (friends.Count > 0) {
+			Debug.Log ("PlayerID:" + id);
 			if (friends.ContainsKey (id)) {
-				List<object> attributes = new List<object> ();
-				attributes = (List<object>)friends [id];
+				Debug.Log ("PlayerID EXIST");
+				List<int> attributes = JsonMapper.ToObject<List<int>>(JsonMapper.ToJson(friends[id]));
+
 				for (int i = 0; i < attributes.Count; i++) {
 					attributesList.Add (Convert.ToInt32 (attributes [i]));
 				}
@@ -208,23 +212,30 @@ public class PlayerManager : Singleton<PlayerManager> {
 	
 		List<int> attributesList = GetFriendAttributes (id);
 
-		if (attributesList.Count == 0) {
-			attributesList.Add (0);
-		} else {
-			attributesList.Add (attributesList.Count);
-		}
+		if (attributesList.Count != 4) {
+			if (attributesList.Count == 0) {
+				attributesList.Add (0);
+				// We use this in the end scene to determine which attribute to show
+				MatchManager.I.lastAttributeKey = 0;
+			} else {
+				attributesList.Add (attributesList.Count);
+				MatchManager.I.lastAttributeKey = attributesList.Count;
+			}
 
-		string attributeName = GetPlayerAttribute (attributesList.Count);
-		if (friends.ContainsKey (id)) {
-			Dictionary<string, object> updateProfile = new Dictionary<string, object> ();
-			friends [id] = attributesList;
-			updateProfile ["_id"] = player.playerID;
-			updateProfile ["friends"] = friends;
-			GamedoniaUsers.UpdateUser(updateProfile, delegate (bool success) {
-				if (success) {
-					Debug.Log("Updated user information");
-				} 
-			});
+			string attributeName = GetPlayerAttribute (attributesList.Count);
+			if (friends.ContainsKey (id)) {
+				Dictionary<string, object> updateProfile = new Dictionary<string, object> ();
+				friends [id] = attributesList;
+				updateProfile ["_id"] = player.playerID;
+				updateProfile ["friends"] = friends;
+				GamedoniaUsers.UpdateUser (updateProfile, delegate (bool success) {
+					if (success) {
+						Debug.Log ("Updated user information");
+					} 
+				});
+			}
+		} else {
+			MatchManager.I.lastAttributeKey = -1;
 		}
 
 	}
@@ -241,6 +252,26 @@ public class PlayerManager : Singleton<PlayerManager> {
 		return attribute;
 	}
 
+
+	public string GetAttributeTitleByKey(int key) {
+		string attributeKey = "";
+		switch (key)
+		{
+		case 0:
+			attributeKey = "Leeftijd";
+			break;
+		case 1:
+			attributeKey = "Favoriete Kleur";
+			break;
+		case 2:
+			attributeKey = "Favoriete Hobby";
+			break;
+		case 3:
+			attributeKey = "Favoriete Film";
+			break;
+		}
+		return attributeKey;
+	}
 
 	private string DetermineWhichAttribute(int key) {
 		string attributeKey = "";
