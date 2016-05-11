@@ -51,7 +51,7 @@ public class MatchManager : Singleton<MatchManager> {
 					// Add empty player since we dont know against we play yet
 					match.AddPlayer("");
 					// Set match status to playing
-					match.m_status = "playing";
+					match.m_status = "waiting";
 					// Add ourself
 					match.AddPlayer(PlayerManager.I.player.playerID);
 					// We are the current player
@@ -213,7 +213,7 @@ public class MatchManager : Singleton<MatchManager> {
 		List<Match> tempList = new List<Match> ();
 		string pID = PlayerManager.I.player.playerID;
 		for (int i = 0; i < matchManager.matches.Count; i++) {
-			if (matchManager.matches[i].m_status == "playing") {
+			if (matchManager.matches[i].m_status != "finished") {
 				if (all) {
 					tempList.Add (matchManager.matches [i]);
 				} else {
@@ -237,44 +237,47 @@ public class MatchManager : Singleton<MatchManager> {
 		if (yourTurn.Count > 0) {
 			for (int i = 0; i < yourTurn.Count; i++) {
 				string matchID = yourTurn [i].m_ID;
-				GamedoniaData.Search ("matches", "{_id: { $oid: '" + matchID + "' } }", delegate (bool success, IList data) {
-					if (success) {
-						if (data != null) {
-							Match match = GetMatch (matchID);
-							// Add friend if it is a new player
-							string oppId = MatchManager.I.GetOppenentId(match);
-
-							if(!PlayerManager.I.friends.ContainsKey(oppId) && oppId != "") {
-								PlayerManager.I.AddFriend(oppId);
-							}
-							Dictionary<string, object> matchD = (Dictionary<string, object>)data [0];
-
-							// Update match if we are the currentplayer
-							if (matchD ["m_cp"].ToString () == PlayerManager.I.player.playerID || matchD ["m_status"].ToString () == "finished") {
-								Debug.Log ("currentplayer:" + matchD ["m_cp"].ToString ());
-								if (match.u_ids [0] == "") {
-									List<string> uids = JsonMapper.ToObject<List<string>> (JsonMapper.ToJson (matchD ["u_ids"]));
-									match.u_ids [0] = uids [0];
+				if (yourTurn [i].m_status != "waiting") {
+					GamedoniaData.Search ("matches", "{_id: { $oid: '" + matchID + "' } }", delegate (bool success, IList data) {
+						if (success) {
+							if (data != null) {
+								Match match = GetMatch (matchID);
+								// Add friend if it is a new player
+								string oppId = MatchManager.I.GetOppenentId (match);
+								if (!PlayerManager.I.friends.ContainsKey (oppId) && oppId != "") {
+									PlayerManager.I.AddFriend (oppId);
 								}
+								Dictionary<string, object> matchD = (Dictionary<string, object>)data [0];
 
-								List<Turn> turns = new List<Turn> ();
-								List<object> t_turns = new List<object> ();
-								t_turns = (List<object>)matchD ["m_trns"];
-								foreach (Dictionary<string, object> t_turn  in t_turns) {
-									Turn turn = new Turn (int.Parse (t_turn ["t_ID"].ToString ()), t_turn ["p_ID"].ToString (), int.Parse (t_turn ["q_ID"].ToString ()), int.Parse (t_turn ["c_ID"].ToString ()), int.Parse (t_turn ["t_st"].ToString ()));
-									turns.Add (turn);
+								// Update match if we are the currentplayer
+								if (matchD ["m_cp"].ToString () == PlayerManager.I.player.playerID && oppId != "" || matchD ["m_status"].ToString () == "finished") {
+									Debug.Log ("currentplayer:" + matchD ["m_cp"].ToString ());
+									if (match.u_ids [0] == "") {
+										List<string> uids = JsonMapper.ToObject<List<string>> (JsonMapper.ToJson (matchD ["u_ids"]));
+										match.u_ids [0] = uids [0];
+									}
+
+									List<Turn> turns = new List<Turn> ();
+									List<object> t_turns = new List<object> ();
+									t_turns = (List<object>)matchD ["m_trns"];
+									foreach (Dictionary<string, object> t_turn  in t_turns) {
+										Turn turn = new Turn (int.Parse (t_turn ["t_ID"].ToString ()), t_turn ["p_ID"].ToString (), int.Parse (t_turn ["q_ID"].ToString ()), int.Parse (t_turn ["c_ID"].ToString ()), int.Parse (t_turn ["t_st"].ToString ()));
+										turns.Add (turn);
+									}
+									match.m_cp = matchD ["m_cp"].ToString ();
+									match.m_trns = turns;
+									match.m_status = matchD ["m_status"].ToString ();
+									;
+									Save ();
+									checkUpdates = true;
+								} else {
+									checkUpdates = true;
 								}
-								match.m_cp = matchD ["m_cp"].ToString ();
-								match.m_trns = turns;
-								match.m_status = matchD ["m_status"].ToString ();;
-								Save ();
-								checkUpdates = true;
-							} else {
-								checkUpdates = true;
 							}
 						}
-					}
-				});
+					});
+				}
+				checkUpdates = true;
 			} 
 		} else {
 			checkUpdates = true;

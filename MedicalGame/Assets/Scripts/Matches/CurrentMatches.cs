@@ -84,6 +84,9 @@ public class CurrentMatches : MonoBehaviour {
 			matchUI.GetComponent<RectTransform>().DOScale (1.1f, .5f).SetEase(Ease.InFlash).SetDelay(delay);
 			matchUI.GetComponent<RectTransform>().DOScale (1, 1f).SetEase(Ease.OutExpo).SetDelay((.5f+delay));
 			delay += .2f;
+			if (i != (yourTurn.Count-1)) {
+				matchUI.transform.GetChild (3).gameObject.SetActive (true);
+			}
 		}
 	}
 
@@ -115,6 +118,9 @@ public class CurrentMatches : MonoBehaviour {
 			matchUI.GetComponent<RectTransform>().DOScale (1.1f, .5f).SetEase(Ease.InFlash).SetDelay(delay);
 			matchUI.GetComponent<RectTransform>().DOScale (1, 1f).SetEase(Ease.OutExpo).SetDelay((.5f+delay));
 			delay += .2f;
+			if (i != (hisTurn.Count-1)) {
+				matchUI.transform.GetChild (3).gameObject.SetActive (true);
+			}
 		}
 	}
 
@@ -147,6 +153,9 @@ public class CurrentMatches : MonoBehaviour {
 			matchUI.GetComponent<RectTransform>().DOScale (1.1f, .5f).SetEase(Ease.InFlash).SetDelay(delay);
 			matchUI.GetComponent<RectTransform>().DOScale (1, 1f).SetEase(Ease.OutExpo).SetDelay((.5f+delay));
 			delay += .2f;
+			if (i != (finishedMatches.Count-1)) {
+				matchUI.transform.GetChild (3).gameObject.SetActive (true);
+			}
 		}
 	}
 
@@ -192,7 +201,8 @@ public class CurrentMatches : MonoBehaviour {
 		} else {
 			foreach (Transform child in parent.transform) {
 				if (child.name == "Score") {
-					child.GetComponent<Text> ().text = MatchManager.I.getMatchScore (matchId, oppId);
+					string _score = MatchManager.I.getMatchScore (matchId, oppId);
+					child.GetComponent<Text> ().text = (_score == "" ? "0-0" : _score);
 				}
 			}
 			parent.SetActive (true);
