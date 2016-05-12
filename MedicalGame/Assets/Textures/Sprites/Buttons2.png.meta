@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 34710ac4abd4e8e438d1bb12941621aa
-timeCreated: 1461594407
+timeCreated: 1462867867
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -188,15 +188,15 @@ TextureImporter:
         x: 1023
         y: 1496
         width: 768
-        height: 79
+        height: 53
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 10, y: 10, z: 10, w: 10}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -384, y: 39.5}
-        - {x: -384, y: -39.5}
-        - {x: 384, y: -39.5}
-        - {x: 384, y: 39.5}
+      - - {x: -384, y: 26.5}
+        - {x: -384, y: -26.5}
+        - {x: 384, y: -26.5}
+        - {x: 384, y: 26.5}
     - name: options_bar
       rect:
         serializedVersion: 2
@@ -217,16 +217,16 @@ TextureImporter:
         serializedVersion: 2
         x: 1023
         y: 1310
-        width: 769
-        height: 79
+        width: 768
+        height: 53
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 10, y: 10, z: 10, w: 10}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -384.5, y: 39.5}
-        - {x: -384.5, y: -39.5}
-        - {x: 384.5, y: -39.5}
-        - {x: 384.5, y: 39.5}
+      - - {x: -384, y: 26.5}
+        - {x: -384, y: -26.5}
+        - {x: 384, y: -26.5}
+        - {x: 384, y: 26.5}
     - name: invite_bar
       rect:
         serializedVersion: 2

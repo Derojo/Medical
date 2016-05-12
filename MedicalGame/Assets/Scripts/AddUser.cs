@@ -26,6 +26,7 @@ public class AddUser : MonoBehaviour {
 		user.profile["film"] = "";
 		user.profile["age"] = 0;
 		user.profile["lvl"] = 1;
+		user.profile["wonAttr"] = 0;
 		user.profile ["friends"] = new Dictionary<string, object> ();
 
 		// Make the request to Gamedonia Backend to create the account and process the result in a block.   

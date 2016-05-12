@@ -21,7 +21,7 @@ public class Player
 	[SerializeField] public string playerRank = "";
 	[SerializeField] public int playerLvl = 1;
 	[SerializeField] public int playedMatches = 0;
-
+	[SerializeField] public int playerWonAttr = 0;
     /************** Player game data without logics *********************/
 
     // counting TOTAL won matches

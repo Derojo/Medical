@@ -97,6 +97,7 @@
      <Compile Include="Assets\Scripts\Data\PrefabAttribute.cs" />
      <Compile Include="Assets\Scripts\Data\Singleton.cs" />
      <Compile Include="Assets\Scripts\DestroyPopUpScript.cs" />
+     <Compile Include="Assets\Scripts\Friends\FriendList.cs" />
      <Compile Include="Assets\Scripts\HomeStartUp.cs" />
      <Compile Include="Assets\Scripts\Loader.cs" />
      <Compile Include="Assets\Scripts\Login.cs" />

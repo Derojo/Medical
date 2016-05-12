@@ -18,6 +18,7 @@ public class PlayerManager : Singleton<PlayerManager> {
 	public Player player;
 	public Dictionary<string, object> currentOpponentInfo;
 	public Dictionary<string, object> friends;
+	public Dictionary<string, object> friendProfiles;
 	public bool Load() {return true;}
     public bool lvlUp = false;
 
@@ -26,6 +27,9 @@ public class PlayerManager : Singleton<PlayerManager> {
 		LoadPlayer ();
 		if (friends == null) {
 			friends = new Dictionary<string, object>();
+		}
+		if (friendProfiles == null) {
+			friendProfiles = new Dictionary<string, object>();
 		}
 //		player = null;
 		if (player == null) {
@@ -63,9 +67,16 @@ public class PlayerManager : Singleton<PlayerManager> {
 		GamedoniaUsers.GetMe(delegate (bool success, GDUserProfile data){
 			if (success){
 				friends = (Dictionary<string, object>)data.profile["friends"];
+				foreach (KeyValuePair<string, object> friend in PlayerManager.I.friends) {
+					GamedoniaUsers.GetUser (friend.Key, delegate (bool succesFriends, GDUserProfile friendProfile) { 
+						if (success) {
+							Dictionary<string, object> oppProfile = friendProfile.profile;
+							friendProfiles.Add(friend.Key, oppProfile);
+						}
+					});
+				}
 			}
 		});
-
 	}
 
 	public void changeProfile(PlayerProfile playerprofile) {
@@ -205,6 +216,8 @@ public class PlayerManager : Singleton<PlayerManager> {
 	}
 
 	public void UnlockNewAttribute(string id = "") {
+
+		UpdatePlayerWonAttribute ();
 		// Get friend by id from dictionary
 		if(id == "") {
 			id = currentOpponentInfo["_id"].ToString();
@@ -213,6 +226,7 @@ public class PlayerManager : Singleton<PlayerManager> {
 		List<int> attributesList = GetFriendAttributes (id);
 
 		if (attributesList.Count != 4) {
+			player.playerWonAttr++;
 			if (attributesList.Count == 0) {
 				attributesList.Add (0);
 				// We use this in the end scene to determine which attribute to show
@@ -227,6 +241,7 @@ public class PlayerManager : Singleton<PlayerManager> {
 				Dictionary<string, object> updateProfile = new Dictionary<string, object> ();
 				friends [id] = attributesList;
 				updateProfile ["_id"] = player.playerID;
+				updateProfile ["wonAttr"] = player.playerWonAttr;
 				updateProfile ["friends"] = friends;
 				GamedoniaUsers.UpdateUser (updateProfile, delegate (bool success) {
 					if (success) {
@@ -238,6 +253,10 @@ public class PlayerManager : Singleton<PlayerManager> {
 			MatchManager.I.lastAttributeKey = -1;
 		}
 
+	}
+
+	private void UpdatePlayerWonAttribute() {
+		
 	}
 
 	public string GetPlayerAttribute (int key, string id = "") {
