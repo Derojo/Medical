@@ -11,12 +11,12 @@ public class Startup : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		RuntimeData.I.Load ();
+		Debug.Log (PlayerManager.I.player.loggedIn);
 		if (!PlayerManager.I.player.loggedIn) {
 			SceneManager.LoadScene ("Login");
 		} else {
 			if (PlayerManager.I.player.createdProfile) {
                 sceneName = "Home";
-                //sceneName = "TestingChatScene";
 			} else {
 				sceneName = "Profile_Create";
 			}

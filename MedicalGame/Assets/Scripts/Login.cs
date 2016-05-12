@@ -11,6 +11,10 @@ using UnityEngine.SceneManagement;
 
 public class Login : MonoBehaviour {
 
+
+	public string facebookAppID = "";
+	private static string [] READ_PERMISSIONS = new string[] {"read_stream", "read_friendlists"};
+
 	public InputField email_input;
 	public InputField password_input;
 	public GameObject errorPopup;
@@ -29,9 +33,12 @@ public class Login : MonoBehaviour {
 	private bool isValidated = false;
 	private Loader loader = null;
 
+	private string fbUserName = null;
+	private string fbUserId = null;
 
 
 	void Awake() {
+		FacebookBinding.Init (facebookAppID);	
 		checkInternet ();
 		loader = GameObject.Find ("Loader").GetComponent<Loader> ();
 	}
@@ -63,6 +70,8 @@ public class Login : MonoBehaviour {
 		}
 	}
 
+
+	/** DEFAULT LOGIN **/
 	public void LoginUser() {
 		errorLogin.SetActive (false);
 		validateFields ();
@@ -86,6 +95,7 @@ public class Login : MonoBehaviour {
 			}
 		}
 	}
+
 	private void validateFields() {
 		if (email_input.text == "") {
 			email_input.text = errorMessageEmail;
@@ -100,26 +110,13 @@ public class Login : MonoBehaviour {
 			isValidated = true;
 		}
 	}
-	private IEnumerator waitForConnection(float time) {
-		float start = Time.realtimeSinceStartup;
-		while (Time.realtimeSinceStartup < start + time)
-		{		
-			if (!i_access) {
-				checkInternet ();
-				yield return null;
-			} else {
-				LoginUser ();
-			}
-		}
-		loader.disableLoader ();
-		loader.enableBackground ();
-		errorPopup.SetActive (true);
-	}
+
 	public void OnLogin (bool success) {
 		statusMsg = "";
 		if (success) {
 			// Set playerprefs loggedIn to true so we dont need to log in again via http
 			PlayerManager.I.player.loggedIn = true;
+			PlayerManager.I.Save ();
 			if (!PlayerManager.I.player.createdProfile) {
 				SceneManager.LoadScene ("Profile_Create");
 			} else {
@@ -139,8 +136,67 @@ public class Login : MonoBehaviour {
 		}
 
 	}
-		
 
+	/** FACEBOOK LOGIN **/
+
+	public void LoginWithFacebook() {
+		if (!Application.isEditor) {
+			statusMsg = "Initiating Facebook session...";
+			FacebookBinding.OpenSessionWithReadPermissions(READ_PERMISSIONS, OnFacebookOpenSession);
+		}
+		else {
+			errorMsg = "Facebook won't work on Unity Editor, try it on a device.";
+		}
+	}
+
+	void OnFacebookOpenSession(bool success, bool userCancelled, string message) {
+
+		IDictionary parameters = new Dictionary<string,object>();
+		parameters.Add("fields","picture");
+
+		if (success) {
+			statusMsg = "Recovering Facebook profile...";
+			FacebookBinding.RequestWithGraphPath("/me",parameters,"GET",OnFacebookMe);
+		}else {
+			errorMsg = "Unable to open session with Facebook";
+		}
+	}
+
+	void OnFacebookLogin (bool success) {
+
+		if (success) {
+			// Optional stuff if you want to store the Facebook username inside the Gamedonia user profile
+			Dictionary<string,object> profile = new Dictionary<string, object>();
+			profile.Add("name", fbUserName);
+			GamedoniaUsers.UpdateUser(profile, OnLogin);
+
+		} else {
+			errorMsg = GamedoniaBackend.getLastError().ToString();
+			Debug.Log(errorMsg);
+		}
+
+	}
+	private void OnFacebookMe(IDictionary data) {
+
+		statusMsg = "Initiating Gamedonia session...";
+		fbUserId = data ["id"] as string;
+		PlayerManager.I.player.fbuserid = fbUserId;
+		fbUserName = data ["name"] as string;
+
+		Debug.Log ("AccessToken: " + FacebookBinding.GetAccessToken() + " fbuid: " + fbUserId);
+
+
+		Dictionary<string,object> facebookCredentials = new Dictionary<string,object> ();
+		facebookCredentials.Add("fb_uid",fbUserId);
+		facebookCredentials.Add("fb_access_token",FacebookBinding.GetAccessToken());
+
+		GamedoniaUsers.Authenticate (GamedoniaBackend.CredentialsType.FACEBOOK,facebookCredentials, OnFacebookLogin);
+
+	}
+
+
+
+	/** CHECK FOR INTERNET CONNECTION **/
 	private void checkInternet() {
 		GamedoniaBackend.isInternetConnectionAvailable(delegate (bool success) { 
 			if (success) { 
@@ -151,6 +207,22 @@ public class Login : MonoBehaviour {
 				Debug.Log(errorMsg);
 			}
 		});
+	}
+
+	private IEnumerator waitForConnection(float time) {
+		float start = Time.realtimeSinceStartup;
+		while (Time.realtimeSinceStartup < start + time)
+		{		
+			if (!i_access) {
+				checkInternet ();
+				yield return null;
+			} else {
+				LoginUser ();
+			}
+		}
+		loader.disableLoader ();
+		loader.enableBackground ();
+		errorPopup.SetActive (true);
 	}
 		
 }

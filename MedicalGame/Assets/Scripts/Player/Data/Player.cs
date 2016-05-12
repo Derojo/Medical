@@ -10,6 +10,8 @@ public class Player
 	/************** Player general data ******************/
 	// Player id from gamedonia
 	[SerializeField] public string playerID = "";
+	// Facebook user id
+	[SerializeField] public string fbuserid = "";
 	// Player logged in
 	[SerializeField] public bool loggedIn = false;
 	// Player created profile

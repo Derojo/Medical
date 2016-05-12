@@ -14,18 +14,43 @@ namespace Gamedonia.Backend {
 		public Image p_image;
 		public Loader loader;
 		private bool ImageIsLoaded = false;
+		private string fbpictureurl = "";
 
 		WWW www;
 
 		void Start() {
-			if(PlayerPrefs.HasKey("profile_path")) {
-				StartCoroutine (getProfilePicture (Application.persistentDataPath + "/profile.png"));
-				ProfileImage = new Texture2D(www.texture.width, www.texture.height, TextureFormat.ARGB32, false);
-				ProfileImage.SetPixels32 (www.texture.GetPixels32 ());
-				ProfileImage.Apply();
-				p_image.sprite = Sprite.Create(ProfileImage, new Rect(0, 0, ProfileImage.width, ProfileImage.height), new Vector2(0.5f, 0.5f));
+
+			fbpictureurl = "http://graph.facebook.com/1115191685/picture?type=normal";
+			StartCoroutine (setProfilePicture());
+
+			if(PlayerManager.I.player.fbuserid != "") {
+				fbpictureurl = "http://graph.facebook.com/" + PlayerManager.I.player.fbuserid + "/picture?type=normal";
+				StartCoroutine (setProfilePicture());
 			}
+//			if(PlayerPrefs.HasKey("profile_path")) {
+//				StartCoroutine (getProfilePicture (Application.persistentDataPath + "/profile.png"));
+//				ProfileImage = new Texture2D(www.texture.width, www.texture.height, TextureFormat.ARGB32, false);
+//				ProfileImage.SetPixels32 (www.texture.GetPixels32 ());
+//				ProfileImage.Apply();
+//				p_image.sprite = Sprite.Create(ProfileImage, new Rect(0, 0, ProfileImage.width, ProfileImage.height), new Vector2(0.5f, 0.5f));
+//			}
 		}
+
+		private IEnumerator setProfilePicture() {
+			WWW www = new  WWW (fbpictureurl);
+			yield return www;
+
+			Sprite sprite = new Sprite ();
+			sprite = Sprite.Create (www.texture, new Rect (0, 0, www.texture.width, www.texture.height), new Vector2 (0.5f, 0.5f), 100.0f);
+			p_image.sprite = sprite;
+			www.LoadImageIntoTexture (p_image.sprite.texture);
+//
+//			ProfileImage = new Texture2D(www.texture.width, www.texture.height, TextureFormat.DXT1, false);
+//			p_image.sprite = Sprite.Create(ProfileImage, new Rect(0, 0, ProfileImage.width, ProfileImage.height), new Vector2(0.5f, 0.5f));
+
+
+		}
+
 		public void GetImageFromGallery() {
 			loader.enableLoader ();
 				//createImage("file://D:\\Afbeeldingen\\wallpaper-1217815.jpg");

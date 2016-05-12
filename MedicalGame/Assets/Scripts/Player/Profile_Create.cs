@@ -28,6 +28,7 @@ public class Profile_Create : MonoBehaviour {
 	private bool Errors = false;
 
 	private Loader loader = null;
+	private string fbpictureurl = "";
 
 
 	void Awake() {
@@ -45,6 +46,7 @@ public class Profile_Create : MonoBehaviour {
 	void Start() {
 		GamedoniaUsers.GetMe(OnGetMe);
 	}
+
 
 	void Update() {
 		if (Errors) {
