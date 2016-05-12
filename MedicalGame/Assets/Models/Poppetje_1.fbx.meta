@@ -101,7 +101,99 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 181
+      lastFrame: 530
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Broek_0
+        weight: 1
+      - path: joint1
+        weight: 1
+      - path: joint1/joint2
+        weight: 1
+      - path: joint1/joint2/joint3
+        weight: 1
+      - path: joint1/joint2/joint3/Collar_JNT
+        weight: 1
+      - path: joint1/joint2/joint3/Collar_JNT/Chest_JNT
+        weight: 1
+      - path: joint1/joint2/joint3/Collar_JNT/Chest_JNT/joint6
+        weight: 1
+      - path: joint1/joint2/joint3/Collar_JNT/Chest_JNT/joint6/joint7
+        weight: 1
+      - path: joint1/joint2/joint3/Collar_JNT/Chest_JNT/joint6/joint7/Hoofd_0
+        weight: 1
+      - path: joint1/joint2/joint3/Collar_JNT/L_Shoulder_JNT
+        weight: 1
+      - path: joint1/joint2/joint3/Collar_JNT/L_Shoulder_JNT/joint23
+        weight: 1
+      - path: joint1/joint2/joint3/Collar_JNT/L_Shoulder_JNT/joint23/joint24
+        weight: 1
+      - path: joint1/joint2/joint3/Collar_JNT/L_Shoulder_JNT/joint23/joint24/joint25
+        weight: 1
+      - path: joint1/joint2/joint3/Collar_JNT/R_Shoulder_JNT
+        weight: 1
+      - path: joint1/joint2/joint3/Collar_JNT/R_Shoulder_JNT/joint19
+        weight: 1
+      - path: joint1/joint2/joint3/Collar_JNT/R_Shoulder_JNT/joint19/joint20
+        weight: 1
+      - path: joint1/joint2/joint3/Collar_JNT/R_Shoulder_JNT/joint19/joint20/joint21
+        weight: 1
+      - path: joint1/L_Hip_JNT
+        weight: 1
+      - path: joint1/L_Hip_JNT/joint14
+        weight: 1
+      - path: joint1/L_Hip_JNT/joint14/joint15
+        weight: 1
+      - path: joint1/L_Hip_JNT/joint14/joint15/joint16
+        weight: 1
+      - path: joint1/L_Hip_JNT/joint14/joint15/joint16/joint17
+        weight: 1
+      - path: joint1/L_Hip_JNT/joint14/joint15/joint16/joint17/joint26
+        weight: 1
+      - path: joint1/R_Hip_JNT
+        weight: 1
+      - path: joint1/R_Hip_JNT/joint14 1
+        weight: 1
+      - path: joint1/R_Hip_JNT/joint14 1/joint15 1
+        weight: 1
+      - path: joint1/R_Hip_JNT/joint14 1/joint15 1/joint16 1
+        weight: 1
+      - path: joint1/R_Hip_JNT/joint14 1/joint15 1/joint16 1/joint17 1
+        weight: 1
+      - path: joint1/R_Hip_JNT/joint14 1/joint15 1/joint16 1/joint17 1/joint26 1
+        weight: 1
+      - path: Pet_0
+        weight: 1
+      - path: Shirt_0
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
     isReadable: 1
   meshes:
     lODScreenPercentages: []
