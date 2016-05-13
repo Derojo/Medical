@@ -130,6 +130,7 @@
      <Compile Include="Assets\Scripts\UtilResize.cs" />
      <Compile Include="Assets\Scripts\clothchanger.cs" />
      <Compile Include="Assets\Scripts\foldOutScript.cs" />
+     <Compile Include="Assets\rotateObject.cs" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />
