@@ -25,7 +25,7 @@ public class PlayerManager : Singleton<PlayerManager> {
 
     void Awake() {
 		
-
+		LoadPlayer ();
 		if (friends == null) {
 			friends = new Dictionary<string, object>();
 		}
@@ -37,10 +37,8 @@ public class PlayerManager : Singleton<PlayerManager> {
 			Debug.Log ("new player");
 			player = new Player ();
 			Save ();
-		} else {
-
 		}
-		LoadPlayer ();
+
 		CheckCurrentRank ();
 		CheckLevelUp ();
 	}

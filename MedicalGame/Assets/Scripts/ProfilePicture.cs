@@ -20,9 +20,6 @@ namespace Gamedonia.Backend {
 
 		void Start() {
 
-			fbpictureurl = "http://graph.facebook.com/1115191685/picture?type=normal";
-			StartCoroutine (setProfilePicture());
-
 			if(PlayerManager.I.player.fbuserid != "") {
 				fbpictureurl = "http://graph.facebook.com/" + PlayerManager.I.player.fbuserid + "/picture?type=normal";
 				StartCoroutine (setProfilePicture());

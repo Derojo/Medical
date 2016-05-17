@@ -151,12 +151,9 @@ public class Login : MonoBehaviour {
 
 	void OnFacebookOpenSession(bool success, bool userCancelled, string message) {
 
-		IDictionary parameters = new Dictionary<string,object>();
-		parameters.Add("fields","picture");
-
 		if (success) {
 			statusMsg = "Recovering Facebook profile...";
-			FacebookBinding.RequestWithGraphPath("/me",parameters,"GET",OnFacebookMe);
+			FacebookBinding.RequestWithGraphPath("/me",null,"GET",OnFacebookMe);
 		}else {
 			errorMsg = "Unable to open session with Facebook";
 		}
@@ -168,6 +165,13 @@ public class Login : MonoBehaviour {
 			// Optional stuff if you want to store the Facebook username inside the Gamedonia user profile
 			Dictionary<string,object> profile = new Dictionary<string, object>();
 			profile.Add("name", fbUserName);
+			profile.Add("color", "");
+			profile.Add("hobby", ""); 
+			profile.Add("film","");
+			profile.Add("age", 0);
+			profile.Add("lvl", 1);
+			profile.Add("wonAttr", 0);
+			profile.Add("friends", new Dictionary<string, object> ());
 			GamedoniaUsers.UpdateUser(profile, OnLogin);
 
 		} else {
@@ -224,5 +228,5 @@ public class Login : MonoBehaviour {
 		loader.enableBackground ();
 		errorPopup.SetActive (true);
 	}
-		
+
 }
