@@ -68,8 +68,8 @@ public class Profile_Create : MonoBehaviour {
 				if (success) {
 					Loader.SetActive (false);
 					PlayerManager.I.player.createdProfile = true;
-					SceneManager.LoadScene ("Home");
-				} else {
+                    SceneManager.LoadScene("Introduction");
+                } else {
 					Debug.Log ("Error");
 				}
 			}, true);
