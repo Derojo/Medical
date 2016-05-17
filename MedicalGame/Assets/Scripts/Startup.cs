@@ -14,13 +14,25 @@ public class Startup : MonoBehaviour {
 		Debug.Log (PlayerManager.I.player.loggedIn);
 		if (!PlayerManager.I.player.loggedIn) {
 			SceneManager.LoadScene ("Login");
-		} else {
-			if (PlayerManager.I.player.createdProfile) {
-                sceneName = "Home";
-			} else {
-				sceneName = "Profile_Create";
-			}
-			GamedoniaUsers.LoginUserWithSessionToken (delegate (bool success) {
+		}
+        else
+        {
+			if (PlayerManager.I.player.createdProfile)
+            {
+                if (!PlayerManager.I.player.completedIntro)
+                {
+                    sceneName = "Introduction";
+                }
+                else
+                {
+                    sceneName = "Home";
+                }
+            }
+            else
+            {
+                sceneName = "Profile_Create";
+            }
+            GamedoniaUsers.LoginUserWithSessionToken (delegate (bool success) {
 				if (success) {
 					PlayerManager.I.LoadFriends ();
 					SceneManager.LoadScene (sceneName);

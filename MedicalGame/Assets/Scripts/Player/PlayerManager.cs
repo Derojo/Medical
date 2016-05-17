@@ -21,8 +21,9 @@ public class PlayerManager : Singleton<PlayerManager> {
 	public Dictionary<string, object> friendProfiles;
 	public bool Load() {return true;}
     public bool lvlUp = false;
+    public bool completedIntro = false;
 
-	void Awake() {
+    void Awake() {
 		
 
 		if (friends == null) {

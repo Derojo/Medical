@@ -62,7 +62,9 @@ public class Player
     /************** Player profile data *********************/
     [SerializeField] public PlayerProfile profile;
 
-	public Player
+    [SerializeField]public bool completedIntro = false;
+
+    public Player
         ( 
              string _playerID = "",
              bool _loggedIn = false, 
@@ -82,7 +84,8 @@ public class Player
              int _geographicAnswers = 0,
              int _careAnswers = 0,
              int _religionAnswers = 0,
-             PlayerProfile _profile = null
+             PlayerProfile _profile = null,
+             bool _completedIntro = false
         )
     {
 		playerID = _playerID;
@@ -92,7 +95,7 @@ public class Player
 		playerRank =_playerRank;
 		playerLvl = _playerLvl;
 		playedMatches = _playedMatches;
-
+        completedIntro = _completedIntro;
         /************** Player profile data without logics *********************/
         wonMatches = _wonMatches;
         wonMatchesRow = _wonMatchesRow;
