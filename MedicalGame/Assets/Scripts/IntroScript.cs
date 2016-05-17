@@ -37,11 +37,7 @@ public class IntroScript : MonoBehaviour
 
     }
 	
-	// Update is called once per frame
-	void Update ()
-    {
-        Debug.Log(timesPressed);
-    }
+	
 
     //counting the times the forwardbutton is clicked
     public void furtherButtonClick()
@@ -64,8 +60,8 @@ public class IntroScript : MonoBehaviour
         //displaying 1e text
          if (timesPressed == 0)
         {
-            
-            
+
+            BackGround.SetActive(false);
             foreach (Text text in hint1.GetComponentsInChildren<Text>())
             {
                 text.DOFade(1, 2f);
@@ -96,11 +92,11 @@ public class IntroScript : MonoBehaviour
         //displaying 2e text
         if (timesPressed == 1)
         {
-            BackGround.SetActive(true);
+            hint1.SetActive(false);
             hint2.SetActive(true);
-             hint3.SetActive(false);
-            
+            hint3.SetActive(false);
 
+            //Setting previous hint alfa to 0
             foreach (Text text in hint1.GetComponentsInChildren<Text>())
             {
                 text.DOFade(0, 0.5f);
@@ -144,6 +140,7 @@ public class IntroScript : MonoBehaviour
         //displaying 3e text
         if (timesPressed == 2)
         {
+            BackGround.SetActive(true);
             //foward fade
             foreach (Text text in hint2.GetComponentsInChildren<Text>())
             {
