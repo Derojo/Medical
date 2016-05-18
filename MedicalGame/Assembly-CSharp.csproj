@@ -99,6 +99,7 @@
      <Compile Include="Assets\Scripts\DestroyPopUpScript.cs" />
      <Compile Include="Assets\Scripts\Friends\FriendList.cs" />
      <Compile Include="Assets\Scripts\HomeStartUp.cs" />
+     <Compile Include="Assets\Scripts\IntroScript.cs" />
      <Compile Include="Assets\Scripts\Loader.cs" />
      <Compile Include="Assets\Scripts\Login.cs" />
      <Compile Include="Assets\Scripts\Matches\CurrentMatches.cs" />
@@ -120,6 +121,7 @@
      <Compile Include="Assets\Scripts\Questions\Data\Question.cs" />
      <Compile Include="Assets\Scripts\Questions\Data\QuestionDatabase.cs" />
      <Compile Include="Assets\Scripts\Questions\QuestionManager.cs" />
+     <Compile Include="Assets\Scripts\Registration.cs" />
      <Compile Include="Assets\Scripts\RuntimeData.cs" />
      <Compile Include="Assets\Scripts\SceneManagerScript.cs" />
      <Compile Include="Assets\Scripts\Sound\BallBounce.cs" />
