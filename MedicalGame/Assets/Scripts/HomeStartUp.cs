@@ -10,10 +10,11 @@ public class HomeStartUp : MonoBehaviour {
     public Text currentLVL;
     public GameObject lvlPopUp;
     private bool soundPlay = false;
-
+    private bool tweenOut = false;
     // Use this for initialization
     void Start ()
     {
+        lvlPopUp.SetActive(false);
         //Earning first achievement
         AchievementManager.I.checkAchievementConnect();
         //Getting rank image
@@ -48,7 +49,7 @@ public class HomeStartUp : MonoBehaviour {
     //hiding popup after x secs
     IEnumerator hideLvlUp()
     {
-        if (PlayerManager.I.lvlUp)
+        if (PlayerManager.I.lvlUp && !tweenOut)
         {
             //Tweening in/out
             foreach (Text text in lvlPopUp.GetComponentsInChildren<Text>())
@@ -59,7 +60,7 @@ public class HomeStartUp : MonoBehaviour {
 
             foreach (Image img in lvlPopUp.GetComponentsInChildren<Image>())
             {
-                if (img.transform.name != "LvlUpPopUp")
+                if (img.transform.name != "LVLUp")
                 {
                     img.DOFade(1, 1f);
                     //img.DOFade(0, 1f).SetDelay(3f);
@@ -75,11 +76,29 @@ public class HomeStartUp : MonoBehaviour {
                 soundPlay = true;
             }
 
+            yield return new WaitForSeconds(3);
+            tweenOut = true;
+            foreach (Text text in lvlPopUp.GetComponentsInChildren<Text>())
+            {
+                text.DOFade(0, 1f);
+          
+            }
+
+            foreach (Image img in lvlPopUp.GetComponentsInChildren<Image>())
+            {
+               
+                    img.DOFade(0, 1f);
+            
+            }
+
+            lvlPopUp.GetComponent<Image>().DOFade(0, 1f);
+          
             //starting timer for hiding popup
-            yield return new WaitForSeconds(5);
+            yield return new WaitForSeconds(2f);
             lvlPopUp.SetActive(false);
             PlayerManager.I.lvlUp = false;
             soundPlay = false;
+            tweenOut = false;
         }
        
 
