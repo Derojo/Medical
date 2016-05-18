@@ -104,7 +104,7 @@ public class Categories : MonoBehaviour {
 				break;*/
                 /************** health catagories*********************/
             case (int)categories.GGZ:
-                catTitle.text = "GGZ";
+                catTitle.text = "GGZ & Verslavingszorg";
 				GGZ_a.SetActive (true);
                 break;
             case (int)categories.OUDERENZORG:
@@ -145,18 +145,18 @@ public class Categories : MonoBehaviour {
 			case (int)categories.GEOGRAFIE:
 				return "Geografie";/*
                 /************** health catagories*********************/
-                case (int)categories.GGZ:
-                    return "GGZ";
-                case (int)categories.OUDERENZORG:
-                    return "Ouderenzorg";
-                case(int)categories.ZIEKENHUISZORG:
-                    return "Ziekenhuiszorg";
-                case (int)categories.ZORG_ALGEMEEN:
-                    return "Algemeen";
-                case (int)categories.TAND_HUISARTS:
-                    return "Tandarts & Huisarts";
-                case (int)categories.GEHANDICAPTEN:
-                    return "Gehandicaptenzorg"; 
+            case (int)categories.ZIEKENHUISZORG:
+                return "Ziekenhuiszorg";
+            case (int)categories.TAND_HUISARTS:
+                return "Tandarts & Huisarts";
+            case (int)categories.GEHANDICAPTEN:
+                return "Gehandicaptenzorg";
+            case (int)categories.OUDERENZORG:
+                return "Ouderenzorg";
+            case (int)categories.ZORG_ALGEMEEN:
+                return "Algemeen";
+            case (int)categories.GGZ:
+                    return "GGZ"; 
 
         }
         return "";
