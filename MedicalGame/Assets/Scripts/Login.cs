@@ -61,13 +61,6 @@ public class Login : MonoBehaviour {
 		// Hide error messages
 		email_input.text = (email_input.isFocused ? (email_input.text == errorMessageEmail? "" : email_input.text) : email_input.text);
 		password_input.text = (password_input.isFocused ? (password_input.text == errorMessagePassword ? "" : password_input.text) : password_input.text);
-		// Change color outline
-		if(email_input.isFocused) {
-			email_input.GetComponent<Outline> ().effectColor = defaultColor;
-		}
-		if(password_input.isFocused) {
-			password_input.GetComponent<Outline> ().effectColor = defaultColor;
-		}
 	}
 
 

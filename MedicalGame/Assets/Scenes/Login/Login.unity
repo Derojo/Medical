@@ -1715,7 +1715,7 @@ MonoBehaviour:
   email_input: {fileID: 91769083}
   password_input: {fileID: 1927446291}
   errorPopup: {fileID: 1405094087}
-  errorLogin: {fileID: 0}
+  errorLogin: {fileID: 2042849365}
   errorColor: {r: 1, g: 0, b: 0, a: 1}
   defaultColor: {r: 0.3254902, g: 0.6666667, b: 0.87058824, a: 1}
   waitForConnectionTime: 10
