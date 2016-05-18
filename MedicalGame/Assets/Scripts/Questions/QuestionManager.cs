@@ -33,6 +33,7 @@ public class QuestionManager : Singleton<QuestionManager> {
 	public Text playerScore;
 	public Text playerName;
 	public Image playerRankImg;
+
 	// Opponent information
 	public Text oppScore;
 	public Text oppName;
@@ -51,9 +52,13 @@ public class QuestionManager : Singleton<QuestionManager> {
 
 
 
-	void Start() {
-		// Match initialization 
-		Match currentMatch = MatchManager.I.GetMatch (MatchManager.I.currentMatchID);
+	void Start()
+    {
+        //allowing answers
+        answeredQuestion = false;
+
+        // Match initialization 
+        Match currentMatch = MatchManager.I.GetMatch (MatchManager.I.currentMatchID);
 		opponentId = MatchManager.I.GetOppenentId (currentMatch);
 
 		if (opponentId != "") {
@@ -92,11 +97,13 @@ public class QuestionManager : Singleton<QuestionManager> {
 
 	/** Check whether the given answer is correct or not correct, switch to next category or home scene according to the outcome**/
 	public void checkAnswer(string Answer) {
-       
+         
         // Hide Timer
-        if (Answer != "") {
+        if (Answer != "")
+        {
 			Timer.SetActive (false);
-		}
+
+        }
 		if (!answeredQuestion) {
 			Button selectedAnswer = getButtonByAnswer (Answer);
 			Button rightAnswer = getButtonByAnswer (currentQuestion.q_Correct);
@@ -237,8 +244,9 @@ public class QuestionManager : Singleton<QuestionManager> {
 			
 			if (Answer != "")
             {
-				Continue.SetActive (true);    
-			}
+				Continue.SetActive (true);
+                answeredQuestion = true;
+            }
 		}
 	}
 		
