@@ -197,66 +197,71 @@ public class AchievementManager : Singleton<AchievementManager> {
 
     }
 
-    // #11 Earning "Sportfanaat" achievement
-    public void AchievementSportFanaat()
+    // #11 Earning "ZiekenhuisSpecialist" achievement
+    public void AchievementZiekenhuisSpecialist()
     {
         // check if total questions answered in the catagory sport = 10
-        if (PlayerManager.I.player.sportAnswers == 10)
+        if (PlayerManager.I.player.ziekenhuisAnswers == 10)
         {
-            EarnAchievement("Sportfanaat");
+            EarnAchievement("Ziekenhuis specialist");
         }
-
     }
 
-    // #12 Earning "Beroemdheid" achievement
-    public void AchievementBeroemdheid()
+    // #12 Earning "Allrounder" achievement
+    public void AchievementAllround()
     {
         // check if total questions answered in the catagory TV & entertainment = 10
-        if (PlayerManager.I.player.entertainmentAnswers == 10)
+        if (PlayerManager.I.player.algemeenAnswers == 10)
         {
-            EarnAchievement("Beroemdheid");
+            EarnAchievement("Allrounder");
         }
 
     }
 
 
-    // #13 Earning "Fossiel"  achievement
-    public void AchievementFossiel()
+    // #13 Earning "Old skool"  achievement
+    public void AchievementOldSchool()
     {
         // check if total questions answered in the catagory History = 10
-        if (PlayerManager.I.player.historyAnswers == 10)
+        if (PlayerManager.I.player.oldieAnswers == 10)
         {
-            EarnAchievement("Fossiel");
+            EarnAchievement("Old School");
         }
 
     }
 
 
-    // #14 Earning "Wereldreiziger" achievement
-    public void AchievementWereldReiziger()
+    // #14 Earning "Verslavingsoverwinnaar" achievement
+    public void AchievementVerslavingsOverwinner()
     {
         // check if total questions answered in the catagory geographics = 10
-        if (PlayerManager.I.player.geographicAnswers == 10)
+        if (PlayerManager.I.player.verslavingsAnswers == 10)
         {
-            EarnAchievement("Wereldreiziger");
+            EarnAchievement("Verslavingsoverwinnaar");
         }
 
     }
 
-    // #15 Earning "Verzorger" achievement
-
-    public void AchievementVerzorger()
+    // #15 Earning "Arts"" achievement
+    public void AchievementArts()
     {
         // check if total questions answered in the catagory care & sience = 10
-        if (PlayerManager.I.player.careAnswers == 10)
+        if (PlayerManager.I.player.artsAnswers == 10)
         {
-            EarnAchievement("Verzorger");
+            EarnAchievement("Arts");
         }
 
     }
+    // #16 Earning "Gehandicapten begeleider" achievement
+    public void AchievementGehandicapten()
+    {
+        // check if total questions answered in the catagory care & sience = 10
+        if (PlayerManager.I.player.gehandicaptenAnswers == 10)
+        {
+            EarnAchievement("Gehandicapten begeleider");
+        }
 
-    // #16 Earning "Stylist" achievement
-
+    }
     // #17 Earning "Hattrick" achievement
     public void AchievementHattrick()
     {
@@ -318,6 +323,8 @@ public class AchievementManager : Singleton<AchievementManager> {
 
     }
 
+    // # 24 Earning "stylist" achievement
+
     /************** Mulitple checks *********************/
 
     //Checking functions after game
@@ -339,12 +346,12 @@ public class AchievementManager : Singleton<AchievementManager> {
         AchievementNerd();
 
         // 10 total in catagory functions
-        AchievementSportFanaat();
-        AchievementBeroemdheid();
-        AchievementFossiel();
-        AchievementWereldReiziger();
-        AchievementVerzorger();
-
+        AchievementZiekenhuisSpecialist();
+        AchievementAllround();
+        AchievementOldSchool();
+        AchievementVerslavingsOverwinner();
+        AchievementArts();
+        AchievementGehandicapten();
         //100 right answers
         AchievementProfessor();
 

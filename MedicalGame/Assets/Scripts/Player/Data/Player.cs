@@ -64,6 +64,25 @@ public class Player
 
     [SerializeField]public bool completedIntro = false;
 
+    /************** Player game data without logics new catagories*********************/
+    //counting TOTAL answers in catagory Ziekhuiszorg
+    [SerializeField]public int ziekenhuisAnswers = 0;
+
+    //Counting TOTAL answers in catagory tand/huisarts
+    [SerializeField]public int artsAnswers = 0;
+
+    //Counting TOTAL answers in catagory Gehandicaptenzorg
+    [SerializeField]public int gehandicaptenAnswers = 0;
+
+    //Counting TOTAL answers in catagory Ouderenzorg
+    [SerializeField]public int oldieAnswers = 0;
+
+    //Counting TOTAL answers in catagory Algemenezorg
+    [SerializeField]public int algemeenAnswers = 0;
+
+    //Counting TOTAL answers in catagory GGZ & verslavingszorg
+    [SerializeField]public int verslavingsAnswers = 0;
+
     public Player
         ( 
              string _playerID = "",
@@ -84,6 +103,13 @@ public class Player
              int _geographicAnswers = 0,
              int _careAnswers = 0,
              int _religionAnswers = 0,
+
+             int _ziekenhuisAnswers = 0,
+             int _artsAnswers = 0,
+             int _gehandicaptenAnswers = 0,
+             int _oldieAnswers = 0,
+             int _algemeenAnswers = 0,
+             int _verslavingsAnswers = 0,
              PlayerProfile _profile = null,
              bool _completedIntro = false
         )
@@ -96,6 +122,7 @@ public class Player
 		playerLvl = _playerLvl;
 		playedMatches = _playedMatches;
         completedIntro = _completedIntro;
+
         /************** Player profile data without logics *********************/
         wonMatches = _wonMatches;
         wonMatchesRow = _wonMatchesRow;
@@ -108,6 +135,15 @@ public class Player
         geographicAnswers = _geographicAnswers;
         careAnswers = _careAnswers;
         religionAnswers = _religionAnswers;
+
+        /************** Player profile data without logics new catagories *********************/
+        ziekenhuisAnswers = _ziekenhuisAnswers;
+        artsAnswers = _artsAnswers;
+        gehandicaptenAnswers = _gehandicaptenAnswers;
+        oldieAnswers = _oldieAnswers;
+        algemeenAnswers = _algemeenAnswers;
+        verslavingsAnswers = _verslavingsAnswers;
+
         if (_profile != null)
         {
 			profile = _profile;

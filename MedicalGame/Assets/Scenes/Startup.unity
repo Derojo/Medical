@@ -139,28 +139,11 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 348c0b81f49014484a3ca399c316f68f, type: 2}
-  m_RootGameObject: {fileID: 1770743206}
   m_IsPrefabParent: 0
---- !u!1 &1770743206
+--- !u!1 &1770743206 stripped
 GameObject:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 100000, guid: 348c0b81f49014484a3ca399c316f68f, type: 2}
   m_PrefabInternal: {fileID: 479745098}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1770743212}
-  - 114: {fileID: 1770743210}
-  - 114: {fileID: 1770743207}
-  - 114: {fileID: 1770743208}
-  - 114: {fileID: 1770743209}
-  - 114: {fileID: 1770743211}
-  m_Layer: 0
-  m_Name: Gamedonia
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!114 &1770743207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,25 +184,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: 
---- !u!114 &1770743210
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400002, guid: 348c0b81f49014484a3ca399c316f68f,
-    type: 2}
-  m_PrefabInternal: {fileID: 479745098}
-  m_GameObject: {fileID: 1770743206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ba80766e201b4f02bac4685aabe388a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  paused: 0
-  ApiServerUrl: http://api.gamedonia.com
-  ApiKey: 7396e918-a7d9-4115-b5a9-329bbb21f272
-  Secret: 83f1badf810fa667c38b0ae44c269e54
-  ApiVersion: 0
-  AuthenticationMode: 1
-  debug: 1
 --- !u!114 &1770743211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,17 +195,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939d5303935682244a70586ec47d1fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  email: jos@quiz.com
+  email: j.v.leeuwen@quiz.com
   password: 123
---- !u!4 &1770743212
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 400000, guid: 348c0b81f49014484a3ca399c316f68f, type: 2}
-  m_PrefabInternal: {fileID: 479745098}
-  m_GameObject: {fileID: 1770743206}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
