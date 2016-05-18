@@ -150,26 +150,27 @@ public class QuestionManager : Singleton<QuestionManager> {
 						break;
 				}
 
-				// Keep data of good answered questions in category x
+                // Keep data of good answered questions in category x
+                
 				switch (currentCategory)
 				{
-					case 1: //total right questions in TV_Entertainment
-						PlayerManager.I.player.entertainmentAnswers  ++;
+					case 7: //total right questions in veslavingszorg
+                        PlayerManager.I.player.verslavingsAnswers++;
 						break;
-					case 2: //total right questions in Geloof_Cultuur
-						PlayerManager.I.player.religionAnswers++;
+					case 8: //total right questions in ouderenzorg
+                        PlayerManager.I.player.oldieAnswers++;
 						break;
-					case 3: //total right questions in Zorg_wetenschap
-						PlayerManager.I.player.careAnswers ++;
+					case 9: //total right questions in ziekenhuiszorg
+						PlayerManager.I.player.ziekenhuisAnswers++;
 						break;
-					case 4: //total right questions in Geschiedenis
-						PlayerManager.I.player.historyAnswers++;
+					case 10: //total right questions in algemenezorg
+                        PlayerManager.I.player.algemeenAnswers++;
 						break;
-					case 5: //total right questions in Sport
-						PlayerManager.I.player.sportAnswers++;
+					case 11: //total right questions in tand & huisarts
+						PlayerManager.I.player.artsAnswers++;
 						break;
-					case 6: //total right questions in Geografie
-						PlayerManager.I.player.geographicAnswers++;
+					case 12: //total right questions in gehandicaptenzorg
+						PlayerManager.I.player.gehandicaptenAnswers++;
 						break;
 				}
 
