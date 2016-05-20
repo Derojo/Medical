@@ -110,6 +110,7 @@ public class Login : MonoBehaviour {
 			// Set playerprefs loggedIn to true so we dont need to log in again via http
 			PlayerManager.I.player.loggedIn = true;
 			PlayerManager.I.Save ();
+			PlayerManager.I.LoadFriends ();
 			if (!PlayerManager.I.player.createdProfile) {
 				SceneManager.LoadScene ("Profile_Create");
 			} else {

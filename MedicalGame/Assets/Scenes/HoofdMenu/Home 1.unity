@@ -226,7 +226,8 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 209315517}
-
+<<<<<<< Updated upstream
+=======
 --- !u!1001 &391130887
 Prefab:
   m_ObjectHideFlags: 0
@@ -314,6 +315,7 @@ RectTransform:
   m_PrefabParentObject: {fileID: 22495606, guid: ae24ca1f154af394f9314d0229fda9be,
     type: 2}
   m_PrefabInternal: {fileID: 391130887}
+>>>>>>> Stashed changes
 --- !u!114 &394094185 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11456390, guid: 0c99a13175576b34cb98655b5583d534,
@@ -746,6 +748,8 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 554295415}
+<<<<<<< Updated upstream
+=======
 --- !u!1 &589518073
 GameObject:
   m_ObjectHideFlags: 0
@@ -819,6 +823,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+>>>>>>> Stashed changes
 --- !u!1 &617758135
 GameObject:
   m_ObjectHideFlags: 0
@@ -848,10 +853,14 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+<<<<<<< Updated upstream
+  m_Children: []
+=======
   m_Children:
   - {fileID: 589518076}
   - {fileID: 1978899639}
   - {fileID: 1736208308}
+>>>>>>> Stashed changes
   m_Father: {fileID: 1497421068}
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
@@ -891,15 +900,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc81a5cd3b05a454b8dc4f3c64f0737a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< Updated upstream
+=======
   invites: []
+>>>>>>> Stashed changes
   yourTurn: []
   hisTurn: []
   finishedMatches: []
   currentGamesPanel: {fileID: 1586114123}
+<<<<<<< Updated upstream
+=======
   accept: {fileID: 589518073}
   yourTurnUI: {fileID: 1978899638}
   hisTurnUI: {fileID: 1736208305}
-
+>>>>>>> Stashed changes
 --- !u!114 &617758139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1881,6 +1895,21 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22453176, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_AnchoredPosition.x
+<<<<<<< Updated upstream
+      value: 85.76701
+      objectReference: {fileID: 0}
+    - target: {fileID: 22453176, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -45.147133
+      objectReference: {fileID: 0}
+    - target: {fileID: 22453176, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 141.53403
+      objectReference: {fileID: 0}
+    - target: {fileID: 22453176, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 86.294266
+=======
       value: 78.49104
       objectReference: {fileID: 0}
     - target: {fileID: 22453176, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
@@ -1894,6 +1923,7 @@ Prefab:
     - target: {fileID: 22453176, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_SizeDelta.y
       value: 78.04872
+>>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 22416976, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_AnchorMin.y
@@ -1905,6 +1935,21 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22416976, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_AnchoredPosition.x
+<<<<<<< Updated upstream
+      value: 231.02104
+      objectReference: {fileID: 0}
+    - target: {fileID: 22416976, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -45.147133
+      objectReference: {fileID: 0}
+    - target: {fileID: 22416976, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 141.53403
+      objectReference: {fileID: 0}
+    - target: {fileID: 22416976, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 86.294266
+=======
       value: 209.19313
       objectReference: {fileID: 0}
     - target: {fileID: 22416976, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
@@ -1918,6 +1963,7 @@ Prefab:
     - target: {fileID: 22416976, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_SizeDelta.y
       value: 78.04872
+>>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 22474986, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_AnchorMin.y
@@ -1929,6 +1975,21 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22474986, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_AnchoredPosition.x
+<<<<<<< Updated upstream
+      value: 376.2751
+      objectReference: {fileID: 0}
+    - target: {fileID: 22474986, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -45.147133
+      objectReference: {fileID: 0}
+    - target: {fileID: 22474986, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 141.53403
+      objectReference: {fileID: 0}
+    - target: {fileID: 22474986, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 86.294266
+=======
       value: 339.89523
       objectReference: {fileID: 0}
     - target: {fileID: 22474986, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
@@ -1942,6 +2003,7 @@ Prefab:
     - target: {fileID: 22474986, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_SizeDelta.y
       value: 78.04872
+>>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 22443334, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_AnchorMin.y
@@ -1953,6 +2015,21 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22443334, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_AnchoredPosition.x
+<<<<<<< Updated upstream
+      value: 521.5291
+      objectReference: {fileID: 0}
+    - target: {fileID: 22443334, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -45.147133
+      objectReference: {fileID: 0}
+    - target: {fileID: 22443334, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 141.53403
+      objectReference: {fileID: 0}
+    - target: {fileID: 22443334, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 86.294266
+=======
       value: 470.59732
       objectReference: {fileID: 0}
     - target: {fileID: 22443334, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
@@ -1966,6 +2043,7 @@ Prefab:
     - target: {fileID: 22443334, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_SizeDelta.y
       value: 78.04872
+>>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 11467420, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -2441,6 +2519,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 0
+<<<<<<< Updated upstream
+=======
 --- !u!1001 &1527329418
 Prefab:
   m_ObjectHideFlags: 0
@@ -2528,6 +2608,7 @@ RectTransform:
   m_PrefabParentObject: {fileID: 22416880, guid: 7dda3a907af214a4cb9eb6fa99d1e7e3,
     type: 2}
   m_PrefabInternal: {fileID: 1527329418}
+>>>>>>> Stashed changes
 --- !u!1 &1586114123
 GameObject:
   m_ObjectHideFlags: 0
@@ -2596,6 +2677,8 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1586114123}
+<<<<<<< Updated upstream
+=======
 --- !u!1 &1736208305
 GameObject:
   m_ObjectHideFlags: 0
@@ -2669,6 +2752,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+>>>>>>> Stashed changes
 --- !u!1 &1750369993
 GameObject:
   m_ObjectHideFlags: 0
@@ -2875,7 +2959,11 @@ MonoBehaviour:
   m_HandleRect: {fileID: 209315518}
   m_Direction: 2
   m_Value: 1
+<<<<<<< Updated upstream
+  m_Size: 1
+=======
   m_Size: 0.9999999
+>>>>>>> Stashed changes
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3068,6 +3156,8 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1870497534}
+<<<<<<< Updated upstream
+=======
 --- !u!1 &1978899638
 GameObject:
   m_ObjectHideFlags: 0
@@ -3228,3 +3318,4 @@ RectTransform:
   m_PrefabParentObject: {fileID: 22488874, guid: 286809151f34c4a45b89cb30ed7790ea,
     type: 2}
   m_PrefabInternal: {fileID: 2137283853}
+>>>>>>> Stashed changes

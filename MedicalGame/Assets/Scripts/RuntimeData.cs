@@ -47,8 +47,38 @@ public class RuntimeData : Singleton<RuntimeData> {
 		string oppName = payload.ContainsKey("notif_name") ? payload["notif_name"].ToString() : "";
 		switch(type) {
 
-		case "matchStart":
-			//TODO: process the message
+		case "matchInvite":
+			Match inviteMatch = MatchManager.I.GetMatch (matchID);
+			GamedoniaData.Search ("matches", "{_id: { $oid: '" + matchID +"' } }", delegate (bool success, IList data) {
+				if (success) {
+					if (data != null) {
+						// *************** Server side match information ********************
+						Dictionary<string, object> matchD = (Dictionary<string, object>)data[0];
+						List<Turn> turns = new List<Turn>();
+						// Conver incoming turn data to Turn class
+						List<object> t_turns = new List<object>();
+						t_turns = (List<object>)matchD["m_trns"];
+						foreach(Dictionary<string, object> t_turn  in t_turns) {
+							Turn turn = new Turn(int.Parse(t_turn["t_ID"].ToString()), t_turn["p_ID"].ToString(), int.Parse(t_turn["q_ID"].ToString()), int.Parse(t_turn["c_ID"].ToString()), int.Parse(t_turn["t_st"].ToString()));
+							turns.Add(turn);
+						}
+						List<string> uids = JsonMapper.ToObject<List<string>>(JsonMapper.ToJson(matchD["u_ids"]));
+
+						// *************** Update local match ********************
+						inviteMatch.u_ids = uids;
+						inviteMatch.m_cc = 0;
+						inviteMatch.m_trns = turns;
+						inviteMatch.m_cp = PlayerManager.I.player.playerID;
+						inviteMatch.m_status = matchD["m_status"].ToString();
+
+						if(currentScene.name == "Home") {
+							GameObject.FindObjectOfType<CurrentMatches>().updateMatches();
+						}
+					} else {
+						Debug.Log ("Data is null");
+					}
+				}
+			});
 			break;
 		case "matchTurn":
 			//TODO: process the message
