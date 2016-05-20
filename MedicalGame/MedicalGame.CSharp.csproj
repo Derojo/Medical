@@ -169,6 +169,7 @@
     <Compile Include="Assets\Scripts\Questions\Data\Question.cs" />
     <Compile Include="Assets\Scripts\Questions\Data\QuestionDatabase.cs" />
     <Compile Include="Assets\Scripts\Questions\QuestionManager.cs" />
+    <Compile Include="Assets\Scripts\Registration.cs" />
     <Compile Include="Assets\Scripts\RuntimeData.cs" />
     <Compile Include="Assets\Scripts\SceneManagerScript.cs" />
     <Compile Include="Assets\Scripts\Sound\BallBounce.cs" />

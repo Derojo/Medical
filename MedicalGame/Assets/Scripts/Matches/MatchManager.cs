@@ -118,7 +118,7 @@ public class MatchManager : Singleton<MatchManager> {
 	public void EndMatch() {
 		// Set status to finished
 		GetMatch(currentMatchID).m_status = "finished";
-	}
+    }
 
 	public void LoadCurrentMatch(string id) {
 		Loader.I.enableLoader ();
@@ -130,6 +130,7 @@ public class MatchManager : Singleton<MatchManager> {
 		if (addToServer) {
 			GamedoniaData.Create("matches", getDictionaryMatch (match), delegate (bool success, IDictionary data){
 				if (success) {
+                    PlayerManager.I.player.activeGames++;
 					match.m_ID = data["_id"].ToString();
 					currentMatchID = match.m_ID;
 					if(queueObject) {
@@ -287,9 +288,11 @@ public class MatchManager : Singleton<MatchManager> {
 	public List<Match> GetFinishedMatches() {
 		List<Match> tempList = new List<Match> ();
 		for (int i = 0; i < matchManager.matches.Count; i++) {
-			if (matchManager.matches[i].m_status == "finished") {
+			if (matchManager.matches[i].m_status == "finished")
+            {
 				tempList.Add(matchManager.matches[i]);
-			}
+                PlayerManager.I.player.activeGames--;
+            }
 		}
 		return tempList;
 	}
