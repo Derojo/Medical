@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 3e93c8e08e0225e46916f177365f2984
-timeCreated: 1463755838
+timeCreated: 1463990995
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -25,6 +25,12 @@ TextureImporter:
     21300036: Allrounder
     21300038: Arts
     21300040: Old_School
+    21300042: Gehandicapten_Begeleider_Locked
+    21300044: Ziekenhuis_Specialist_Locked
+    21300046: Verslavings_Overwinnaar_Locked
+    21300048: Old_School_Locked
+    21300050: Arts_Locked
+    21300052: Allrounder_Locked
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -269,8 +275,8 @@ TextureImporter:
     - name: Win_match
       rect:
         serializedVersion: 2
-        x: 21
-        y: 440
+        x: 11
+        y: 516
         width: 1046
         height: 258
       alignment: 0
@@ -284,8 +290,8 @@ TextureImporter:
     - name: Lose_Match
       rect:
         serializedVersion: 2
-        x: 27
-        y: 82
+        x: 24
+        y: 85
         width: 1046
         height: 211
       alignment: 0
@@ -299,8 +305,8 @@ TextureImporter:
     - name: Gehandicapten_Begeleider
       rect:
         serializedVersion: 2
-        x: 1051
-        y: 1004
+        x: 1104
+        y: 1001
         width: 242
         height: 236
       alignment: 0
@@ -314,8 +320,8 @@ TextureImporter:
     - name: Ziekenhuis_Specialist
       rect:
         serializedVersion: 2
-        x: 1326
-        y: 1012
+        x: 1368
+        y: 1009
         width: 242
         height: 236
       alignment: 0
@@ -329,63 +335,153 @@ TextureImporter:
     - name: Verslavings_Overwinnaar
       rect:
         serializedVersion: 2
-        x: 1608
-        y: 1014
+        x: 1633
+        y: 1012
         width: 239
         height: 236
-      alignment: 9
-      pivot: {x: 1.5944481, y: 0.43814242}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -381.07312, y: 132.59839}
-        - {x: -381.07312, y: -103.40161}
-        - {x: -142.07312, y: -103.40161}
-        - {x: -142.07312, y: 132.59839}
+      - - {x: -119.5, y: 118}
+        - {x: -119.5, y: -118}
+        - {x: 119.5, y: -118}
+        - {x: 119.5, y: 118}
     - name: Allrounder
       rect:
         serializedVersion: 2
-        x: 1610
-        y: 712
+        x: 1635
+        y: 725
         width: 239
         height: 237
-      alignment: 9
-      pivot: {x: 1.5944481, y: 0.43814242}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -381.07312, y: 133.16028}
-        - {x: -381.07312, y: -103.83972}
-        - {x: -142.07312, y: -103.83972}
-        - {x: -142.07312, y: 133.16028}
+      - - {x: -119.5, y: 118.5}
+        - {x: -119.5, y: -118.5}
+        - {x: 119.5, y: -118.5}
+        - {x: 119.5, y: 118.5}
     - name: Arts
       rect:
         serializedVersion: 2
-        x: 1333
-        y: 718
+        x: 1373
+        y: 729
         width: 239
         height: 240
-      alignment: 9
-      pivot: {x: 1.5944481, y: 0.43814242}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -381.07312, y: 134.84583}
-        - {x: -381.07312, y: -105.154175}
-        - {x: -142.07312, y: -105.154175}
-        - {x: -142.07312, y: 134.84583}
+      - - {x: -119.5, y: 120}
+        - {x: -119.5, y: -120}
+        - {x: 119.5, y: -120}
+        - {x: 119.5, y: 120}
     - name: Old_School
       rect:
         serializedVersion: 2
-        x: 1049
-        y: 719
+        x: 1107
+        y: 730
         width: 239
         height: 240
-      alignment: 9
-      pivot: {x: 1.5944481, y: 0.43814242}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -381.07312, y: 134.84583}
-        - {x: -381.07312, y: -105.154175}
-        - {x: -142.07312, y: -105.154175}
-        - {x: -142.07312, y: 134.84583}
+      - - {x: -119.5, y: 120}
+        - {x: -119.5, y: -120}
+        - {x: 119.5, y: -120}
+        - {x: 119.5, y: 120}
+    - name: Gehandicapten_Begeleider_Locked
+      rect:
+        serializedVersion: 2
+        x: 1105
+        y: 396
+        width: 242
+        height: 236
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -121, y: 118}
+        - {x: -121, y: -118}
+        - {x: 121, y: -118}
+        - {x: 121, y: 118}
+    - name: Ziekenhuis_Specialist_Locked
+      rect:
+        serializedVersion: 2
+        x: 1365
+        y: 396
+        width: 242
+        height: 236
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -121, y: 118}
+        - {x: -121, y: -118}
+        - {x: 121, y: -118}
+        - {x: 121, y: 118}
+    - name: Verslavings_Overwinnaar_Locked
+      rect:
+        serializedVersion: 2
+        x: 1632
+        y: 405
+        width: 242
+        height: 236
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -121, y: 118}
+        - {x: -121, y: -118}
+        - {x: 121, y: -118}
+        - {x: 121, y: 118}
+    - name: Old_School_Locked
+      rect:
+        serializedVersion: 2
+        x: 1107
+        y: 128
+        width: 242
+        height: 236
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -121, y: 118}
+        - {x: -121, y: -118}
+        - {x: 121, y: -118}
+        - {x: 121, y: 118}
+    - name: Arts_Locked
+      rect:
+        serializedVersion: 2
+        x: 1371
+        y: 127
+        width: 242
+        height: 236
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -121, y: 118}
+        - {x: -121, y: -118}
+        - {x: 121, y: -118}
+        - {x: 121, y: 118}
+    - name: Allrounder_Locked
+      rect:
+        serializedVersion: 2
+        x: 1637
+        y: 121
+        width: 242
+        height: 236
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -121, y: 118}
+        - {x: -121, y: -118}
+        - {x: 121, y: -118}
+        - {x: 121, y: 118}
     outline: []
   spritePackingTag: 
   userData: 

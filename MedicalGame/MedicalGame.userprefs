@@ -1,15 +1,15 @@
-﻿<Properties StartupItem="Assembly-CSharp.csproj">
+﻿<Properties StartupItem="MedicalGame.CSharp.Plugins.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player\PlayerManager.cs">
     <Files>
-      <File FileName="Assets\Scripts\Matches\CurrentMatches.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Matches\MatchManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player\PlayerManager.cs" Line="61" Column="17" />
+      <File FileName="Assets\Scripts\Matches\CurrentMatches.cs" Line="331" Column="1" />
+      <File FileName="Assets\Scripts\Matches\MatchManager.cs" Line="537" Column="2" />
+      <File FileName="Assets\Scripts\Player\PlayerManager.cs" Line="322" Column="1" />
       <File FileName="Assets\Scripts\Registration.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\clothchanger.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Startup.cs" Line="37" Column="6" />
+      <File FileName="Assets\Scripts\Startup.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Questions\QuestionManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\RuntimeData.cs" Line="75" Column="8" />
+      <File FileName="Assets\Scripts\RuntimeData.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\AddUser.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Matches\Data\Match.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Matches\Data\Turn.cs" Line="1" Column="1" />
@@ -20,9 +20,9 @@
       <File FileName="Assets\Scripts\Player\Data\PlayerProfile.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Matches\EndScreenScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\foldOutScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Login.cs" Line="113" Column="35" />
+      <File FileName="Assets\Scripts\Login.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\ProfilePicture.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Friends\FriendList.cs" Line="30" Column="27" />
+      <File FileName="Assets\Scripts\Friends\FriendList.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
