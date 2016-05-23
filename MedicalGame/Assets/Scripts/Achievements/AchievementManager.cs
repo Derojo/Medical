@@ -136,6 +136,10 @@ public class AchievementManager : Singleton<AchievementManager> {
     }
 
     // #2 Earning "Vrienden Worden?" achievement
+    public void wantToBeFriends()
+    {
+        //do something
+    }
 
     // #3 Earning "Beginnende vriendschap" achievement
 
