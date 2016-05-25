@@ -54,7 +54,7 @@ public class MatchManager : Singleton<MatchManager> {
 					// We are the current player
 					match.m_cp = PlayerManager.I.player.playerID;
 					// Add match to local list and gamedonia server
-					AddMatch(match, true, false);
+					AddMatch(match, true, false, true);
 					// Create gamequeue option
 					//					createGameQueueObject();
 				} else { 
@@ -80,20 +80,15 @@ public class MatchManager : Singleton<MatchManager> {
 
 								List<string> uids = JsonMapper.ToObject<List<string>>(JsonMapper.ToJson(matchD["u_ids"]));
 								uids[0] = PlayerManager.I.player.playerID;
-								Match existingMatch = new Match (matchD ["_id"].ToString (), uids, "", "", matchD ["m_status"].ToString (), 0, matchD ["m_cp"].ToString (), 0 , turns);
+								Match existingMatch = new Match (matchD ["_id"].ToString (), uids, "", "", matchD ["m_status"].ToString (), 0, matchD ["m_cp"].ToString (), 0 ,turns);
 								existingMatch.m_cp = PlayerManager.I.player.playerID;
 								currentMatchID = existingMatch.m_ID;
-								AddMatch(existingMatch, false);
+								AddMatch(existingMatch, false, false, true);
 							} 
 						}
 					});
 
 				}
-
-
-
-				// Switch to category scene where we will get a random category
-				Loader.I.LoadScene("Category");
 			}
 		});
 
@@ -160,7 +155,7 @@ public class MatchManager : Singleton<MatchManager> {
 		Loader.I.LoadScene("Category");
 	}
 
-	public void AddMatch(Match match, bool addToServer = true, bool queueObject = false) {
+	public void AddMatch(Match match, bool addToServer = true, bool queueObject = false, bool sq = false) {
 		Debug.Log ("ADDMATCH"+match.m_ID);
 		if (addToServer) {
 			GamedoniaData.Create("matches", getDictionaryMatch (match), delegate (bool success, IDictionary data){
@@ -179,6 +174,9 @@ public class MatchManager : Singleton<MatchManager> {
 		if (!matches.Contains (match)) {
 			matches.Add (match);
 			Save ();
+			if (sq) {
+				Loader.I.LoadScene("Category");
+			}
 		}
 	}
 
@@ -422,6 +420,8 @@ public class MatchManager : Singleton<MatchManager> {
 			match = GetMatch (match_ID);
 		}
 
+		Debug.Log (match.m_ID);
+		Debug.Log (match.m_trns.Count);
 		if (match.m_trns != null) {
 			for (int i = 0; i < match.m_trns.Count; i++) {
 				if (match.m_trns [i].p_ID == player_ID) {
