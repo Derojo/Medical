@@ -45,6 +45,7 @@ public class ScrollEvent : MonoBehaviour, IBeginDragHandler, IEndDragHandler {
 
 	private IEnumerator checkForUpdates() {
 		MatchManager.I.checkForUpdateMatches ();
+		MatchManager.I.CheckForInvites ();
 		while(MatchManager.I.checkUpdates == false) {
 			yield return null;
 		}

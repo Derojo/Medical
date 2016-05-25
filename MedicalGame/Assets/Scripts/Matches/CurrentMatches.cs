@@ -56,10 +56,6 @@ public class CurrentMatches : MonoBehaviour {
 
 	}
 
-	public void updateInvites() {
-		invites = MatchManager.I.GetPlayingMatches(false, "invites");
-	}
-
 	public void deleteRow(string name) {
 		GameObject row = GameObject.Find (name);
 		//		Destroy (GameObject.Find (name));

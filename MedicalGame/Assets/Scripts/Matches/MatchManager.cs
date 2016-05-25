@@ -139,14 +139,14 @@ public class MatchManager : Singleton<MatchManager> {
 
 	public void DenyMatch(Match match) {
 		match.m_status = "deny";
-
+		match.m_cp = GetOppenentId (match);
 		currentMatchID = match.m_ID;
+		Dictionary<string, object> matchUpdate = MatchManager.I.getDictionaryMatch (match, null, true);
+		GamedoniaData.Update ("matches", matchUpdate);
 		matches.Remove (match);
 		Save ();
 		GameObject.FindObjectOfType<CurrentMatches> ().showInvites ();
 		GameObject.FindObjectOfType<CurrentMatches> ().deleteRow (match.m_ID);
-
-		//		Loader.I.LoadScene("Category");
 	}
 
 	public void EndMatch() {
@@ -258,7 +258,7 @@ public class MatchManager : Singleton<MatchManager> {
 		string pID = PlayerManager.I.player.playerID;
 		for (int i = 0; i < matchManager.matches.Count; i++) {
 			if (matchManager.matches[i].m_status != "finished") {
-				if (all) {
+				if (all && matchManager.matches[i].m_status != "deny") {
 					tempList.Add (matchManager.matches [i]);
 				} else {
 					if (type == "player") {
@@ -287,12 +287,23 @@ public class MatchManager : Singleton<MatchManager> {
 
 	public void checkForUpdateMatches() {
 		List<Match> yourTurn = GetPlayingMatches (true, "opponent");
-		Debug.Log (yourTurn.Count);
 		if (yourTurn.Count > 0) {
 			for (int i = 0; i < yourTurn.Count; i++) {
 				string matchID = yourTurn [i].m_ID;
 				Debug.Log (yourTurn [i].m_status);
-				if (yourTurn [i].m_status != "waiting" ) {
+				if (yourTurn [i].m_status == "deny") {
+					GamedoniaData.Delete("matches", yourTurn [i].m_ID, delegate (bool success){ 
+						if (success){
+							Match matchDeny = MatchManager.I.GetMatch (matchID);
+							matches.Remove (matchDeny);
+							GameObject.FindObjectOfType<CurrentMatches> ().showInvites ();
+							GameObject.FindObjectOfType<CurrentMatches> ().deleteRow (matchDeny.m_ID);
+						}
+						else{
+							//TODO Your fail processing
+						}
+					});
+				} else if (yourTurn [i].m_status != "waiting" ) {
 					GamedoniaData.Search ("matches", "{_id: { $oid: '" + matchID + "' } }", delegate (bool success, IList data) {
 						if (success) {
 							if (data != null) {

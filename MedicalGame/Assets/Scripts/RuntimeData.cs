@@ -175,7 +175,18 @@ public class RuntimeData : Singleton<RuntimeData> {
 			});
 
 
-			
+
+			break;
+		case "matchDeny":
+			Debug.Log ("MATCH DENY");
+			Debug.Log (matchID);
+			GamedoniaData.Delete ("matches", matchID);
+			Debug.Log ("DELETED MATCH");
+			Match matchDeny = MatchManager.I.GetMatch (matchID);
+			MatchManager.I.matches.Remove (matchDeny);
+			MatchManager.I.Save ();
+			GameObject.FindObjectOfType<CurrentMatches> ().showInvites ();
+			GameObject.FindObjectOfType<CurrentMatches> ().deleteRow (matchDeny.m_ID);
 			break;
 		default:
 			// Do nothing
