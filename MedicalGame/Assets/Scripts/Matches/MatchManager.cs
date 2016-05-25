@@ -54,7 +54,7 @@ public class MatchManager : Singleton<MatchManager> {
 					// We are the current player
 					match.m_cp = PlayerManager.I.player.playerID;
 					// Add match to local list and gamedonia server
-					AddMatch(match, true, false);
+					AddMatch(match, true, false, true);
 					// Create gamequeue option
 					//					createGameQueueObject();
 				} else { 
@@ -80,20 +80,15 @@ public class MatchManager : Singleton<MatchManager> {
 
 								List<string> uids = JsonMapper.ToObject<List<string>>(JsonMapper.ToJson(matchD["u_ids"]));
 								uids[0] = PlayerManager.I.player.playerID;
-								Match existingMatch = new Match (matchD ["_id"].ToString (), uids, "", "", matchD ["m_status"].ToString (), 0, matchD ["m_cp"].ToString (), 0 , turns);
+								Match existingMatch = new Match (matchD ["_id"].ToString (), uids, "", "", matchD ["m_status"].ToString (), 0, matchD ["m_cp"].ToString (), 0 ,turns);
 								existingMatch.m_cp = PlayerManager.I.player.playerID;
 								currentMatchID = existingMatch.m_ID;
-								AddMatch(existingMatch, false);
+								AddMatch(existingMatch, false, false, true);
 							} 
 						}
 					});
 
 				}
-
-
-
-				// Switch to category scene where we will get a random category
-				Loader.I.LoadScene("Category");
 			}
 		});
 
@@ -139,14 +134,14 @@ public class MatchManager : Singleton<MatchManager> {
 
 	public void DenyMatch(Match match) {
 		match.m_status = "deny";
-
+		match.m_cp = GetOppenentId (match);
 		currentMatchID = match.m_ID;
+		Dictionary<string, object> matchUpdate = MatchManager.I.getDictionaryMatch (match, null, true);
+		GamedoniaData.Update ("matches", matchUpdate);
 		matches.Remove (match);
 		Save ();
 		GameObject.FindObjectOfType<CurrentMatches> ().showInvites ();
 		GameObject.FindObjectOfType<CurrentMatches> ().deleteRow (match.m_ID);
-
-		//		Loader.I.LoadScene("Category");
 	}
 
 	public void EndMatch() {
@@ -160,7 +155,7 @@ public class MatchManager : Singleton<MatchManager> {
 		Loader.I.LoadScene("Category");
 	}
 
-	public void AddMatch(Match match, bool addToServer = true, bool queueObject = false) {
+	public void AddMatch(Match match, bool addToServer = true, bool queueObject = false, bool sq = false) {
 		Debug.Log ("ADDMATCH"+match.m_ID);
 		if (addToServer) {
 			GamedoniaData.Create("matches", getDictionaryMatch (match), delegate (bool success, IDictionary data){
@@ -179,6 +174,9 @@ public class MatchManager : Singleton<MatchManager> {
 		if (!matches.Contains (match)) {
 			matches.Add (match);
 			Save ();
+			if (sq) {
+				Loader.I.LoadScene("Category");
+			}
 		}
 	}
 
@@ -258,7 +256,7 @@ public class MatchManager : Singleton<MatchManager> {
 		string pID = PlayerManager.I.player.playerID;
 		for (int i = 0; i < matchManager.matches.Count; i++) {
 			if (matchManager.matches[i].m_status != "finished") {
-				if (all) {
+				if (all && matchManager.matches[i].m_status != "deny") {
 					tempList.Add (matchManager.matches [i]);
 				} else {
 					if (type == "player") {
@@ -287,12 +285,23 @@ public class MatchManager : Singleton<MatchManager> {
 
 	public void checkForUpdateMatches() {
 		List<Match> yourTurn = GetPlayingMatches (true, "opponent");
-		Debug.Log (yourTurn.Count);
 		if (yourTurn.Count > 0) {
 			for (int i = 0; i < yourTurn.Count; i++) {
 				string matchID = yourTurn [i].m_ID;
 				Debug.Log (yourTurn [i].m_status);
-				if (yourTurn [i].m_status != "waiting" ) {
+				if (yourTurn [i].m_status == "deny") {
+					GamedoniaData.Delete("matches", yourTurn [i].m_ID, delegate (bool success){ 
+						if (success){
+							Match matchDeny = MatchManager.I.GetMatch (matchID);
+							matches.Remove (matchDeny);
+							GameObject.FindObjectOfType<CurrentMatches> ().showInvites ();
+							GameObject.FindObjectOfType<CurrentMatches> ().deleteRow (matchDeny.m_ID);
+						}
+						else{
+							//TODO Your fail processing
+						}
+					});
+				} else if (yourTurn [i].m_status != "waiting" ) {
 					GamedoniaData.Search ("matches", "{_id: { $oid: '" + matchID + "' } }", delegate (bool success, IList data) {
 						if (success) {
 							if (data != null) {
@@ -411,6 +420,8 @@ public class MatchManager : Singleton<MatchManager> {
 			match = GetMatch (match_ID);
 		}
 
+		Debug.Log (match.m_ID);
+		Debug.Log (match.m_trns.Count);
 		if (match.m_trns != null) {
 			for (int i = 0; i < match.m_trns.Count; i++) {
 				if (match.m_trns [i].p_ID == player_ID) {
