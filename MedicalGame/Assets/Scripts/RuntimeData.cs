@@ -18,6 +18,7 @@ public class RuntimeData : Singleton<RuntimeData> {
 	public bool Load() {return true;}
 
 	void Start () {
+		Debug.Log ("RuntimeData");
 		// Load Managers
 		Loader.I.Load();
 		MatchManager.I.Load ();
@@ -45,13 +46,17 @@ public class RuntimeData : Singleton<RuntimeData> {
 		string type = payload.ContainsKey("type") ? payload["type"].ToString() : "";
 		string matchID = payload.ContainsKey("notif_id") ? payload["notif_id"].ToString() : "";
 		string oppName = payload.ContainsKey("notif_name") ? payload["notif_name"].ToString() : "";
+		Debug.Log (type);
 		switch(type) {
 
 		case "matchInvite":
-			Match inviteMatch = MatchManager.I.GetMatch (matchID);
+			Debug.Log ("MATCHINVITE");
+			Match inviteMatch = new Match ();
 			GamedoniaData.Search ("matches", "{_id: { $oid: '" + matchID +"' } }", delegate (bool success, IList data) {
 				if (success) {
+					
 					if (data != null) {
+						Debug.Log("success, process information");
 						// *************** Server side match information ********************
 						Dictionary<string, object> matchD = (Dictionary<string, object>)data[0];
 						List<Turn> turns = new List<Turn>();
@@ -63,16 +68,18 @@ public class RuntimeData : Singleton<RuntimeData> {
 							turns.Add(turn);
 						}
 						List<string> uids = JsonMapper.ToObject<List<string>>(JsonMapper.ToJson(matchD["u_ids"]));
-
+						Debug.Log("Update local match");
 						// *************** Update local match ********************
+						inviteMatch.m_ID = matchID;
 						inviteMatch.u_ids = uids;
 						inviteMatch.m_cc = 0;
 						inviteMatch.m_trns = turns;
 						inviteMatch.m_cp = PlayerManager.I.player.playerID;
 						inviteMatch.m_status = matchD["m_status"].ToString();
-
+						MatchManager.I.AddMatch(inviteMatch, false, false);
 						if(currentScene.name == "Home") {
-							GameObject.FindObjectOfType<CurrentMatches>().updateMatches();
+							Debug.Log("ADDINVITE");
+							GameObject.FindObjectOfType<CurrentMatches>().showInvites();
 						}
 					} else {
 						Debug.Log ("Data is null");
@@ -81,6 +88,7 @@ public class RuntimeData : Singleton<RuntimeData> {
 			});
 			break;
 		case "matchTurn":
+			Debug.Log ("MATCHTURN");
 			//TODO: process the message
 			Match match = MatchManager.I.GetMatch (matchID);
 			if (match != null) {

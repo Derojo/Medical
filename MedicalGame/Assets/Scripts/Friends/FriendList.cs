@@ -18,8 +18,6 @@ public class FriendList : MonoBehaviour {
 		
 
 	private void showFriends() {
-		Debug.Log ("FRIEND COUNT:"+PlayerManager.I.friends.Count);
-		Debug.Log ("FRIEND COUNT2:"+PlayerManager.I.friendProfiles.Count);
 		foreach (KeyValuePair<string, object> friend in PlayerManager.I.friends) {
 			GameObject friendRow = Instantiate (Resources.Load ("FriendRow")) as GameObject;
 			string friendKey = friend.Key;
