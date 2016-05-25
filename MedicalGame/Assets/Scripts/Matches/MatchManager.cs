@@ -133,6 +133,7 @@ public class MatchManager : Singleton<MatchManager> {
 		Loader.I.enableLoader ();
 		match.m_status = "playing";
 		currentMatchID = match.m_ID;
+		Save ();
 		Loader.I.LoadScene("Category");
 	}
 
@@ -160,6 +161,7 @@ public class MatchManager : Singleton<MatchManager> {
 	}
 
 	public void AddMatch(Match match, bool addToServer = true, bool queueObject = false) {
+		Debug.Log ("ADDMATCH"+match.m_ID);
 		if (addToServer) {
 			GamedoniaData.Create("matches", getDictionaryMatch (match), delegate (bool success, IDictionary data){
 				if (success) {
@@ -174,8 +176,10 @@ public class MatchManager : Singleton<MatchManager> {
 				}
 			});
 		}
-		matches.Add (match);
-		Save ();
+		if (!matches.Contains (match)) {
+			matches.Add (match);
+			Save ();
+		}
 	}
 
 	public void AddTurn(Turn turn, string match_ID = "") {
@@ -248,6 +252,8 @@ public class MatchManager : Singleton<MatchManager> {
 	}
 
 	public List<Match> GetPlayingMatches(bool all = false, string type = "player") {
+		Debug.Log ("get playing matches"+type);
+		Debug.Log ("amount of matches:"+matchManager.matches.Count);
 		List<Match> tempList = new List<Match> ();
 		string pID = PlayerManager.I.player.playerID;
 		for (int i = 0; i < matchManager.matches.Count; i++) {
@@ -267,7 +273,8 @@ public class MatchManager : Singleton<MatchManager> {
 								tempList.Add (matchManager.matches [i]);
 							}
 						}
-					} else {
+					} else if(type =="invite") {
+						Debug.Log ("STATUS-"+ matchManager.matches [i].m_ID +"-"+matchManager.matches [i].m_status);
 						if(matchManager.matches[i].m_status == "invite") {
 							tempList.Add (matchManager.matches [i]);
 						}
