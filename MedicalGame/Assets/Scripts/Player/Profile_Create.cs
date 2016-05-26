@@ -68,7 +68,7 @@ public class Profile_Create : MonoBehaviour {
 				if (success) {
 					Loader.SetActive (false);
 					PlayerManager.I.player.createdProfile = true;
-                    SceneManager.LoadScene("Introduction");
+                    SceneManager.LoadScene("Avatar");
                 } else {
 					Debug.Log ("Error");
 				}
