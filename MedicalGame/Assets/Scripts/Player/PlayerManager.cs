@@ -321,4 +321,23 @@ public class PlayerManager : Singleton<PlayerManager> {
 	private void OnApplicationQuit() { Save (); }
 
 	private void OnApplicationPause() { Save (); }
+
+    public void loggingOff()
+    {
+        GamedoniaUsers.LogoutUser(delegate (bool success)
+        {
+            if (success)
+            {
+                player.playerID = "";
+                player.loggedIn = false;
+                player.createdProfile = false;
+                SceneManager.LoadScene("Startup");
+            }
+            else
+            {
+                //TODO Your fail processing
+            }
+        });
+
+     }
 }
