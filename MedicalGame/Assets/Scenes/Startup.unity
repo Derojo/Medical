@@ -184,16 +184,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: 
---- !u!114 &1770743211
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1770743206}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 939d5303935682244a70586ec47d1fd2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  email: j.v.leeuwen@quiz.com
-  password: 123

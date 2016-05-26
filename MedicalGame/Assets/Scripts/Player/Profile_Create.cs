@@ -147,6 +147,7 @@ public class Profile_Create : MonoBehaviour {
 		bool returnValue = true;
 		foreach(KeyValuePair<string,string> error in errorData)
 		{
+			Debug.Log (error.Key);
 			InputField input = (InputField)GameObject.Find (error.Key).GetComponent<InputField>();
 			ValidateField (input);
 			if (input.text == error.Value) {

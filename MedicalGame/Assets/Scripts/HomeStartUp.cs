@@ -14,9 +14,12 @@ public class HomeStartUp : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        
         lvlPopUp.SetActive(false);
         //Earning first achievement
         AchievementManager.I.checkAchievementConnect();
+        //check active maches
+        AchievementManager.I.AchievementVriendenKring();
         //Getting rank image
         rankingImg.sprite = PlayerManager.I.GetRankSprite(PlayerManager.I.player.playerLvl);
         //Getting rank name

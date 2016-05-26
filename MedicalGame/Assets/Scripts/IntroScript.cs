@@ -18,14 +18,29 @@ public class IntroScript : MonoBehaviour
     public GameObject hint8;
     public GameObject menuRemove;
     public GameObject BackGround;
+    public Image BackGroundOverlay;
     public int timesPressed;
    
     // Use this for initialization
     void Start ()
     {
         BackGround.SetActive(false);
-        hint1.GetComponent<Text>().DOFade(1, 0.5f);
-        if(PlayerManager.I.player.completedIntro)
+        //fading hint 1
+        foreach (Text text in hint1.GetComponentsInChildren<Text>())
+        {
+            text.DOFade(1, 1f);
+
+        }
+
+        foreach (Image img in hint1.GetComponentsInChildren<Image>())
+        {
+            img.DOFade(1f, 1f);
+
+        }
+
+        //fading in image
+        BackGroundOverlay.GetComponent<Image>().DOFade(0.45f, 1f);
+        if (PlayerManager.I.player.completedIntro)
         {
             menuRemove.SetActive(false);
         }
@@ -64,13 +79,13 @@ public class IntroScript : MonoBehaviour
             BackGround.SetActive(false);
             foreach (Text text in hint1.GetComponentsInChildren<Text>())
             {
-                text.DOFade(1, 2f);
+                text.DOFade(1, 1f);
 
             }
 
             foreach (Image img in hint1.GetComponentsInChildren<Image>())
             {
-                img.DOFade(1f, 2f);
+                img.DOFade(1f, 1f);
 
             }
             foreach (Text text in hint2.GetComponentsInChildren<Text>())
@@ -84,14 +99,18 @@ public class IntroScript : MonoBehaviour
                 img.DOFade(0f, 0f);
 
             }
+
             hint1.SetActive(true);
             hint2.SetActive(false);
-           
+
+            BackGroundOverlay.GetComponent<Image>().DOFade(0.45f, 1f);
+
         }
 
         //displaying 2e text
         if (timesPressed == 1)
         {
+            BackGroundOverlay.GetComponent<Image>().DOFade(0, 1f);
             hint1.SetActive(false);
             hint2.SetActive(true);
             hint3.SetActive(false);

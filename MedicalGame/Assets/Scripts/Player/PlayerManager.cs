@@ -20,21 +20,19 @@ public class PlayerManager : Singleton<PlayerManager> {
 	public Dictionary<string, object> friends;
 	public Dictionary<string, object> friendProfiles;
 	public bool Load() {return true;}
-    public bool lvlUp = false;
-    public bool completedIntro = false;
+	public bool lvlUp = false;
+	public bool completedIntro = false;
 
-    void Awake() {
-		
+	void Awake() {
+
 		LoadPlayer ();
 		if (friends == null) {
 			friends = new Dictionary<string, object>();
-		}
-		if (friendProfiles == null) {
 			friendProfiles = new Dictionary<string, object>();
 		}
-//		player = null;
+
+		//		player = null;
 		if (player == null) {
-			Debug.Log ("new player");
 			player = new Player ();
 			Save ();
 		}
@@ -42,7 +40,7 @@ public class PlayerManager : Singleton<PlayerManager> {
 		CheckCurrentRank ();
 		CheckLevelUp ();
 	}
-		
+
 	public void Save() {
 		BinaryFormatter bf = new BinaryFormatter();
 		FileStream file = File.Create(Application.persistentDataPath + "/player.gd");
@@ -62,18 +60,23 @@ public class PlayerManager : Singleton<PlayerManager> {
 
 			file.Close();
 		}
-			
+
 	}
 
 	public void LoadFriends() {
 		GamedoniaUsers.GetMe(delegate (bool success, GDUserProfile data){
 			if (success){
+				Debug.Log("LOADING FRIENDS");
 				friends = (Dictionary<string, object>)data.profile["friends"];
-				foreach (KeyValuePair<string, object> friend in PlayerManager.I.friends) {
-					GamedoniaUsers.GetUser (friend.Key, delegate (bool succesFriends, GDUserProfile friendProfile) { 
+				foreach (KeyValuePair<string, object> friend in friends) {
+					string friendKey = friend.Key;
+					GamedoniaUsers.GetUser (friendKey, delegate (bool succesFriends, GDUserProfile friendProfile) { 
 						if (success) {
-							Dictionary<string, object> oppProfile = friendProfile.profile;
-							friendProfiles.Add(friend.Key, oppProfile);
+							Dictionary<string, object> oppProfile = new Dictionary<string, object>();
+							oppProfile = friendProfile.profile;
+							friendProfiles.Add(friendKey, oppProfile);
+						} else {
+							friends.Remove(friendKey);
 						}
 					});
 				}
@@ -110,7 +113,8 @@ public class PlayerManager : Singleton<PlayerManager> {
 			string[] splitScope = ranks [i].levelScope.Split (new string[]{"/"}, System.StringSplitOptions.None);
 			int low = int.Parse(splitScope[0]);
 			int high = int.Parse(splitScope[1]);
-			if(low < lvl && high > lvl) {
+			Debug.Log (low + " " + high);
+			if(low <= lvl && high >= lvl) {
 				key = i;
 			}
 		}
@@ -172,20 +176,20 @@ public class PlayerManager : Singleton<PlayerManager> {
 	public void CheckLevelUp() {
 		float neededXP = ranks [CurrentRankKey ()].reqXP;
 		// subtract player experience with needed experience
-		 float XPSum = neededXP - player.playerXP;
+		float XPSum = neededXP - player.playerXP;
 		// We need to level up
 		if (XPSum <= 0) {
 			// Add 1 to new player level
 			player.playerLvl++;
-            //setting lvlUp bool to true for popup
-            lvlUp = true;
+			//setting lvlUp bool to true for popup
+			lvlUp = true;
 			// Check new ranking
 			CheckCurrentRank();
 			// Remaining experience;
 			player.playerXP = Mathf.Abs (XPSum);
 			// Check if we need to level up more then once
 			if (player.playerXP > neededXP)
-            {
+			{
 				CheckLevelUp ();
 			} 
 		}
@@ -197,7 +201,7 @@ public class PlayerManager : Singleton<PlayerManager> {
 		profile ["friends"] = friends;
 		GamedoniaUsers.UpdateUser (profile);
 	}
-		
+
 	public List<int> GetFriendAttributes(string id) {
 		List<int> attributesList = new List<int>();
 		// Get friend by id from dictionary
@@ -224,7 +228,7 @@ public class PlayerManager : Singleton<PlayerManager> {
 		if(id == "") {
 			id = currentOpponentInfo["_id"].ToString();
 		}
-	
+
 		List<int> attributesList = GetFriendAttributes (id);
 
 		if (attributesList.Count != 4) {
@@ -258,7 +262,7 @@ public class PlayerManager : Singleton<PlayerManager> {
 	}
 
 	private void UpdatePlayerWonAttribute() {
-		
+
 	}
 
 	public string GetPlayerAttribute (int key, string id = "") {
@@ -298,18 +302,18 @@ public class PlayerManager : Singleton<PlayerManager> {
 		string attributeKey = "";
 		switch (key)
 		{
-			case 0:
-				attributeKey = "age";
-				break;
-			case 1:
-				attributeKey = "color";
-				break;
-			case 2:
-				attributeKey = "hobby";
-				break;
-			case 3:
-				attributeKey = "film";
-				break;
+		case 0:
+			attributeKey = "age";
+			break;
+		case 1:
+			attributeKey = "color";
+			break;
+		case 2:
+			attributeKey = "hobby";
+			break;
+		case 3:
+			attributeKey = "film";
+			break;
 		}
 		return attributeKey;
 	}

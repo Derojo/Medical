@@ -192,6 +192,8 @@ public class QuestionManager : Singleton<QuestionManager> {
                     // add games played
                     PlayerManager.I.player.playedMatches++;
                     StartCoroutine(ShowEndScreen());
+
+                /////////Check if players wins or loses//////
                     //Player loses
                     if(int.Parse(playerScore.text) <= int.Parse(oppScore.text))
                     {
