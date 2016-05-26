@@ -37,6 +37,11 @@ public class clothchanger : MonoBehaviour {
 	int currentTrouserMaterial = 0;
 	int currentHead  = 0;
 
+	string a_hairstyle = "";
+	string a_shirt = "";
+	string a_trouser = "";
+
+
 	// Use this for initialization
 	void Start () {
 		changeHairStyle("skip");
@@ -54,13 +59,11 @@ public class clothchanger : MonoBehaviour {
 		string currentOrder = hairstyleOrder [currentHairstyle];
 		string[] splitCurrentOrder;
 		splitCurrentOrder = currentOrder.Split (new string[] {"_"}, System.StringSplitOptions.None);
-
+		a_hairstyle = splitCurrentOrder [0];
 		HairstyleMesh.sharedMesh = hairstyles[int.Parse(splitCurrentOrder[0])];
 
 		if (hairstyles [currentHairstyle] != null) {
-			Debug.Log (currentHairstyleMaterial);
 			string hairstylename = "Hairstyle_"+ splitCurrentOrder[0] + "_" + currentHairstyleMaterial.ToString ();
-			Debug.Log (hairstylename);
 			RootHairstyle.sharedMaterial = (Material)Resources.Load ("Materials/" + "Avatar" + "/Hairstyles/" + hairstylename, typeof(Material));
 		}
 	}
@@ -85,6 +88,7 @@ public class clothchanger : MonoBehaviour {
 		string currentOrder = shirtOrder [currentShirt];
 		string[] splitCurrentOrder;
 		splitCurrentOrder = currentOrder.Split (new string[] {"_"}, System.StringSplitOptions.None);
+		a_shirt = splitCurrentOrder [0];
 		RootShirt.sharedMesh = shirts[int.Parse (splitCurrentOrder [0])];
 
 		if (shirts [currentShirt] !=null) {
@@ -103,7 +107,7 @@ public class clothchanger : MonoBehaviour {
 		string currentOrder = trouserOrder [currentTrouser];
 		string[] splitCurrentOrder;
 		splitCurrentOrder = currentOrder.Split (new string[] {"_"}, System.StringSplitOptions.None);
-
+		a_trouser = splitCurrentOrder [0];
 		RootTrouser.sharedMesh = trousers[int.Parse(splitCurrentOrder[0])];
 
 		if (trousers [currentTrouser] != null) {
@@ -260,16 +264,17 @@ public class clothchanger : MonoBehaviour {
 
 	public void saveAvatar () {
 		string avatar = skinCode.ToString() + "_" +
-						currentHairstyle.ToString() + "_"	+
+						a_hairstyle + "_"	+
 						currentHairstyleMaterial.ToString() + "_"	+
 						currentHead.ToString() + "_" +
-						currentShirt.ToString() + "_"	+
+						a_shirt + "_"	+
 						currentShirtMaterial.ToString() + "_"	+
-						currentTrouser.ToString() + "_"	+
+						a_trouser + "_"	+
 						currentTrouserMaterial.ToString();
 	
 		Dictionary<string,object> profile = new Dictionary<string, object>();
 		profile.Add ("avatar",avatar);
+		PlayerManager.I.player.avatar = avatar;
 		GamedoniaUsers.UpdateUser(profile, OnUpdate);
 
 	}

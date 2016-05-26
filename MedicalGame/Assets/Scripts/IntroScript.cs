@@ -29,13 +29,11 @@ public class IntroScript : MonoBehaviour
         foreach (Text text in hint1.GetComponentsInChildren<Text>())
         {
             text.DOFade(1, 1f);
-
         }
 
         foreach (Image img in hint1.GetComponentsInChildren<Image>())
         {
             img.DOFade(1f, 1f);
-
         }
 
         //fading in image
@@ -91,13 +89,11 @@ public class IntroScript : MonoBehaviour
             foreach (Text text in hint2.GetComponentsInChildren<Text>())
             {
                 text.DOFade(0, 0f);
-
             }
 
             foreach (Image img in hint2.GetComponentsInChildren<Image>())
             {
                 img.DOFade(0f, 0f);
-
             }
 
             hint1.SetActive(true);
@@ -119,38 +115,32 @@ public class IntroScript : MonoBehaviour
             foreach (Text text in hint1.GetComponentsInChildren<Text>())
             {
                 text.DOFade(0, 0.5f);
-
             }
 
             foreach (Image img in hint1.GetComponentsInChildren<Image>())
             {
                 img.DOFade(0f, 0.5f);
-
             }
 
             //backward fade
             foreach (Text text in hint2.GetComponentsInChildren<Text>())
             {
                 text.DOFade(1f, 0.5f);
-
             }
             
             foreach (Image img in hint2.GetComponentsInChildren<Image>())
             {
                 img.DOFade(1f, 0.5f);
-
             }
             //Setting next hint alfa to 0
             foreach (Text text in hint3.GetComponentsInChildren<Text>())
             {
                 text.DOFade(0f, 0f);
-
             }
 
             foreach (Image img in hint3.GetComponentsInChildren<Image>())
             {
                 img.DOFade(0f, 0f);
-
             }
 
 
@@ -164,25 +154,21 @@ public class IntroScript : MonoBehaviour
             foreach (Text text in hint2.GetComponentsInChildren<Text>())
             {
                 text.DOFade(0, 0.5f);
-
             }
 
             foreach (Image img in hint2.GetComponentsInChildren<Image>())
             {
                 img.DOFade(0f, 0.5f);
-
             }
             //backward fade
             foreach (Text text in hint3.GetComponentsInChildren<Text>())
             {
                 text.DOFade(1f, 0.5f);
-
             }
 
             foreach (Image img in hint3.GetComponentsInChildren<Image>())
             {
                 img.DOFade(1f, 0.5f);
-
             }
             //Setting next hint alfa to 0
             foreach (Text text in hint4.GetComponentsInChildren<Text>())
@@ -190,12 +176,11 @@ public class IntroScript : MonoBehaviour
                 text.DOFade(0f, 0f);
 
             }
-
             foreach (Image img in hint4.GetComponentsInChildren<Image>())
             {
                 img.DOFade(0f, 0f);
-
             }
+
             hint2.SetActive(false);
             hint3.SetActive(true);
             hint4.SetActive(false);
@@ -208,38 +193,32 @@ public class IntroScript : MonoBehaviour
             //foward fade
             foreach (Text text in hint3.GetComponentsInChildren<Text>())
             {
-                text.DOFade(0, 0.5f);
-
+                text.DOFade(0, 0.5f);    
             }
-
+  
             foreach (Image img in hint3.GetComponentsInChildren<Image>())
             {
                 img.DOFade(0f, 0.5f);
-
             }
             //backward fade
             foreach (Text text in hint4.GetComponentsInChildren<Text>())
             {
                 text.DOFade(1, 0.5f);
-
             }
 
             foreach (Image img in hint4.GetComponentsInChildren<Image>())
             {
                 img.DOFade(1f, 2f);
-
             }
             //Setting next hint alfa to 0
             foreach (Text text in hint5.GetComponentsInChildren<Text>())
             {
                 text.DOFade(0f, 0f);
-
             }
 
             foreach (Image img in hint5.GetComponentsInChildren<Image>())
             {
                 img.DOFade(0f, 0f);
-
             }
 
             hint3.SetActive(false);
@@ -254,39 +233,33 @@ public class IntroScript : MonoBehaviour
             foreach (Text text in hint4.GetComponentsInChildren<Text>())
             {
                 text.DOFade(0, 0.5f);
-
             }
 
             foreach (Image img in hint4.GetComponentsInChildren<Image>())
             {
                 img.DOFade(0f, 0.5f);
-
             }
             //backward fade
             foreach (Text text in hint5.GetComponentsInChildren<Text>())
             {
                 text.DOFade(1, 0.5f);
-
             }
 
             foreach (Image img in hint5.GetComponentsInChildren<Image>())
             {
                 img.DOFade(1f, 0.5f);
-
             }
             //Setting next hint alfa to 0
             foreach (Text text in hint6.GetComponentsInChildren<Text>())
             {
                 text.DOFade(0f, 0f);
-
             }
 
             foreach (Image img in hint6.GetComponentsInChildren<Image>())
             {
                 img.DOFade(0f, 0f);
-
             }
-
+            AudioManagerScript.I.wrongAnwserSound.Play();
             hint4.SetActive(false);
             hint5.SetActive(true);
             hint6.SetActive(false);
@@ -298,37 +271,31 @@ public class IntroScript : MonoBehaviour
             foreach (Text text in hint5.GetComponentsInChildren<Text>())
             {
                 text.DOFade(0, 0.5f);
-
             }
 
             foreach (Image img in hint5.GetComponentsInChildren<Image>())
             {
                 img.DOFade(0f, 0.5f);
-
             }
             //backward fade
             foreach (Text text in hint6.GetComponentsInChildren<Text>())
             {
                 text.DOFade(1f, 0.5f);
-
             }
 
             foreach (Image img in hint6.GetComponentsInChildren<Image>())
             {
                 img.DOFade(1f, 0.5f);
-
             }
             //Setting next hint alfa to 0
             foreach (Text text in hint7.GetComponentsInChildren<Text>())
             {
                 text.DOFade(0f, 0f);
-
             }
 
             foreach (Image img in hint7.GetComponentsInChildren<Image>())
             {
                 img.DOFade(0f, 0f);
-
             }
 
             hint5.SetActive(false);
@@ -344,38 +311,34 @@ public class IntroScript : MonoBehaviour
             foreach (Text text in hint6.GetComponentsInChildren<Text>())
             {
                 text.DOFade(0, 0.5f);
-
             }
 
             foreach (Image img in hint6.GetComponentsInChildren<Image>())
             {
                 img.DOFade(0f, 0.5f);
-
             }
             //backward fade
             foreach (Text text in hint7.GetComponentsInChildren<Text>())
             {
                 text.DOFade(1, 0.5f);
-
             }
 
             foreach (Image img in hint7.GetComponentsInChildren<Image>())
             {
                 img.DOFade(1f, 0.5f);
-
             }
+
             //Setting next hint alfa to 0
             foreach (Text text in hint8.GetComponentsInChildren<Text>())
             {
                 text.DOFade(0f, 0f);
-
             }
 
             foreach (Image img in hint8.GetComponentsInChildren<Image>())
             {
                 img.DOFade(0f, 0f);
-
             }
+
             BackGround.SetActive(true);
             hint6.SetActive(false);
             hint7.SetActive(true);
@@ -388,26 +351,22 @@ public class IntroScript : MonoBehaviour
             foreach (Text text in hint7.GetComponentsInChildren<Text>())
             {
                 text.DOFade(0, 0.5f);
-
             }
 
             foreach (Image img in hint7.GetComponentsInChildren<Image>())
             {
                 img.DOFade(0f, 0.5f);
-
             }
 
             //backward fade
             foreach (Text text in hint8.GetComponentsInChildren<Text>())
             {
                 text.DOFade(1, 0f);
-
             }
 
             foreach (Image img in hint8.GetComponentsInChildren<Image>())
             {
                 img.DOFade(1f, 0f);
-
             }
 
 

@@ -50,11 +50,11 @@ public class Profile : MonoBehaviour {
 		rankingImg.sprite = PlayerManager.I.GetRankSprite();
 
 		/******** PROFILE PICTURE*********/
-		StartCoroutine (getProfilePicture (Application.persistentDataPath + "/profile.png"));
-		ProfileImage = new Texture2D(www.texture.width, www.texture.height, TextureFormat.ARGB32, false);
-		ProfileImage.SetPixels32 (www.texture.GetPixels32 ());
-		ProfileImage.Apply();
-		profileImg.sprite = Sprite.Create(ProfileImage, new Rect(0, 0, ProfileImage.width, ProfileImage.height), new Vector2(0.5f, 0.5f));
+//		StartCoroutine (getProfilePicture (Application.persistentDataPath + "/profile.png"));
+//		ProfileImage = new Texture2D(www.texture.width, www.texture.height, TextureFormat.ARGB32, false);
+//		ProfileImage.SetPixels32 (www.texture.GetPixels32 ());
+//		ProfileImage.Apply();
+//		profileImg.sprite = Sprite.Create(ProfileImage, new Rect(0, 0, ProfileImage.width, ProfileImage.height), new Vector2(0.5f, 0.5f));
 
 		/******** EXPERIENCE*********/
 		percent = PlayerManager.I.GetExperiencePercentage ();

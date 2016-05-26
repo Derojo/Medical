@@ -19,6 +19,7 @@ public class Player
 
 
 	/************** Player game data *********************/
+	[SerializeField] public string avatar = "";
 	[SerializeField] public float playerXP = 0;
 	[SerializeField] public string playerRank = "";
 	[SerializeField] public int playerLvl = 1;
