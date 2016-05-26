@@ -75,6 +75,8 @@ public class PlayerManager : Singleton<PlayerManager> {
 							Dictionary<string, object> oppProfile = new Dictionary<string, object>();
 							oppProfile = friendProfile.profile;
 							friendProfiles.Add(friendKey, oppProfile);
+						} else {
+							friends.Remove(friendKey);
 						}
 					});
 				}
@@ -111,7 +113,8 @@ public class PlayerManager : Singleton<PlayerManager> {
 			string[] splitScope = ranks [i].levelScope.Split (new string[]{"/"}, System.StringSplitOptions.None);
 			int low = int.Parse(splitScope[0]);
 			int high = int.Parse(splitScope[1]);
-			if(low < lvl && high > lvl) {
+			Debug.Log (low + " " + high);
+			if(low <= lvl && high >= lvl) {
 				key = i;
 			}
 		}

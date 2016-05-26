@@ -30,7 +30,7 @@ public class CurrentMatches : MonoBehaviour {
 	private IEnumerator StartUp() {
 		Loader.I.enableLoader ();
 		MatchManager.I.checkForUpdateMatches ();
-		MatchManager.I.CheckForInvites ();
+		MatchManager.I.CheckForInvites();
 		while(MatchManager.I.checkUpdates == false) {
 			yield return null;
 		}

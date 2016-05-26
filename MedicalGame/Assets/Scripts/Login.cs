@@ -8,6 +8,7 @@ using System;
 using Gamedonia.Backend;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class Login : MonoBehaviour {
 
@@ -17,6 +18,8 @@ public class Login : MonoBehaviour {
 
 	public InputField email_input;
 	public InputField password_input;
+	public Image emailImg;
+	public Image passwordImg;
 	public GameObject errorPopup;
 	public GameObject errorLogin;
 	public Color errorColor;
@@ -89,18 +92,44 @@ public class Login : MonoBehaviour {
 		}
 	}
 
-	private void validateFields() {
+	public void validateFields() {
 		if (email_input.text == "") {
+			Debug.Log ("test");
 			email_input.text = errorMessageEmail;
-			email_input.GetComponent<Outline> ().effectColor = errorColor;
+			emailImg.DOColor (errorColor, 1);
+			//email_input.GetComponent<Outline> ().effectColor = errorColor;
 		}
 		if (password_input.text == "") {
 			password_input.contentType = InputField.ContentType.Standard;
 			password_input.text = errorMessagePassword;
-			password_input.GetComponent<Outline> ().effectColor = errorColor;
+			passwordImg.DOColor (errorColor, 1);
+			//password_input.GetComponent<Outline> ().effectColor = errorColor;
 		}
-		if (password_input.text != "" && email_input.text != "") {
+		if (password_input.text != errorMessagePassword && email_input.text != errorMessageEmail) {
+			Debug.Log ("is validated");
 			isValidated = true;
+			emailImg.DOColor (defaultColor, 1);
+			passwordImg.DOColor (defaultColor, 1);
+		}
+	}
+
+	public void validateField(string name) {
+		if (name == "email") {
+			if (email_input.text == "") {
+				email_input.text = errorMessageEmail;
+				emailImg.DOColor (errorColor, 1);
+			} else {
+				emailImg.DOColor (defaultColor, 1);
+			}
+		}
+		if (name == "password") {
+			if (password_input.text == "") {
+				password_input.contentType = InputField.ContentType.Standard;
+				password_input.text = errorMessagePassword;
+				passwordImg.DOColor (errorColor, 1);
+			} else {
+				passwordImg.DOColor (defaultColor, 1);
+			}
 		}
 	}
 
@@ -121,8 +150,10 @@ public class Login : MonoBehaviour {
 			errorMsg = GamedoniaBackend.getLastError().ToString();
 			int errorCode = GamedoniaBackend.getLastError ().httpErrorCode;
 			if (errorCode == 400 || errorCode == 401) {
-				email_input.GetComponent<Outline> ().effectColor = errorColor;
-				password_input.GetComponent<Outline> ().effectColor = errorColor;
+				//email_input.GetComponent<Outline> ().effectColor = errorColor;
+				//password_input.GetComponent<Outline> ().effectColor = errorColor;
+				emailImg.DOColor(errorColor, 1);
+				passwordImg.DOColor (errorColor, 1);
 			}
 			if (errorCode == 401) {
 				errorLogin.SetActive (true);
