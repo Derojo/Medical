@@ -419,9 +419,7 @@ public class MatchManager : Singleton<MatchManager> {
 		if(match == null && match_ID != "") {
 			match = GetMatch (match_ID);
 		}
-
-		Debug.Log (match.m_ID);
-		Debug.Log (match.m_trns.Count);
+			
 		if (match.m_trns != null) {
 			for (int i = 0; i < match.m_trns.Count; i++) {
 				if (match.m_trns [i].p_ID == player_ID) {
