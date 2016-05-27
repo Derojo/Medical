@@ -82,6 +82,7 @@ public class MatchManager : Singleton<MatchManager> {
 								uids[0] = PlayerManager.I.player.playerID;
 								Match existingMatch = new Match (matchD ["_id"].ToString (), uids, "", "", matchD ["m_status"].ToString (), 0, matchD ["m_cp"].ToString (), 0 ,turns);
 								existingMatch.m_cp = PlayerManager.I.player.playerID;
+								existingMatch.m_status = "playing";
 								currentMatchID = existingMatch.m_ID;
 								AddMatch(existingMatch, false, false, true);
 							} 
@@ -92,19 +93,6 @@ public class MatchManager : Singleton<MatchManager> {
 			}
 		});
 
-
-
-
-		//		Debug.Log ("test");
-		// Generate Temporary Match code
-		//		string matchCode = GenerateMatchCode();
-		// Store for later use
-		//		currentMatchID = matchCode;
-		//		// Create match, set player ids, category id  !----- TO DO : Create auto match with gamedonia db -----!
-		//		Match match  = new Match(matchCode, null, PlayerManager.I.player.playerID, "56ea94f2e4b027e49c1ef3e1", "playing", 1, PlayerManager.I.player.playerID, 0, null);
-		//		AddMatch (match);
-		//		// Switch to category scene
-		//		Loader.Instance.LoadScene("Category");
 	}
 
 	public void StartFriendMatch(string friendId) {
@@ -156,7 +144,6 @@ public class MatchManager : Singleton<MatchManager> {
 	}
 
 	public void AddMatch(Match match, bool addToServer = true, bool queueObject = false, bool sq = false) {
-		Debug.Log ("ADDMATCH"+match.m_ID);
 		if (addToServer) {
 			GamedoniaData.Create("matches", getDictionaryMatch (match), delegate (bool success, IDictionary data){
 				if (success) {
@@ -196,7 +183,9 @@ public class MatchManager : Singleton<MatchManager> {
 		}
 		match.AddTurn (turn);
 		if (turn.t_st == 0) {
-			match.m_cp = GetOppenentId (match);
+			if (match.m_status != "waiting") {
+				match.m_cp = GetOppenentId (match);
+			} 
 			// Update match to gamedonia
 			if(match.m_status == "inviteStart") {
 				match.m_status = "invite";
@@ -301,23 +290,24 @@ public class MatchManager : Singleton<MatchManager> {
 							//TODO Your fail processing
 						}
 					});
-				} else if (yourTurn [i].m_status != "waiting" ) {
+				} else if (yourTurn [i].m_status != "finished" ) {
 					GamedoniaData.Search ("matches", "{_id: { $oid: '" + matchID + "' } }", delegate (bool success, IList data) {
 						if (success) {
 							if (data != null) {
+								Dictionary<string, object> matchD = (Dictionary<string, object>)data [0];
+								List<string> uids = JsonMapper.ToObject<List<string>>(JsonMapper.ToJson(matchD["u_ids"]));
+
 								Match match = GetMatch (matchID);
 								// Add friend if it is a new player
-								string oppId = MatchManager.I.GetOppenentId (match);
+								string oppId = (match.u_ids[0] != PlayerManager.I.player.playerID ? uids[0] : uids[1]);
+
 								if (!PlayerManager.I.friends.ContainsKey (oppId) && oppId != "") {
 									PlayerManager.I.AddFriend (oppId);
 								}
-								Dictionary<string, object> matchD = (Dictionary<string, object>)data [0];
 
 								// Update match if we are the currentplayer
 								if (matchD ["m_cp"].ToString () == PlayerManager.I.player.playerID && oppId != "" || matchD ["m_status"].ToString () == "finished") {
-									Debug.Log ("currentplayer:" + matchD ["m_cp"].ToString ());
 									if (match.u_ids [0] == "") {
-										List<string> uids = JsonMapper.ToObject<List<string>> (JsonMapper.ToJson (matchD ["u_ids"]));
 										match.u_ids [0] = uids [0];
 									}
 

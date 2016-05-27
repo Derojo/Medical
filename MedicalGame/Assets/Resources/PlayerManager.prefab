@@ -66,8 +66,28 @@ MonoBehaviour:
     sprite: {fileID: 21300010, guid: 3e93c8e08e0225e46916f177365f2984, type: 3}
   - name: Nerd
     reqXP: 1200
-    levelScope: 26/30
+    levelScope: 31/35
     sprite: {fileID: 21300012, guid: 3e93c8e08e0225e46916f177365f2984, type: 3}
+  - name: Geleerde
+    reqXP: 1500
+    levelScope: 36/40
+    sprite: {fileID: 21300014, guid: 3e93c8e08e0225e46916f177365f2984, type: 3}
+  - name: Professor
+    reqXP: 1800
+    levelScope: 41/45
+    sprite: {fileID: 21300016, guid: 3e93c8e08e0225e46916f177365f2984, type: 3}
+  - name: Wijze
+    reqXP: 2100
+    levelScope: 46/50
+    sprite: {fileID: 21300018, guid: 3e93c8e08e0225e46916f177365f2984, type: 3}
+  - name: Einstein
+    reqXP: 2400
+    levelScope: 51/56
+    sprite: {fileID: 21300020, guid: 3e93c8e08e0225e46916f177365f2984, type: 3}
+  - name: Pallas Athena
+    reqXP: 2700
+    levelScope: 56/60
+    sprite: {fileID: 21300022, guid: 3e93c8e08e0225e46916f177365f2984, type: 3}
   player:
     playerID: 
     fbuserid: 
@@ -95,7 +115,15 @@ MonoBehaviour:
       color: 
       hobby: 
       film: 
+    completedIntro: 0
+    ziekenhuisAnswers: 0
+    artsAnswers: 0
+    gehandicaptenAnswers: 0
+    oldieAnswers: 0
+    algemeenAnswers: 0
+    verslavingsAnswers: 0
   lvlUp: 0
+  completedIntro: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -105,7 +133,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: ranks.Array.size
-      value: 7
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: ranks.Array.data[6].name
@@ -225,6 +253,95 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: player.playerLvl
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ranks.Array.data[7].name
+      value: Geleerde
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ranks.Array.data[7].reqXP
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ranks.Array.data[7].levelScope
+      value: 36/40
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ranks.Array.data[6].levelScope
+      value: 31/35
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ranks.Array.data[7].sprite
+      value: 
+      objectReference: {fileID: 21300014, guid: 3e93c8e08e0225e46916f177365f2984,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: ranks.Array.data[8].name
+      value: Professor
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ranks.Array.data[9].name
+      value: Wijze
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ranks.Array.data[10].name
+      value: Einstein
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ranks.Array.data[11].name
+      value: Pallas Athena
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ranks.Array.data[11].sprite
+      value: 
+      objectReference: {fileID: 21300022, guid: 3e93c8e08e0225e46916f177365f2984,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: ranks.Array.data[10].sprite
+      value: 
+      objectReference: {fileID: 21300020, guid: 3e93c8e08e0225e46916f177365f2984,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: ranks.Array.data[9].sprite
+      value: 
+      objectReference: {fileID: 21300018, guid: 3e93c8e08e0225e46916f177365f2984,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: ranks.Array.data[8].sprite
+      value: 
+      objectReference: {fileID: 21300016, guid: 3e93c8e08e0225e46916f177365f2984,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: ranks.Array.data[8].levelScope
+      value: 41/45
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ranks.Array.data[9].levelScope
+      value: 46/50
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ranks.Array.data[10].levelScope
+      value: 51/56
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ranks.Array.data[11].levelScope
+      value: 56/60
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ranks.Array.data[11].reqXP
+      value: 2700
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ranks.Array.data[10].reqXP
+      value: 2400
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ranks.Array.data[9].reqXP
+      value: 2100
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ranks.Array.data[8].reqXP
+      value: 1800
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
