@@ -13,10 +13,33 @@ public class buildAvatar : MonoBehaviour {
 	public Mesh[] shirts;
 	public Mesh[] trousers;
 
-	// Use this for initialization
-
+    public bool isPlayer;
+    // Use this for initialization
+    private string avatarString = "";
 	void Start () {
-		string[] avatar = PlayerManager.I.player.avatar.Split (new string[] {"_"}, System.StringSplitOptions.None);
+        Match currentMatch = MatchManager.I.GetMatch(MatchManager.I.currentMatchID);
+        string opponentId = MatchManager.I.GetOppenentId(currentMatch);
+        if (opponentId != "")
+        {
+            PlayerManager.I.GetPlayerInformationById(opponentId);
+        }
+        if (isPlayer)
+        {
+            avatarString = PlayerManager.I.player.avatar;
+        } else
+        {
+            if (PlayerManager.I.currentOpponentInfo != null)
+            {
+                avatarString = PlayerManager.I.currentOpponentInfo["avatar"].ToString();
+            }
+            else {
+                avatarString = "0_1_1_0_1_0_0_0";
+            }
+           
+        }
+		string[] avatar = avatarString.Split (new string[] {"_"}, System.StringSplitOptions.None);
+
+
 		// build hairstyle
 		HairstyleMesh.sharedMesh = hairstyles[int.Parse(avatar[1])];
 		string hairstylename = "Hairstyle_"+ avatar[1] + "_" + avatar[2];

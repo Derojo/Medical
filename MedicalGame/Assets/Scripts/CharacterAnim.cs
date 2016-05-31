@@ -3,22 +3,20 @@ using System.Collections;
 
 public class CharacterAnim : MonoBehaviour
 {
+    public Animator animControl;
 
-	// Update is called once per frame
-	void Update ()
+    // Update is called once per frame
+    void Update ()
     {
 	    if(QuestionManager.I.winAnim)
         {
-            GetComponent<Animation>().CrossFade("Win_Anim", 0.2f);
+            animControl.SetBool("IsWinning", true);
+            //GetComponent<Animator>().CrossFade("Win_Anim", 0.2f);
         }
         else if (QuestionManager.I.loseAnim)
         {
-            GetComponent<Animation>().CrossFade("Lose_Anim", 0.2f);
+            animControl.SetBool("IsLosing", true);
         }
-        else
-        {
-     
-            GetComponent<Animation>().CrossFade("Idle1_Anim", 0.2f);    
-        }
+       
     }
 }
