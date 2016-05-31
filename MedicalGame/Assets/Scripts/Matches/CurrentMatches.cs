@@ -17,9 +17,11 @@ public class CurrentMatches : MonoBehaviour {
 	public GameObject accept;
 	public GameObject yourTurnUI;
 	public GameObject hisTurnUI;
+	public GameObject finishedUI;
 
 	// Use this for initialization
 	void Start () {
+		currentGamesPanel.SetActive (false);
 		if (MatchManager.I.matches != null && MatchManager.I.matches.Count > 0) {
 			StartCoroutine (StartUp ());
 		} else {
@@ -50,9 +52,9 @@ public class CurrentMatches : MonoBehaviour {
 		showYourTurnGames ();
 		showHisTurnGames ();
 		showFinishedGames ();
-//		if (yourTurn.Count == 0 && hisTurn.Count == 0) {
-//			currentGamesPanel.SetActive (false);
-//		}
+		if (yourTurn.Count > 0 || hisTurn.Count > 0) {
+			currentGamesPanel.SetActive (true);
+		}
 
 	}
 
@@ -100,10 +102,7 @@ public class CurrentMatches : MonoBehaviour {
 
 	public void showInvites() {
 		invites = MatchManager.I.GetPlayingMatches(false, "invite");
-		Debug.Log (invites.Count);
 		if (invites.Count != 0) {
-			Debug.Log (invites [0].m_ID);
-			Debug.Log (invites [0].m_ID);
 			accept.transform.GetChild(0).gameObject.SetActive (true);
 		} else {
 			accept.transform.GetChild(0).gameObject.SetActive (false);
@@ -145,7 +144,6 @@ public class CurrentMatches : MonoBehaviour {
 		}
 
 		// Iterate through playing matches
-		Debug.Log("yourturn"+yourTurn.Count);
 		for (int i = 0; i < yourTurn.Count; i++)
 		{
 			string matchId = yourTurn [i].m_ID;
@@ -264,10 +262,10 @@ public class CurrentMatches : MonoBehaviour {
 		/************** FINISHED MATCHES *******************/
 		// Set turn bar above finished matches
 		if (finishedMatches.Count != 0) {
-			GameObject finishedBar = Instantiate (Resources.Load ("Finished_Bar")) as GameObject;
-			finishedBar.transform.SetParent (this.transform, false);
+			finishedUI.transform.GetChild(0).gameObject.SetActive (true);
+		} else {
+			finishedUI.transform.GetChild(0).gameObject.SetActive (false);
 		}
-
 		// Iterate through finished matches
 		for (int i = 0; i < finishedMatches.Count; i++)
 		{

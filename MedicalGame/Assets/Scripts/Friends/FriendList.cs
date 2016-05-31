@@ -22,10 +22,7 @@ public class FriendList : MonoBehaviour {
 			GameObject friendRow = Instantiate (Resources.Load ("FriendRow")) as GameObject;
 			string friendKey = friend.Key;
 			friendRow.name = friendKey;
-//			Debug.Log ("test");
-//			Debug.Log (PlayerManager.I.friendProfiles.Count);
 			if (PlayerManager.I.friendProfiles != null && PlayerManager.I.friendProfiles.Count > 0) {
-//				Debug.Log ("test2");
 				Dictionary<string, object> oppProfile = (Dictionary<string, object>)PlayerManager.I.friendProfiles [friend.Key];
 				GameObject horizontal = friendRow.transform.GetChild (0).transform.GetChild (0).gameObject;
 				horizontal.GetComponentInChildren<Text>().text = oppProfile["name"].ToString();

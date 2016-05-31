@@ -96,6 +96,7 @@ public class MatchManager : Singleton<MatchManager> {
 	}
 
 	public void StartFriendMatch(string friendId) {
+		Debug.Log ("STARTING FRIEND MATCH" + friendId);
 		Loader.I.enableLoader ();
 
 		Match match  = new Match();
@@ -185,7 +186,9 @@ public class MatchManager : Singleton<MatchManager> {
 		if (turn.t_st == 0) {
 			if (match.m_status != "waiting") {
 				match.m_cp = GetOppenentId (match);
-			} 
+			} else {
+				match.m_cp = "";
+			}
 			// Update match to gamedonia
 			if(match.m_status == "inviteStart") {
 				match.m_status = "invite";
@@ -338,9 +341,12 @@ public class MatchManager : Singleton<MatchManager> {
 	}
 
 	public void CheckForInvites() {
+		Debug.Log ("CHECK FOR INVITES");
 		GamedoniaData.Search ("matches", "{$and: [ { \"m_status\":\"invite\" }, { \"m_cp\":'"+PlayerManager.I.player.playerID+"' }]}", delegate (bool success, IList data) {
 			if (success) {
+				Debug.Log(data);
 				if (data != null) {
+					Debug.Log("test");
 					for(int i = 0; i < data.Count; i++) {
 						Dictionary<string, object> matchD = (Dictionary<string, object>)data[i];
 						Match match = GetMatch(matchD["_id"].ToString());

@@ -113,7 +113,6 @@ public class PlayerManager : Singleton<PlayerManager> {
 			string[] splitScope = ranks [i].levelScope.Split (new string[]{"/"}, System.StringSplitOptions.None);
 			int low = int.Parse(splitScope[0]);
 			int high = int.Parse(splitScope[1]);
-			Debug.Log (low + " " + high);
 			if(low <= lvl && high >= lvl) {
 				key = i;
 			}
