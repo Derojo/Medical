@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[Prefab("SoundContainer", true, "")]
 public class AudioManagerScript : Singleton<AudioManagerScript>
 {
 
@@ -17,7 +18,7 @@ public class AudioManagerScript : Singleton<AudioManagerScript>
         normalButtonSound = a_sources[0];
         sliderButtonSound = a_sources[1];
         wrongAnwserSound = a_sources[2];
-        achievementUnlockSound = a_sources[3];
+		achievementUnlockSound = a_sources[3];
         TimeUpSound = a_sources[4];
         lvlUpSound = a_sources[5];
     }

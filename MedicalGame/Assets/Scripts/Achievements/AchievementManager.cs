@@ -131,6 +131,7 @@ public class AchievementManager : Singleton<AchievementManager> {
         //Check if player logged in
         if(PlayerManager.I.player.loggedIn && PlayerManager.I.player.createdProfile)
         {
+			Debug.Log ("test");
             EarnAchievement("Connecten");
         }
     }

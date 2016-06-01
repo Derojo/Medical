@@ -1,10 +1,10 @@
-﻿<Properties StartupItem="MedicalGame.CSharp.Plugins.csproj">
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Matches\CurrentMatches.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Achievements\AchievementManager.cs">
     <Files>
-      <File FileName="Assets\Scripts\Friends\FriendList.cs" Line="30" Column="112" />
-      <File FileName="Assets\Scripts\Matches\CurrentMatches.cs" Line="269" Column="1" />
-      <File FileName="Assets\Scripts\Player\PlayerManager.cs" Line="115" Column="40" />
+      <File FileName="Assets\Scripts\Achievements\AchievementManager.cs" Line="134" Column="23" />
+      <File FileName="Assets\Scripts\Matches\CurrentMatches.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Player\PlayerManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Registration.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\RuntimeData.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\clothchanger.cs" Line="1" Column="1" />
@@ -20,14 +20,14 @@
       <File FileName="Assets\Scripts\Player\Data\PlayerProfile.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Matches\EndScreenScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\foldOutScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Login.cs" Line="76" Column="27" />
+      <File FileName="Assets\Scripts\Login.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\ProfilePicture.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Matches\ScrollEvent.cs" Line="1" Column="1" />
       <File FileName="Assets\Plugins\Gamedonia\GamedoniaUsers.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Player\Profile_Create.cs" Line="1" Column="1" />
       <File FileName="Assets\Plugins\Gamedonia\GamedoniaData.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Player\ShowPlayerInfoSmall.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Matches\MatchManager.cs" Line="261" Column="47" />
+      <File FileName="Assets\Scripts\Matches\MatchManager.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
