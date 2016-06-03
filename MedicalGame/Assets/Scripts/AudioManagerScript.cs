@@ -12,7 +12,8 @@ public class AudioManagerScript : Singleton<AudioManagerScript>
     public AudioSource achievementUnlockSound;
     public AudioSource TimeUpSound;
     public AudioSource lvlUpSound;
-    
+
+    public static bool pause;
     void Start() {
         AudioSource[] a_sources = GetComponents<AudioSource>();
         normalButtonSound = a_sources[0];
@@ -33,5 +34,15 @@ public class AudioManagerScript : Singleton<AudioManagerScript>
     {
         sliderButtonSound.Play();
     }
+
+    public void pauseAudio()
+  {
+      Debug.Log(pause);
+      if(AudioListener.pause)
+      {
+          AudioListener.pause = false;
+      }
+      else  AudioListener.pause = true;
+  }
 
 }
