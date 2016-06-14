@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 public class CountDownTimer : MonoBehaviour {
 
-    public float timeRemaining = 15f;
+    public float timeRemaining = 20f;
     public Text timerText;
     private bool activateTime = false;
 

@@ -22,6 +22,8 @@ public class PlayerManager : Singleton<PlayerManager> {
 	public bool Load() {return true;}
 	public bool lvlUp = false;
 	public bool completedIntro = false;
+    public bool firstInvite = false;
+    public bool firstInviteAccept = false;
 
 	void Awake() {
 

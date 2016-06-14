@@ -98,8 +98,12 @@ public class MatchManager : Singleton<MatchManager> {
 	public void StartFriendMatch(string friendId) {
 		Debug.Log ("STARTING FRIEND MATCH" + friendId);
 		Loader.I.enableLoader ();
-
-		Match match  = new Match();
+        //checking for achiement
+        if (PlayerPrefs.GetInt("Vrienden worden?") == 0) {
+            PlayerManager.I.firstInvite = true;
+        }
+   
+        Match match  = new Match();
 		//  Add opponent
 		match.AddPlayer(friendId);
 		// Add ourself
@@ -111,10 +115,20 @@ public class MatchManager : Singleton<MatchManager> {
 		// Add match to local list and gamedonia server
 		AddMatch(match, true, false);
 		Loader.I.LoadScene("Category");
-	}
+    }
 
 	public void AcceptMatch(Match match) {
-		Loader.I.enableLoader ();
+
+        if (PlayerPrefs.GetInt("Beginnende vriendschap") == 0)
+        {
+            PlayerManager.I.firstInviteAccept = true;
+        }
+        //add TOTAl accepted matches 
+        if (PlayerPrefs.GetInt("Populair") == 0)
+        {
+            PlayerManager.I.player.acceptedMatches++;
+        }
+        Loader.I.enableLoader ();
 		match.m_status = "playing";
 		currentMatchID = match.m_ID;
 		Save ();

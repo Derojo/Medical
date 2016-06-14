@@ -19,6 +19,7 @@ public class AchievementManager : Singleton<AchievementManager> {
 
     public Sprite unlockedSprite;
     public Sprite lockedSprite;
+    public bool Friends = false;
 
     public bool Load() { return true; }
 
@@ -38,17 +39,13 @@ public class AchievementManager : Singleton<AchievementManager> {
             achievementList = new List<Achievement>();
         }
         //Deleting playerprefs for testing REMEMBER TO REMOVE
-//        PlayerPrefs.DeleteAll();
-     
-
+        //PlayerPrefs.DeleteKey("Vrienden worden?");
+        //PlayerPrefs.DeleteAll();
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-
-     
-
     }//end of update
 
     public void EarnAchievement(string title)
@@ -131,7 +128,6 @@ public class AchievementManager : Singleton<AchievementManager> {
         //Check if player logged in
         if(PlayerManager.I.player.loggedIn && PlayerManager.I.player.createdProfile)
         {
-			Debug.Log ("test");
             EarnAchievement("Connecten");
         }
     }
@@ -139,10 +135,14 @@ public class AchievementManager : Singleton<AchievementManager> {
     // #2 Earning "Vrienden Worden?" achievement
     public void wantToBeFriends()
     {
-        //do something
+          EarnAchievement("Vrienden worden?");    
     }
 
     // #3 Earning "Beginnende vriendschap" achievement
+    public void challengeAccepted()
+    {
+            EarnAchievement("Beginnende vriendschap");
+    }
 
     // #4 Earning first win achievement
     public void AchievementWinner()
@@ -159,13 +159,20 @@ public class AchievementManager : Singleton<AchievementManager> {
     public void AchievementVriendenKring()
     {
         // Check if player is playing 5 games at the same time
-        if(PlayerManager.I.player.activeGames == 5)
+        if (MatchManager.I.GetPlayingMatches(true, "player").Count == 5)
         {
             EarnAchievement("Vriendenkring");
         }
     }
 
     // #6 Earning "Populair" achievement
+    public void PopulairPlayer()
+    {
+        if (PlayerManager.I.player.acceptedMatches == 5)
+        {
+            EarnAchievement("Populair");
+        }
+    }
 
     // #7 Earning "Op dreef" achievement
     public void AchievementOpDreef()
@@ -178,8 +185,11 @@ public class AchievementManager : Singleton<AchievementManager> {
 
     }
 
-
     // #8 Earning "Ultieme vriend" achievement
+  public void UltimateMate()
+    {
+        //TODO
+    }
 
     // #9 Earning "Geleerde" achievement
     public void AchievementGeleerde()
@@ -223,7 +233,6 @@ public class AchievementManager : Singleton<AchievementManager> {
 
     }
 
-
     // #13 Earning "Old skool"  achievement
     public void AchievementOldSchool()
     {
@@ -234,7 +243,6 @@ public class AchievementManager : Singleton<AchievementManager> {
         }
 
     }
-
 
     // #14 Earning "Verslavingsoverwinnaar" achievement
     public void AchievementVerslavingsOverwinner()
@@ -257,6 +265,7 @@ public class AchievementManager : Singleton<AchievementManager> {
         }
 
     }
+
     // #16 Earning "Gehandicapten begeleider" achievement
     public void AchievementGehandicapten()
     {
@@ -267,6 +276,7 @@ public class AchievementManager : Singleton<AchievementManager> {
         }
 
     }
+
     // #17 Earning "Hattrick" achievement
     public void AchievementHattrick()
     {
@@ -278,19 +288,16 @@ public class AchievementManager : Singleton<AchievementManager> {
 
     }
     // #18 Earning "Uitdager" achievement
-
+    //deleted, was not possible
     // #19 Earning "Professor" achievement
     public void AchievementProfessor()
     {
-        
-
         // check if player answered 100 questions right
         if (PlayerManager.I.player.rightAnswersTotal == 100)
         {
             
             EarnAchievement("Professor");
         }
-
     }
 
     // #20 Earning "Onverslaanbaar" achievement
@@ -317,7 +324,6 @@ public class AchievementManager : Singleton<AchievementManager> {
     // #22 Earning "Kampioenr" achievement
 
     // #23 Earning "drie op een rij" achievement
-
     public void AchievementDrieOpRij()
     {
         // check if player answered 3 questions in a row 

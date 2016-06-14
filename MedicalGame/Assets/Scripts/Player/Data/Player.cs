@@ -84,6 +84,10 @@ public class Player
     //Counting TOTAL answers in catagory GGZ & verslavingszorg
     [SerializeField]public int verslavingsAnswers = 0;
 
+    // counting accepted invited
+    [SerializeField]public int acceptedMatches = 0;
+
+
     public Player
         ( 
              string _playerID = "",
@@ -112,7 +116,8 @@ public class Player
              int _algemeenAnswers = 0,
              int _verslavingsAnswers = 0,
              PlayerProfile _profile = null,
-             bool _completedIntro = false
+             bool _completedIntro = false,
+             int _acceptedMatches = 0
         )
     {
 		playerID = _playerID;
@@ -144,6 +149,7 @@ public class Player
         oldieAnswers = _oldieAnswers;
         algemeenAnswers = _algemeenAnswers;
         verslavingsAnswers = _verslavingsAnswers;
+        acceptedMatches = _acceptedMatches;
 
         if (_profile != null)
         {

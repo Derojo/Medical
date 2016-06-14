@@ -45,8 +45,29 @@ public class Categories : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		// Get current match
-		Match currentMatch = MatchManager.I.GetMatch (MatchManager.I.currentMatchID);
+
+        if (PlayerPrefs.GetInt("Populair") == 0)
+        {
+            AchievementManager.I.PopulairPlayer();
+        }
+        // check achievement
+        Debug.Log(PlayerPrefs.GetInt("Vrienden worden?"));
+        Debug.Log(PlayerManager.I.firstInvite);
+        // check for achievement
+        if (PlayerManager.I.firstInvite)
+        {
+            AchievementManager.I.wantToBeFriends();
+            PlayerManager.I.firstInvite = false;
+        }
+
+        if (PlayerManager.I.firstInviteAccept)
+        {
+            Debug.Log("testing achiev");
+            AchievementManager.I.challengeAccepted();
+            PlayerManager.I.firstInviteAccept = false;
+        }
+            // Get current match
+            Match currentMatch = MatchManager.I.GetMatch (MatchManager.I.currentMatchID);
 		playerTurns = MatchManager.I.GetMatchTurnsByPlayerID (PlayerManager.I.player.playerID, currentMatch);
 		oppTurns = MatchManager.I.GetMatchTurnsByPlayerID (MatchManager.I.GetOppenentId(currentMatch), currentMatch);
 		//Get random cat, show animation
