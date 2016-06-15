@@ -23,15 +23,15 @@ public class buildAvatar : MonoBehaviour {
 
 
 	void Start () {
-        Match currentMatch = MatchManager.I.GetMatch(MatchManager.I.currentMatchID);
-        string opponentId = MatchManager.I.GetOppenentId(currentMatch);
+
 
         if (isPlayer)
         {
             avatarString = PlayerManager.I.player.avatar;
 			setAvatar ();
         } else {
-
+			Match currentMatch = MatchManager.I.GetMatch(MatchManager.I.currentMatchID);
+			string opponentId = MatchManager.I.GetOppenentId(currentMatch);
 			if (opponentId != "") {
 				AvatarLoader.DOFade (1, 0.5f);
 				AvatarLoader.transform.DOLocalRotate (new Vector3 (0f,0f, 360), 1, RotateMode.FastBeyond360).SetLoops(-1);

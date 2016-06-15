@@ -116,6 +116,7 @@
      <Compile Include="Assets\Scripts\Player\PlayerManager.cs" />
      <Compile Include="Assets\Scripts\Player\Profile.cs" />
      <Compile Include="Assets\Scripts\Player\Profile_Create.cs" />
+     <Compile Include="Assets\Scripts\Player\ScrollEventProfile.cs" />
      <Compile Include="Assets\Scripts\Player\ShowPlayerInfoSmall.cs" />
      <Compile Include="Assets\Scripts\ProfilePicture.cs" />
      <Compile Include="Assets\Scripts\Questions\Data\Question.cs" />

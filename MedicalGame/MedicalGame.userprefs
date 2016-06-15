@@ -1,21 +1,22 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Achievements\AchievementManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\buildAvatar.cs">
     <Files>
-      <File FileName="Assets\Scripts\Achievements\AchievementManager.cs" Line="134" Column="23" />
+      <File FileName="Assets\Scripts\buildAvatar.cs" Line="50" Column="1" />
+      <File FileName="Assets\Scripts\Achievements\AchievementManager.cs" Line="111" Column="41" />
       <File FileName="Assets\Scripts\Matches\CurrentMatches.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Player\PlayerManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Registration.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\RuntimeData.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\clothchanger.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Startup.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Questions\QuestionManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Questions\QuestionManager.cs" Line="227" Column="1" />
       <File FileName="Assets\Scripts\AddUser.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Matches\Data\Match.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Matches\Data\Turn.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Loader.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Categories.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\HomeStartUp.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\HomeStartUp.cs" Line="26" Column="65" />
       <File FileName="Assets\Scripts\Player\Data\Player.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Player\Data\PlayerProfile.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Matches\EndScreenScript.cs" Line="1" Column="1" />
@@ -26,8 +27,9 @@
       <File FileName="Assets\Plugins\Gamedonia\GamedoniaUsers.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Player\Profile_Create.cs" Line="1" Column="1" />
       <File FileName="Assets\Plugins\Gamedonia\GamedoniaData.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player\ShowPlayerInfoSmall.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Matches\MatchManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Player\ShowPlayerInfoSmall.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\AudioManagerScript.cs" Line="5" Column="24" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
