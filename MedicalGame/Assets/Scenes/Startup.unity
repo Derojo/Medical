@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   androidSenderId: 127272864481
-  clearBadgeOnActivate: 0
+  clearBadgeOnActivate: 1
   enableBadge: 1
   enableSound: 1
   enableAlert: 1

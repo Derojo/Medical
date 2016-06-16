@@ -233,7 +233,6 @@ public class CurrentMatches : MonoBehaviour {
 					matchUI.transform.GetChild (3).gameObject.SetActive (true);
 				}
 			} else {
-//				Debug.Log ("testings");
 				Match match = MatchManager.I.GetMatch (matchId);
 
 				if (accept.transform.Find (matchId)) {
@@ -243,15 +242,6 @@ public class CurrentMatches : MonoBehaviour {
 					setChildInformation (opponentId, matchId, matchUI, "hisTurn", i);
 
 				}
-//				if(match.m_cp == PlayerManager.I.player.playerID) {
-//					GameObject matchUI = GameObject.Find (matchId);
-//					Debug.Log ("Set parent");
-//					matchUI.transform.SetParent (yourTurnUI.transform);
-//					Debug.Log ("Set parent2");
-//					string opponentId = MatchManager.I.GetOppenentId (match);
-//
-//					setChildInformation (opponentId, matchId, matchUI, "yourTurn", i);
-//				}
 			}
 		}
 	}
@@ -270,25 +260,50 @@ public class CurrentMatches : MonoBehaviour {
 		for (int i = 0; i < finishedMatches.Count; i++)
 		{
 			string matchId = finishedMatches [i].m_ID;
-			Match match = MatchManager.I.GetMatch (matchId);
-			string opponentId = MatchManager.I.GetOppenentId (match);
-			GameObject matchUI = Instantiate (Resources.Load ("MatchUIRow")) as GameObject;
-			matchUI.SetActive (false);
-			setChildInformation (opponentId, matchId, matchUI, "finished", i);
-			// Housekeeping
-			matchUI.name = matchId;
-			matchUI.transform.SetParent (this.transform, false);
-			// Set match information
-			//			matchUI.GetC  = matchId;
+			if (!finishedUI.transform.FindChild (matchId) && !GameObject.Find(matchId)) {
+				Match match = MatchManager.I.GetMatch (matchId);
+				string opponentId = MatchManager.I.GetOppenentId (match);
+				GameObject matchUI = Instantiate (Resources.Load ("MatchUIRow")) as GameObject;
+				matchUI.SetActive (false);
+				setChildInformation (opponentId, matchId, matchUI, "finished", i);
+				// Housekeeping
+				matchUI.name = matchId;
+				matchUI.transform.SetParent (this.transform, false);
+				// Set match information
 
-
-			matchUI.GetComponent<RectTransform>().DOScale (1.1f, .5f).SetEase(Ease.InFlash).SetDelay(delay);
-			matchUI.GetComponent<RectTransform>().DOScale (1, 1f).SetEase(Ease.OutExpo).SetDelay((.5f+delay));
-			delay += .2f;
-			if (i != (finishedMatches.Count-1)) {
-				matchUI.transform.GetChild (3).gameObject.SetActive (true);
+				matchUI.GetComponent<RectTransform>().DOScale (1.1f, .5f).SetEase(Ease.InFlash).SetDelay(delay);
+				matchUI.GetComponent<RectTransform>().DOScale (1, 1f).SetEase(Ease.OutExpo).SetDelay((.5f+delay));
+				delay += .2f;
+				if (i != (finishedMatches.Count-1)) {
+					matchUI.transform.GetChild (3).gameObject.SetActive (true);
+				}
+				matchUI.transform.GetChild (4).gameObject.SetActive (true);
+				matchUI.GetComponent<Button> ().onClick.AddListener (delegate {
+					MatchManager.I.RemoveMatch(match, "", true);
+					deleteRow(matchId);
+				});
 			}
-		}
+		} else {
+				Match match = MatchManager.I.GetMatch (matchId);
+				if (hisTurnUI.transform.Find (matchId)) {
+					GameObject matchUI = hisTurnUI.transform.Find (matchId).gameObject;
+					string opponentId = MatchManager.I.GetOppenentId (match);
+					matchUI.transform.SetParent (finishedUI.transform, false);
+					setChildInformation (opponentId, matchId, matchUI, "finished", i);
+					matchUI.transform.GetChild (4).gameObject.SetActive (true);
+					matchUI.GetComponent<Button> ().onClick.AddListener (delegate {
+						MatchManager.I.RemoveMatch(match, "", true);
+						deleteRow(matchId);
+					});
+				});
+				} else if (accept.transform.Find (matchId)) {
+					GameObject matchUI = accept.transform.Find (matchId).gameObject;
+					string opponentId = MatchManager.I.GetOppenentId (match);
+					matchUI.transform.SetParent (yourTurnUI.transform, false);
+					setChildInformation (opponentId, matchId, matchUI, "yourTurn", i);
+
+				}
+			}
 	}
 
 	private void setChildInformation(string oppId, string matchId, GameObject parent, string listname, int i = 0) {

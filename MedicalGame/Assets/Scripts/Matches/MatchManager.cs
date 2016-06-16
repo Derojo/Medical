@@ -255,6 +255,27 @@ public class MatchManager : Singleton<MatchManager> {
 		return null;
 	}
 
+	public void RemoveMatch(Match match = null, string matchID = "", bool completely = false) {
+		if(match == null) {
+			if(matchID != "") {
+				match = GetMatch(matchID);
+			}
+		}
+		Debug.Log("Removing match");
+		matches.Remove(match);
+		if(completely) {
+			GamedoniaData.Delete("matches", match.m_ID, delegate (bool success){ 
+				if (success){
+
+				}
+				else{
+		
+				}
+			});
+		}
+		Save();
+	}
+
 	public List<Match> GetPlayingMatches(bool all = false, string type = "player") {
 		Debug.Log ("get playing matches"+type);
 		Debug.Log ("amount of matches:"+matchManager.matches.Count);
@@ -294,11 +315,10 @@ public class MatchManager : Singleton<MatchManager> {
 		if (yourTurn.Count > 0) {
 			for (int i = 0; i < yourTurn.Count; i++) {
 				string matchID = yourTurn [i].m_ID;
-				Debug.Log (yourTurn [i].m_status);
 				if (yourTurn [i].m_status == "deny") {
 					GamedoniaData.Delete("matches", yourTurn [i].m_ID, delegate (bool success){ 
 						if (success){
-							Match matchDeny = MatchManager.I.GetMatch (matchID);
+							Match matchDeny = GetMatch (matchID);
 							matches.Remove (matchDeny);
 							GameObject.FindObjectOfType<CurrentMatches> ().showInvites ();
 							GameObject.FindObjectOfType<CurrentMatches> ().deleteRow (matchDeny.m_ID);
@@ -390,9 +410,15 @@ public class MatchManager : Singleton<MatchManager> {
 
 	public List<Match> GetFinishedMatches() {
 		List<Match> tempList = new List<Match> ();
-		for (int i = 0; i < matchManager.matches.Count; i++) {
-			if (matchManager.matches[i].m_status == "finished") {
-				tempList.Add(matchManager.matches[i]);
+		int amount = 0;
+		for (int i = 0; i < matches.Count; i++) {
+			if (matches[i].m_status == "finished") {
+				amount++;
+				if(amount > 3) {
+					RemoveMatch(matches[i],"",true);
+				} else {
+					tempList.Add(matchManager.matches[i]);
+				}
 			}
 		}
 		return tempList;
