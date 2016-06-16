@@ -9,7 +9,6 @@ using DG.Tweening;
 public class EndScreenScript : MonoBehaviour {
 
 
-
 	public GameObject lostMatch;
 	public GameObject wonMatch;
 	public GameObject charAnim;
@@ -58,10 +57,16 @@ public class EndScreenScript : MonoBehaviour {
 				AttributeTitle.SetActive (false);
 				AttributeValue.SetActive (false);
 			}
-		} else {
-			lostMatch.SetActive(true);
-			charAnim.GetComponent<Animation>().Play("Lose_Anim");
 		}
+        else
+        {
+			lostMatch.SetActive(true);
+            continueButton.GetComponent<Image>().DOFade(1, 1f);
+            charAnim.GetComponent<Animation>().Play("Lose_Anim");
+            AttributeInfo.SetActive(false);
+            AttributeTitle.SetActive(false);
+            AttributeValue.SetActive(false);
+        }
 
 	}
 
