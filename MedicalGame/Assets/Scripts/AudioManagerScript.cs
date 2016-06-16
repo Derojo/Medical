@@ -6,8 +6,8 @@ using System.Collections.Generic;
 public class AudioManagerScript : Singleton<AudioManagerScript>
 {
 
-    private AudioSource normalButtonSound;
-    private AudioSource sliderButtonSound;
+    public AudioSource normalButtonSound;
+    public AudioSource sliderButtonSound;
     public AudioSource wrongAnwserSound;
     public AudioSource achievementUnlockSound;
     public AudioSource TimeUpSound;
@@ -27,7 +27,7 @@ public class AudioManagerScript : Singleton<AudioManagerScript>
     //Normal button function
     public void OnButtonclick()
     {
-        normalButtonSound.Play();
+       normalButtonSound.Play();
     }
     //Slider button function
     public void OnSliderClick()

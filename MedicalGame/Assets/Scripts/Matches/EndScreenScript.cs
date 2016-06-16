@@ -17,8 +17,8 @@ public class EndScreenScript : MonoBehaviour {
 	public GameObject AttributeInfo;
 	public GameObject AttributeTitle;
 	public GameObject AttributeValue;
-
-	public GameObject continueButton;
+    public Animator animControl;
+    public GameObject continueButton;
 
 	private string defaultInfoText;
 
@@ -44,14 +44,16 @@ public class EndScreenScript : MonoBehaviour {
 		{
 			wonMatch.SetActive(true);
 			PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP += 100;
-			charAnim.GetComponent<Animation>().Play("Win_Anim");
-			if (MatchManager.I.lastAttributeKey != -1) {
+            animControl.SetBool("IsWinning", true);
+            if (MatchManager.I.lastAttributeKey != -1) {
 				StartCoroutine(showContinueButtonOverTime (2f));
 				AttributeInfo.GetComponent<Text> ().text = defaultInfoText + " " + PlayerManager.I.currentOpponentInfo ["name"];
 				AttributeTitle.GetComponent<Text> ().text = PlayerManager.I.GetAttributeTitleByKey (MatchManager.I.lastAttributeKey);
 				AttributeValue.GetComponent<Text> ().text = PlayerManager.I.GetPlayerAttribute (MatchManager.I.lastAttributeKey);
 
-			} else {
+			}
+            else
+            {
 				continueButton.GetComponent<Image> ().DOFade (1, 1f);
 				AttributeInfo.SetActive (false);
 				AttributeTitle.SetActive (false);
@@ -62,10 +64,11 @@ public class EndScreenScript : MonoBehaviour {
         {
 			lostMatch.SetActive(true);
             continueButton.GetComponent<Image>().DOFade(1, 1f);
-            charAnim.GetComponent<Animation>().Play("Lose_Anim");
+            animControl.SetBool("IsLosing", true);
             AttributeInfo.SetActive(false);
-            AttributeTitle.SetActive(false);
-            AttributeValue.SetActive(false);
+            AttributeTitle.GetComponent<Text>().text = "Jammer!";
+            AttributeValue.GetComponent<Text>().text = "Helaas, je hebt niet gewonnen en dus geen gegeven vrijgespeeld";
+
         }
 
 	}
