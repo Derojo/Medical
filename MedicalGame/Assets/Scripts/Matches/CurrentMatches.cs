@@ -283,7 +283,7 @@ public class CurrentMatches : MonoBehaviour {
 					deleteRow(matchId);
 				});
 			}
-		} else {
+		 else {
 				Match match = MatchManager.I.GetMatch (matchId);
 				if (hisTurnUI.transform.Find (matchId)) {
 					GameObject matchUI = hisTurnUI.transform.Find (matchId).gameObject;
@@ -295,15 +295,15 @@ public class CurrentMatches : MonoBehaviour {
 						MatchManager.I.RemoveMatch(match, "", true);
 						deleteRow(matchId);
 					});
-				});
-				} else if (accept.transform.Find (matchId)) {
-					GameObject matchUI = accept.transform.Find (matchId).gameObject;
+				} else if (yourTurnUI.transform.Find (matchId)) {
+					GameObject matchUI = yourTurnUI.transform.Find (matchId).gameObject;
 					string opponentId = MatchManager.I.GetOppenentId (match);
 					matchUI.transform.SetParent (yourTurnUI.transform, false);
 					setChildInformation (opponentId, matchId, matchUI, "yourTurn", i);
 
 				}
 			}
+		}
 	}
 
 	private void setChildInformation(string oppId, string matchId, GameObject parent, string listname, int i = 0) {
