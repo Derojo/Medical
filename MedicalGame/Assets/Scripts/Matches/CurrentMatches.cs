@@ -278,7 +278,7 @@ public class CurrentMatches : MonoBehaviour {
 					matchUI.transform.GetChild (3).gameObject.SetActive (true);
 				}
 				matchUI.transform.GetChild (4).gameObject.SetActive (true);
-				matchUI.GetComponent<Button> ().onClick.AddListener (delegate {
+				matchUI.transform.GetChild (4).GetComponent<Button> ().onClick.AddListener (delegate {
 					MatchManager.I.RemoveMatch(match, "", true);
 					deleteRow(matchId);
 				});
@@ -291,16 +291,20 @@ public class CurrentMatches : MonoBehaviour {
 					matchUI.transform.SetParent (finishedUI.transform, false);
 					setChildInformation (opponentId, matchId, matchUI, "finished", i);
 					matchUI.transform.GetChild (4).gameObject.SetActive (true);
-					matchUI.GetComponent<Button> ().onClick.AddListener (delegate {
+					matchUI.transform.GetChild (4).GetComponent<Button> ().onClick.AddListener (delegate {
 						MatchManager.I.RemoveMatch(match, "", true);
 						deleteRow(matchId);
 					});
 				} else if (yourTurnUI.transform.Find (matchId)) {
 					GameObject matchUI = yourTurnUI.transform.Find (matchId).gameObject;
 					string opponentId = MatchManager.I.GetOppenentId (match);
-					matchUI.transform.SetParent (yourTurnUI.transform, false);
-					setChildInformation (opponentId, matchId, matchUI, "yourTurn", i);
-
+					matchUI.transform.SetParent (finishedUI.transform, false);
+					setChildInformation (opponentId, matchId, matchUI, "finished", i);
+					matchUI.transform.GetChild (4).gameObject.SetActive (true);
+					matchUI.transform.GetChild (4).GetComponent<Button> ().onClick.AddListener (delegate {
+						MatchManager.I.RemoveMatch(match, "", true);
+						deleteRow(matchId);
+					});
 				}
 			}
 		}

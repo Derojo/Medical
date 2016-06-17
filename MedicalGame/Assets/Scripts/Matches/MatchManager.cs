@@ -283,7 +283,7 @@ public class MatchManager : Singleton<MatchManager> {
 		string pID = PlayerManager.I.player.playerID;
 		for (int i = 0; i < matchManager.matches.Count; i++) {
 			if (matchManager.matches[i].m_status != "finished") {
-				if (all && matchManager.matches[i].m_status != "deny") {
+				if (all) {
 					tempList.Add (matchManager.matches [i]);
 				} else {
 					if (type == "player") {
@@ -378,9 +378,7 @@ public class MatchManager : Singleton<MatchManager> {
 		Debug.Log ("CHECK FOR INVITES");
 		GamedoniaData.Search ("matches", "{$and: [ { \"m_status\":\"invite\" }, { \"m_cp\":'"+PlayerManager.I.player.playerID+"' }]}", delegate (bool success, IList data) {
 			if (success) {
-				Debug.Log(data);
 				if (data != null) {
-					Debug.Log("test");
 					for(int i = 0; i < data.Count; i++) {
 						Dictionary<string, object> matchD = (Dictionary<string, object>)data[i];
 						Match match = GetMatch(matchD["_id"].ToString());

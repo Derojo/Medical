@@ -54,31 +54,25 @@ public class RuntimeData : Singleton<RuntimeData> {
 			Match inviteMatch = new Match ();
 			GamedoniaData.Search ("matches", "{_id: { $oid: '" + matchID +"' } }", delegate (bool success, IList data) {
 				if (success) {
-					
 					if (data != null) {
-						Debug.Log("success, process information");
-						// *************** Server side match information ********************
-						Dictionary<string, object> matchD = (Dictionary<string, object>)data[0];
-						List<Turn> turns = new List<Turn>();
-						// Conver incoming turn data to Turn class
-						List<object> t_turns = new List<object>();
-						t_turns = (List<object>)matchD["m_trns"];
-						foreach(Dictionary<string, object> t_turn  in t_turns) {
-							Turn turn = new Turn(int.Parse(t_turn["t_ID"].ToString()), t_turn["p_ID"].ToString(), int.Parse(t_turn["q_ID"].ToString()), int.Parse(t_turn["c_ID"].ToString()), int.Parse(t_turn["t_st"].ToString()));
-							turns.Add(turn);
-						}
-						List<string> uids = JsonMapper.ToObject<List<string>>(JsonMapper.ToJson(matchD["u_ids"]));
-						Debug.Log("Update local match");
-						// *************** Update local match ********************
-						inviteMatch.m_ID = matchID;
+						Dictionary<string, object> matchD = (Dictionary<string, object>)data;
+						inviteMatch.m_ID = matchD["_id"].ToString();
+						List<string> uids = JsonMapper.ToObject<List<string>> (JsonMapper.ToJson (matchD ["u_ids"]));
 						inviteMatch.u_ids = uids;
-						inviteMatch.m_cc = 0;
+
+						List<Turn> turns = new List<Turn> ();
+						List<object> t_turns = new List<object> ();
+						t_turns = (List<object>)matchD ["m_trns"];
+						foreach (Dictionary<string, object> t_turn  in t_turns) {
+							Turn turn = new Turn (int.Parse (t_turn ["t_ID"].ToString ()), t_turn ["p_ID"].ToString (), int.Parse (t_turn ["q_ID"].ToString ()), int.Parse (t_turn ["c_ID"].ToString ()), int.Parse (t_turn ["t_st"].ToString ()));
+							turns.Add (turn);
+						}
+						inviteMatch.m_cp = matchD ["m_cp"].ToString ();
 						inviteMatch.m_trns = turns;
-						inviteMatch.m_cp = PlayerManager.I.player.playerID;
-						inviteMatch.m_status = matchD["m_status"].ToString();
+						inviteMatch.m_status = matchD ["m_status"].ToString ();
 						MatchManager.I.AddMatch(inviteMatch, false, false);
+
 						if(currentScene.name == "Home") {
-							Debug.Log("ADDINVITE");
 							GameObject.FindObjectOfType<CurrentMatches>().showInvites();
 						}
 					} else {
