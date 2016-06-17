@@ -14,6 +14,9 @@ public class AudioManagerScript : Singleton<AudioManagerScript>
     public AudioSource lvlUpSound;
 
     public static bool pause;
+ 
+    public bool Load() { return true; }
+
     void Start() {
         AudioSource[] a_sources = GetComponents<AudioSource>();
         normalButtonSound = a_sources[0];
@@ -27,8 +30,16 @@ public class AudioManagerScript : Singleton<AudioManagerScript>
     //Normal button function
     public void OnButtonclick()
     {
-       normalButtonSound.Play();
+        AudioSource[] a_sources = GetComponents<AudioSource>();
+        Debug.Log(a_sources.Length);
+        normalButtonSound = a_sources[0];
+        if (normalButtonSound == null)
+        {
+            Debug.Log("BTNSound");
+        }
+        a_sources[0].Play();
     }
+
     //Slider button function
     public void OnSliderClick()
     {

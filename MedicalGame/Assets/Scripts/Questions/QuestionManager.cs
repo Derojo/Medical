@@ -20,7 +20,7 @@ public class QuestionManager : Singleton<QuestionManager> {
 	public GameObject Continue;
     public GameObject continueToEnd;
     public GameObject XPPopUp;
-
+    public Text turnCounter;
     //animation controls
     public Animator animControl;
     public Animator oppAnimControl;
@@ -56,6 +56,7 @@ public class QuestionManager : Singleton<QuestionManager> {
 
 	void Start()
     {
+
         //allowing answers
         answeredQuestion = false;
 
@@ -254,7 +255,7 @@ public class QuestionManager : Singleton<QuestionManager> {
             }
 		}
 	}
-		
+	//switching scenes	
 	public void switchScene()
     {
 		MatchManager.I.clearCurrentCategory ();
@@ -337,8 +338,9 @@ public class QuestionManager : Singleton<QuestionManager> {
 			}
 		}
 		playerScore.text = total.ToString ();
+        turnCounter.text = playerTurnL.Count + "/9";
 
-	}
+    }
 
 	private void SetOppTurnRounds() {
 		float total = 0;

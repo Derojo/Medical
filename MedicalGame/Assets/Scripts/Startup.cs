@@ -11,6 +11,7 @@ public class Startup : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		RuntimeData.I.Load ();
+        AudioManagerScript.I.Load();
 		if (!PlayerManager.I.player.loggedIn) {
 			SceneManager.LoadScene ("Login");
 		}

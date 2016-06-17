@@ -158,6 +158,7 @@
     <Compile Include="Assets\Editor\ImageEffects\TonemappingEditor.cs" />
     <Compile Include="Assets\Editor\ImageEffects\VignetteAndChromaticAberrationEditor.cs" />
     <Compile Include="Assets\Editor\Quiz\QuestionsEditor.cs" />
+    <Compile Include="Assets\Editor\ResourceChecker.cs" />
     <Compile Include="Assets\Editor\ScriptableObjectFactory.cs" />
     <Compile Include="Assets\Editor\ScriptableObjectWindow.cs" />
   </ItemGroup>
