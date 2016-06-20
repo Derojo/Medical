@@ -36,6 +36,8 @@ public class MatchManager : Singleton<MatchManager> {
 
 
 	public void StartRandomMatch() {
+		currentMatchID = "";
+		currentCategory = 0;
 		// Enable Loader
 		Loader.I.enableLoader ();
 

@@ -9,8 +9,8 @@ using DG.Tweening;
 public class Registration : MonoBehaviour {
 
 	public Text email;
-	public Text password;
-	public Text repassword;
+	public InputField password;
+	public InputField repassword;
 	public Text errorMsgText;
 	public Image emailImg;
 	public Image passImg;
@@ -53,6 +53,7 @@ public class Registration : MonoBehaviour {
 			Loader.I.enableLoader ();
 			Credentials credentials = new Credentials();
 			credentials.email = email.text;
+			Debug.Log(password.text);
 			credentials.password = password.text;
 			GDUser user = new GDUser();
 			user.credentials = credentials;

@@ -73,7 +73,7 @@ public class PlayerManager : Singleton<PlayerManager> {
 				foreach (KeyValuePair<string, object> friend in friends) {
 					string friendKey = friend.Key;
 					GamedoniaUsers.GetUser (friendKey, delegate (bool succesFriends, GDUserProfile friendProfile) { 
-						if (success) {
+						if (succesFriends) {
 							Dictionary<string, object> oppProfile = new Dictionary<string, object>();
 							oppProfile = friendProfile.profile;
 							friendProfiles.Add(friendKey, oppProfile);
@@ -85,6 +85,7 @@ public class PlayerManager : Singleton<PlayerManager> {
 			}
 		});
 	}
+
 
 	public void changeProfile(PlayerProfile playerprofile) {
 		if (player.profile != null) {
@@ -198,6 +199,14 @@ public class PlayerManager : Singleton<PlayerManager> {
 
 	public void AddFriend(string name) {
 		friends.Add (name, new List<int> ());
+		GamedoniaUsers.GetUser (name, delegate (bool success, GDUserProfile friendProfile) { 
+			if (success) {
+				Dictionary<string, object> oppProfile = new Dictionary<string, object>();
+				oppProfile = friendProfile.profile;
+				friendProfiles.Add(name, oppProfile);
+			} 
+		});
+		// Update player list in backend
 		Dictionary<string, object> profile = GetPlayerById (player.playerID);
 		profile ["friends"] = friends;
 		GamedoniaUsers.UpdateUser (profile);

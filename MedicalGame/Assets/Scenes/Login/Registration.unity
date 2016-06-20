@@ -2118,8 +2118,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   email: {fileID: 974069650}
-  password: {fileID: 1351988128}
-  repassword: {fileID: 1837074789}
+  password: {fileID: 2058927422}
+  repassword: {fileID: 1355522018}
   errorMsgText: {fileID: 1699312837}
   emailImg: {fileID: 1552708301}
   passImg: {fileID: 2071291778}
