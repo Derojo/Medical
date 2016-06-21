@@ -48,6 +48,7 @@ public class clothchanger : MonoBehaviour {
 		if (PlayerManager.I.changingAvatar) {
 			string avatarString = PlayerManager.I.player.avatar;
 			string[] avatar = avatarString.Split (new string[] {"_"}, System.StringSplitOptions.None);
+			skinCode = int.Parse (avatar [0]);
 			currentHairstyle = DetermineOrder ("hairstyle", int.Parse (avatar [1]));
 			currentHairstyleMaterial = DetermineOrder ("hairstyle", int.Parse (avatar [2]), true);
 			currentHead = int.Parse (avatar [3]);
@@ -57,7 +58,7 @@ public class clothchanger : MonoBehaviour {
 			currentTrouserMaterial = DetermineOrder ("trouser", int.Parse (avatar [7]), true);
 		}
 
-
+			changeHead ("skip");
 			changeHairStyle("skip");
 			changeShirt("skip");
 			changeTrouser ("skip");
