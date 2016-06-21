@@ -34,7 +34,10 @@ public class Profile : MonoBehaviour {
 
 	void Start() {
 
-		GameObject.Find ("Profile").GetComponent<RectTransform> ().DOScale (0.8f,.5f).SetEase(Ease.InCubic);
+        //checking for clothes change achievement
+        AchievementManager.I.AchievementStylist();
+
+        GameObject.Find ("Profile").GetComponent<RectTransform> ().DOScale (0.8f,.5f).SetEase(Ease.InCubic);
 		GameObject.Find ("Profile").GetComponent<RectTransform> ().DOScale (1.2f, 1f).SetEase(Ease.InBack).SetDelay(.5f);
 		GameObject.Find ("Profile").GetComponent<RectTransform> ().DOScale (1, .7f).SetEase(Ease.OutElastic).SetDelay(1f);
 		/******** PLAYER INFO*********/
@@ -101,9 +104,11 @@ public class Profile : MonoBehaviour {
 
 	}
 
-	public void ChangingAvatar() {
-		PlayerManager.I.changingAvatar = true;
+	public void ChangingAvatar()
+    {
+		PlayerManager.I.changingAvatar = true; 
 		Loader.I.LoadScene ("Avatar");
+
 	}
 		
 

@@ -20,7 +20,6 @@ public class AchievementManager : Singleton<AchievementManager> {
     public Sprite unlockedSprite;
     public Sprite lockedSprite;
     public bool Friends = false;
-
     public bool Load() { return true; }
 
 
@@ -188,7 +187,7 @@ public class AchievementManager : Singleton<AchievementManager> {
     // #8 Earning "Ultieme vriend" achievement
   public void UltimateMate()
     {
-        //TODO
+        EarnAchievement("Ultieme vriend");
     }
 
     // #9 Earning "Geleerde" achievement
@@ -335,6 +334,14 @@ public class AchievementManager : Singleton<AchievementManager> {
     }
 
     // # 24 Earning "stylist" achievement
+    public void AchievementStylist()
+    {
+        if(PlayerManager.I.player.avatarChanges == 10)
+        {
+            EarnAchievement("Stylist");
+        }
+    }
+
 
     /************** Mulitple checks *********************/
 

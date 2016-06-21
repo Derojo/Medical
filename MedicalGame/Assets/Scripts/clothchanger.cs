@@ -354,8 +354,10 @@ public class clothchanger : MonoBehaviour {
 	private void OnUpdate (bool success)
 	{
 		if (success) {
-			if (PlayerManager.I.changingAvatar) {
-				SceneManager.LoadScene ("Profile"); 
+			if (PlayerManager.I.changingAvatar)
+            {
+                PlayerManager.I.player.avatarChanges++;
+                SceneManager.LoadScene ("Profile"); 
 			} else {
 				SceneManager.LoadScene ("Introduction"); 
 

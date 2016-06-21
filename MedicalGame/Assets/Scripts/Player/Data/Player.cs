@@ -7,31 +7,31 @@ public class Player
 {
 
 
-	/************** Player general data ******************/
-	// Player id from gamedonia
-	[SerializeField] public string playerID = "";
-	// Facebook user id
-	[SerializeField] public string fbuserid = "";
-	// Player logged in
-	[SerializeField] public bool loggedIn = false;
-	// Player created profile
-	[SerializeField] public bool createdProfile = false;
+    /************** Player general data ******************/
+    // Player id from gamedonia
+    [SerializeField] public string playerID = "";
+    // Facebook user id
+    [SerializeField] public string fbuserid = "";
+    // Player logged in
+    [SerializeField] public bool loggedIn = false;
+    // Player created profile
+    [SerializeField] public bool createdProfile = false;
 
 
-	/************** Player game data *********************/
-	[SerializeField] public string avatar = "";
-	[SerializeField] public float playerXP = 0;
-	[SerializeField] public string playerRank = "";
-	[SerializeField] public int playerLvl = 1;
-	[SerializeField] public int playedMatches = 0;
-	[SerializeField] public int playerWonAttr = 0;
+    /************** Player game data *********************/
+    [SerializeField] public string avatar = "";
+    [SerializeField] public float playerXP = 0;
+    [SerializeField] public string playerRank = "";
+    [SerializeField] public int playerLvl = 1;
+    [SerializeField] public int playedMatches = 0;
+    [SerializeField] public int playerWonAttr = 0;
     /************** Player game data without logics *********************/
 
     // counting TOTAL won matches
     [SerializeField] public int wonMatches = 0;
 
     // counting won mathes in a ROW
-    [SerializeField]public int wonMatchesRow= 0;
+    [SerializeField]public int wonMatchesRow = 0;
 
     //counting TOTAL active games
     [SerializeField] public int activeGames = 0;
@@ -87,16 +87,18 @@ public class Player
     // counting accepted invited
     [SerializeField]public int acceptedMatches = 0;
 
+    // counting avatar changes
+    [SerializeField] public int avatarChanges = 0;
 
     public Player
-        ( 
+        (
              string _playerID = "",
-             bool _loggedIn = false, 
-             bool _createdProfile = false, 
-             float _playerXP = 0, 
+             bool _loggedIn = false,
+             bool _createdProfile = false,
+             float _playerXP = 0,
              string _playerRank = "",
-             int _playerLvl = 1, 
-             int _playedMatches = 0, 
+             int _playerLvl = 1,
+             int _playedMatches = 0,
              int _wonMatches = 0,
              int _wonMatchesRow = 0,
              int _activeGames = 0,
@@ -117,16 +119,17 @@ public class Player
              int _verslavingsAnswers = 0,
              PlayerProfile _profile = null,
              bool _completedIntro = false,
-             int _acceptedMatches = 0
+             int _acceptedMatches = 0,
+             int _avatarChanges = 0
         )
     {
-		playerID = _playerID;
-		loggedIn = _loggedIn;
-		createdProfile = _createdProfile;
-		playerXP = _playerXP;	
-		playerRank =_playerRank;
-		playerLvl = _playerLvl;
-		playedMatches = _playedMatches;
+        playerID = _playerID;
+        loggedIn = _loggedIn;
+        createdProfile = _createdProfile;
+        playerXP = _playerXP;
+        playerRank = _playerRank;
+        playerLvl = _playerLvl;
+        playedMatches = _playedMatches;
         completedIntro = _completedIntro;
 
         /************** Player profile data without logics *********************/
@@ -150,10 +153,11 @@ public class Player
         algemeenAnswers = _algemeenAnswers;
         verslavingsAnswers = _verslavingsAnswers;
         acceptedMatches = _acceptedMatches;
+        avatarChanges = _avatarChanges;
 
         if (_profile != null)
         {
-			profile = _profile;
-		}
-	}
+            profile = _profile;
+        }
+    } 
 }//end class Player

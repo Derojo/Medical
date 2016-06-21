@@ -54,6 +54,7 @@ public class EndScreenScript : MonoBehaviour {
 			}
             else
             {
+                AchievementManager.I.UltimateMate();
 				continueButton.GetComponent<Image> ().DOFade (1, 1f);
 				AttributeInfo.SetActive (false);
 				AttributeTitle.SetActive (false);
