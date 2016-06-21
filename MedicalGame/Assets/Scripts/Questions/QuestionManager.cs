@@ -338,11 +338,15 @@ public class QuestionManager : Singleton<QuestionManager> {
 			}
 		}
 		playerScore.text = total.ToString ();
-        turnCounter.text = playerTurnL.Count + "/9";
+        if (playerTurnL != null && playerTurnL.Count > 0)
+        {
+            turnCounter.text = playerTurnL.Count + "/9";
+        }
+
 
     }
 
-	private void SetOppTurnRounds() {
+    private void SetOppTurnRounds() {
 		float total = 0;
 
 		if (oppTurnL != null) {
