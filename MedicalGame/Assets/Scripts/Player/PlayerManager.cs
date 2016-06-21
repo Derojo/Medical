@@ -24,6 +24,7 @@ public class PlayerManager : Singleton<PlayerManager> {
 	public bool completedIntro = false;
     public bool firstInvite = false;
     public bool firstInviteAccept = false;
+	public bool changingAvatar = false;
 
 	void Awake() {
 
@@ -42,6 +43,8 @@ public class PlayerManager : Singleton<PlayerManager> {
 		CheckCurrentRank ();
 		CheckLevelUp ();
 	}
+
+
 
 	public void Save() {
 		BinaryFormatter bf = new BinaryFormatter();
@@ -327,6 +330,8 @@ public class PlayerManager : Singleton<PlayerManager> {
 		}
 		return attributeKey;
 	}
+
+
 
 	private void OnApplicationQuit() { Save (); }
 

@@ -100,6 +100,11 @@ public class Profile : MonoBehaviour {
 		yield break;
 
 	}
+
+	public void ChangingAvatar() {
+		PlayerManager.I.changingAvatar = true;
+		Loader.I.LoadScene ("Avatar");
+	}
 		
 
 }
