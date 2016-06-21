@@ -141,12 +141,19 @@ public class MatchManager : Singleton<MatchManager> {
 		match.m_status = "deny";
 		match.m_cp = GetOppenentId (match);
 		currentMatchID = match.m_ID;
-		Dictionary<string, object> matchUpdate = MatchManager.I.getDictionaryMatch (match, null, true);
-		GamedoniaData.Update ("matches", matchUpdate);
-		matches.Remove (match);
-		Save ();
-		GameObject.FindObjectOfType<CurrentMatches> ().showInvites ();
-		GameObject.FindObjectOfType<CurrentMatches> ().deleteRow (match.m_ID);
+		Dictionary<string, object> matchUpdate = MatchManager.I.getDictionaryMatch (match, "", true);
+		GamedoniaData.Update("matches", matchUpdate, delegate (bool success, IDictionary data){
+			if (success){
+				matches.Remove (match);
+				Save ();
+				GameObject.FindObjectOfType<CurrentMatches> ().showInvites ();
+				GameObject.FindObjectOfType<CurrentMatches> ().deleteRow (match.m_ID);
+			} 
+			else{
+				//TODO Your fail processing
+			}
+		});
+
 	}
 
 	public void EndMatch() {
@@ -257,53 +264,63 @@ public class MatchManager : Singleton<MatchManager> {
 		return null;
 	}
 
-	public void RemoveMatch(Match match = null, string matchID = "", bool completely = false) {
+	public void RemoveMatch(Match match = null, string matchID = "", bool completely = false, bool deleteInScene = false) {
 		if(match == null) {
 			if(matchID != "") {
 				match = GetMatch(matchID);
 			}
 		}
 		Debug.Log("Removing match");
+		currentMatchID = "";
+		currentCategory = 0;
 		matches.Remove(match);
 		if(completely) {
+			Debug.Log("Removing match completely");
 			GamedoniaData.Delete("matches", match.m_ID, delegate (bool success){ 
 				if (success){
-
+					Debug.Log("Removed match!!");
 				}
 				else{
 		
 				}
 			});
 		}
+		if(deleteInScene) {
+			GameObject.FindObjectOfType<CurrentMatches> ().deleteRow (match.m_ID);
+		}
 		Save();
 	}
 
 	public List<Match> GetPlayingMatches(bool all = false, string type = "player") {
-		Debug.Log ("get playing matches"+type);
-		Debug.Log ("amount of matches:"+matchManager.matches.Count);
 		List<Match> tempList = new List<Match> ();
 		string pID = PlayerManager.I.player.playerID;
-		for (int i = 0; i < matchManager.matches.Count; i++) {
-			if (matchManager.matches[i].m_status != "finished") {
-				if (all) {
-					tempList.Add (matchManager.matches [i]);
-				} else {
-					if (type == "player") {
-						if (matchManager.matches [i].m_cp == pID) {
-							if (matchManager.matches [i].m_status != "invite") {
+		if(matches.Count > 0) {
+			for (int i = 0; i < matchManager.matches.Count; i++) {
+			
+				if (matchManager.matches[i].m_status != "finished") {
+					
+					if (all) {
+						Debug.Log("ALL FIRST");
+						tempList.Add (matchManager.matches [i]);
+					} else {
+						if (type == "player") {
+							Debug.Log("rgrgrgrgr");
+							if (matchManager.matches [i].m_cp == pID) {
+								if (matchManager.matches [i].m_status != "invite") {
+									tempList.Add (matchManager.matches [i]);
+								}
+							}
+						} else if(type =="opponent") {
+							Debug.Log("effefwe"); 
+							if (matchManager.matches [i].m_cp != pID) {
+								if (matchManager.matches [i].m_status != "invite") {
+									tempList.Add (matchManager.matches [i]);
+								}
+							}
+						} else if(type =="invite") {
+							if(matchManager.matches[i].m_status == "invite") {
 								tempList.Add (matchManager.matches [i]);
 							}
-						}
-					} else if(type =="opponent") {
-						if (matchManager.matches [i].m_cp != pID) {
-							if (matchManager.matches [i].m_status != "invite") {
-								tempList.Add (matchManager.matches [i]);
-							}
-						}
-					} else if(type =="invite") {
-						Debug.Log ("STATUS-"+ matchManager.matches [i].m_ID +"-"+matchManager.matches [i].m_status);
-						if(matchManager.matches[i].m_status == "invite") {
-							tempList.Add (matchManager.matches [i]);
 						}
 					}
 				}
@@ -317,53 +334,47 @@ public class MatchManager : Singleton<MatchManager> {
 		if (yourTurn.Count > 0) {
 			for (int i = 0; i < yourTurn.Count; i++) {
 				string matchID = yourTurn [i].m_ID;
-				if (yourTurn [i].m_status == "deny") {
-					GamedoniaData.Delete("matches", yourTurn [i].m_ID, delegate (bool success){ 
-						if (success){
-							Match matchDeny = GetMatch (matchID);
-							matches.Remove (matchDeny);
-							GameObject.FindObjectOfType<CurrentMatches> ().showInvites ();
-							GameObject.FindObjectOfType<CurrentMatches> ().deleteRow (matchDeny.m_ID);
-						}
-						else{
-							//TODO Your fail processing
-						}
-					});
-				} else if (yourTurn [i].m_status != "finished" ) {
+				Debug.Log(matchID);
+				if (yourTurn [i].m_status != "finished" ) {
 					GamedoniaData.Search ("matches", "{_id: { $oid: '" + matchID + "' } }", delegate (bool success, IList data) {
 						if (success) {
 							if (data != null) {
-								Dictionary<string, object> matchD = (Dictionary<string, object>)data [0];
-								List<string> uids = JsonMapper.ToObject<List<string>>(JsonMapper.ToJson(matchD["u_ids"]));
-
 								Match match = GetMatch (matchID);
-								// Add friend if it is a new player
-								string oppId = (match.u_ids[0] != PlayerManager.I.player.playerID ? uids[0] : uids[1]);
-
-								if (!PlayerManager.I.friends.ContainsKey (oppId) && oppId != "") {
-									PlayerManager.I.AddFriend (oppId);
-								}
-
-								// Update match if we are the currentplayer
-								if (matchD ["m_cp"].ToString () == PlayerManager.I.player.playerID && oppId != "" || matchD ["m_status"].ToString () == "finished") {
-									if (match.u_ids [0] == "") {
-										match.u_ids [0] = uids [0];
-									}
-
-									List<Turn> turns = new List<Turn> ();
-									List<object> t_turns = new List<object> ();
-									t_turns = (List<object>)matchD ["m_trns"];
-									foreach (Dictionary<string, object> t_turn  in t_turns) {
-										Turn turn = new Turn (int.Parse (t_turn ["t_ID"].ToString ()), t_turn ["p_ID"].ToString (), int.Parse (t_turn ["q_ID"].ToString ()), int.Parse (t_turn ["c_ID"].ToString ()), int.Parse (t_turn ["t_st"].ToString ()));
-										turns.Add (turn);
-									}
-									match.m_cp = matchD ["m_cp"].ToString ();
-									match.m_trns = turns;
-									match.m_status = matchD ["m_status"].ToString ();
-									Save ();
-									checkUpdates = true;
+								Dictionary<string, object> matchD = (Dictionary<string, object>)data [0];
+								Debug.Log(matchD ["m_status"].ToString ());
+								if(matchD ["m_status"].ToString () == "deny") {
+									RemoveMatch(match, "", true, true);
 								} else {
-									checkUpdates = true;
+									List<string> uids = JsonMapper.ToObject<List<string>>(JsonMapper.ToJson(matchD["u_ids"]));
+
+									// Add friend if it is a new player
+									string oppId = (match.u_ids[0] != PlayerManager.I.player.playerID ? uids[0] : uids[1]);
+
+									if (!PlayerManager.I.friends.ContainsKey (oppId) && oppId != "") {
+										PlayerManager.I.AddFriend (oppId);
+									}
+
+									// Update match if we are the currentplayer
+									if (matchD ["m_cp"].ToString () == PlayerManager.I.player.playerID && oppId != "" || matchD ["m_status"].ToString () == "finished") {
+										if (match.u_ids [0] == "") {
+											match.u_ids [0] = uids [0];
+										}
+
+										List<Turn> turns = new List<Turn> ();
+										List<object> t_turns = new List<object> ();
+										t_turns = (List<object>)matchD ["m_trns"];
+										foreach (Dictionary<string, object> t_turn  in t_turns) {
+											Turn turn = new Turn (int.Parse (t_turn ["t_ID"].ToString ()), t_turn ["p_ID"].ToString (), int.Parse (t_turn ["q_ID"].ToString ()), int.Parse (t_turn ["c_ID"].ToString ()), int.Parse (t_turn ["t_st"].ToString ()));
+											turns.Add (turn);
+										}
+										match.m_cp = matchD ["m_cp"].ToString ();
+										match.m_trns = turns;
+										match.m_status = matchD ["m_status"].ToString ();
+										Save ();
+										checkUpdates = true;
+									} else {
+										checkUpdates = true;
+									}
 								}
 							}
 						}

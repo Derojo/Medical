@@ -50,13 +50,14 @@ public class RuntimeData : Singleton<RuntimeData> {
 
 		case "matchInvite":
 			Debug.Log ("MATCHINVITE");
-			Match inviteMatch = new Match ();
-			GamedoniaData.Search ("matches", "{_id: { $oid: '" + matchID +"' } }", delegate (bool success, IList data) {
-				if (success) {
+			
+			GamedoniaData.Search ("matches", "{_id: { $oid: '" + matchID +"' } }", delegate (bool invitesuccess, IList data) {
+				if (invitesuccess) {
 					if (data != null) {
+						Match inviteMatch = new Match ();
+						// *************** Server side match information ********************
 						Debug.Log("success, process information");
 						Debug.Log("MatchID="+matchID);
-						// *************** Server side match information ********************
 						Dictionary<string, object> matchD = (Dictionary<string, object>)data[0];
 						inviteMatch.m_ID = matchID;
 						List<string> uids = JsonMapper.ToObject<List<string>>(JsonMapper.ToJson(matchD["u_ids"]));

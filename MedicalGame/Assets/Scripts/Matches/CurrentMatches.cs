@@ -68,7 +68,7 @@ public class CurrentMatches : MonoBehaviour {
 			img.DOFade (0, 0.5f).OnComplete (new TweenCallback(delegate {
 				Destroy(row);
 				if(invites.Count == 0) {
-					accept.SetActive(false);
+					accept.transform.GetChild (0).gameObject.SetActive (false);
 				}
 			}));
 		}
@@ -102,7 +102,9 @@ public class CurrentMatches : MonoBehaviour {
 
 	public void showInvites() {
 		invites = MatchManager.I.GetPlayingMatches(false, "invite");
-		if (invites.Count != 0) {
+		Debug.Log(invites.Count);
+		if (invites != null && invites.Count > 0) {
+			Debug.Log("estefee");
 			accept.transform.GetChild(0).gameObject.SetActive (true);
 		} else {
 			accept.transform.GetChild(0).gameObject.SetActive (false);
@@ -147,7 +149,7 @@ public class CurrentMatches : MonoBehaviour {
 		for (int i = 0; i < yourTurn.Count; i++)
 		{
 			string matchId = yourTurn [i].m_ID;
-			if (!yourTurnUI.transform.FindChild (matchId) && !GameObject.Find(matchId)) {
+			if (!yourTurnUI.transform.FindChild (matchId) && !GameObject.Find(matchId) && yourTurn [i].m_status != "deny") {
 				Match match = MatchManager.I.GetMatch (matchId);
 				string opponentId = MatchManager.I.GetOppenentId (match);
 				GameObject matchUI = Instantiate (Resources.Load ("MatchUIRow")) as GameObject;
@@ -213,7 +215,7 @@ public class CurrentMatches : MonoBehaviour {
 
 			string matchId = hisTurn[i].m_ID;
 			Debug.Log ("hisTurn" + matchId);
-			if (!hisTurnUI.transform.FindChild (matchId) && !GameObject.Find(matchId)) {
+			if (!hisTurnUI.transform.FindChild (matchId) && !GameObject.Find(matchId) && hisTurn[i].m_status != "deny") {
 				Debug.Log ("hisTurnNotFound");
 				Match match = MatchManager.I.GetMatch (matchId);
 				string opponentId = MatchManager.I.GetOppenentId (match);
