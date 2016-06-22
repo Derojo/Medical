@@ -16,7 +16,8 @@ public class Player
     [SerializeField] public bool loggedIn = false;
     // Player created profile
     [SerializeField] public bool createdProfile = false;
-
+    //code verification completed
+    [SerializeField] public bool verificationComplete = false;
 
     /************** Player game data *********************/
     [SerializeField] public string avatar = "";
@@ -95,6 +96,7 @@ public class Player
              string _playerID = "",
              bool _loggedIn = false,
              bool _createdProfile = false,
+             bool _verificationComplete = false,
              float _playerXP = 0,
              string _playerRank = "",
              int _playerLvl = 1,
@@ -126,6 +128,7 @@ public class Player
         playerID = _playerID;
         loggedIn = _loggedIn;
         createdProfile = _createdProfile;
+        verificationComplete = _verificationComplete;
         playerXP = _playerXP;
         playerRank = _playerRank;
         playerLvl = _playerLvl;
