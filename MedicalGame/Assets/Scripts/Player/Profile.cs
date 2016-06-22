@@ -104,9 +104,13 @@ public class Profile : MonoBehaviour {
 
 	}
 
-	public void ChangingAvatar()
-    {
-		PlayerManager.I.changingAvatar = true; 
+	public void ChangingProfile (){
+		PlayerManager.I.changingProfile = true;
+		Loader.I.LoadScene ("Profile_Create");
+	}
+
+	public void ChangingAvatar() {
+		PlayerManager.I.changingAvatar = true;
 		Loader.I.LoadScene ("Avatar");
 
 	}

@@ -25,6 +25,7 @@ public class PlayerManager : Singleton<PlayerManager> {
     public bool firstInvite = false;
     public bool firstInviteAccept = false;
 	public bool changingAvatar = false;
+	public bool changingProfile = false;
 
 	void Awake() {
 

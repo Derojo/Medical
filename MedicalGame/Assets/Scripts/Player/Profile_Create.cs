@@ -65,13 +65,26 @@ public class Profile_Create : MonoBehaviour {
 		if (isValidated) {
 			loader.enableLoader ();
 			GamedoniaUsers.UpdateUser (LoggedInUser.profile, delegate (bool success) {
-				if (success) {
-					Loader.SetActive (false);
-					PlayerManager.I.player.createdProfile = true;
-                    SceneManager.LoadScene("Avatar");
-                } else {
-					Debug.Log ("Error");
-				}
+
+					if (success) {
+						if (PlayerManager.I.changingProfile) {
+							Loader.SetActive (false);
+							SceneManager.LoadScene("Profile");
+						}
+						else {
+							Loader.SetActive (false);
+							PlayerManager.I.player.createdProfile = true;
+							SceneManager.LoadScene("Avatar");
+						}
+
+	                } 
+
+					else {
+						Debug.Log ("Error");
+					}
+
+
+ 		
 			}, true);
 		}
 	}

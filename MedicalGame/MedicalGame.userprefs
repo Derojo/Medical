@@ -1,6 +1,15 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Player/Profile.cs">
+    <Files>
+      <File FileName="Assets/Scripts/Player/PlayerManager.cs" Line="28" Column="38" />
+      <File FileName="Assets/Scripts/clothchanger.cs" Line="61" Column="4" />
+      <File FileName="Assets/Scripts/buildAvatar.cs" Line="62" Column="51" />
+      <File FileName="Assets/Scripts/Player/Profile.cs" Line="106" Column="41" />
+      <File FileName="Assets/Scripts/Registration.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Player/Profile_Create.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
