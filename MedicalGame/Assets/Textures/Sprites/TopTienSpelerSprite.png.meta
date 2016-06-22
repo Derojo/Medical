@@ -1,0 +1,298 @@
+fileFormatVersion: 2
+guid: f30f4f587c03a0940b8b4ac0fd770f78
+timeCreated: 1466503017
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: TopTienSpelerSprite_0
+    21300002: Speler2
+    21300004: HartjeRood
+    21300006: HartjeGrijs
+    21300008: Speler1
+    21300010: ResterendTopSpelers
+    21300012: Speler3
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: TopTienSpelerSprite_0
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 165
+        width: 773
+        height: 88
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -386.5, y: 44}
+        - {x: -386.5, y: -44}
+        - {x: 384.5, y: -44}
+        - {x: 386.5, y: -42}
+        - {x: 386.5, y: 43}
+        - {x: 385.5, y: 44}
+    - name: Speler2
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 377
+        width: 282
+        height: 286
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 1}
+      outline:
+      - - {x: 138, y: -44}
+        - {x: 141, y: -30}
+        - {x: 141, y: 41}
+        - {x: 136, y: 58}
+        - {x: 127, y: 76}
+        - {x: 105, y: 108}
+        - {x: 56, y: 138}
+        - {x: 33, y: 143}
+        - {x: -19, y: 143}
+        - {x: -51, y: 136}
+        - {x: -75, y: 123}
+        - {x: -106, y: 98}
+        - {x: -123, y: 75}
+        - {x: -137, y: 45}
+        - {x: -141, y: 29}
+        - {x: -141, y: -40}
+        - {x: -140, y: -46}
+        - {x: -114, y: -95}
+        - {x: -80, y: -122}
+        - {x: -58, y: -134}
+        - {x: -35, y: -143}
+        - {x: 32, y: -143}
+        - {x: 60, y: -134}
+        - {x: 95, y: -112}
+        - {x: 126, y: -75}
+    - name: HartjeRood
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 369
+        width: 295
+        height: 297
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 139.5, y: -62.5}
+        - {x: 147.5, y: -33.5}
+        - {x: 147.5, y: 36.5}
+        - {x: 141.5, y: 61.5}
+        - {x: 126.5, y: 86.5}
+        - {x: 118.5, y: 96.5}
+        - {x: 102.5, y: 113.5}
+        - {x: 81.5, y: 134.5}
+        - {x: 42.5, y: 148.5}
+        - {x: -30.5, y: 148.5}
+        - {x: -67.5, y: 137.5}
+        - {x: -112.5, y: 98.5}
+        - {x: -132.5, y: 71.5}
+        - {x: -147.5, y: 33.5}
+        - {x: -147.5, y: -31.5}
+        - {x: -139.5, y: -60.5}
+        - {x: -127.5, y: -84.5}
+        - {x: -97.5, y: -117.5}
+        - {x: -79.5, y: -129.5}
+        - {x: -60.5, y: -140.5}
+        - {x: -35.5, y: -148.5}
+        - {x: 34.5, y: -148.5}
+        - {x: 62.5, y: -139.5}
+        - {x: 94.5, y: -121.5}
+        - {x: 122.5, y: -90.5}
+    - name: HartjeGrijs
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 365
+        width: 293
+        height: 298
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 142.5, y: -52}
+        - {x: 146.5, y: -36}
+        - {x: 146.5, y: 41}
+        - {x: 140.5, y: 62}
+        - {x: 127.5, y: 87}
+        - {x: 103.5, y: 114}
+        - {x: 96.5, y: 120}
+        - {x: 79.5, y: 133}
+        - {x: 53.5, y: 145}
+        - {x: 38.5, y: 149}
+        - {x: -34.5, y: 149}
+        - {x: -65.5, y: 135}
+        - {x: -83.5, y: 123}
+        - {x: -111.5, y: 98}
+        - {x: -124.5, y: 82}
+        - {x: -142.5, y: 49}
+        - {x: -146.5, y: 34}
+        - {x: -146.5, y: -39}
+        - {x: -141.5, y: -55}
+        - {x: -125.5, y: -86}
+        - {x: -98.5, y: -118}
+        - {x: -60.5, y: -141}
+        - {x: -31.5, y: -149}
+        - {x: 32.5, y: -149}
+        - {x: 62.5, y: -140}
+        - {x: 94.5, y: -121}
+        - {x: 123.5, y: -91}
+    - name: Speler1
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 722
+        width: 284
+        height: 283
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 139, y: -43.5}
+        - {x: 142, y: -31.5}
+        - {x: 142, y: 43.5}
+        - {x: 135, y: 58.5}
+        - {x: 120, y: 90.5}
+        - {x: 76, y: 129.5}
+        - {x: 47, y: 141.5}
+        - {x: -40, y: 141.5}
+        - {x: -75, y: 123.5}
+        - {x: -93, y: 112.5}
+        - {x: -126, y: 76.5}
+        - {x: -138, y: 45.5}
+        - {x: -142, y: 29.5}
+        - {x: -142, y: -34.5}
+        - {x: -130, y: -71.5}
+        - {x: -124, y: -79.5}
+        - {x: -94, y: -112.5}
+        - {x: -81, y: -120.5}
+        - {x: -58, y: -132.5}
+        - {x: -54, y: -135.5}
+        - {x: -35, y: -141.5}
+        - {x: 37, y: -141.5}
+        - {x: 40, y: -140.5}
+        - {x: 85, y: -120.5}
+        - {x: 114, y: -90.5}
+    - name: ResterendTopSpelers
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 731
+        width: 273
+        height: 274
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 120.5, y: -71}
+        - {x: 126.5, y: -59}
+        - {x: 136.5, y: -38}
+        - {x: 136.5, y: 37}
+        - {x: 130.5, y: 54}
+        - {x: 120.5, y: 76}
+        - {x: 89.5, y: 111}
+        - {x: 55.5, y: 132}
+        - {x: 33.5, y: 137}
+        - {x: -30.5, y: 137}
+        - {x: -52.5, y: 132}
+        - {x: -86.5, y: 115}
+        - {x: -124.5, y: 71}
+        - {x: -136.5, y: 42}
+        - {x: -136.5, y: -34}
+        - {x: -129.5, y: -55}
+        - {x: -110.5, y: -89}
+        - {x: -72.5, y: -123}
+        - {x: -44.5, y: -135}
+        - {x: -30.5, y: -137}
+        - {x: 35.5, y: -137}
+        - {x: 65.5, y: -127}
+        - {x: 87.5, y: -110}
+        - {x: 110.5, y: -87}
+    - name: Speler3
+      rect:
+        serializedVersion: 2
+        x: 689
+        y: 720
+        width: 283
+        height: 283
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 139.5, y: -43.5}
+        - {x: 141.5, y: -34.5}
+        - {x: 141.5, y: 46.5}
+        - {x: 120.5, y: 90.5}
+        - {x: 75.5, y: 129.5}
+        - {x: 43.5, y: 141.5}
+        - {x: -29.5, y: 141.5}
+        - {x: -36.5, y: 140.5}
+        - {x: -74.5, y: 123.5}
+        - {x: -92.5, y: 112.5}
+        - {x: -125.5, y: 76.5}
+        - {x: -137.5, y: 45.5}
+        - {x: -141.5, y: 29.5}
+        - {x: -141.5, y: -34.5}
+        - {x: -129.5, y: -71.5}
+        - {x: -123.5, y: -79.5}
+        - {x: -93.5, y: -112.5}
+        - {x: -80.5, y: -120.5}
+        - {x: -57.5, y: -132.5}
+        - {x: -53.5, y: -135.5}
+        - {x: -34.5, y: -141.5}
+        - {x: 37.5, y: -141.5}
+        - {x: 40.5, y: -140.5}
+        - {x: 85.5, y: -120.5}
+        - {x: 114.5, y: -90.5}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
