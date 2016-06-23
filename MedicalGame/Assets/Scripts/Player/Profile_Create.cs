@@ -15,6 +15,8 @@ public class Profile_Create : MonoBehaviour {
 	public InputField p_color;
 	public InputField p_hobby;
 	public InputField p_film;
+    public InputField p_instelling;
+
 	// state colors
 	public Color error_color;
 	public Color succes_color;
@@ -55,7 +57,8 @@ public class Profile_Create : MonoBehaviour {
 			p_color.text = (p_color.isFocused ? (p_color.text == getErrorMessage (p_color.name) ? "" : p_color.text) : p_color.text);
 			p_hobby.text = (p_hobby.isFocused ? (p_hobby.text == getErrorMessage (p_hobby.name) ? "" : p_hobby.text) : p_hobby.text);
 			p_film.text = (p_film.isFocused ? (p_film.text == getErrorMessage (p_film.name) ? "" : p_film.text) : p_film.text);
-		}
+            p_instelling.text = (p_instelling.isFocused ? (p_instelling.text == getErrorMessage(p_instelling.name) ? "" : p_instelling.text) : p_instelling.text);
+        }
 	}
 
 	public void AddUserInformation() {
@@ -111,9 +114,10 @@ public class Profile_Create : MonoBehaviour {
 			LoggedInUser.profile ["color"] =  p_color.text;
 			LoggedInUser.profile ["hobby"] = p_hobby.text;
 			LoggedInUser.profile ["film"] = p_film.text;
+            LoggedInUser.profile ["instelling"] = p_instelling.text;
 
-			// Store locally
-			PlayerManager.I.changeProfile (new PlayerProfile (p_name.text, int.Parse (p_age.text), p_color.text, p_hobby.text, p_film.text));
+            // Store locally
+            PlayerManager.I.changeProfile (new PlayerProfile (p_name.text, int.Parse (p_age.text), p_color.text, p_hobby.text, p_film.text, p_instelling.text));
 		}
 	}
 
@@ -176,5 +180,6 @@ public class Profile_Create : MonoBehaviour {
 		p_color.text = (LoggedInUser.profile ["color"].ToString() != "" ? LoggedInUser.profile ["color"].ToString() : "");
 		p_hobby.text = (LoggedInUser.profile ["hobby"].ToString() != "" ? LoggedInUser.profile ["hobby"].ToString() : "");
 		p_film.text = (LoggedInUser.profile ["film"].ToString() != "" ? LoggedInUser.profile ["film"].ToString() : "");
-	}
+        p_instelling.text = (LoggedInUser.profile["instelling"].ToString() != "" ? LoggedInUser.profile["instelling"].ToString() : "");
+    }
 }

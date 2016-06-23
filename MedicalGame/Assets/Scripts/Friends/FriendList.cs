@@ -48,24 +48,29 @@ public class FriendList : MonoBehaviour {
             //displaying unlocked info
             if (ammountOfAttributes > 0)
             {
-                inputField.transform.GetChild(8).gameObject.SetActive(false);
-                inputField.transform.GetChild(4).GetComponent<Text>().text = oppProfile["age"].ToString();
+                inputField.transform.GetChild(10).gameObject.SetActive(false);
+                inputField.transform.GetChild(5).GetComponent<Text>().text = oppProfile["age"].ToString();
             }
             if (ammountOfAttributes > 1)
             {
-                inputField.transform.GetChild(9).gameObject.SetActive(false);
-                inputField.transform.GetChild(5).GetComponent<Text>().text = oppProfile["color"].ToString();
+                inputField.transform.GetChild(11).gameObject.SetActive(false);
+                inputField.transform.GetChild(6).GetComponent<Text>().text = oppProfile["color"].ToString();
             }
 
             if (ammountOfAttributes > 2)
             {
-                inputField.transform.GetChild(10).gameObject.SetActive(false);
-                inputField.transform.GetChild(6).GetComponent<Text>().text = oppProfile["hobby"].ToString();
+                inputField.transform.GetChild(12).gameObject.SetActive(false);
+                inputField.transform.GetChild(7).GetComponent<Text>().text = oppProfile["hobby"].ToString();
             }
             if (ammountOfAttributes > 3)
             {
-                inputField.transform.GetChild(11).gameObject.SetActive(false);
-                inputField.transform.GetChild(7).GetComponent<Text>().text = oppProfile["film"].ToString();
+                inputField.transform.GetChild(13).gameObject.SetActive(false);
+                inputField.transform.GetChild(8).GetComponent<Text>().text = oppProfile["film"].ToString();
+            }
+            if (ammountOfAttributes > 4)
+            {
+                inputField.transform.GetChild(14).gameObject.SetActive(false);
+                inputField.transform.GetChild(9).GetComponent<Text>().text = oppProfile["film"].ToString();
             }
 
         }

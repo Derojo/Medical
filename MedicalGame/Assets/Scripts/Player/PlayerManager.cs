@@ -309,7 +309,10 @@ public class PlayerManager : Singleton<PlayerManager> {
 		case 3:
 			attributeKey = "Favoriete Film";
 			break;
-		}
+        case 4:
+            attributeKey = "Zorginstelling";
+            break;
+        }
 		return attributeKey;
 	}
 
@@ -329,7 +332,10 @@ public class PlayerManager : Singleton<PlayerManager> {
 		case 3:
 			attributeKey = "film";
 			break;
-		}
+        case 4:
+            attributeKey = "instelling";
+            break;
+        }
 		return attributeKey;
 	}
 
