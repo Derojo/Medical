@@ -208,7 +208,8 @@ public class PlayerManager : Singleton<PlayerManager> {
 				Dictionary<string, object> oppProfile = new Dictionary<string, object>();
 				oppProfile = friendProfile.profile;
 				friendProfiles.Add(name, oppProfile);
-			} 
+                Save();
+            } 
 		});
 		// Update player list in backend
 		Dictionary<string, object> profile = GetPlayerById (player.playerID);

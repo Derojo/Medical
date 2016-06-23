@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: c2b13b967bc8b044e897948950116fff
-timeCreated: 1460561836
+timeCreated: 1466679429
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -22,6 +22,8 @@ TextureImporter:
     21300030: goedAntwoord
     21300032: vraagGoed
     21300034: TimUpIcon
+    21300036: search
+    21300038: search_pressed
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -716,6 +718,42 @@ TextureImporter:
         - {x: 43.5, y: -303}
         - {x: 55.5, y: -301}
         - {x: 69.5, y: -298}
+    - name: search
+      rect:
+        serializedVersion: 2
+        x: 468
+        y: 1889
+        width: 116
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -53, y: 60}
+        - {x: -58, y: 55}
+        - {x: -58, y: -54}
+        - {x: -54, y: -60}
+        - {x: 53, y: -60}
+        - {x: 58, y: -54}
+        - {x: 58, y: 54}
+        - {x: 53, y: 60}
+    - name: search_pressed
+      rect:
+        serializedVersion: 2
+        x: 596
+        y: 1888
+        width: 116
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -51, y: 60}
+        - {x: -58, y: 55}
+        - {x: -58, y: -56}
+        - {x: -53, y: -60}
+        - {x: 58, y: -60}
+        - {x: 58, y: 60}
     outline: []
   spritePackingTag: 
   userData: 
