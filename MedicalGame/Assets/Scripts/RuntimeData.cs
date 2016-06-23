@@ -10,7 +10,6 @@ public class RuntimeData : Singleton<RuntimeData> {
 
 	public QuestionDatabase QuestionDatabase;
 	public int test = 0;
-	private  bool goToMatch = false;
 
 //	public List<Question> allQuestions;
 	// Use this for initialization
@@ -18,7 +17,6 @@ public class RuntimeData : Singleton<RuntimeData> {
 	public bool Load() {return true;}
 
 	void Start () {
-		Debug.Log ("RuntimeData");
 		// Load Managers
 		Loader.I.Load();
 		MatchManager.I.Load ();
@@ -34,11 +32,6 @@ public class RuntimeData : Singleton<RuntimeData> {
 		MatchManager.I.StartRandomMatch ();
 	}
 
-	void OnApplicationPause (bool pause) {
-		if (pause) {
-			goToMatch = true;
-		}
-	}
 	// Process incoming notification
 	void OnGameUpdateNotification(Dictionary<string,object> notification) {
 		Scene currentScene = SceneManager.GetActiveScene();
@@ -54,32 +47,36 @@ public class RuntimeData : Singleton<RuntimeData> {
 			GamedoniaData.Search ("matches", "{_id: { $oid: '" + matchID +"' } }", delegate (bool invitesuccess, IList data) {
 				if (invitesuccess) {
 					if (data != null) {
-						Match inviteMatch = new Match ();
-						// *************** Server side match information ********************
-						Debug.Log("success, process information");
-						Debug.Log("MatchID="+matchID);
 						Dictionary<string, object> matchD = (Dictionary<string, object>)data[0];
-						inviteMatch.m_ID = matchID;
-						List<string> uids = JsonMapper.ToObject<List<string>>(JsonMapper.ToJson(matchD["u_ids"]));
-						inviteMatch.u_ids = uids;
-						List<Turn> turns = new List<Turn>();
-						// Conver incoming turn data to Turn class
-						List<object> t_turns = new List<object>();
-						t_turns = (List<object>)matchD["m_trns"];
-						foreach(Dictionary<string, object> t_turn  in t_turns) {
-							Turn turn = new Turn(int.Parse(t_turn["t_ID"].ToString()), t_turn["p_ID"].ToString(), int.Parse(t_turn["q_ID"].ToString()), int.Parse(t_turn["c_ID"].ToString()), int.Parse(t_turn["t_st"].ToString()));
-							turns.Add(turn);
+						Match match = MatchManager.I.GetMatch(matchID);
+						if(match == null) {
+							match  = new Match();
+							Debug.Log("match created");
+							match.m_ID = matchD["_id"].ToString();
+							List<string> uids = JsonMapper.ToObject<List<string>> (JsonMapper.ToJson (matchD ["u_ids"]));
+							match.u_ids = uids;
+							Debug.Log("added user ids");
+							List<Turn> turns = new List<Turn> ();
+							List<object> t_turns = new List<object> ();
+							t_turns = (List<object>)matchD ["m_trns"];
+							
+							foreach (Dictionary<string, object> t_turn  in t_turns) {
+								Turn turn = new Turn (int.Parse (t_turn ["t_ID"].ToString ()), t_turn ["p_ID"].ToString (), int.Parse (t_turn ["q_ID"].ToString ()), int.Parse (t_turn ["c_ID"].ToString ()), int.Parse (t_turn ["t_st"].ToString ()));
+								turns.Add (turn);
+							}
+							match.m_cp = matchD ["m_cp"].ToString ();
+							Debug.Log("added current player");
+							match.m_trns = turns;
+							Debug.Log("added turns");
+							match.m_status = matchD ["m_status"].ToString ();
+							Debug.Log("added status");
+							MatchManager.I.AddMatch(match, false, false);
+								Debug.Log("added match");
 						}
-	
-						Debug.Log("Update local match");
-						// *************** Update local match ********************
-						inviteMatch.m_cp = matchD ["m_cp"].ToString ();
-						inviteMatch.m_trns = turns;
-						inviteMatch.m_status = matchD["m_status"].ToString();
-						MatchManager.I.AddMatch(inviteMatch, false, false);
+
 						if(currentScene.name == "Home") {
-							Debug.Log("ADDINVITE");
-							GameObject.FindObjectOfType<CurrentMatches>().showInvites();
+							//GameObject.FindObjectOfType<CurrentMatches>().showInvites();
+							GameObject.FindObjectOfType<CurrentMatches> ().updateMatches ();							
 						}
 					} else {
 						Debug.Log ("Data is null");
@@ -121,12 +118,7 @@ public class RuntimeData : Singleton<RuntimeData> {
 							match.m_cp = PlayerManager.I.player.playerID;
 							match.m_status = matchD["m_status"].ToString();
 
-							if(goToMatch) {
-								goToMatch = false;
-								MatchManager.I.currentMatchID = match.m_ID;
-								Loader.I.LoadScene("Category");
-							}
-							else if(currentScene.name == "Home" && !goToMatch) {
+							if(currentScene.name == "Home") {
 								GameObject.FindObjectOfType<CurrentMatches>().updateMatches();
 							}
 						} else {
@@ -151,7 +143,7 @@ public class RuntimeData : Singleton<RuntimeData> {
 						// *************** Server side match information ********************
 						Dictionary<string, object> matchD = (Dictionary<string, object>)data[0];
 						List<Turn> turns = new List<Turn>();
-						// Conver incoming turn data to Turn class
+						// Convert incoming turn data to Turn class
 						List<object> t_turns = new List<object>();
 						t_turns = (List<object>)matchD["m_trns"];
 						foreach(Dictionary<string, object> t_turn  in t_turns) {
@@ -166,9 +158,10 @@ public class RuntimeData : Singleton<RuntimeData> {
 						finishMatch.m_cp = PlayerManager.I.player.playerID;
 						finishMatch.m_status = matchD["m_status"].ToString();
 
-						Debug.Log("Show popup");
-						Debug.Log(oppName);
-						Loader.I.showFinishedPopup (oppName);
+						if(currentScene.name == "Home") {
+							Loader.I.showFinishedPopup (oppName);
+						}
+
 					} else {
 						Debug.Log ("Data is null");
 					}

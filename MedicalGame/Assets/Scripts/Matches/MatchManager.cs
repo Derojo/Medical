@@ -57,8 +57,6 @@ public class MatchManager : Singleton<MatchManager> {
 					match.m_cp = PlayerManager.I.player.playerID;
 					// Add match to local list and gamedonia server
 					AddMatch(match, true, false, true);
-					// Create gamequeue option
-					//					createGameQueueObject();
 				} else { 
 					// We found a random player, delete entry from randomqueue
 					GamedoniaData.Delete("randomqueue",((IDictionary) data[0])["_id"].ToString(), null);
@@ -115,7 +113,7 @@ public class MatchManager : Singleton<MatchManager> {
 		// We are the current player
 		match.m_cp = PlayerManager.I.player.playerID;
 		// Add match to local list and gamedonia server
-		AddMatch(match, true, false);
+		AddMatch(match, true, false, false);
 		Loader.I.LoadScene("Category");
     }
 
@@ -174,6 +172,7 @@ public class MatchManager : Singleton<MatchManager> {
 					match.m_ID = data["_id"].ToString();
 					currentMatchID = match.m_ID;
 					if(queueObject) {
+						Debug.Log("create game queue object");
 						createGameQueueObject();
 					}
 				}
@@ -199,9 +198,8 @@ public class MatchManager : Singleton<MatchManager> {
 
 		if (match.m_trns == null) {
 			match.m_trns = new List<Turn> ();
-		}
-		if (match.m_status != "invite") {
-			if (match.m_trns.Count == 0) {
+		
+			if (match.m_trns.Count == 0 && match.m_status != "inviteStart") {
 				createGameQueueObject ();
 			}
 		}
