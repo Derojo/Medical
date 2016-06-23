@@ -17,7 +17,7 @@ public class VerificationCode : MonoBehaviour
     private bool i_access = false;
     public float waitForConnectionTime = 10;
     private string errorMsg = "";
-
+    public static bool hideInput;
 
     void Awake()
     {
@@ -27,8 +27,8 @@ public class VerificationCode : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-	
-	}// end start
+
+    }// end start
 	
 	// Update is called once per frame
 	void Update ()
@@ -65,9 +65,11 @@ public class VerificationCode : MonoBehaviour
                        }
                        else
                        {
+
                            //when password is wrong
                            lockImg.DOColor (eColor, 1);
                            wrongLogin.SetActive(true);
+                           Loader.I.disableLoader();
                        }
                    }     
                     else
