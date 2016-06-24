@@ -102,9 +102,7 @@ public class CurrentMatches : MonoBehaviour {
 
 	public void showInvites() {
 		invites = MatchManager.I.GetPlayingMatches(false, "invite");
-		Debug.Log(invites.Count);
 		if (invites != null && invites.Count > 0) {
-			Debug.Log("estefee");
 			accept.transform.GetChild(0).gameObject.SetActive (true);
 		} else {
 			accept.transform.GetChild(0).gameObject.SetActive (false);

@@ -11,6 +11,9 @@ public class Loader : Singleton<Loader> {
 	public GameObject icon;
 	public GameObject mini;
 	public GameObject finished;
+	public Sprite wonSprite;
+	public Sprite loseSprite;
+	public Sprite tieSprite;
 
 	public bool Load() {return true;}
 
@@ -19,7 +22,6 @@ public class Loader : Singleton<Loader> {
 	}
 
 	public void LoadScene(string scene) {
-
 		StartCoroutine(LoadSceneIE(scene));
 	}
 
@@ -65,23 +67,46 @@ public class Loader : Singleton<Loader> {
 		mini.SetActive (true);
 	}
 
-	public void showFinishedPopup(string playerName) {
+	public void showFinishedPopup(string playerName, string matchWon) {
+		string infoText = "";
+		string infoTitle = "";
 		gameObject.GetComponent<Canvas> ().enabled = true;
 		Scene currentScene = SceneManager.GetActiveScene();
 		if(currentScene.name == "Home") {
 			GameObject.FindObjectOfType<CurrentMatches>().updateMatches();
 		}
-		Debug.Log ("SET FINISHED TO ACTIVE");
+
 		Debug.Log (finished.name);
 		finished.SetActive (true);
 //		enableBackground ();
+		Debug.Log("Match won: "+matchWon);
+		if(matchWon == PlayerManager.I.player.playerID) {
+			infoTitle = "Gewonnen";
+			infoText = "Gefeliciteerd je hebt gewonnen van " + playerName+"!"; 
+			finished.transform.GetChild (0).GetComponent<Image> ().sprite = wonSprite;
+		} else {
+			if(matchWon == "tie") {
+				infoTitle = "Gelijkspel";
+				infoText = "Je hebt een gelijkspel met " + playerName+"!"; 
+				finished.transform.GetChild (0).GetComponent<Image> ().sprite = tieSprite;
+			} else {
+				infoTitle = "Verloren";
+				infoText = "Helaas je hebt verloren van " + playerName+"!"; 
+				finished.transform.GetChild (0).GetComponent<Image> ().sprite = loseSprite;
+			}
+		}
+		
+		finished.transform.GetChild (1).GetComponent<Text> ().text = infoTitle;
+		finished.transform.GetChild (2).GetComponent<Text> ().text = infoText;
+		
 
-		finished.transform.GetChild (2).GetComponent<Text> ().text = "Helaas je hebt verloren van " + playerName;
 		finished.GetComponent<Image> ().DOFade (1, 0.5f);
+		finished.transform.GetChild (0).GetComponent<Image> ().DOFade (1, 0.5f);
 		finished.transform.GetComponentInChildren<Image> ().DOFade (1, 0.5f);
 		foreach (Text text in finished.transform.GetComponentsInChildren<Text>()) {
 			text.DOFade (1, 0.5f);
 		}
+		
 		finished.transform.DOScale(1.1f, 0.5f);
 		finished.transform.DOScale(1, 0.2f).SetDelay(0.5f);
 		StartCoroutine (HideFinishedPopup (2f));

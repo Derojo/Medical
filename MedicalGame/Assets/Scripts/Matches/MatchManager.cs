@@ -214,6 +214,7 @@ public class MatchManager : Singleton<MatchManager> {
 			if(match.m_status == "inviteStart") {
 				match.m_status = "invite";
 			}
+
 			Dictionary<string, object> matchUpdate = MatchManager.I.getDictionaryMatch (match, null, true);
 			GamedoniaData.Update ("matches", matchUpdate);
 		} else {
@@ -224,7 +225,9 @@ public class MatchManager : Singleton<MatchManager> {
 	}
 
 	public void ChangeLastTurn(Turn turn, bool finish) {
+		Dictionary<string, object> matchUpdate = null;
 		Match match = GetMatch (currentMatchID);
+		string winner = "";
 		for (int i = 0; i < match.m_trns.Count; i++) {
 			if (match.m_trns [i].p_ID == PlayerManager.I.player.playerID && match.m_trns [i].t_ID == turn.t_ID) {
 				match.m_trns [i] = turn;
@@ -232,15 +235,43 @@ public class MatchManager : Singleton<MatchManager> {
 		}
 		if (finish) {
 			match.m_status = "finished";
+			Debug.Log("Set status to finished");
 			match.m_cp = GetOppenentId (match);
+			winner = getWinner(match);
 			// Gamedonia server script handles opponent push message
 		}
 		if (turn.t_st == 0) {
 			match.m_cp = GetOppenentId (match);
 		}
-		Dictionary<string, object> matchUpdate = MatchManager.I.getDictionaryMatch (match, null, true);
+		if(finish) {
+			matchUpdate = MatchManager.I.getDictionaryMatch (match, null, true, winner);
+		} else {
+			matchUpdate = MatchManager.I.getDictionaryMatch (match, null, true);
+		}
+		
 		GamedoniaData.Update("matches", matchUpdate);
 		Save ();
+	}
+	
+	public string getWinner(Match match) {
+		string winner = "";
+		string opponentId = GetOppenentId (match);
+		string score = getMatchScore(match.m_ID, opponentId);
+		string[] scoreArray = score.Split (new string[] {"-"}, System.StringSplitOptions.None);
+		Debug.Log(scoreArray[0]+":"+scoreArray[1]);
+		if(int.Parse(scoreArray[0]) > int.Parse(scoreArray[1])) {
+			// Player won
+			winner = PlayerManager.I.player.playerID;
+		} else if (int.Parse(scoreArray[1]) > int.Parse(scoreArray[0])) {
+			// It's a tie
+			winner = opponentId;
+		} else {
+			// Opponent won
+			winner = "tie";
+		}
+		
+		return winner;
+		
 	}
 
 	public void getCurrentTurn() {
@@ -254,6 +285,10 @@ public class MatchManager : Singleton<MatchManager> {
 	}
 
 	public Match GetMatch(string match_ID) {
+		Debug.Log("Amount of matches"+matchManager.matches.Count);
+		if(matchManager.matches == null) {
+			Debug.Log("testtttt");
+		}
 		for (int i = 0; i < matchManager.matches.Count; i++) {
 			if (matchManager.matches[i].m_ID == match_ID) {
 				return matchManager.matches [i];
@@ -328,11 +363,12 @@ public class MatchManager : Singleton<MatchManager> {
 	}
 
 	public void checkForUpdateMatches() {
+		currentMatchID = "";
+		currentCategory = 0;
 		List<Match> yourTurn = GetPlayingMatches (true, "opponent");
 		if (yourTurn.Count > 0) {
 			for (int i = 0; i < yourTurn.Count; i++) {
 				string matchID = yourTurn [i].m_ID;
-				Debug.Log(matchID);
 				if (yourTurn [i].m_status != "finished" ) {
 					GamedoniaData.Search ("matches", "{_id: { $oid: '" + matchID + "' } }", delegate (bool success, IList data) {
 						if (success) {
@@ -485,7 +521,6 @@ public class MatchManager : Singleton<MatchManager> {
 
 		}
 		return (match.u_ids[0] != PlayerManager.I.player.playerID ? match.u_ids[0] : match.u_ids[1]);
-
 	}
 
 	public List<int> GetQuestionsInMatch() {
@@ -512,16 +547,10 @@ public class MatchManager : Singleton<MatchManager> {
 	public void Save() {
 		BinaryFormatter bf = new BinaryFormatter();
 
-		//		var unityJson = JsonUtility.ToJson(this);
-		//		FileStream file = File.WriteAllText (Application.persistentDataPath + "/matches.json", unityJson);
 		FileStream file = File.Create(Application.persistentDataPath + "/matches.gd");
 		bf.Serialize(file, matchManager.matches);
 
-
 		file.Close();
-
-		//		var unityJson = JsonUtility.ToJson(this);
-		//		File.WriteAllText (Application.persistentDataPath + "/matches.json", unityJson);
 	}
 
 	public void LoadMatches() {
@@ -531,12 +560,6 @@ public class MatchManager : Singleton<MatchManager> {
 			matchManager.matches = (List<Match>)bf.Deserialize(file);
 			file.Close();
 		}
-		//		if(File.Exists(Application.persistentDataPath + "/matches.json")) {
-		//			string jsonString = File.ReadAllText (Application.persistentDataPath + "/matches.json");
-		//
-		//			CreateFromJSON (jsonString);
-		//
-		//		}
 	}
 
 
@@ -564,7 +587,7 @@ public class MatchManager : Singleton<MatchManager> {
 		return true;
 	}
 
-	public Dictionary<string, object> getDictionaryMatch(Match match = null, string m_id = "", bool update = false) {
+	public Dictionary<string, object> getDictionaryMatch(Match match = null, string m_id = "", bool update = false, string playerWon = "") {
 		Dictionary<string, object> dicMatch = new Dictionary<string, object> ();
 
 		if (match == null) {
@@ -578,6 +601,9 @@ public class MatchManager : Singleton<MatchManager> {
 		dicMatch ["m_status"] = match.m_status;
 		dicMatch ["m_cp"] = match.m_cp;
 		dicMatch ["m_trns"] = match.m_trns;
+		if(playerWon != "") {
+			dicMatch ["m_won"] = playerWon;
+		}
 
 		return dicMatch;
 

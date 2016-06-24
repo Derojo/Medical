@@ -27,7 +27,7 @@ public class RuntimeData : Singleton<RuntimeData> {
 		service.RegisterEvent += new RegisterEventHandler(OnGameUpdateNotification);
 		GamedoniaPushNotifications.AddService (service);
 	}
-		
+
 	public void startRandomMatch() {
 		MatchManager.I.StartRandomMatch ();
 	}
@@ -159,7 +159,8 @@ public class RuntimeData : Singleton<RuntimeData> {
 						finishMatch.m_status = matchD["m_status"].ToString();
 
 						if(currentScene.name == "Home") {
-							Loader.I.showFinishedPopup (oppName);
+							Debug.Log ("SHOW POPUP");
+							Loader.I.showFinishedPopup (oppName, matchD["m_won"].ToString());
 						}
 
 					} else {
