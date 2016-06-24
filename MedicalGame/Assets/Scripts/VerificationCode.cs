@@ -39,6 +39,15 @@ public class VerificationCode : MonoBehaviour
     public void verificationCheck()
     {
         Loader.I.enableLoader();
+        if (verificationCode.text == "")
+        {
+            lockImg.DOColor(eColor, 1);
+            wrongLogin.SetActive(true);
+            wrongLogin.GetComponent<Text>().text = "Je hebt niks ingevoerd!";
+            Loader.I.disableLoader();
+        }
+       
+       
         //if internet connection, start verificaiton
         if (i_access)
         {
@@ -61,19 +70,19 @@ public class VerificationCode : MonoBehaviour
                            PlayerManager.I.Save();
                            lockImg.DOColor(dColor, 1);
                            Debug.Log(count);
-
                        }
                        else
                        {
-
                            //when password is wrong
                            lockImg.DOColor (eColor, 1);
                            wrongLogin.SetActive(true);
+                           wrongLogin.GetComponent<Text>().text = "Wachtwoord onjuist";
                            Loader.I.disableLoader();
                        }
                    }     
                     else
                    {
+
                        Debug.Log(count);
                        //TODO Your fail processing 
                    }
@@ -82,7 +91,6 @@ public class VerificationCode : MonoBehaviour
         }
         else
         {
-            
             //start waiting for connection void
             StartCoroutine(waitForConnection(waitForConnectionTime));
         }
