@@ -20,6 +20,7 @@ public class IntroScript : MonoBehaviour
     public GameObject BackGround;
     public Image BackGroundOverlay;
     public int timesPressed;
+    public Animator oppAnimControl;
    
     // Use this for initialization
     void Start ()
@@ -347,6 +348,9 @@ public class IntroScript : MonoBehaviour
         }
         if (timesPressed == 7)
         {
+            //Show hint
+            hint8.SetActive(true);
+
             //fading previous hint
             foreach (Text text in hint7.GetComponentsInChildren<Text>())
             {
@@ -369,10 +373,14 @@ public class IntroScript : MonoBehaviour
                 img.DOFade(1f, 0f);
             }
 
-
+          
+            //Spawning new background
             BackGround.SetActive(false);
+            //Hide previous hint
             hint7.SetActive(false);
-            hint8.SetActive(true);
+      
+            //animation avatar
+            oppAnimControl.SetBool("IsLosing", true);
         }
 
         if (timesPressed == 8)

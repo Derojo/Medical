@@ -177,9 +177,11 @@
     <Compile Include="Assets\Scripts\TextureScale.cs" />
     <Compile Include="Assets\Scripts\TimerScript.cs" />
     <Compile Include="Assets\Scripts\UtilResize.cs" />
+    <Compile Include="Assets\Scripts\VerificationCode.cs" />
     <Compile Include="Assets\Scripts\buildAvatar.cs" />
     <Compile Include="Assets\Scripts\clothchanger.cs" />
     <Compile Include="Assets\Scripts\foldOutScript.cs" />
+    <Compile Include="Assets\Scripts\rankingList.cs" />
     <Compile Include="Assets\rotateObject.cs" />
   </ItemGroup>
   <ItemGroup>
