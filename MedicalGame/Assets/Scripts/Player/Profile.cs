@@ -9,7 +9,8 @@ using DG.Tweening;
 public class Profile : MonoBehaviour {
 
 	public Image profileImg;
-	public Image rankingImg;
+	public Image rankingImgBig;
+	public Image rankingImgSmall;
 	public Text rankingName;
 	public Text playerName;
 	public Text playerLevel;
@@ -37,9 +38,6 @@ public class Profile : MonoBehaviour {
         //checking for clothes change achievement
         AchievementManager.I.AchievementStylist();
 
-        GameObject.Find ("Profile").GetComponent<RectTransform> ().DOScale (0.8f,.5f).SetEase(Ease.InCubic);
-		GameObject.Find ("Profile").GetComponent<RectTransform> ().DOScale (1.2f, 1f).SetEase(Ease.InBack).SetDelay(.5f);
-		GameObject.Find ("Profile").GetComponent<RectTransform> ().DOScale (1, .7f).SetEase(Ease.OutElastic).SetDelay(1f);
 		/******** PLAYER INFO*********/
 		// Set player name info
 		playerName.DOText (PlayerManager.I.player.profile.name, 2f,true,ScrambleMode.All);
@@ -50,7 +48,8 @@ public class Profile : MonoBehaviour {
 		playerLevel.text = "Level "+ PlayerManager.I.player.playerLvl.ToString();
 		playerLevel.DOFade(1, 3f);
 		// Current rank sprite
-		rankingImg.sprite = PlayerManager.I.GetRankSprite();
+		rankingImgBig.sprite = PlayerManager.I.GetRankSprite();
+		rankingImgSmall.sprite = PlayerManager.I.GetRankSprite();
 
 		/******** PROFILE PICTURE*********/
 //		StartCoroutine (getProfilePicture (Application.persistentDataPath + "/profile.png"));

@@ -346,9 +346,9 @@ public class MatchManager : Singleton<MatchManager> {
 		List<Match> tempList = new List<Match> ();
 		string pID = PlayerManager.I.player.playerID;
 		if(matches.Count > 0) {
-			for (int i = 0; i < matchManager.matches.Count; i++) {
-			
-				if (matchManager.matches[i].m_status != "finished") {
+			for (int i = 0; i < matches.Count; i++) {
+				// Delete match if it's not online anymore
+				if (matches[i].m_status != "finished") {
 					
 					if (all) {
 						Debug.Log("ALL FIRST");
@@ -396,8 +396,10 @@ public class MatchManager : Singleton<MatchManager> {
 		currentCategory = 0;
 		List<Match> yourTurn = GetPlayingMatches (true, "opponent");
 		if (yourTurn.Count > 0) {
+
 			for (int i = 0; i < yourTurn.Count; i++) {
 				string matchID = yourTurn [i].m_ID;
+				checkIfMatchExists(matchID);
 				if (yourTurn [i].m_status != "finished" ) {
 					GamedoniaData.Search ("matches", "{_id: { $oid: '" + matchID + "' } }", delegate (bool success, IList data) {
 						if (success) {
@@ -647,7 +649,18 @@ public class MatchManager : Singleton<MatchManager> {
 
 		GamedoniaData.Create ("randomqueue", randomGame);
 	}
-
+	
+	private void checkIfMatchExists(string matchId) {
+		bool returnValue = false;
+		GamedoniaData.Count("matches", "{\"_id\":\""+matchId+"\"}", delegate (bool success, int count) { 
+			if (success) { 
+			Debug.Log(count);
+				if(count == 0) {
+					RemoveMatch(null, matchId, false, true);
+				}
+			}
+		});
+	}
 
 
 }

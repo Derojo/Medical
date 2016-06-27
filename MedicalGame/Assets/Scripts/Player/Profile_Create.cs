@@ -119,6 +119,7 @@ public class Profile_Create : MonoBehaviour {
             // Store locally
             PlayerManager.I.changeProfile (new PlayerProfile (p_name.text, int.Parse (p_age.text), p_color.text, p_hobby.text, p_film.text, p_instelling.text));
 			PlayerManager.I.player.avatar = LoggedInUser.profile ["avatar"].ToString();
+			PlayerManager.I.player.playerLvl = int.Parse(LoggedInUser.profile ["lvl"].ToString());
 		}
 	}
 
