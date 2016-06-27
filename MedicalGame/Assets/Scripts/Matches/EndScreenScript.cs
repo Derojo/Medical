@@ -43,7 +43,7 @@ public class EndScreenScript : MonoBehaviour {
 		// Checking winner
 		if(MatchManager.I.tie) {
 			tieMatch.SetActive(true);
-			PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP += 50;			lostMatch.SetActive(true);
+			PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP += 50;
             continueButton.GetComponent<Image>().DOFade(1, 1f);
             animControl.SetBool("IsLosing", false);
 			animControl.SetBool("isWinning", false);

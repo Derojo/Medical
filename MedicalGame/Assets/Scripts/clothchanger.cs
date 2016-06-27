@@ -44,18 +44,19 @@ public class clothchanger : MonoBehaviour {
 
 	// Use this for initialization
 	void Start (){
-		
-		if (PlayerManager.I.changingAvatar) {
+		Debug.Log(PlayerManager.I.player.avatar);
+		if (PlayerManager.I.changingAvatar || PlayerManager.I.player.avatar != "") {
 			string avatarString = PlayerManager.I.player.avatar;
+			Debug.Log(avatarString);
 			string[] avatar = avatarString.Split (new string[] {"_"}, System.StringSplitOptions.None);
 			skinCode = int.Parse (avatar [0]);
 			currentHairstyle = DetermineOrder ("hairstyle", int.Parse (avatar [1]));
-			currentHairstyleMaterial = DetermineOrder ("hairstyle", int.Parse (avatar [2]), true);
+			currentHairstyleMaterial = int.Parse (avatar [2]);
 			currentHead = int.Parse (avatar [3]);
 			currentShirt = DetermineOrder ("shirt", int.Parse (avatar [4]));
-			currentShirtMaterial = DetermineOrder ("shirt", int.Parse (avatar [5]), true);
+			currentShirtMaterial = int.Parse (avatar [5]);
 			currentTrouser = DetermineOrder ("trouser", int.Parse (avatar [6]));
-			currentTrouserMaterial = DetermineOrder ("trouser", int.Parse (avatar [7]), true);
+			currentTrouserMaterial = int.Parse (avatar [7]);
 		}
 
 			changeHead ("skip");
@@ -70,18 +71,16 @@ public class clothchanger : MonoBehaviour {
 	public int DetermineOrder(string name, int id, bool isMaterial = false) {
 		int returnvalue = 0;
 		if (name == "hairstyle") {
+
 			for (int i = 0; i < hairstyleOrder.Length; i++) {
+
 				string[] splitCurrentOrder;
 				splitCurrentOrder = hairstyleOrder[i].Split (new string[] {"_"}, System.StringSplitOptions.None);
-				if (isMaterial) {
-					if (int.Parse(splitCurrentOrder [1]) == id) {
-						returnvalue = i;
-					}
-				} else {
-					if (int.Parse (splitCurrentOrder [0]) == id) {
-						returnvalue = i;
-					}
+
+				if (int.Parse (splitCurrentOrder [0]) == id) {
+					returnvalue = i;
 				}
+				
 			}
 		}
 
@@ -90,15 +89,9 @@ public class clothchanger : MonoBehaviour {
 			for (int i = 0; i < shirtOrder.Length; i++) {
 				string[] splitCurrentOrder;
 				splitCurrentOrder = shirtOrder[i].Split (new string[] {"_"}, System.StringSplitOptions.None);
-				if (isMaterial) {
-					if (int.Parse(splitCurrentOrder [1]) == id) {
-						returnvalue = i;
-					}
-				} else {
 					if (int.Parse (splitCurrentOrder [0]) == id) {
 						returnvalue = i;
 					}
-				}
 			}
 		}
 
@@ -106,14 +99,8 @@ public class clothchanger : MonoBehaviour {
 			for (int i = 0; i < trouserOrder.Length; i++) {
 				string[] splitCurrentOrder;
 				splitCurrentOrder = trouserOrder[i].Split (new string[] {"_"}, System.StringSplitOptions.None);
-				if (isMaterial) {
-					if (int.Parse(splitCurrentOrder [1]) == id) {
-						returnvalue = i;
-					}
-				} else {
-					if (int.Parse (splitCurrentOrder [0]) == id) {
-						returnvalue = i;
-					}
+				if (int.Parse (splitCurrentOrder [0]) == id) {
+					returnvalue = i;
 				}
 			}
 		}
@@ -367,12 +354,4 @@ public class clothchanger : MonoBehaviour {
 
 
 	}
-//	int currentHairstyle = 0;
-//	int currentHairstyleMaterial = 0;
-//	int currentShirt = 0;
-//	int currentShirtMaterial = 0;
-//	int currentTrouser = 0;
-//	int currentTrouserMaterial = 0;
-//	int currentHead  = 0;
-
 } 

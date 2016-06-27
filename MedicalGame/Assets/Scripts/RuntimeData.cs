@@ -74,7 +74,7 @@ public class RuntimeData : Singleton<RuntimeData> {
 							match.m_status = matchD ["m_status"].ToString ();
 							Debug.Log("added status");
 							MatchManager.I.AddMatch(match, false, false);
-								Debug.Log("added match");
+							Debug.Log("added match");
 						}
 
 						if(currentScene.name == "Home") {
@@ -160,7 +160,11 @@ public class RuntimeData : Singleton<RuntimeData> {
 						finishMatch.m_trns = turns;
 						finishMatch.m_cp = PlayerManager.I.player.playerID;
 						finishMatch.m_status = matchD["m_status"].ToString();
-
+						if(matchD["m_won"].ToString() == PlayerManager.I.player.playerID) {
+							// Check if we can earn an attribute of our opponent
+							PlayerManager.I.UnlockNewAttribute (MatchManager.I.GetOppenentId (finishMatch));
+						
+						}
 						if(currentScene.name == "Home") {
 							Debug.Log ("SHOW POPUP");
 							Loader.I.showFinishedPopup (oppName, matchD["m_won"].ToString());
