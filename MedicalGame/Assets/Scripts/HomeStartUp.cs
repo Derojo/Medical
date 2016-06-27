@@ -14,7 +14,7 @@ public class HomeStartUp : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-		PlayerManager.I.currentOpponentInfo = null;
+        PlayerManager.I.currentOpponentInfo = null;
         lvlPopUp.SetActive(false);
         //Earning first achievement
         AchievementManager.I.checkAchievementConnect();
