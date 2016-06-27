@@ -44,8 +44,10 @@ public class Categories : MonoBehaviour {
 	private List<Turn> oppTurns;
 
 	// Use this for initialization
-	void Start () {
-
+	void Start ()
+        {
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 30;
         if (PlayerPrefs.GetInt("Populair") == 0)
         {
             AchievementManager.I.PopulairPlayer();
