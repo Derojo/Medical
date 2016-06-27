@@ -176,7 +176,7 @@ public class Profile_Create : MonoBehaviour {
 
 	private void fillExistingProfile() {
 		p_name.text = (LoggedInUser.profile ["name"].ToString() != "" ? LoggedInUser.profile ["name"].ToString() : "");
-		p_age.text = ( LoggedInUser.profile ["age"].ToString() != "0" ? LoggedInUser.profile ["age"].ToString () : "0");
+		p_age.text = ( LoggedInUser.profile ["age"].ToString() != "0" ? LoggedInUser.profile ["age"].ToString () : "");
 		p_color.text = (LoggedInUser.profile ["color"].ToString() != "" ? LoggedInUser.profile ["color"].ToString() : "");
 		p_hobby.text = (LoggedInUser.profile ["hobby"].ToString() != "" ? LoggedInUser.profile ["hobby"].ToString() : "");
 		p_film.text = (LoggedInUser.profile ["film"].ToString() != "" ? LoggedInUser.profile ["film"].ToString() : "");

@@ -4,23 +4,29 @@ using System.Collections.Generic;
 using Gamedonia.Backend;
 using UnityEngine.UI;
 using LitJson_Gamedonia;
+using DG.Tweening;
 
 public class FriendList : MonoBehaviour {
 
     public InputField friendSearcher;
     public GameObject noFriendFound;
+	public GameObject lives;
+	public Text livesText;
+	private int livesLeft = 5;
     // Use this for initialization
     void Start ()
     {
 		showFriends ();
+		if (MatchManager.I.matches != null && MatchManager.I.matches.Count > 0) {
+			livesLeft = RuntimeData.I.livesAmount - MatchManager.I.getTotalActiveMatches();
+			if(livesLeft  < 0 ) {
+				livesLeft = 0;
+			}
+			livesText.text = livesLeft.ToString();
+		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-		
 
+	
 	private void showFriends() {
 		foreach (KeyValuePair<string, object> friend in PlayerManager.I.friends) {
             setFriendInformation(friend.Key);
@@ -43,7 +49,12 @@ public class FriendList : MonoBehaviour {
             GameObject inputField = friendRow.transform.GetChild(1).transform.GetChild(0).gameObject;
             horizontal.GetComponentInChildren<Text>().text = oppProfile["name"].ToString();
             horizontal.GetComponentInChildren<Image>().sprite = PlayerManager.I.GetRankSprite(int.Parse(oppProfile["lvl"].ToString()));
-            horizontal.GetComponentInChildren<Button>().onClick.AddListener(delegate { MatchManager.I.StartFriendMatch(friendKey); });
+			Debug.Log(livesLeft);
+			if(livesLeft > 0) {
+				if(!MatchManager.I.checkForPlayingWithFriend(friendKey)) {
+					horizontal.GetComponentInChildren<Button>().onClick.AddListener(delegate { MatchManager.I.StartFriendMatch(friendKey); });
+				}
+			}
 
             //displaying unlocked info
             if (ammountOfAttributes > 0)

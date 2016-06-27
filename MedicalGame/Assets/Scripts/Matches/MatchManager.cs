@@ -19,6 +19,7 @@ public class MatchManager : Singleton<MatchManager> {
 	public int currentCategory;
 	public bool checkUpdates = false;
 	public bool winningMatch = false;
+	public bool tie = false;
 	public int lastAttributeKey = -1;
 
 
@@ -224,15 +225,20 @@ public class MatchManager : Singleton<MatchManager> {
 		Save ();
 	}
 
-	public void ChangeLastTurn(Turn turn, bool finish) {
+	public void ChangeLastTurn(Turn turn, bool finish, bool directlyNinth = false) {
 		Dictionary<string, object> matchUpdate = null;
 		Match match = GetMatch (currentMatchID);
 		string winner = "";
-		for (int i = 0; i < match.m_trns.Count; i++) {
-			if (match.m_trns [i].p_ID == PlayerManager.I.player.playerID && match.m_trns [i].t_ID == turn.t_ID) {
-				match.m_trns [i] = turn;
+		if(directlyNinth) {
+			AddTurn(turn);
+		} else {
+			for (int i = 0; i < match.m_trns.Count; i++) {
+				if (match.m_trns [i].p_ID == PlayerManager.I.player.playerID && match.m_trns [i].t_ID == turn.t_ID) {
+					match.m_trns [i] = turn;
+				}
 			}
 		}
+
 		if (finish) {
 			match.m_status = "finished";
 			Debug.Log("Set status to finished");
@@ -296,7 +302,19 @@ public class MatchManager : Singleton<MatchManager> {
 		}
 		return null;
 	}
-
+	
+	public bool checkForPlayingWithFriend(string playerId) {
+		for (int i = 0; i < matches.Count; i++) {
+			string opponentId = GetOppenentId(matches[i]);
+			if (matchManager.matches[i].m_status != "finished") {
+				if(opponentId == playerId) {
+					return true;
+				}
+		
+			}
+		}
+		return false;
+	}
 	public void RemoveMatch(Match match = null, string matchID = "", bool completely = false, bool deleteInScene = false) {
 		if(match == null) {
 			if(matchID != "") {
@@ -361,7 +379,18 @@ public class MatchManager : Singleton<MatchManager> {
 		}
 		return tempList;
 	}
-
+	
+	public int getTotalActiveMatches() {
+		int amount = 0;
+		if(matches.Count > 0) {
+			for (int i = 0; i < matchManager.matches.Count; i++) {
+				if (matchManager.matches[i].m_status != "finished") {
+					amount++;
+				}
+			}
+		}
+		return amount;
+	}
 	public void checkForUpdateMatches() {
 		currentMatchID = "";
 		currentCategory = 0;

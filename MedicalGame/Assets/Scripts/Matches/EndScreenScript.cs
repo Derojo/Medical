@@ -10,6 +10,7 @@ public class EndScreenScript : MonoBehaviour {
 
 
 	public GameObject lostMatch;
+	public GameObject tieMatch;
 	public GameObject wonMatch;
 	public GameObject charAnim;
 	public Text matchScore;
@@ -40,8 +41,16 @@ public class EndScreenScript : MonoBehaviour {
 
 
 		// Checking winner
-		if(MatchManager.I.winningMatch)
-		{
+		if(MatchManager.I.tie) {
+			tieMatch.SetActive(true);
+			PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP += 50;			lostMatch.SetActive(true);
+            continueButton.GetComponent<Image>().DOFade(1, 1f);
+            animControl.SetBool("IsLosing", false);
+			animControl.SetBool("isWinning", false);
+            AttributeInfo.SetActive(false);
+            AttributeTitle.GetComponent<Text>().text = "Gelijkspel!";
+            AttributeValue.GetComponent<Text>().text = "Helaas, je hebt gelijkgespeeld en dus geen weetje vrijgespeeld";
+		} else if(MatchManager.I.winningMatch) {
 			wonMatch.SetActive(true);
 			PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP += 100;
             animControl.SetBool("IsWinning", true);
@@ -60,15 +69,13 @@ public class EndScreenScript : MonoBehaviour {
 				AttributeTitle.SetActive (false);
 				AttributeValue.SetActive (false);
 			}
-		}
-        else
-        {
+		} else {
 			lostMatch.SetActive(true);
             continueButton.GetComponent<Image>().DOFade(1, 1f);
             animControl.SetBool("IsLosing", true);
             AttributeInfo.SetActive(false);
             AttributeTitle.GetComponent<Text>().text = "Jammer!";
-            AttributeValue.GetComponent<Text>().text = "Helaas, je hebt niet gewonnen en dus geen gegeven vrijgespeeld";
+            AttributeValue.GetComponent<Text>().text = "Helaas, je hebt niet gewonnen en dus geen weetje vrijgespeeld";
 
         }
 

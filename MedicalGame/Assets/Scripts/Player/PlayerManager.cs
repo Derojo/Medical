@@ -238,7 +238,6 @@ public class PlayerManager : Singleton<PlayerManager> {
 
 	public void UnlockNewAttribute(string id = "") {
 
-		UpdatePlayerWonAttribute ();
 		// Get friend by id from dictionary
 		if(id == "") {
 			id = currentOpponentInfo["_id"].ToString();
@@ -246,7 +245,7 @@ public class PlayerManager : Singleton<PlayerManager> {
 
 		List<int> attributesList = GetFriendAttributes (id);
 
-		if (attributesList.Count != 4) {
+		if (attributesList.Count != 5) {
 			player.playerWonAttr++;
 			if (attributesList.Count == 0) {
 				attributesList.Add (0);
@@ -254,14 +253,16 @@ public class PlayerManager : Singleton<PlayerManager> {
 				MatchManager.I.lastAttributeKey = 0;
 			} else {
 				attributesList.Add (attributesList.Count);
-				MatchManager.I.lastAttributeKey = attributesList.Count;
+				MatchManager.I.lastAttributeKey = attributesList.Count-1;
 			}
 
-			string attributeName = GetPlayerAttribute (attributesList.Count);
+			//string attributeName = GetPlayerAttribute (attributesList.Count);
 			if (friends.ContainsKey (id)) {
 				Dictionary<string, object> updateProfile = new Dictionary<string, object> ();
 				friends [id] = attributesList;
 				updateProfile ["_id"] = player.playerID;
+				Debug.Log("Player Won Attribute updated");
+				Debug.Log(player.playerWonAttr);
 				updateProfile ["wonAttr"] = player.playerWonAttr;
 				updateProfile ["friends"] = friends;
 				GamedoniaUsers.UpdateUser (updateProfile, delegate (bool success) {
@@ -276,9 +277,6 @@ public class PlayerManager : Singleton<PlayerManager> {
 
 	}
 
-	private void UpdatePlayerWonAttribute() {
-
-	}
 
 	public string GetPlayerAttribute (int key, string id = "") {
 		string attribute = "";

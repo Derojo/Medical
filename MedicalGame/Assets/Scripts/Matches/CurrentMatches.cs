@@ -18,17 +18,33 @@ public class CurrentMatches : MonoBehaviour {
 	public GameObject yourTurnUI;
 	public GameObject hisTurnUI;
 	public GameObject finishedUI;
+	public GameObject lives;
+	public Text livesText;
 
 	// Use this for initialization
 	void Start () {
+		StartLives();
 		currentGamesPanel.SetActive (false);
 		if (MatchManager.I.matches != null && MatchManager.I.matches.Count > 0) {
+			int lives = RuntimeData.I.livesAmount - MatchManager.I.getTotalActiveMatches();
+			if(lives  < 0 ) {
+				lives = 0;
+			}
+			livesText.text = lives.ToString();
 			StartCoroutine (StartUp ());
 		} else {
 			MatchManager.I.CheckForInvites ();
 		}
 	}
-
+	private void StartLives() {
+		Sequence mySequence = DOTween.Sequence();
+		mySequence.Append(lives.transform.DOScale(1.2f, 0.5f).SetLoops(-1).SetEase (Ease.OutBack));
+		mySequence.Append(lives.transform.DOScale(1, 0.2f).SetLoops(-1).SetEase (Ease.OutQuint));
+		mySequence.Append(lives.transform.DOScale(1.25f, 0.3f).SetLoops(-1).SetEase (Ease.OutBack));
+		mySequence.Append(lives.transform.DOScale(1, 0.2f).SetLoops(-1).SetEase (Ease.OutQuint));
+		mySequence.PrependInterval(3);
+		mySequence.SetLoops(-1);
+	}
 	private IEnumerator StartUp() {
 		Loader.I.enableLoader ();
 		MatchManager.I.checkForUpdateMatches ();

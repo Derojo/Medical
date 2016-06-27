@@ -9,7 +9,7 @@ using LitJson_Gamedonia;
 public class RuntimeData : Singleton<RuntimeData> {
 
 	public QuestionDatabase QuestionDatabase;
-	public int test = 0;
+	public int livesAmount = 0;
 
 //	public List<Question> allQuestions;
 	// Use this for initialization
@@ -29,7 +29,10 @@ public class RuntimeData : Singleton<RuntimeData> {
 	}
 
 	public void startRandomMatch() {
-		MatchManager.I.StartRandomMatch ();
+		int livesLeft = RuntimeData.I.livesAmount - MatchManager.I.getTotalActiveMatches();
+		if(livesLeft > 0) {
+			MatchManager.I.StartRandomMatch ();
+		}
 	}
 
 	// Process incoming notification

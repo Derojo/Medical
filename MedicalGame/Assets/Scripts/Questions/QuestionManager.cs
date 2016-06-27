@@ -73,11 +73,15 @@ public class QuestionManager : Singleton<QuestionManager> {
 		if (currentMatch.m_trns != null && currentMatch.m_trns.Count > 0) {
 			playerTurnL = MatchManager.I.GetMatchTurnsByPlayerID (PlayerManager.I.player.playerID, currentMatch);
 			oppTurnL = MatchManager.I.GetMatchTurnsByPlayerID (MatchManager.I.GetOppenentId(currentMatch), currentMatch);
+			Debug.Log("Player turns:"+playerTurnL.Count);
+			Debug.Log("Opponent turns:"+oppTurnL.Count);
 			if (oppTurnL.Count > playerTurnL.Count) {
-
+				Debug.Log("Opponent has more questions so get his question");
 				// Opponent played more turns, get his last turn
 				for (int i = 0; i < oppTurnL.Count; i++) {
 					if (oppTurnL [i].t_ID == playerTurnL.Count + 1) {
+						Debug.Log("turn="+oppTurnL [i].t_ID);
+						Debug.Log("questionID"+oppTurnL[i].q_ID);
 //						MatchManager.I.currentCategory = oppTurns [i].c_ID;
 						currentQuestion = questionDatabase.getQuestionById(oppTurnL[i].q_ID); // Last question played by opponent.
 
@@ -85,12 +89,14 @@ public class QuestionManager : Singleton<QuestionManager> {
 				}
 			} else {
 				// Get random question
+				Debug.Log("RANDOM QUESTION PLAYER HAS MORE TURNS");
 				currentQuestion = questionDatabase.getRandomCategoryQuestion (currentCategory);
 			}
 		} else {
+			Debug.Log("RANDOM QUESTION NO TURNS");
 			currentQuestion = questionDatabase.getRandomCategoryQuestion (currentCategory);
 		}
-
+		
 		SetCategoryTitle ();
 		SetPlayersInformation ();
 		SetQuestionReady ();
@@ -186,7 +192,7 @@ public class QuestionManager : Singleton<QuestionManager> {
 
 				// Game ends when player has answered the 9th question correctly
 				if(newturnID == 9) {
-					MatchManager.I.ChangeLastTurn (newTurn, true);
+					MatchManager.I.ChangeLastTurn (newTurn, true, true);
                     //check all after game achievements
                     AchievementManager.I.checkAchievementsAfterGame();
                     //turn on to endscreen button
@@ -201,14 +207,16 @@ public class QuestionManager : Singleton<QuestionManager> {
                     if(int.Parse(playerScore.text) <= int.Parse(oppScore.text))
                     {
                         MatchManager.I.winningMatch = false;
-                    }
-
-                    //Player wins
-                    if (int.Parse(playerScore.text) >= int.Parse(oppScore.text))
+                    } else if (int.Parse(playerScore.text) >= int.Parse(oppScore.text))
                     {
+						// Player wins
                         MatchManager.I.winningMatch = true;
+						Debug.Log("Unlock new attribute");
 						PlayerManager.I.UnlockNewAttribute ();
-                    }
+                    } else if(int.Parse(playerScore.text) == int.Parse(oppScore.text)) {
+						MatchManager.I.tie = true;
+					}
+					
                 }
 
 

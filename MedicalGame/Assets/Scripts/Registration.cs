@@ -64,6 +64,7 @@ public class Registration : MonoBehaviour {
 			user.profile.Add("hobby", "");
 			user.profile.Add("film", "");
 			user.profile.Add("age", 0);
+			user.profile.Add("instelling", "");
 			user.profile.Add("lvl", 1);
 			user.profile.Add("wonAttr", 1);
 			user.profile ["friends"] = new Dictionary<string, object> ();
