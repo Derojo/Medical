@@ -17,8 +17,12 @@ public class RuntimeData : Singleton<RuntimeData> {
 	public bool Load() {return true;}
 
 	void Start () {
-		// Load Managers
-		Loader.I.Load();
+        //setting framerate
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 30;
+
+        // Load Managers
+        Loader.I.Load();
 		MatchManager.I.Load ();
 		PlayerManager.I.Load ();
         AchievementManager.I.Load();
