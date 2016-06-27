@@ -38,7 +38,7 @@ public class Categories : MonoBehaviour {
 	public GameObject TAND_HUISARTS_a;
 	public GameObject ZORG_ALGEMEEN_a;
 	public GameObject GEHANDICAPTEN_a;
-	public Image image;
+	
 
 	private List<Turn> playerTurns;
 	private List<Turn> oppTurns;
