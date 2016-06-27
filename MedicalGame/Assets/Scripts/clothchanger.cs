@@ -25,9 +25,10 @@ public class clothchanger : MonoBehaviour {
 	public SkinnedMeshRenderer RootShirt;
 	public SkinnedMeshRenderer RootTrouser;
 	private Mesh firstMesh;
+
 	// Selections
 	private int skinCode = 0;
-//	private string sexCode = "Male";
+
 	// Keeping track of current selection
 	int currentHairstyle = 0;
 	int currentHairstyleMaterial = 0;
@@ -44,10 +45,8 @@ public class clothchanger : MonoBehaviour {
 
 	// Use this for initialization
 	void Start (){
-		Debug.Log(PlayerManager.I.player.avatar);
 		if (PlayerManager.I.changingAvatar || PlayerManager.I.player.avatar != "") {
 			string avatarString = PlayerManager.I.player.avatar;
-			Debug.Log(avatarString);
 			string[] avatar = avatarString.Split (new string[] {"_"}, System.StringSplitOptions.None);
 			skinCode = int.Parse (avatar [0]);
 			currentHairstyle = DetermineOrder ("hairstyle", int.Parse (avatar [1]));
@@ -162,7 +161,6 @@ public class clothchanger : MonoBehaviour {
 		if (state != "skip") {
 			SetNextTrouser (state);
 		}
-		Debug.Log (currentTrouser);
 		string currentOrder = trouserOrder [currentTrouser];
 		string[] splitCurrentOrder;
 		splitCurrentOrder = currentOrder.Split (new string[] {"_"}, System.StringSplitOptions.None);
@@ -170,26 +168,10 @@ public class clothchanger : MonoBehaviour {
 		RootTrouser.sharedMesh = trousers[int.Parse(splitCurrentOrder[0])];
 
 		if (trousers [currentTrouser] != null) {
-			Debug.Log (currentTrouserMaterial);
 			string trousername = "Trouser_"+ splitCurrentOrder[0] + "_" + currentTrouserMaterial.ToString ();
-			Debug.Log (trousername);
 			RootTrouser.sharedMaterial = (Material)Resources.Load ("Materials/" + "Avatar" + "/Trousers/" + trousername, typeof(Material));
 		}
 	}
-
-//	public void changeTrouser(string state) {
-//		Debug.Log ("test");
-//		if (state != "skip") {
-//			SetNextTrouser (state);
-//		}
-//
-//		RootTrouser.sharedMesh = trousers[currentTrouser];
-//
-//
-//		string trouserName = trousers [currentTrouser].name + "_"+currentTrouserMaterial;
-//
-//		RootTrouser.sharedMaterial = (Material)Resources.Load("Materials/"+sexCode+"/Trousers/"+ trouserName, typeof(Material));
-//	}
 
 	private void SetNextShirt(string state) {
 		int allShirts = shirts.Length;
@@ -220,8 +202,6 @@ public class clothchanger : MonoBehaviour {
 					string[] splitCurrentOrderBack;
 					splitCurrentOrderBack = currentOrderBack.Split (new string[] {"_"}, System.StringSplitOptions.None);
 					currentShirtMaterial = (int.Parse (splitCurrentOrderBack [1]) -1);
-					Debug.Log ("current material" + currentShirtMaterial);
-
 				}
 			}
 		}
@@ -257,7 +237,7 @@ public class clothchanger : MonoBehaviour {
 					string[] splitCurrentOrderBack;
 					splitCurrentOrderBack = currentOrderBack.Split (new string[] {"_"}, System.StringSplitOptions.None);
 					currentHairstyleMaterial = (int.Parse (splitCurrentOrderBack [1]) - 1);
-					Debug.Log ("current material" + currentHairstyleMaterial);
+					
 				}
 			}
 		}
@@ -270,7 +250,7 @@ public class clothchanger : MonoBehaviour {
 		string[] splitCurrentOrder;
 		splitCurrentOrder = currentOrder.Split (new string[] {"_"}, System.StringSplitOptions.None);
 		int materialLength = int.Parse (splitCurrentOrder [1]);
-		Debug.Log (materialLength);
+		
 
 		if (state == "next") {
 			if (currentTrouserMaterial < (materialLength - 1)) {;
@@ -292,7 +272,7 @@ public class clothchanger : MonoBehaviour {
 					string[] splitCurrentOrderBack;
 					splitCurrentOrderBack = currentOrderBack.Split (new string[] {"_"}, System.StringSplitOptions.None);
 					currentTrouserMaterial = (int.Parse (splitCurrentOrderBack [1]) - 1);
-					Debug.Log ("current material" + currentTrouserMaterial);
+					
 				}
 			}
 		}

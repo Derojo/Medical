@@ -15,21 +15,21 @@ public class foldOutScript : Toggle
             startHeight = this.GetComponent<LayoutElement>().preferredHeight;
             content = this.transform.Find("Content").gameObject;
 
-    }
+        }
 
         // Update is called once per frame
         void Update()
         {
             if (base.isOn)
             {
-                //Debug.Log(LayoutUtility.GetPreferredHeight(content.GetComponent<RectTransform>()));
-//                this.GetComponent<LayoutElement>().preferredHeight = LayoutUtility.GetPreferredHeight(content.GetComponent<RectTransform>()) + startHeight;
+             
 			this.GetComponent<LayoutElement> ().DOMinSize (new Vector2 (0, (LayoutUtility.GetPreferredHeight (content.GetComponent<RectTransform> ()) + startHeight)),0.5f, false).SetEase(Ease.OutExpo);
-                //Debug.Log(wantedHeight);
+
             }
-            else {
+            else
+            {
 			this.GetComponent<LayoutElement> ().DOMinSize (new Vector2 (0, startHeight), 0.5f, false).SetEase(Ease.OutExpo);
-//                this.GetComponent<LayoutElement>().preferredHeight = startHeight;
+//     
             }
 
         }

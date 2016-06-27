@@ -5,9 +5,7 @@ using System.Collections.Generic;
 [Prefab("SoundContainer", true, "")]
 public class AudioManagerScript : Singleton<AudioManagerScript>
 {
-
-    public AudioSource normalButtonSound;
-    public AudioSource sliderButtonSound;
+    //sound variables
     public AudioSource wrongAnwserSound;
     public AudioSource achievementUnlockSound;
     public AudioSource TimeUpSound;
@@ -17,33 +15,13 @@ public class AudioManagerScript : Singleton<AudioManagerScript>
  
     public bool Load() { return true; }
 
-    void Start() {
-        AudioSource[] a_sources = GetComponents<AudioSource>();
-        normalButtonSound = a_sources[0];
-        sliderButtonSound = a_sources[1];
-        wrongAnwserSound = a_sources[2];
-		achievementUnlockSound = a_sources[3];
-        TimeUpSound = a_sources[4];
-        lvlUpSound = a_sources[5];
-    }
-
-    //Normal button function
-    public void OnButtonclick()
+    void Start()
     {
         AudioSource[] a_sources = GetComponents<AudioSource>();
-        Debug.Log(a_sources.Length);
-        normalButtonSound = a_sources[0];
-        if (normalButtonSound == null)
-        {
-            Debug.Log("BTNSound");
-        }
-        a_sources[0].Play();
-    }
-
-    //Slider button function
-    public void OnSliderClick()
-    {
-        sliderButtonSound.Play();
+        wrongAnwserSound = a_sources[0];
+		achievementUnlockSound = a_sources[1];
+        TimeUpSound = a_sources[2];
+        lvlUpSound = a_sources[3];
     }
 
     public void pauseAudio()

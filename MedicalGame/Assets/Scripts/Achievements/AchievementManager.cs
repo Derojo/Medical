@@ -12,7 +12,7 @@ public class AchievementManager : Singleton<AchievementManager> {
     public GameObject achievementPrefab;
 
     //public Sprite[] sprites;
-    private float fadeTime = 1.5f;
+
     public GameObject visualAchievement;
     public Dictionary<string, Achievement> achievements = new Dictionary<string, Achievement>();
     public List<Achievement> achievementList = new List<Achievement>();     
@@ -37,16 +37,9 @@ public class AchievementManager : Singleton<AchievementManager> {
         if (achievementList == null) {
             achievementList = new List<Achievement>();
         }
-        //Deleting playerprefs for testing REMEMBER TO REMOVE
-        //PlayerPrefs.DeleteKey("Vrienden worden?");
-        //PlayerPrefs.DeleteAll();
+
     }
 	
-	// Update is called once per frame
-	void Update ()
-    {
-    }//end of update
-
     public void EarnAchievement(string title)
     {
         

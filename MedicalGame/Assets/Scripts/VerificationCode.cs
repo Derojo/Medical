@@ -54,7 +54,7 @@ public class VerificationCode : MonoBehaviour
             if(verificationCode.text != "")
             {
                 string code = verificationCode.text;
-                Debug.Log(code);
+
                GamedoniaData.Count("staticdata", "{\"playCode\":\""+code+"\"}", delegate (bool success, int count) 
                {
                     if (success)
@@ -69,7 +69,6 @@ public class VerificationCode : MonoBehaviour
                            //saving player files
                            PlayerManager.I.Save();
                            lockImg.DOColor(dColor, 1);
-                           Debug.Log(count);
                        }
                        else
                        {
@@ -80,12 +79,6 @@ public class VerificationCode : MonoBehaviour
                            Loader.I.disableLoader();
                        }
                    }     
-                    else
-                   {
-
-                       Debug.Log(count);
-                       //TODO Your fail processing 
-                   }
                 });
             }
         }

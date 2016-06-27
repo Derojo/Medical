@@ -53,7 +53,6 @@ public class Registration : MonoBehaviour {
 			Loader.I.enableLoader ();
 			Credentials credentials = new Credentials();
 			credentials.email = email.text;
-			Debug.Log(password.text);
 			credentials.password = password.text;
 			GDUser user = new GDUser();
 			user.credentials = credentials;
@@ -72,8 +71,7 @@ public class Registration : MonoBehaviour {
 
 		}else {
 			errorMsgText.text = errorMsg;
-			errorMsgText.DOFade (1, 1);
-			Debug.Log(errorMsg);             
+			errorMsgText.DOFade (1, 1);        
 		}
 
 	}
@@ -148,8 +146,9 @@ public class Registration : MonoBehaviour {
 			} else {
 				Loader.I.LoadScene ("Home");
 			}    
-		}else {
-			Debug.Log (GamedoniaBackend.getLastError ().code);
+		}else
+        {
+            //TODO
 		}
 
 	}

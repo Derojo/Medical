@@ -64,7 +64,7 @@ public class Categories : MonoBehaviour {
 
         if (PlayerManager.I.firstInviteAccept)
         {
-            Debug.Log("testing achiev");
+        
             AchievementManager.I.challengeAccepted();
             PlayerManager.I.firstInviteAccept = false;
         }

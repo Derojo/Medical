@@ -30,7 +30,7 @@ public class Profile_Create : MonoBehaviour {
 	private bool Errors = false;
 
 	private Loader loader = null;
-	private string fbpictureurl = "";
+
 
 
 	void Awake() {
@@ -80,14 +80,7 @@ public class Profile_Create : MonoBehaviour {
 							SceneManager.LoadScene("Avatar");
 						}
 
-	                } 
-
-					else {
-						Debug.Log ("Error");
-					}
-
-
- 		
+	                } 	
 			}, true);
 		}
 	}
@@ -100,7 +93,6 @@ public class Profile_Create : MonoBehaviour {
 			fillExistingProfile ();
 		}else {
 			errorMsg = GamedoniaBackend.getLastError().ToString();
-			Debug.Log(errorMsg);
 		}
 	}
 
@@ -166,7 +158,6 @@ public class Profile_Create : MonoBehaviour {
 		bool returnValue = true;
 		foreach(KeyValuePair<string,string> error in errorData)
 		{
-			Debug.Log (error.Key);
 			InputField input = (InputField)GameObject.Find (error.Key).GetComponent<InputField>();
 			ValidateField (input);
 			if (input.text == error.Value) {

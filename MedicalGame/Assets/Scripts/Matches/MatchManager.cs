@@ -97,7 +97,6 @@ public class MatchManager : Singleton<MatchManager> {
 	}
 
 	public void StartFriendMatch(string friendId) {
-		Debug.Log ("STARTING FRIEND MATCH" + friendId);
 		Loader.I.enableLoader ();
         //checking for achiement
         if (PlayerPrefs.GetInt("Vrienden worden?") == 0) {
@@ -173,7 +172,6 @@ public class MatchManager : Singleton<MatchManager> {
 					match.m_ID = data["_id"].ToString();
 					currentMatchID = match.m_ID;
 					if(queueObject) {
-						Debug.Log("create game queue object");
 						createGameQueueObject();
 					}
 				}
@@ -241,7 +239,7 @@ public class MatchManager : Singleton<MatchManager> {
 
 		if (finish) {
 			match.m_status = "finished";
-			Debug.Log("Set status to finished");
+
 			match.m_cp = GetOppenentId (match);
 			winner = getWinner(match);
 			// Gamedonia server script handles opponent push message
@@ -264,7 +262,6 @@ public class MatchManager : Singleton<MatchManager> {
 		string opponentId = GetOppenentId (match);
 		string score = getMatchScore(match.m_ID, opponentId);
 		string[] scoreArray = score.Split (new string[] {"-"}, System.StringSplitOptions.None);
-		Debug.Log(scoreArray[0]+":"+scoreArray[1]);
 		if(int.Parse(scoreArray[0]) > int.Parse(scoreArray[1])) {
 			// Player won
 			winner = PlayerManager.I.player.playerID;
@@ -291,10 +288,7 @@ public class MatchManager : Singleton<MatchManager> {
 	}
 
 	public Match GetMatch(string match_ID) {
-		Debug.Log("Amount of matches"+matchManager.matches.Count);
-		if(matchManager.matches == null) {
-			Debug.Log("testtttt");
-		}
+
 		for (int i = 0; i < matchManager.matches.Count; i++) {
 			if (matchManager.matches[i].m_ID == match_ID) {
 				return matchManager.matches [i];
@@ -453,7 +447,7 @@ public class MatchManager : Singleton<MatchManager> {
 	}
 
 	public void CheckForInvites() {
-		Debug.Log ("CHECK FOR INVITES");
+
 		GamedoniaData.Search ("matches", "{$and: [ { \"m_status\":\"invite\" }, { \"m_cp\":'"+PlayerManager.I.player.playerID+"' }]}", delegate (bool success, IList data) {
 			if (success) {
 				if (data != null) {

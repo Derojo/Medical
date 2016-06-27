@@ -276,7 +276,6 @@ public class QuestionManager : Singleton<QuestionManager> {
 	}
     
 	private Button getButtonByAnswer(string Answer) {
-		Button returnButton;
 		switch (Answer)
 		{
 			case "A":

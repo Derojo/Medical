@@ -72,7 +72,6 @@ public class PlayerManager : Singleton<PlayerManager> {
 	public void LoadFriends() {
 		GamedoniaUsers.GetMe(delegate (bool success, GDUserProfile data){
 			if (success){
-				Debug.Log("LOADING FRIENDS");
 				friends = (Dictionary<string, object>)data.profile["friends"];
 				foreach (KeyValuePair<string, object> friend in friends) {
 					string friendKey = friend.Key;
@@ -221,9 +220,7 @@ public class PlayerManager : Singleton<PlayerManager> {
 		List<int> attributesList = new List<int>();
 		// Get friend by id from dictionary
 		if (friends.Count > 0) {
-			Debug.Log ("PlayerID:" + id);
 			if (friends.ContainsKey (id)) {
-				Debug.Log ("PlayerID EXIST");
 				List<int> attributes = JsonMapper.ToObject<List<int>>(JsonMapper.ToJson(friends[id]));
 
 				for (int i = 0; i < attributes.Count; i++) {
@@ -261,14 +258,10 @@ public class PlayerManager : Singleton<PlayerManager> {
 				Dictionary<string, object> updateProfile = new Dictionary<string, object> ();
 				friends [id] = attributesList;
 				updateProfile ["_id"] = player.playerID;
-				Debug.Log("Player Won Attribute updated");
-				Debug.Log(player.playerWonAttr);
+
 				updateProfile ["wonAttr"] = player.playerWonAttr;
 				updateProfile ["friends"] = friends;
 				GamedoniaUsers.UpdateUser (updateProfile, delegate (bool success) {
-					if (success) {
-						Debug.Log ("Updated user information");
-					} 
 				});
 			}
 		} else {

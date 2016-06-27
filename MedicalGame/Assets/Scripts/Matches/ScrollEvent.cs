@@ -32,9 +32,7 @@ public class ScrollEvent : MonoBehaviour, IBeginDragHandler, IEndDragHandler {
 			loadicon.GetComponent<Animator>().SetBool ("Loading", true);
 			// Stop the scroll movement
 			scrollrect.StopMovement ();
-
 			content.DOLocalMoveY (-50f, 1f).SetEase(Ease.OutFlash);
-//			content.localPosition = new Vector3(2.7f, -50f, 0);
 			scrollrect.enabled = false;
 			// Check for updates
 			StartCoroutine(checkForUpdates());

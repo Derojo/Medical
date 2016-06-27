@@ -79,11 +79,11 @@ public class Login : MonoBehaviour {
 				// Login with email and password, store session token
 				GamedoniaUsers.LoginUserWithEmail (email.ToLower (), password, OnLogin);
 				if (errorMsg != "") {
-					Debug.Log (errorMsg);
+					
 				}
 
 				if (statusMsg != "") {
-					Debug.Log (statusMsg);
+					
 				}
 			} else {
 				// Wait for connection, if there is a connection we try to login again
@@ -94,7 +94,7 @@ public class Login : MonoBehaviour {
 
 	public void validateFields() {
 		if (email_input.text == "") {
-			Debug.Log ("test");
+		
 			email_input.text = errorMessageEmail;
 			emailImg.DOColor (errorColor, 1);
 			//email_input.GetComponent<Outline> ().effectColor = errorColor;
@@ -106,7 +106,7 @@ public class Login : MonoBehaviour {
 			//password_input.GetComponent<Outline> ().effectColor = errorColor;
 		}
 		if (password_input.text != errorMessagePassword && email_input.text != errorMessageEmail) {
-			Debug.Log ("is validated");
+
 			isValidated = true;
 			emailImg.DOColor (defaultColor, 1);
 			passwordImg.DOColor (defaultColor, 1);
@@ -201,7 +201,7 @@ public class Login : MonoBehaviour {
 
 		} else {
 			errorMsg = GamedoniaBackend.getLastError().ToString();
-			Debug.Log(errorMsg);
+			
 		}
 
 	}
@@ -212,7 +212,7 @@ public class Login : MonoBehaviour {
 		PlayerManager.I.player.fbuserid = fbUserId;
 		fbUserName = data ["name"] as string;
 
-		Debug.Log ("AccessToken: " + FacebookBinding.GetAccessToken() + " fbuid: " + fbUserId);
+
 
 
 		Dictionary<string,object> facebookCredentials = new Dictionary<string,object> ();
@@ -233,7 +233,7 @@ public class Login : MonoBehaviour {
 			} else {
 				i_access = false;
 				errorMsg = "No internet access";
-				Debug.Log(errorMsg);
+				
 			}
 		});
 	}

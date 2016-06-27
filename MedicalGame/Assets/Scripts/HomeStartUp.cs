@@ -11,6 +11,7 @@ public class HomeStartUp : MonoBehaviour {
     public GameObject lvlPopUp;
     private bool soundPlay = false;
     private bool tweenOut = false;
+
     // Use this for initialization
     void Start ()
     {
@@ -31,7 +32,7 @@ public class HomeStartUp : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        //Debug.Log(PlayerManager.I.lvlUp);
+
         if (PlayerManager.I.lvlUp)
         {
 			lvlPopUp.SetActive (true);
@@ -58,7 +59,7 @@ public class HomeStartUp : MonoBehaviour {
             foreach (Text text in lvlPopUp.GetComponentsInChildren<Text>())
             {
                 text.DOFade(1, 1f);
-                //text.DOFade(0, 1f).SetDelay(3f);
+                
             }
 
             foreach (Image img in lvlPopUp.GetComponentsInChildren<Image>())
@@ -66,7 +67,7 @@ public class HomeStartUp : MonoBehaviour {
                 if (img.transform.name != "LVLUp")
                 {
                     img.DOFade(1, 1f);
-                    //img.DOFade(0, 1f).SetDelay(3f);
+                   
                 }
             }
 

@@ -136,14 +136,11 @@
     <Compile Include="Assets\Scripts\Achievements\AchievementManager.cs" />
     <Compile Include="Assets\Scripts\AddUser.cs" />
     <Compile Include="Assets\Scripts\AudioManagerScript.cs" />
-    <Compile Include="Assets\Scripts\ButtonAudioScript.cs" />
     <Compile Include="Assets\Scripts\CanvasLoader.cs" />
     <Compile Include="Assets\Scripts\Categories.cs" />
-    <Compile Include="Assets\Scripts\ChatTestScript.cs" />
     <Compile Include="Assets\Scripts\CountDownTimer.cs" />
     <Compile Include="Assets\Scripts\Data\PrefabAttribute.cs" />
     <Compile Include="Assets\Scripts\Data\Singleton.cs" />
-    <Compile Include="Assets\Scripts\DestroyPopUpScript.cs" />
     <Compile Include="Assets\Scripts\Friends\FriendList.cs" />
     <Compile Include="Assets\Scripts\HomeStartUp.cs" />
     <Compile Include="Assets\Scripts\IntroScript.cs" />
@@ -171,8 +168,6 @@
     <Compile Include="Assets\Scripts\Registration.cs" />
     <Compile Include="Assets\Scripts\RuntimeData.cs" />
     <Compile Include="Assets\Scripts\SceneManagerScript.cs" />
-    <Compile Include="Assets\Scripts\Sound\BallBounce.cs" />
-    <Compile Include="Assets\Scripts\Sound\Popcorn.cs" />
     <Compile Include="Assets\Scripts\Startup.cs" />
     <Compile Include="Assets\Scripts\TextureScale.cs" />
     <Compile Include="Assets\Scripts\TimerScript.cs" />
@@ -182,7 +177,7 @@
     <Compile Include="Assets\Scripts\clothchanger.cs" />
     <Compile Include="Assets\Scripts\foldOutScript.cs" />
     <Compile Include="Assets\Scripts\rankingList.cs" />
-    <Compile Include="Assets\rotateObject.cs" />
+    <Compile Include="Assets\Scripts\rotateObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\DOTween\DOTween.XML" />

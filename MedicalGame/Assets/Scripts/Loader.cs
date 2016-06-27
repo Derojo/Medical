@@ -76,10 +76,9 @@ public class Loader : Singleton<Loader> {
 			GameObject.FindObjectOfType<CurrentMatches>().updateMatches();
 		}
 
-		Debug.Log (finished.name);
+
 		finished.SetActive (true);
 //		enableBackground ();
-		Debug.Log("Match won: "+matchWon);
 		if(matchWon == PlayerManager.I.player.playerID) {
 			infoTitle = "Gewonnen";
 			infoText = "Gefeliciteerd je hebt gewonnen van " + playerName+"!"; 

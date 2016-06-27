@@ -25,8 +25,4 @@ public class ShowPlayerInfoSmall : MonoBehaviour {
 		rankingImgBG.sprite = PlayerManager.I.GetRankSprite();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

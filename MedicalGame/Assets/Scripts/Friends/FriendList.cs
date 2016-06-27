@@ -13,6 +13,7 @@ public class FriendList : MonoBehaviour {
 	public GameObject lives;
 	public Text livesText;
 	private int livesLeft = 5;
+
     // Use this for initialization
     void Start ()
     {
@@ -49,7 +50,6 @@ public class FriendList : MonoBehaviour {
             GameObject inputField = friendRow.transform.GetChild(1).transform.GetChild(0).gameObject;
             horizontal.GetComponentInChildren<Text>().text = oppProfile["name"].ToString();
             horizontal.GetComponentInChildren<Image>().sprite = PlayerManager.I.GetRankSprite(int.Parse(oppProfile["lvl"].ToString()));
-			Debug.Log(livesLeft);
 			if(livesLeft > 0) {
 				if(!MatchManager.I.checkForPlayingWithFriend(friendKey)) {
 					horizontal.GetComponentInChildren<Button>().onClick.AddListener(delegate { MatchManager.I.StartFriendMatch(friendKey); });
@@ -122,14 +122,9 @@ public class FriendList : MonoBehaviour {
                         noFriendFound.SetActive(true);
                     }
                 }
-                else
-                {
-  
-                    Debug.Log("Error");
-                }
 
             });
-            Debug.Log("looking for friends");
+
         }
         
     }

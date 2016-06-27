@@ -13,7 +13,6 @@ namespace Gamedonia.Backend {
 		Sprite sprite;
 		public Image p_image;
 		public Loader loader;
-		private bool ImageIsLoaded = false;
 		private string fbpictureurl = "";
 
 		WWW www;
@@ -50,9 +49,8 @@ namespace Gamedonia.Backend {
 
 		public void GetImageFromGallery() {
 			loader.enableLoader ();
-				//createImage("file://D:\\Afbeeldingen\\wallpaper-1217815.jpg");
-				AndroidJNI.AttachCurrentThread ();
-//				//AndroidJNIHelper.debug = true;
+
+				AndroidJNI.AttachCurrentThread ();			
 				AndroidJavaClass unity = new AndroidJavaClass ("com.unity3d.player.UnityPlayer");
 				AndroidJavaObject profClass = new AndroidJavaObject ("com.gamedonia.medical.UnityBinder");
 				profClass.CallStatic ("OpenGallery", unity.GetStatic<AndroidJavaObject> ("currentActivity"));

@@ -10,8 +10,6 @@ public class RuntimeData : Singleton<RuntimeData> {
 
 	public QuestionDatabase QuestionDatabase;
 	public int livesAmount = 0;
-
-//	public List<Question> allQuestions;
 	// Use this for initialization
 
 	public bool Load() {return true;}
@@ -48,9 +46,7 @@ public class RuntimeData : Singleton<RuntimeData> {
 		string oppName = payload.ContainsKey("notif_name") ? payload["notif_name"].ToString() : "";
 		switch(type) {
 
-		case "matchInvite":
-			Debug.Log ("MATCHINVITE");
-			
+		case "matchInvite":	
 			GamedoniaData.Search ("matches", "{_id: { $oid: '" + matchID +"' } }", delegate (bool invitesuccess, IList data) {
 				if (invitesuccess) {
 					if (data != null) {
@@ -58,11 +54,9 @@ public class RuntimeData : Singleton<RuntimeData> {
 						Match match = MatchManager.I.GetMatch(matchID);
 						if(match == null) {
 							match  = new Match();
-							Debug.Log("match created");
 							match.m_ID = matchD["_id"].ToString();
 							List<string> uids = JsonMapper.ToObject<List<string>> (JsonMapper.ToJson (matchD ["u_ids"]));
 							match.u_ids = uids;
-							Debug.Log("added user ids");
 							List<Turn> turns = new List<Turn> ();
 							List<object> t_turns = new List<object> ();
 							t_turns = (List<object>)matchD ["m_trns"];
@@ -72,28 +66,21 @@ public class RuntimeData : Singleton<RuntimeData> {
 								turns.Add (turn);
 							}
 							match.m_cp = matchD ["m_cp"].ToString ();
-							Debug.Log("added current player");
 							match.m_trns = turns;
-							Debug.Log("added turns");
 							match.m_status = matchD ["m_status"].ToString ();
-							Debug.Log("added status");
 							MatchManager.I.AddMatch(match, false, false);
-							Debug.Log("added match");
 						}
 
 						if(currentScene.name == "Home") {
 							//GameObject.FindObjectOfType<CurrentMatches>().showInvites();
 							GameObject.FindObjectOfType<CurrentMatches> ().updateMatches ();							
 						}
-					} else {
-						Debug.Log ("Data is null");
-					}
-		
+					} 
 				}
 			});
 			break;
 		case "matchTurn":
-			Debug.Log ("MATCHTURN");
+			
 			//TODO: process the message
 			Match match = MatchManager.I.GetMatch (matchID);
 			if (match != null) {
@@ -129,24 +116,20 @@ public class RuntimeData : Singleton<RuntimeData> {
 								GameObject.FindObjectOfType<CurrentMatches>().updateMatches();
 							}
 						} else {
-							Debug.Log ("Data is null");
+							
 						}
 					}
 				});
-			} else {
-				Debug.Log ("MATCH DOES NOT EXIST");
-			}
-
+			} 
 
 			break;
 		case "matchFinish":
-			Debug.Log ("MATCH FINISH");
 			Match finishMatch = MatchManager.I.GetMatch (matchID);
 
 			GamedoniaData.Search ("matches", "{_id: { $oid: '" + matchID +"' } }", delegate (bool success, IList data) {
 				if (success) {
 					if (data != null) {
-						Debug.Log ("MATCH FOUND PROCESS INFORMATION");
+				
 						// *************** Server side match information ********************
 						Dictionary<string, object> matchD = (Dictionary<string, object>)data[0];
 						List<Turn> turns = new List<Turn>();
@@ -170,13 +153,10 @@ public class RuntimeData : Singleton<RuntimeData> {
 						
 						}
 						if(currentScene.name == "Home") {
-							Debug.Log ("SHOW POPUP");
 							Loader.I.showFinishedPopup (oppName, matchD["m_won"].ToString());
 						}
 
-					} else {
-						Debug.Log ("Data is null");
-					}
+					} 
 				}
 			});
 
@@ -184,10 +164,7 @@ public class RuntimeData : Singleton<RuntimeData> {
 
 			break;
 		case "matchDeny":
-			Debug.Log ("MATCH DENY");
-			Debug.Log (matchID);
 			GamedoniaData.Delete ("matches", matchID);
-			Debug.Log ("DELETED MATCH");
 			Match matchDeny = MatchManager.I.GetMatch (matchID);
 			MatchManager.I.matches.Remove (matchDeny);
 			MatchManager.I.Save ();
@@ -199,16 +176,4 @@ public class RuntimeData : Singleton<RuntimeData> {
 			break;
 		}
 	}
-
-//	private void ShowFinishedMatchPopup(Match match) {
-//		Debug.Log ("Show Popup");
-//		string opponentId = MatchManager.I.GetOppenentId (match);
-//		GamedoniaUsers.GetUser (opponentId, delegate (bool success, GDUserProfile data) { 
-//			if (success) {
-//				Dictionary<string, object> oppProfile = new Dictionary<string, object> ();
-//				Loader.I.showFinishedPopup (oppProfile ["name"].ToString ());
-//			}
-//		});
-//	}
-
 }
