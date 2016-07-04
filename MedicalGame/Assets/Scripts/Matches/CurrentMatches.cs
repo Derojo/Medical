@@ -100,19 +100,14 @@ public class CurrentMatches : MonoBehaviour {
 	public void AddInvite(string matchID) {
 		Debug.Log (matchID);
 		Loader.I.enableLoader ();
-		Debug.Log ("Begin");
 		accept.transform.GetChild (0).gameObject.SetActive (true);
 		string matchId = matchID;
 		Match match = MatchManager.I.GetMatch (matchId);
-		Debug.Log ("Get MATCH");
 		string opponentId = MatchManager.I.GetOppenentId (match);
-		Debug.Log ("Get opponentId");
 		GameObject matchUI = Instantiate (Resources.Load ("MatchUIInviteRow")) as GameObject;
-		Debug.Log ("MatchUIROW");
 		setChildInformation (opponentId, matchId, matchUI, "inviteTurn");
 		matchUI.name = matchId;
 		matchUI.transform.SetParent (accept.transform, false);
-		Debug.Log ("SetParent");
 		Loader.I.disableLoader ();
 	}
 
@@ -170,7 +165,6 @@ public class CurrentMatches : MonoBehaviour {
 				matchUI.SetActive (false);
 				// Set all the information, playername, score etc
 				setChildInformation (opponentId, matchId, matchUI, "yourTurn", i);
-
 				// Housekeeping
 				matchUI.name = matchId;
 				matchUI.transform.SetParent (yourTurnUI.transform, false);
@@ -190,23 +184,25 @@ public class CurrentMatches : MonoBehaviour {
 				}
 			}  else {
 				Match match = MatchManager.I.GetMatch (matchId);
-				if(match.m_cp == PlayerManager.I.player.playerID) {
-					if (hisTurnUI.transform.Find (matchId)) {
-						GameObject matchUI = hisTurnUI.transform.Find (matchId).gameObject;
-						string opponentId = MatchManager.I.GetOppenentId (match);
-						matchUI.transform.SetParent (yourTurnUI.transform, false);
-						setChildInformation (opponentId, matchId, matchUI, "yourTurn", i);
-						matchUI.GetComponent<Button> ().onClick.AddListener (delegate {
-							LoadMatch (matchId);
-						});
-					} else if (accept.transform.Find (matchId)) {
-						GameObject matchUI = accept.transform.Find (matchId).gameObject;
-						string opponentId = MatchManager.I.GetOppenentId (match);
-						matchUI.transform.SetParent (yourTurnUI.transform, false);
-						setChildInformation (opponentId, matchId, matchUI, "yourTurn", i);
-						matchUI.GetComponent<Button> ().onClick.AddListener (delegate {
-							LoadMatch (matchId);
-						});
+				if(match.m_trns != null) {
+					if(match.m_cp == PlayerManager.I.player.playerID) {
+						if (hisTurnUI.transform.Find (matchId)) {
+							GameObject matchUI = hisTurnUI.transform.Find (matchId).gameObject;
+							string opponentId = MatchManager.I.GetOppenentId (match);
+							matchUI.transform.SetParent (yourTurnUI.transform, false);
+							setChildInformation (opponentId, matchId, matchUI, "yourTurn", i);
+							matchUI.GetComponent<Button> ().onClick.AddListener (delegate {
+								LoadMatch (matchId);
+							});
+						} else if (accept.transform.Find (matchId)) {
+							GameObject matchUI = accept.transform.Find (matchId).gameObject;
+							string opponentId = MatchManager.I.GetOppenentId (match);
+							matchUI.transform.SetParent (yourTurnUI.transform, false);
+							setChildInformation (opponentId, matchId, matchUI, "yourTurn", i);
+							matchUI.GetComponent<Button> ().onClick.AddListener (delegate {
+								LoadMatch (matchId);
+							});
+						}
 					}
 				}
 			}

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Gamedonia.Backend;
 
 public class QuestionDatabase : ScriptableObject {
 	[SerializeField]
@@ -40,43 +41,6 @@ public class QuestionDatabase : ScriptableObject {
 		return database;
 	}
 
-	public Question getRandomCategoryQuestion(int categoryID) {
-		List<int> questionIds = MatchManager.I.GetQuestionsInMatch ();
-		List<Question> availableQuestions = getQuestionInCategory (categoryID);
-		Question randomQuestion = availableQuestions[Random.Range (0, availableQuestions.Count)];
-		if (!questionIds.Contains (randomQuestion.q_Id)) {
-			return randomQuestion;
-		} else {
-			return getRandomCategoryQuestion (categoryID);
-		}
-
-
-	}
-		
-	public Question getQuestionById(int questionID) {
-		Question question = null;
-		for (int i = 0; i < database.Count; i++) {
-			if (database [i].q_Id == questionID) {
-				question = database [i];
-			}
-		}
-		return question;
-
-	}
-
-	public List<Question> getQuestionInCategory(int categoryID) {
-		List<Question> questionsInCategory = new List<Question> ();
-		for (int i = 0; i < database.Count; i++) {
-			if ((database [i].q_Cat+1) == categoryID) {
-				questionsInCategory.Add (database[i]);
-			}
-		}
-		return questionsInCategory;
-	}
-
-	public void SortAlphabeticallyAtoZ() {
-		database.Sort((x, y) => string.Compare(x.q_Question, y.q_Question));
-	}
 
 	public string[] GetCategories() {
 		return categories.ToArray ();

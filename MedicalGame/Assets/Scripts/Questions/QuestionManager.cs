@@ -8,9 +8,6 @@ using LitJson_Gamedonia;
 
 public class QuestionManager : Singleton<QuestionManager> {
 
-
-	public Question currentQuestion;
-	public QuestionDatabase questionDatabase;
 	public Text CategoryTitle;
 	public Text Question;
 	public Button AnswerA;
@@ -56,7 +53,6 @@ public class QuestionManager : Singleton<QuestionManager> {
 
 	void Start()
     {
-
         //allowing answers
         answeredQuestion = false;
 
@@ -82,30 +78,31 @@ public class QuestionManager : Singleton<QuestionManager> {
 					if (oppTurnL [i].t_ID == playerTurnL.Count + 1) {
 						Debug.Log("turn="+oppTurnL [i].t_ID);
 						Debug.Log("questionID"+oppTurnL[i].q_ID);
-//						MatchManager.I.currentCategory = oppTurns [i].c_ID;
-						currentQuestion = questionDatabase.getQuestionById(oppTurnL[i].q_ID); // Last question played by opponent.
-
+						QuestionBackend.I.setQuestionById(oppTurnL[i].q_ID); // Last question played by opponent.
 					}
 				}
 			} else {
 				// Get random question
 				Debug.Log("RANDOM QUESTION PLAYER HAS MORE TURNS");
-				currentQuestion = questionDatabase.getRandomCategoryQuestion (currentCategory);
+				QuestionBackend.I.setRandomQuestion (currentCategory);
 			}
 		} else {
 			Debug.Log("RANDOM QUESTION NO TURNS");
-			currentQuestion = questionDatabase.getRandomCategoryQuestion (currentCategory);
+			QuestionBackend.I.setRandomQuestion (currentCategory);
 		}
-		
+		StartCoroutine(waitBeforeQuestionLoaded());
+	}
+
+	private IEnumerator waitBeforeQuestionLoaded() {
+		while(!QuestionBackend.I.questionLoaded) {
+			yield return new WaitForSeconds (1f);
+		}
 		SetCategoryTitle ();
 		SetPlayersInformation ();
 		SetQuestionReady ();
 	}
-
-
 	/** Check whether the given answer is correct or not correct, switch to next category or home scene according to the outcome**/
 	public void checkAnswer(string Answer) {
-         
         // Hide Timer
         if (Answer != "")
         {
@@ -114,11 +111,11 @@ public class QuestionManager : Singleton<QuestionManager> {
         }
 		if (!answeredQuestion) {
 			Button selectedAnswer = getButtonByAnswer (Answer);
-			Button rightAnswer = getButtonByAnswer (currentQuestion.q_Correct);
+			Button rightAnswer = getButtonByAnswer (QuestionBackend.I.currentQuestion.qCA);
 			int newturnID = (playerTurnL.Count != 9 ? (playerTurnL.Count + 1) : playerTurnL.Count);
 			Turn newTurn;
 			/***************************** CORRECT ANSWER ********************************/
-			if (Answer == currentQuestion.q_Correct)
+			if (Answer == QuestionBackend.I.currentQuestion.qCA)
             {
                 //Tweening
                 foreach (Text text in XPPopUp.GetComponentsInChildren<Text>())
@@ -134,7 +131,7 @@ public class QuestionManager : Singleton<QuestionManager> {
 				// Change progress question image
 				playerTurns.transform.GetChild((playerTurnL.Count == 9 ? 8 : playerTurnL.Count)).GetComponent<Image>().sprite = rightRound;
 				// Change turn information -- Set player id to 1 - to be done: change to gamedonia player id
-				newTurn = new Turn (newturnID, PlayerManager.I.player.playerID, currentQuestion.q_Id, currentCategory, 1);
+				newTurn = new Turn (newturnID, PlayerManager.I.player.playerID, QuestionBackend.I.currentQuestion.q_Id, currentCategory, 1);
 				// Set next question string
 				nextScene = "Category";
                 //set bool win animation
@@ -204,17 +201,18 @@ public class QuestionManager : Singleton<QuestionManager> {
 
                 /////////Check if players wins or loses//////
                     //Player loses
-                    if(int.Parse(playerScore.text) <= int.Parse(oppScore.text))
-                    {
-                        MatchManager.I.winningMatch = false;
-                    } else if (int.Parse(playerScore.text) >= int.Parse(oppScore.text))
-                    {
-						// Player wins
-                        MatchManager.I.winningMatch = true;
+					Debug.Log(playerScore.text+" "+oppScore.text);
+					string winner  = MatchManager.I.getWinner(null, true);
+					if(winner == PlayerManager.I.player.playerID) {
+						MatchManager.I.winningMatch = true;
 						Debug.Log("Unlock new attribute");
 						PlayerManager.I.UnlockNewAttribute ();
-                    } else if(int.Parse(playerScore.text) == int.Parse(oppScore.text)) {
-						MatchManager.I.tie = true;
+					} else {
+						if(winner == "tie") {
+							MatchManager.I.tie = true;
+						} else {
+							 MatchManager.I.winningMatch = false;
+						}
 					}
 					
                 }
@@ -240,7 +238,7 @@ public class QuestionManager : Singleton<QuestionManager> {
 				}
                 PlayerManager.I.player.rightAnswersRow = 0;
                 // Change turn information
-				newTurn = new Turn (newturnID, PlayerManager.I.player.playerID, currentQuestion.q_Id, currentCategory, 0); 
+				newTurn = new Turn (newturnID, PlayerManager.I.player.playerID, QuestionBackend.I.currentQuestion.q_Id, currentCategory, 0); 
 				// Switch to home scene
 				nextScene = "Home";
 			}
@@ -251,9 +249,10 @@ public class QuestionManager : Singleton<QuestionManager> {
 
             // Save new turn to match
 			if (playerTurnL.Count != 9) {
+			
 				MatchManager.I.AddTurn (newTurn);
 			} else {
-				MatchManager.I.ChangeLastTurn (newTurn, false);
+				MatchManager.I.ChangeLastTurn (newTurn, false, false);
 			}
 			
 			if (Answer != "")
@@ -276,6 +275,7 @@ public class QuestionManager : Singleton<QuestionManager> {
 	}
     
 	private Button getButtonByAnswer(string Answer) {
+		Button returnButton;
 		switch (Answer)
 		{
 			case "A":
@@ -323,11 +323,11 @@ public class QuestionManager : Singleton<QuestionManager> {
 	}
 
 	private void SetQuestionReady() {
-		Question.text = currentQuestion.q_Question;
-		AnswerA.GetComponentInChildren<Text>().text = currentQuestion.q_AnswerA;
-		AnswerB.GetComponentInChildren<Text>().text = currentQuestion.q_AnswerB;
-		AnswerC.GetComponentInChildren<Text>().text = currentQuestion.q_AnswerC;
-		AnswerD.GetComponentInChildren<Text>().text = currentQuestion.q_AnswerD;
+		Question.text = QuestionBackend.I.currentQuestion.qT;
+		AnswerA.GetComponentInChildren<Text>().text = QuestionBackend.I.currentQuestion.qA;
+		AnswerB.GetComponentInChildren<Text>().text = QuestionBackend.I.currentQuestion.qB;
+		AnswerC.GetComponentInChildren<Text>().text = QuestionBackend.I.currentQuestion.qC;
+		AnswerD.GetComponentInChildren<Text>().text = QuestionBackend.I.currentQuestion.qD;
 	}
 
 	private void SetPlayerTurnRounds() {

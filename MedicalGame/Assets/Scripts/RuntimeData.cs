@@ -62,7 +62,7 @@ public class RuntimeData : Singleton<RuntimeData> {
 							t_turns = (List<object>)matchD ["m_trns"];
 							
 							foreach (Dictionary<string, object> t_turn  in t_turns) {
-								Turn turn = new Turn (int.Parse (t_turn ["t_ID"].ToString ()), t_turn ["p_ID"].ToString (), int.Parse (t_turn ["q_ID"].ToString ()), int.Parse (t_turn ["c_ID"].ToString ()), int.Parse (t_turn ["t_st"].ToString ()));
+								Turn turn = new Turn (int.Parse (t_turn ["t_ID"].ToString ()), t_turn ["p_ID"].ToString (), t_turn ["q_ID"].ToString (), int.Parse (t_turn ["c_ID"].ToString ()), int.Parse (t_turn ["t_st"].ToString ()));
 								turns.Add (turn);
 							}
 							match.m_cp = matchD ["m_cp"].ToString ();
@@ -96,7 +96,7 @@ public class RuntimeData : Singleton<RuntimeData> {
 							List<object> t_turns = new List<object>();
 							t_turns = (List<object>)matchD["m_trns"];
 							foreach(Dictionary<string, object> t_turn  in t_turns) {
-								Turn turn = new Turn(int.Parse(t_turn["t_ID"].ToString()), t_turn["p_ID"].ToString(), int.Parse(t_turn["q_ID"].ToString()), int.Parse(t_turn["c_ID"].ToString()), int.Parse(t_turn["t_st"].ToString()));
+								Turn turn = new Turn(int.Parse(t_turn["t_ID"].ToString()), t_turn["p_ID"].ToString(), t_turn["q_ID"].ToString(), int.Parse(t_turn["c_ID"].ToString()), int.Parse(t_turn["t_st"].ToString()));
 								turns.Add(turn);
 							}
 							List<string> uids = JsonMapper.ToObject<List<string>>(JsonMapper.ToJson(matchD["u_ids"]));
@@ -137,7 +137,7 @@ public class RuntimeData : Singleton<RuntimeData> {
 						List<object> t_turns = new List<object>();
 						t_turns = (List<object>)matchD["m_trns"];
 						foreach(Dictionary<string, object> t_turn  in t_turns) {
-							Turn turn = new Turn(int.Parse(t_turn["t_ID"].ToString()), t_turn["p_ID"].ToString(), int.Parse(t_turn["q_ID"].ToString()), int.Parse(t_turn["c_ID"].ToString()), int.Parse(t_turn["t_st"].ToString()));
+							Turn turn = new Turn(int.Parse(t_turn["t_ID"].ToString()), t_turn["p_ID"].ToString(), t_turn["q_ID"].ToString(), int.Parse(t_turn["c_ID"].ToString()), int.Parse(t_turn["t_st"].ToString()));
 							turns.Add(turn);
 						}
 						List<string> uids = JsonMapper.ToObject<List<string>>(JsonMapper.ToJson(matchD["u_ids"]));

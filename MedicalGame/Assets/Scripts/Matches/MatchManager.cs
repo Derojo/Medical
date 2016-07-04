@@ -75,7 +75,7 @@ public class MatchManager : Singleton<MatchManager> {
 								List<object> t_turns = new List<object>();
 								t_turns = (List<object>)matchD["m_trns"];
 								foreach(Dictionary<string, object> t_turn  in t_turns) {
-									Turn turn = new Turn(int.Parse(t_turn["t_ID"].ToString()), t_turn["p_ID"].ToString(), int.Parse(t_turn["q_ID"].ToString()), int.Parse(t_turn["c_ID"].ToString()), int.Parse(t_turn["t_st"].ToString()));
+									Turn turn = new Turn(int.Parse(t_turn["t_ID"].ToString()), t_turn["p_ID"].ToString(), t_turn["q_ID"].ToString(), int.Parse(t_turn["c_ID"].ToString()), int.Parse(t_turn["t_st"].ToString()));
 									turns.Add(turn);
 								}
 
@@ -97,6 +97,7 @@ public class MatchManager : Singleton<MatchManager> {
 	}
 
 	public void StartFriendMatch(string friendId) {
+		Debug.Log ("STARTING FRIEND MATCH" + friendId);
 		Loader.I.enableLoader ();
         //checking for achiement
         if (PlayerPrefs.GetInt("Vrienden worden?") == 0) {
@@ -171,7 +172,9 @@ public class MatchManager : Singleton<MatchManager> {
 				if (success) {
 					match.m_ID = data["_id"].ToString();
 					currentMatchID = match.m_ID;
+					Save();
 					if(queueObject) {
+						Debug.Log("create game queue object");
 						createGameQueueObject();
 					}
 				}
@@ -202,32 +205,37 @@ public class MatchManager : Singleton<MatchManager> {
 				createGameQueueObject ();
 			}
 		}
-		match.AddTurn (turn);
-		if (turn.t_st == 0) {
-			if (match.m_status != "waiting") {
-				match.m_cp = GetOppenentId (match);
+		if(!match.m_trns.Contains(turn)) {
+			match.AddTurn (turn);
+			if (turn.t_st == 0) {
+				if (match.m_status != "waiting") {
+					match.m_cp = GetOppenentId (match);
+				} else {
+					match.m_cp = "";
+				}
+				// Update match to gamedonia
+				if(match.m_status == "inviteStart") {
+					match.m_status = "invite";
+				}
+
+				Dictionary<string, object> matchUpdate = MatchManager.I.getDictionaryMatch (match, null, true);
+				GamedoniaData.Update ("matches", matchUpdate);
 			} else {
-				match.m_cp = "";
-			}
-			// Update match to gamedonia
-			if(match.m_status == "inviteStart") {
-				match.m_status = "invite";
-			}
 
-			Dictionary<string, object> matchUpdate = MatchManager.I.getDictionaryMatch (match, null, true);
-			GamedoniaData.Update ("matches", matchUpdate);
-		} else {
-
+			}
 		}
+
 		// Save locally
 		Save ();
 	}
 
 	public void ChangeLastTurn(Turn turn, bool finish, bool directlyNinth = false) {
+		Debug.Log("In last turn");
 		Dictionary<string, object> matchUpdate = null;
 		Match match = GetMatch (currentMatchID);
 		string winner = "";
 		if(directlyNinth) {
+			Debug.Log("added last turn");
 			AddTurn(turn);
 		} else {
 			for (int i = 0; i < match.m_trns.Count; i++) {
@@ -239,7 +247,7 @@ public class MatchManager : Singleton<MatchManager> {
 
 		if (finish) {
 			match.m_status = "finished";
-
+			Debug.Log("Set status to finished");
 			match.m_cp = GetOppenentId (match);
 			winner = getWinner(match);
 			// Gamedonia server script handles opponent push message
@@ -257,11 +265,15 @@ public class MatchManager : Singleton<MatchManager> {
 		Save ();
 	}
 	
-	public string getWinner(Match match) {
+	public string getWinner(Match match = null, bool currentMatch = false) {
+		if(currentMatch) {
+			match = GetMatch(currentMatchID);
+		}
 		string winner = "";
 		string opponentId = GetOppenentId (match);
 		string score = getMatchScore(match.m_ID, opponentId);
 		string[] scoreArray = score.Split (new string[] {"-"}, System.StringSplitOptions.None);
+		Debug.Log(scoreArray[0]+":"+scoreArray[1]);
 		if(int.Parse(scoreArray[0]) > int.Parse(scoreArray[1])) {
 			// Player won
 			winner = PlayerManager.I.player.playerID;
@@ -288,7 +300,10 @@ public class MatchManager : Singleton<MatchManager> {
 	}
 
 	public Match GetMatch(string match_ID) {
-
+		Debug.Log("Amount of matches"+matchManager.matches.Count);
+		if(matchManager.matches == null) {
+			Debug.Log("testtttt");
+		}
 		for (int i = 0; i < matchManager.matches.Count; i++) {
 			if (matchManager.matches[i].m_ID == match_ID) {
 				return matchManager.matches [i];
@@ -423,7 +438,7 @@ public class MatchManager : Singleton<MatchManager> {
 										List<object> t_turns = new List<object> ();
 										t_turns = (List<object>)matchD ["m_trns"];
 										foreach (Dictionary<string, object> t_turn  in t_turns) {
-											Turn turn = new Turn (int.Parse (t_turn ["t_ID"].ToString ()), t_turn ["p_ID"].ToString (), int.Parse (t_turn ["q_ID"].ToString ()), int.Parse (t_turn ["c_ID"].ToString ()), int.Parse (t_turn ["t_st"].ToString ()));
+											Turn turn = new Turn (int.Parse (t_turn ["t_ID"].ToString ()), t_turn ["p_ID"].ToString (), t_turn ["q_ID"].ToString (), int.Parse (t_turn ["c_ID"].ToString ()), int.Parse (t_turn ["t_st"].ToString ()));
 											turns.Add (turn);
 										}
 										match.m_cp = matchD ["m_cp"].ToString ();
@@ -447,7 +462,7 @@ public class MatchManager : Singleton<MatchManager> {
 	}
 
 	public void CheckForInvites() {
-
+		Debug.Log ("CHECK FOR INVITES");
 		GamedoniaData.Search ("matches", "{$and: [ { \"m_status\":\"invite\" }, { \"m_cp\":'"+PlayerManager.I.player.playerID+"' }]}", delegate (bool success, IList data) {
 			if (success) {
 				if (data != null) {
@@ -464,7 +479,7 @@ public class MatchManager : Singleton<MatchManager> {
 							List<object> t_turns = new List<object> ();
 							t_turns = (List<object>)matchD ["m_trns"];
 							foreach (Dictionary<string, object> t_turn  in t_turns) {
-								Turn turn = new Turn (int.Parse (t_turn ["t_ID"].ToString ()), t_turn ["p_ID"].ToString (), int.Parse (t_turn ["q_ID"].ToString ()), int.Parse (t_turn ["c_ID"].ToString ()), int.Parse (t_turn ["t_st"].ToString ()));
+								Turn turn = new Turn (int.Parse (t_turn ["t_ID"].ToString ()), t_turn ["p_ID"].ToString (), t_turn ["q_ID"].ToString (), int.Parse (t_turn ["c_ID"].ToString ()), int.Parse (t_turn ["t_st"].ToString ()));
 								turns.Add (turn);
 							}
 							match.m_cp = matchD ["m_cp"].ToString ();
@@ -499,23 +514,26 @@ public class MatchManager : Singleton<MatchManager> {
 		int playerScore = 0;
 		int oppScore = 0;
 		Match match = GetMatch (id);
-		List<Turn> playerTurnL = GetMatchTurnsByPlayerID (PlayerManager.I.player.playerID, match);
-		List<Turn> oppTurnL = GetMatchTurnsByPlayerID (MatchManager.I.GetOppenentId(match), match);
-		if (match.m_trns != null) {
-			for (int i = 0; i < playerTurnL.Count; i++) {
-				if (playerTurnL [i].t_st == 1) {
-					playerScore++;
-				}
-			}
-			if (oppId != "" && oppTurnL.Count > 0 && oppTurnL != null) {
-				for (int i = 0; i < oppTurnL.Count; i++) {
-					if (oppTurnL [i].t_st == 1) {
-						oppScore++;
+		if(match.m_trns !=null && match.m_trns.Count > 0) {
+			List<Turn> playerTurnL = GetMatchTurnsByPlayerID (PlayerManager.I.player.playerID, match);
+			List<Turn> oppTurnL = GetMatchTurnsByPlayerID (MatchManager.I.GetOppenentId(match), match);
+			if (match.m_trns != null) {
+				for (int i = 0; i < playerTurnL.Count; i++) {
+					if (playerTurnL [i].t_st == 1) {
+						Debug.Log("turn"+i);
+						playerScore++;
 					}
 				}
+				if (oppId != "" && oppTurnL.Count > 0 && oppTurnL != null) {
+					for (int i = 0; i < oppTurnL.Count; i++) {
+						if (oppTurnL [i].t_st == 1) {
+							oppScore++;
+						}
+					}
+				}
+				score = playerScore.ToString ()+ "-" +oppScore.ToString ();
 			}
-			score = playerScore.ToString ()+ "-" +oppScore.ToString ();
-		}
+		} 
 		return score;
 	}
 
@@ -548,17 +566,28 @@ public class MatchManager : Singleton<MatchManager> {
 		return (match.u_ids[0] != PlayerManager.I.player.playerID ? match.u_ids[0] : match.u_ids[1]);
 	}
 
-	public List<int> GetQuestionsInMatch() {
-		List<int> returnValue = new List<int> ();
-		List<Turn> turns = GetMatch (currentMatchID).m_trns;
-		if (turns != null) {
-			for (int i = 0; i < turns.Count; i++) {
-				if (turns [i].p_ID == PlayerManager.I.player.playerID) {
-					returnValue.Add (turns [i].q_ID);
+	public string[] GetQuestionsInMatch(string mId = "") {
+		List<Turn> turns = new List<Turn>();
+		string[] questionIds = new string[1];
+		questionIds[0] = "none";
+		
+		if(mId != "") {
+			turns = GetMatchTurnsByPlayerID(PlayerManager.I.player.playerID, null, mId);
+		} else {
+			turns = GetMatchTurnsByPlayerID(PlayerManager.I.player.playerID, null, currentMatchID);
+		}
+		
+		if(turns != null && turns.Count > 0) {
+			questionIds = new string[turns.Count];
+			
+			if (turns != null) {
+				for (int i = 0; i < turns.Count; i++) {
+					questionIds[i] = turns [i].q_ID;
 				}
 			}
 		}
-		return returnValue;
+
+		return questionIds;
 	}
 
 	public List<Match> returnAllMatches() {
@@ -645,13 +674,16 @@ public class MatchManager : Singleton<MatchManager> {
 	}
 	
 	private void checkIfMatchExists(string matchId) {
-		bool returnValue = false;
-		GamedoniaData.Count("matches", "{\"_id\":\""+matchId+"\"}", delegate (bool success, int count) { 
-			if (success) { 
-			Debug.Log(count);
+		
+		GamedoniaData.Count("matches", "{_id:{$oid:'"+matchId+"'}}", delegate (bool success, int count){
+			if (success){
+				Debug.Log("matches"+count);
 				if(count == 0) {
-					RemoveMatch(null, matchId, false, true);
+					RemoveMatch(null, matchId);
 				}
+			}
+			else {
+				//TODO Your fail processing
 			}
 		});
 	}

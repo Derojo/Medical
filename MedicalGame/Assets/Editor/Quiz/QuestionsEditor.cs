@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 public class QuestionsEditor : EditorWindow {
+	/*
 	private enum State
 	{
 		DEFAULT,
@@ -249,4 +250,5 @@ public class QuestionsEditor : EditorWindow {
 		result.Apply ();
 		return result;
 	}
+	*/
 }

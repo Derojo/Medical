@@ -34,7 +34,6 @@ public class EndScreenScript : MonoBehaviour {
 		defaultInfoText = AttributeInfo.GetComponent<Text>().text;
 		//		string oppId = MatchManager.I.GetOppenentId (null, MatchManager.I.currentMatchID);
 		string oppId = PlayerManager.I.currentOpponentInfo["_id"].ToString();
-		Debug.Log (oppId);
 
 		//set match score
 		matchScore.text = "Score: " + MatchManager.I.getMatchScore(MatchManager.I.currentMatchID, oppId);
@@ -59,7 +58,6 @@ public class EndScreenScript : MonoBehaviour {
 				AttributeInfo.GetComponent<Text> ().text = defaultInfoText + " " + PlayerManager.I.currentOpponentInfo ["name"];
 				AttributeTitle.GetComponent<Text> ().text = PlayerManager.I.GetAttributeTitleByKey (MatchManager.I.lastAttributeKey);
 				AttributeValue.GetComponent<Text> ().text = PlayerManager.I.GetPlayerAttribute (MatchManager.I.lastAttributeKey);
-
 			}
             else
             {

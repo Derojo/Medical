@@ -2,30 +2,30 @@
 
 [System.Serializable]
 public class Question {
-	[SerializeField] public int q_Id;
+	[SerializeField] public string q_Id;
 	// Category related
-	[SerializeField] public int q_Cat;
-	// Question line
-	[SerializeField] public string q_Question;
+	[SerializeField] public int cId;
+	// Question title
+	[SerializeField] public string qT;
 	// Multiple choice answers
-	[SerializeField] public string q_AnswerA;
-	[SerializeField] public string q_AnswerB;
-	[SerializeField] public string q_AnswerC;
-	[SerializeField] public string q_AnswerD;
+	[SerializeField] public string qA;
+	[SerializeField] public string qB;
+	[SerializeField] public string qC;
+	[SerializeField] public string qD;
 	// The correct answer
-	[SerializeField] public string q_Correct;
-	// Question experience ( for later use )
-	[SerializeField] public float q_ExpPoints = 0;
+	[SerializeField] public string qCA;
+	// Sender id
+	[SerializeField] public string sID;
 	
-	public Question( int id, int cat, string question, string A, string B, string C, string D, string correct, float points = 0) {
+	public Question( string id, int cat, string question, string A, string B, string C, string D, string correct, string senderID) {
 		q_Id = id;
-		q_Cat = cat;
-		q_Question = question;
-		q_AnswerA = A;
-		q_AnswerB = B;
-		q_AnswerC = C;
-		q_AnswerD = D;
-		q_Correct = correct;
-		q_ExpPoints = points;
+		cId = cat;
+		qT = question;
+		qA = A;
+		qB = B;
+		qC = C;
+		qD = D;
+		qCA = correct;
+		sID = senderID;
 	}
 }
