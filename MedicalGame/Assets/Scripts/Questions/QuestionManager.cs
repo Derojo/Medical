@@ -8,6 +8,8 @@ using LitJson_Gamedonia;
 
 public class QuestionManager : Singleton<QuestionManager> {
 
+	public GameObject questionTitle;
+	public GameObject questionAnswers;
 	public Text CategoryTitle;
 	public Text Question;
 	public Button AnswerA;
@@ -48,11 +50,13 @@ public class QuestionManager : Singleton<QuestionManager> {
 	private string opponentId;
 	private List<Turn> playerTurnL = new List<Turn>();
 	private List<Turn> oppTurnL = new List<Turn>();
+	public bool questionReady = false;
 
 
 
 	void Start()
     {
+		Loader.I.enableLoader();
         //allowing answers
         answeredQuestion = false;
 
@@ -97,6 +101,10 @@ public class QuestionManager : Singleton<QuestionManager> {
 		while(!QuestionBackend.I.questionLoaded) {
 			yield return new WaitForSeconds (1f);
 		}
+		questionTitle.GetComponent<Animator>().SetBool ("questionReady", true);
+		questionAnswers.GetComponent<Animator>().SetBool ("questionReady", true);
+
+		Loader.I.disableLoader();
 		SetCategoryTitle ();
 		SetPlayersInformation ();
 		SetQuestionReady ();
@@ -328,6 +336,9 @@ public class QuestionManager : Singleton<QuestionManager> {
 		AnswerB.GetComponentInChildren<Text>().text = QuestionBackend.I.currentQuestion.qB;
 		AnswerC.GetComponentInChildren<Text>().text = QuestionBackend.I.currentQuestion.qC;
 		AnswerD.GetComponentInChildren<Text>().text = QuestionBackend.I.currentQuestion.qD;
+		questionTitle.GetComponent<Animator>().SetBool ("questionReady", true);
+		questionAnswers.GetComponent<Animator>().SetBool ("questionReady", true);
+		questionReady = true;
 	}
 
 	private void SetPlayerTurnRounds() {

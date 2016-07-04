@@ -8,30 +8,15 @@ public class Categories : MonoBehaviour {
 
 	public enum categories
 	{
-
-		//TV_ENTERTAINMENT = 1,
-		//GELOOF_CULTUUR	 = 2,
-		///ZORG_WETENSCHAP	 = 3,
-		//GESCHIEDENIS	 = 4,
-		//SPORT			 = 5,
-		//GEOGRAFIE		 = 6,
-        GGZ            = 7,
-        OUDERENZORG      = 8,
-        ZIEKENHUISZORG   = 9,
-        ZORG_ALGEMEEN    = 10,
-        TAND_HUISARTS    = 11,
-        GEHANDICAPTEN    = 12
-
-
+        GGZ            	 = 1,
+        OUDERENZORG      = 2,
+        ZIEKENHUISZORG   = 3,
+        ZORG_ALGEMEEN    = 4,
+        TAND_HUISARTS    = 5,
+        GEHANDICAPTEN    = 6
 	}
 
 	public Text catTitle;                    
-//	public GameObject TV_ENTERTAINMENT_a;
-//	public GameObject GELOOF_CULTUUR_a;
-//	public GameObject ZORG_WETENSCHAP_a;
-//	public GameObject GESCHIEDENIS_a;
-//	public GameObject SPORT_a;
-//	public GameObject GEOGRAFIE_a;
 	public GameObject GGZ_a;
 	public GameObject OUDERENZORG_a;
 	public GameObject ZIEKENHUISZORG_a;
@@ -44,10 +29,8 @@ public class Categories : MonoBehaviour {
 	private List<Turn> oppTurns;
 
 	// Use this for initialization
-	void Start ()
-        {
-        
-
+	void Start () {
+		// CHECK FOR ACHIEVEMENTS
         if (PlayerPrefs.GetInt("Populair") == 0)
         {
             AchievementManager.I.PopulairPlayer();
@@ -68,8 +51,10 @@ public class Categories : MonoBehaviour {
             AchievementManager.I.challengeAccepted();
             PlayerManager.I.firstInviteAccept = false;
         }
-            // Get current match
-            Match currentMatch = MatchManager.I.GetMatch (MatchManager.I.currentMatchID);
+		// CHECK FOR ACHIEVEMENTS END
+		
+		// Get current match
+		Match currentMatch = MatchManager.I.GetMatch (MatchManager.I.currentMatchID);
 		playerTurns = MatchManager.I.GetMatchTurnsByPlayerID (PlayerManager.I.player.playerID, currentMatch);
 		oppTurns = MatchManager.I.GetMatchTurnsByPlayerID (MatchManager.I.GetOppenentId(currentMatch), currentMatch);
 		//Get random cat, show animation
@@ -101,31 +86,6 @@ public class Categories : MonoBehaviour {
 
 	public void ShowCategory(int catID) {
 		switch (catID) {
-			/*case (int)categories.TV_ENTERTAINMENT:
-				TV_ENTERTAINMENT_a.SetActive (true);
-				catTitle.text = "TV & Entertainment"; 
-				break;
-			case (int)categories.GELOOF_CULTUUR:
-				GELOOF_CULTUUR_a.SetActive (true);
-				catTitle.text = "Geloof & Cultuur";
-				break;
-			case (int)categories.ZORG_WETENSCHAP:
-				ZORG_WETENSCHAP_a.SetActive (true);
-				catTitle.text = "Zorg & Wetenschap";
-				break;
-			case (int)categories.GESCHIEDENIS:
-				GESCHIEDENIS_a.SetActive (true);
-				catTitle.text = "Geschiedenis";
-				break;
-			case (int)categories.SPORT:
-				SPORT_a.SetActive (true);
-				catTitle.text = "Sport";
-				break;
-			case (int)categories.GEOGRAFIE:
-				GEOGRAFIE_a.SetActive(true);
-				catTitle.text = "Geografie";
-				break;*/
-                /************** health catagories*********************/
             case (int)categories.GGZ:
                 catTitle.text = "GGZ & Verslavingszorg";
 				GGZ_a.SetActive (true);
@@ -154,20 +114,7 @@ public class Categories : MonoBehaviour {
     }
 
 	public static string getCategoryNameById(int catID) {
-		switch (catID) {/*
-			case (int)categories.TV_ENTERTAINMENT:
-				return "TV & Entertainment"; 
-			case (int)categories.GELOOF_CULTUUR:
-				return "Geloof & Cultuur";
-			case (int)categories.ZORG_WETENSCHAP:
-				return "Zorg & Wetenschap";
-			case (int)categories.GESCHIEDENIS:
-				return "Geschiedenis";
-			case (int)categories.SPORT:
-				return "Sport";
-			case (int)categories.GEOGRAFIE:
-				return "Geografie";/*
-                /************** health catagories*********************/
+		switch (catID) {
             case (int)categories.ZIEKENHUISZORG:
                 return "Ziekenhuiszorg";
             case (int)categories.TAND_HUISARTS:
@@ -179,7 +126,7 @@ public class Categories : MonoBehaviour {
             case (int)categories.ZORG_ALGEMEEN:
                 return "Algemeen";
             case (int)categories.GGZ:
-                    return "GGZ"; 
+                return "GGZ"; 
 
         }
         return "";
