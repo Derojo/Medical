@@ -40,14 +40,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   QuestionDatabase: {fileID: 11400000, guid: 6de19d281d565d840ba9e3f10c5b248b, type: 2}
-  test: 0
+  livesAmount: 5
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: livesAmount
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 132794}
