@@ -9,6 +9,7 @@ public class ShowPlayerInfoSmall : MonoBehaviour {
 	public Text rankingName;
 	public Text playerName;
 	public Text playerLevel;
+	public GameObject adminButton;
 
 	private Sprite rankingSprite;
 
@@ -23,6 +24,9 @@ public class ShowPlayerInfoSmall : MonoBehaviour {
 		// Set Images
 		rankingImg.sprite = PlayerManager.I.GetRankSprite();
 		rankingImgBG.sprite = PlayerManager.I.GetRankSprite();
+		if(PlayerManager.I.player.admin) {
+			adminButton.SetActive(true);
+		}
 	}
 	
 }

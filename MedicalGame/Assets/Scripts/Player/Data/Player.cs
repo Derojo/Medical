@@ -20,6 +20,7 @@ public class Player
     [SerializeField] public bool verificationComplete = false;
 
     /************** Player game data *********************/
+	[SerializeField] public bool admin;
     [SerializeField] public string avatar = "";
     [SerializeField] public float playerXP = 0;
     [SerializeField] public string playerRank = "";

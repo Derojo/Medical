@@ -200,6 +200,7 @@ public class Login : MonoBehaviour {
 			profile.Add("lvl", 1);
 			profile.Add("wonAttr", 0);
 			profile.Add("friends", new Dictionary<string, object> ());
+			profile.Add("admin", false);
 			GamedoniaUsers.UpdateUser(profile, OnLogin);
 
 		} else {

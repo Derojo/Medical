@@ -11,6 +11,7 @@ public class QuestionBackend : Singleton<QuestionBackend>   {
 	public Question currentQuestion;
 	public string[] questionIds;
 	public bool questionLoaded = false;
+	public bool retrievedQuestions = false;
 		
 	public Question setRandomQuestion(int categoryID){
 		currentQuestion = null;
@@ -34,7 +35,8 @@ public class QuestionBackend : Singleton<QuestionBackend>   {
 									question["qC"].ToString(),
 									question["qD"].ToString(),
 									question["qCA"].ToString(),
-									question["sID"].ToString()
+									question["sID"].ToString(),
+									(question["qAp"].ToString() == "True" ? true : false)
 								);
 			questionLoaded = true;
 			} else {
@@ -47,7 +49,7 @@ public class QuestionBackend : Singleton<QuestionBackend>   {
 
 	public Question setQuestionById(string id) {
 		currentQuestion = null;
-			GamedoniaData.Search("question", "{_id:{$oid:'"+id+"'}}", delegate (bool success, IList data){
+			GamedoniaData.Search("questions", "{_id:{$oid:'"+id+"'}}", delegate (bool success, IList data){
 			if (success){
 				//TODO Your success processing
 			   if (data != null && data.Count == 1) {
@@ -61,9 +63,9 @@ public class QuestionBackend : Singleton<QuestionBackend>   {
 									question["qC"].ToString(),
 									question["qD"].ToString(),
 									question["qCA"].ToString(),
-									question["sID"].ToString()
+									question["sID"].ToString(),
+									(question["qAp"].ToString() == "True" ? true : false)
 								);
-					questionLoaded = true;
 			   }
 			}
 			else {
@@ -72,6 +74,93 @@ public class QuestionBackend : Singleton<QuestionBackend>   {
 		});
 		return currentQuestion;
 
+	}
+	
+	public List<Question> getQuestionsByPlayerId() {
+		List<Question> questionList = new List<Question>();
+			GamedoniaData.Search("questions", "{\"sID\":\""+PlayerManager.I.player.playerID+"\"}", delegate (bool success, IList data){
+			if (success){
+				//TODO Your success processing
+			   if (data != null && data.Count > 0) {
+				   
+				   for (int i = 0; i < data.Count; i++) {
+						Dictionary<string,object> questionD = (Dictionary<string, object>) data[i];
+							Question question = new Question(
+							questionD["_id"].ToString(), 
+							int.Parse(questionD["cId"].ToString()),
+							questionD["qT"].ToString(),
+							questionD["qA"].ToString(),
+							questionD["qB"].ToString(),
+							questionD["qC"].ToString(),
+							questionD["qD"].ToString(),
+							questionD["qCA"].ToString(),
+							questionD["sID"].ToString(),
+							(questionD["qAp"].ToString() == "True" ? true : false)
+						);
+						questionList.Add(question);
+					}
+
+
+					retrievedQuestions = true;
+			   }
+			   retrievedQuestions = true;
+			}
+			else {
+				retrievedQuestions = true;
+			}
+		});
+		return questionList;
+	}
+	
+	
+	public List<Question> getNonApprovedQuestions() {
+		List<Question> questionList = new List<Question>();
+			GamedoniaData.Search("questions", "{\"qAp\":false}", delegate (bool success, IList data){
+			if (success){
+				//TODO Your success processing
+			   if (data != null && data.Count > 0) {
+				   
+				   for (int i = 0; i < data.Count; i++) {
+						Dictionary<string,object> questionD = (Dictionary<string, object>) data[i];
+							Question question = new Question(
+							questionD["_id"].ToString(), 
+							int.Parse(questionD["cId"].ToString()),
+							questionD["qT"].ToString(),
+							questionD["qA"].ToString(),
+							questionD["qB"].ToString(),
+							questionD["qC"].ToString(),
+							questionD["qD"].ToString(),
+							questionD["qCA"].ToString(),
+							questionD["sID"].ToString(),
+							(questionD["qAp"].ToString() == "True" ? true : false)
+						);
+						questionList.Add(question);
+					}
+
+
+					retrievedQuestions = true;
+			   }
+			   retrievedQuestions = true;
+			}
+			else {
+				retrievedQuestions = true;
+			}
+		});
+		return questionList;
+	}
+
+	public void ApproveQuestion(string questionID) {
+		Dictionary<string,object> question = new Dictionary<string,object>();
+		question["_id"] = questionID;
+		question["qAp"] = true;
+		GamedoniaData.Update("questions", question, delegate (bool success, IDictionary data){
+			if (success){
+				//TODO Your success processing
+			} 
+			else{
+				//TODO Your fail processing
+			}
+		});
 	}
 	
 	public string[] GetCategories() {
