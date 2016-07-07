@@ -36,8 +36,12 @@ public class CountDownTimer : MonoBehaviour {
 			yield return new WaitForSeconds(1f);
 		}
 		// Start the timer, question is loaded
+		this.GetComponent<Image>().DOFade(1, 0.5f);
+		image.DOFade(1, 0.5f);
+		timerText.DOFade(1, 0.5f);
 		activateTime = true;
         timeUpPopup.SetActive(false);
+		
 	}
 	
 	private void pulsateTimer() {
@@ -64,7 +68,7 @@ public class CountDownTimer : MonoBehaviour {
             timerPercent = timeRemaining / startTimer;
             image.fillAmount = timerPercent;
             timerText.text = timeRemaining.ToString("f0");
-			if(timeRemaining < 5f)
+			if(timeRemaining < 10f)
 			{
 				pulsateTimer();
 			}

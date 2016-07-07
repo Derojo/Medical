@@ -18,9 +18,9 @@ public class QuestionBackend : Singleton<QuestionBackend>   {
 		//string[] questionIds = MatchManager.I.GetQuestionsInMatch ("5778fdfee4b006e8d75e6c3c");
 		string[] questionIds = MatchManager.I.GetQuestionsInMatch ();
 		
-
 		Dictionary<string,object> parameters = new Dictionary<string, object>(){{"cId",categoryID}};
 		parameters.Add("qIds", questionIds);
+		
 
 		GamedoniaScripts.Run("getrandomquestion", parameters, delegate (bool success, object data) {
 			if (success) {
@@ -40,6 +40,7 @@ public class QuestionBackend : Singleton<QuestionBackend>   {
 								);
 			questionLoaded = true;
 			} else {
+				questionLoaded = true;
 				//TODO: the script throwed an error
 			}
 		});
@@ -66,9 +67,12 @@ public class QuestionBackend : Singleton<QuestionBackend>   {
 									question["sID"].ToString(),
 									(question["qAp"].ToString() == "True" ? true : false)
 								);
+					questionLoaded = true;
 			   }
+			   questionLoaded = true;
 			}
 			else {
+				questionLoaded = true;
 				//TODO Your fail processing
 			}
 		});

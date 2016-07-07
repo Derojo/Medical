@@ -79,7 +79,7 @@ public class Categories : MonoBehaviour {
 				MatchManager.I.currentCategory = (int)GetRandomCat ();
 			}
 		}
-
+		
 		currentMatch.m_cc = MatchManager.I.currentCategory;
 		ShowCategory (MatchManager.I.currentCategory);
 	}

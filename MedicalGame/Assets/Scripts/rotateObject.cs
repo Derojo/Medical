@@ -10,8 +10,9 @@ public class rotateObject : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 
 	public void OnDrag(PointerEventData data)
 	{
+		Debug.Log("test");
 		float rotateX = Input.GetAxis("Mouse X")*rotSpeed*Mathf.Deg2Rad;
-		transform.RotateAround(Vector3.down,Vector3.down, rotateX);
+		transform.RotateAround(Vector3.down, rotateX);
 		
 	}
 	

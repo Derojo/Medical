@@ -10,6 +10,8 @@ public class AudioManagerScript : Singleton<AudioManagerScript>
     public AudioSource achievementUnlockSound;
     public AudioSource TimeUpSound;
     public AudioSource lvlUpSound;
+	public AudioSource bell;
+
 
     public static bool pause;
  
@@ -22,6 +24,7 @@ public class AudioManagerScript : Singleton<AudioManagerScript>
 		achievementUnlockSound = a_sources[1];
         TimeUpSound = a_sources[2];
         lvlUpSound = a_sources[3];
+		bell = a_sources[4];
     }
 
     public void pauseAudio()

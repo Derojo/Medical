@@ -17,6 +17,7 @@ public class buildAvatar : MonoBehaviour {
 	public Mesh[] trousers;
 
     public bool isPlayer;
+	public bool playAnimation = false;
     // Use this for initialization
     private string avatarString = "";
 
@@ -24,7 +25,9 @@ public class buildAvatar : MonoBehaviour {
 
 	void Start () {
 
-
+		if(playAnimation) {
+			gameObject.GetComponent<Animator>().SetBool("IsWinning",true);
+		}
         if (isPlayer)
         {
             avatarString = PlayerManager.I.player.avatar;

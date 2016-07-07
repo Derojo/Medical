@@ -340,7 +340,10 @@ public class CurrentMatches : MonoBehaviour {
 							}
 						}
 						if (child.name == "Score") {
-							child.GetComponent<Text> ().text = MatchManager.I.getMatchScore (matchId, oppId);
+							if(listname != "inviteTurn") {
+								string _score = MatchManager.I.getMatchScore (matchId, oppId);
+								child.GetComponent<Text> ().text = MatchManager.I.getMatchScore (matchId, oppId);
+							}
 						}
 						if (child.name == "line") {
 							if (listname == "yourTurn") {
@@ -369,8 +372,10 @@ public class CurrentMatches : MonoBehaviour {
 		} else {
 			foreach (Transform child in parent.transform) {
 				if (child.name == "Score") {
-					string _score = MatchManager.I.getMatchScore (matchId, oppId);
-					child.GetComponent<Text> ().text = (_score == "" ? "0-0" : _score);
+					if(listname != "inviteTurn") {
+						string _score = MatchManager.I.getMatchScore (matchId, oppId);
+						child.GetComponent<Text> ().text = (_score == "" ? "0-0" : _score);
+					}
 				}
 			}
 			parent.SetActive (true);

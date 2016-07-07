@@ -5,9 +5,25 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 using LitJson_Gamedonia;
+using Gamedonia.Backend;
 
 public class QuestionManager : Singleton<QuestionManager> {
-
+	
+	// First startup
+	public GameObject addedBy;
+	public GameObject correctAnswer;
+	public GameObject chosenAnswer;
+	public GameObject startupVS;
+	public GameObject avatarsVS;
+	public GameObject defaultAvatars;
+	public Text VS;
+	public Text playerNameVS;
+	public Image playerRankImgVS;
+	public Text oppNameVS;
+	public Image oppRankImgVS;
+	public Text timerText;
+	public Color colorOrange;
+	public Color colorGreen;
 	public GameObject questionTitle;
 	public GameObject questionAnswers;
 	public Text CategoryTitle;
@@ -51,19 +67,20 @@ public class QuestionManager : Singleton<QuestionManager> {
 	private List<Turn> playerTurnL = new List<Turn>();
 	private List<Turn> oppTurnL = new List<Turn>();
 	public bool questionReady = false;
+	private bool showAddedBy = false;
 
 
 
 	void Start()
     {
-		Loader.I.enableLoader();
+		
         //allowing answers
         answeredQuestion = false;
 
         // Match initialization 
         Match currentMatch = MatchManager.I.GetMatch (MatchManager.I.currentMatchID);
 		opponentId = MatchManager.I.GetOppenentId (currentMatch);
-
+		//opponentId = "";
 		if (opponentId != "") {
 			PlayerManager.I.GetPlayerInformationById (opponentId);
             
@@ -73,41 +90,107 @@ public class QuestionManager : Singleton<QuestionManager> {
 		if (currentMatch.m_trns != null && currentMatch.m_trns.Count > 0) {
 			playerTurnL = MatchManager.I.GetMatchTurnsByPlayerID (PlayerManager.I.player.playerID, currentMatch);
 			oppTurnL = MatchManager.I.GetMatchTurnsByPlayerID (MatchManager.I.GetOppenentId(currentMatch), currentMatch);
-			Debug.Log("Player turns:"+playerTurnL.Count);
-			Debug.Log("Opponent turns:"+oppTurnL.Count);
 			if (oppTurnL.Count > playerTurnL.Count) {
-				Debug.Log("Opponent has more questions so get his question");
 				// Opponent played more turns, get his last turn
 				for (int i = 0; i < oppTurnL.Count; i++) {
 					if (oppTurnL [i].t_ID == playerTurnL.Count + 1) {
-						Debug.Log("turn="+oppTurnL [i].t_ID);
-						Debug.Log("questionID"+oppTurnL[i].q_ID);
 						QuestionBackend.I.setQuestionById(oppTurnL[i].q_ID); // Last question played by opponent.
 					}
 				}
 			} else {
 				// Get random question
-				Debug.Log("RANDOM QUESTION PLAYER HAS MORE TURNS");
+				//QuestionBackend.I.setQuestionById("577e17cde4b05c9036deda44"); 
 				QuestionBackend.I.setRandomQuestion (currentCategory);
 			}
 		} else {
-			Debug.Log("RANDOM QUESTION NO TURNS");
+			//QuestionBackend.I.setQuestionById("577e17cde4b05c9036deda44"); 
 			QuestionBackend.I.setRandomQuestion (currentCategory);
 		}
+		
+		SetPlayersInformation ();
+		
+		if(playerTurnL.Count == 0) {
+			// Hide default avatars
+			//defaultAvatars.SetActive(false);
+			//Show first startup VS
+			startupVS.SetActive(true);
+			avatarsVS.SetActive(true);
+			VS.DOFade(1,1f);
+			StartCoroutine(hideStartupVS());
+		} else {
+			Loader.I.enableLoader();
+			StartCoroutine(waitBeforeQuestionLoaded());
+		}
+		
+
+	}
+	
+	private IEnumerator hideStartupVS() {
+		bool continueWithQuestion = false;
+		timerText.GetComponent<RectTransform>().DOScale(1.3f, 0.5f);
+		timerText.GetComponent<RectTransform>().DOScale(1f, 0.5f).SetDelay(0.5f);
+		yield return new WaitForSeconds(1f);
+		timerText.DOColor(colorOrange, 1f);
+		timerText.GetComponent<RectTransform>().DOScale(1.4f, 0.5f);
+		timerText.GetComponent<RectTransform>().DOScale(1f, 0.5f).SetDelay(0.5f);
+		timerText.text = "2";
+		yield return new WaitForSeconds(1f);
+		timerText.GetComponent<RectTransform>().DOScale(1.5f, 0.5f);
+		timerText.GetComponent<RectTransform>().DOScale(1f, 0.5f).SetDelay(0.5f);
+		timerText.text = "1";
+		timerText.DOColor(colorGreen, 1f);
+		yield return new WaitForSeconds(1f);
+		timerText.GetComponent<RectTransform>().DOScale(1.6f, 0.5f);
+		timerText.GetComponent<RectTransform>().DOScale(1f, 0.5f).SetDelay(0.5f);
+		timerText.text = "0";
+		avatarsVS.transform.GetChild(0).transform.DOLocalMoveX (-20, 1f);
+		avatarsVS.transform.GetChild(1).transform.DOLocalMoveX (20, 1f);
+		startupVS.transform.GetChild(0).GetComponent<Image>().DOFade(0, 1f);
+		startupVS.transform.GetChild(1).GetComponent<Image>().DOFade(0, 0.5f);
+		startupVS.transform.GetChild(2).GetComponent<Image>().DOFade(0, 0.5f);
+		startupVS.transform.GetChild(3).GetComponent<Text>().DOFade(0, 0.5f);
+		startupVS.transform.GetChild(4).transform.DOMoveX (-100, 1f);
+		startupVS.transform.GetChild(5).transform.DOMoveX (100, 1f);
+		startupVS.transform.GetChild(6).transform.DOMoveY (100, 1f);
+		startupVS.transform.GetChild(7).transform.DOMoveY (100, 1f);
+		defaultAvatars.transform.GetChild(0).transform.DOLocalMoveX (1f, 1f).SetEase(Ease.OutExpo);
+		defaultAvatars.transform.GetChild(0).transform.DOLocalMoveZ (-0.37f, 1f).SetEase(Ease.OutExpo);
+		defaultAvatars.transform.GetChild(1).transform.DOLocalMoveX(8.5f, 1f).SetEase(Ease.OutExpo);
+		defaultAvatars.transform.GetChild(1).transform.DOLocalMoveZ (1, 1f).SetEase(Ease.OutExpo);
+		AudioManagerScript.I.bell.Play();
+		yield return new WaitForSeconds(0.5f);
+		Destroy(startupVS);
+		Destroy(avatarsVS);
 		StartCoroutine(waitBeforeQuestionLoaded());
 	}
-
+	
 	private IEnumerator waitBeforeQuestionLoaded() {
+
 		while(!QuestionBackend.I.questionLoaded) {
 			yield return new WaitForSeconds (1f);
 		}
-		questionTitle.GetComponent<Animator>().SetBool ("questionReady", true);
-		questionAnswers.GetComponent<Animator>().SetBool ("questionReady", true);
-
 		Loader.I.disableLoader();
+		defaultAvatars.transform.GetChild(0).transform.DOLocalMoveX (1f, 1f).SetEase(Ease.OutExpo);
+		defaultAvatars.transform.GetChild(0).transform.DOLocalMoveZ (-0.37f, 1f).SetEase(Ease.OutExpo);
+		defaultAvatars.transform.GetChild(1).transform.DOLocalMoveX(8.5f, 1f).SetEase(Ease.OutExpo);
+		defaultAvatars.transform.GetChild(1).transform.DOLocalMoveZ (1, 1f).SetEase(Ease.OutExpo);
 		SetCategoryTitle ();
-		SetPlayersInformation ();
 		SetQuestionReady ();
+		if(QuestionBackend.I.currentQuestion.sID != "admin") {
+			showAddedBy = true;
+			setAddedByInfo(QuestionBackend.I.currentQuestion.sID);
+		}
+	}
+	
+	private void setAddedByInfo(string playerID) {
+		GamedoniaUsers.GetUser(playerID, delegate (bool success, GDUserProfile data) { 
+			if (success) {
+				//returnInformation["name"] = data.profile["name"].ToString();
+				Dictionary<string, object> playerInfo = data.profile;
+				addedBy.transform.GetChild(0).GetComponent<Image>().sprite = PlayerManager.I.GetRankSprite (int.Parse(playerInfo["lvl"].ToString()));
+				addedBy.transform.GetChild(2).GetComponent<Text>().text = playerInfo["name"].ToString();
+			}
+		});
 	}
 	/** Check whether the given answer is correct or not correct, switch to next category or home scene according to the outcome**/
 	public void checkAnswer(string Answer) {
@@ -209,7 +292,6 @@ public class QuestionManager : Singleton<QuestionManager> {
 
                 /////////Check if players wins or loses//////
                     //Player loses
-					Debug.Log(playerScore.text+" "+oppScore.text);
 					string winner  = MatchManager.I.getWinner(null, true);
 					if(winner == PlayerManager.I.player.playerID) {
 						MatchManager.I.winningMatch = true;
@@ -235,6 +317,7 @@ public class QuestionManager : Singleton<QuestionManager> {
 					rightAnswer.GetComponentInChildren<Text> ().color = Color.white;
 					// Turn button color to red
 					selectedAnswer.GetComponent<Image> ().sprite = wrongAnswer;
+					chosenAnswer.GetComponentInChildren<Text>().text = selectedAnswer.GetComponentInChildren<Text>().text;
 					selectedAnswer.GetComponentInChildren<Text> ().color = Color.white;
 					// Change progress question image
 					playerTurns.transform.GetChild((playerTurnL.Count == 9 ? 8 : playerTurnL.Count)).GetComponent<Image>().sprite = wrongRound;
@@ -250,7 +333,7 @@ public class QuestionManager : Singleton<QuestionManager> {
 				// Switch to home scene
 				nextScene = "Home";
 			}
-
+		
             // check for completed achievements & lvl up
             AchievementManager.I.checkAchievementAfterAnswer();
             PlayerManager.I.CheckLevelUp();
@@ -265,7 +348,28 @@ public class QuestionManager : Singleton<QuestionManager> {
 			
 			if (Answer != "")
             {
+				if(showAddedBy) {
+					questionAnswers.transform.DOScale(0,1f);
+					questionAnswers.SetActive(false);
+					addedBy.SetActive(true);
+					addedBy.GetComponent<Image>().DOFade(0.2f, 1);
+					addedBy.transform.GetChild(0).GetComponent<Image>().DOFade(0.27f, 1);
+					addedBy.transform.GetChild(1).GetComponent<Text>().DOFade(1, 1);
+					addedBy.transform.GetChild(2).GetComponent<Text>().DOFade(1, 1);
+					addedBy.transform.GetChild(3).GetComponent<Image>().DOFade(0.42f, 1);
+					addedBy.transform.GetChild(3).GetChild(0).GetComponent<Text>().DOFade(1, 1);
+					correctAnswer.SetActive(true);
+					correctAnswer.GetComponentInChildren<Text>().text = rightAnswer.GetComponentInChildren<Text>().text;
+					correctAnswer.GetComponent<Image>().DOFade(1,1);
+					correctAnswer.GetComponentInChildren<Text>().DOFade(1,1);
+					if(Answer != QuestionBackend.I.currentQuestion.qCA) {
+						chosenAnswer.SetActive(true);
+						chosenAnswer.GetComponent<Image>().DOFade(1,1);
+						chosenAnswer.GetComponentInChildren<Text>().DOFade(1,1);
+					}
+				}
 				Continue.SetActive (true);
+
                 answeredQuestion = true;
             }
 		}
@@ -307,7 +411,10 @@ public class QuestionManager : Singleton<QuestionManager> {
 
 		// Player information
 		playerName.text = PlayerManager.I.player.profile.name;
+		playerNameVS.text = playerName.text;
 		playerRankImg.sprite = PlayerManager.I.GetRankSprite();
+		playerRankImgVS.sprite = playerRankImg.sprite;
+		playerRankImgVS.DOFade(0.36f, 1f);
 		// Turn round information
 		SetPlayerTurnRounds();
 		// Opponent Information
@@ -315,6 +422,9 @@ public class QuestionManager : Singleton<QuestionManager> {
 		if (opponentId != "") {
 			SetOppTurnRounds ();
 			StartCoroutine (SetOpponentInfo ());
+		} else {
+			oppNameVS.text = "Willekeurig!";
+			oppRankImgVS.DOFade(0.36f, 1f);
 		}
 
 	}
@@ -324,7 +434,10 @@ public class QuestionManager : Singleton<QuestionManager> {
 			yield return null;
 		}
 		oppName.text = PlayerManager.I.currentOpponentInfo ["name"].ToString();
+		oppNameVS.text = oppName.text;
 		oppRankImg.sprite = PlayerManager.I.GetRankSprite (int.Parse(PlayerManager.I.currentOpponentInfo["lvl"].ToString()));
+		oppRankImgVS.sprite = oppRankImg.sprite;
+		oppRankImgVS.DOFade(0.36f, 1f);
 	}
 	private void SetCategoryTitle() {
 		CategoryTitle.text = Categories.getCategoryNameById(currentCategory);

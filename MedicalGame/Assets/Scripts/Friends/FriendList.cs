@@ -9,7 +9,8 @@ using DG.Tweening;
 public class FriendList : MonoBehaviour {
 
     public InputField friendSearcher;
-    public GameObject noFriendFound;
+	public GameObject response;
+	public Text responseText;
 	public GameObject lives;
 	public Text livesText;
 	private int livesLeft = 5;
@@ -17,14 +18,15 @@ public class FriendList : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-		showFriends ();
+
 		if (MatchManager.I.matches != null && MatchManager.I.matches.Count > 0) {
 			livesLeft = RuntimeData.I.livesAmount - MatchManager.I.getTotalActiveMatches();
 			if(livesLeft  < 0 ) {
 				livesLeft = 0;
 			}
-			livesText.text = livesLeft.ToString();
+			Debug.Log(livesLeft);
 		}
+		showFriends ();
 	}
 
 	
@@ -50,11 +52,8 @@ public class FriendList : MonoBehaviour {
             GameObject inputField = friendRow.transform.GetChild(1).transform.GetChild(0).gameObject;
             horizontal.GetComponentInChildren<Text>().text = oppProfile["name"].ToString();
             horizontal.GetComponentInChildren<Image>().sprite = PlayerManager.I.GetRankSprite(int.Parse(oppProfile["lvl"].ToString()));
-			if(livesLeft > 0) {
-				if(!MatchManager.I.checkForPlayingWithFriend(friendKey)) {
-					horizontal.GetComponentInChildren<Button>().onClick.AddListener(delegate { MatchManager.I.StartFriendMatch(friendKey); });
-				}
-			}
+			horizontal.GetComponentInChildren<Button>().onClick.AddListener(delegate {startFriendMatch(friendKey);});
+
 
             //displaying unlocked info
             if (ammountOfAttributes > 0)
@@ -87,15 +86,38 @@ public class FriendList : MonoBehaviour {
         }
         friendRow.transform.SetParent(this.transform, false);
     }
+	
+	private void startFriendMatch(string key) {
+		if(livesLeft > 0) {
+			if(!MatchManager.I.checkForPlayingWithFriend(key)) {
+				MatchManager.I.StartFriendMatch(key);
+			} else {
+				responseText.text = "Je kunt maar 1 potje tegelijk tegen iemand spelen!";
+				StartCoroutine(showResponse(2f));
+			}
+		} else {
+			responseText.text = "Je hebt niet genoeg levens om nog een potje te starten!";
+			StartCoroutine(showResponse(2f));
+		}
+	}
 
   /////////*****Friendsearch*****/////////
 
-
+	private IEnumerator showResponse(float time) {
+		response.SetActive(true);
+		response.GetComponentInChildren<Text>().DOFade(1, 1f);
+		responseText.DOFade(1,1f);
+		response.GetComponentInChildren<Image>().DOFade(1, 1f);
+		yield return new WaitForSeconds(time);
+		response.GetComponentInChildren<Text>().DOFade(0, 1f);
+		responseText.DOFade(0,1f);
+		response.GetComponentInChildren<Image>().DOFade(0, 1f);
+		yield return new WaitForSeconds(0.5f);
+		response.SetActive(false);
+	}
+	
     public void searchForFriends()
     {
-        noFriendFound.SetActive(false);
-        noFriendFound.GetComponent<Text>().text = "";
-
         if (friendSearcher.text != "")
         {
             string friendcode = friendSearcher.text;
@@ -114,12 +136,12 @@ public class FriendList : MonoBehaviour {
                         }
                         else
                         {
-                            noFriendFound.GetComponent<Text>().text = "Je hebt " + friendcode + " al als vriend";
-                            noFriendFound.SetActive(true);
+							responseText.text = "Je hebt " + friendcode + " al als vriend";
+							StartCoroutine(showResponse(2f));
                         }
                     } else {
-                        noFriendFound.GetComponent<Text>().text = "Vriend niet gevonden";
-                        noFriendFound.SetActive(true);
+						responseText.text = "Vriend niet gevonden, probeer het nogmaals";
+						StartCoroutine(showResponse(2f));
                     }
                 }
 
