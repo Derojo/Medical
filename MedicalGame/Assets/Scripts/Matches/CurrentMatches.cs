@@ -24,7 +24,6 @@ public class CurrentMatches : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		StartLives();
-		currentGamesPanel.SetActive (false);
 		if (MatchManager.I.matches != null && MatchManager.I.matches.Count > 0) {
 			int lives = RuntimeData.I.livesAmount - MatchManager.I.getTotalActiveMatches();
 			if(lives  < 0 ) {
@@ -126,10 +125,10 @@ public class CurrentMatches : MonoBehaviour {
 				GameObject matchUI = null;
 				if (match.m_cp != opponentId) {
 					matchUI = Instantiate (Resources.Load ("MatchUIInviteRow")) as GameObject;
-					matchUI.transform.GetChild (3).GetComponent<Button> ().onClick.AddListener (delegate {
+					matchUI.transform.GetChild (2).GetComponent<Button> ().onClick.AddListener (delegate {
 						MatchManager.I.AcceptMatch (match);
 					});
-					matchUI.transform.GetChild (4).GetComponent<Button> ().onClick.AddListener (delegate {
+					matchUI.transform.GetChild (3).GetComponent<Button> ().onClick.AddListener (delegate {
 						MatchManager.I.DenyMatch (match);
 					});
 

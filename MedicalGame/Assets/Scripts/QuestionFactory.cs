@@ -102,7 +102,9 @@ public class QuestionFactory : MonoBehaviour {
 		question["qCA"] = correctAnswer;
 		question["sID"] = PlayerManager.I.player.playerID;
 		question["qAp"] = false;
-
+		
+		// Add 50 exp to the player
+		PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP += 50;
 		  
 		// Make the request to store the entity inside the desired collection
 		GamedoniaData.Create("questions", question, delegate (bool success, IDictionary data){

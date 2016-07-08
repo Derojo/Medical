@@ -67,6 +67,7 @@ public class Registration : MonoBehaviour {
 			user.profile.Add("lvl", 1);
 			user.profile.Add("wonAttr", 1);
 			user.profile ["friends"] = new Dictionary<string, object> ();
+			user.profile.Add("avatar", "");
 			user.profile.Add("admin", false);
 			GamedoniaUsers.CreateUser(user,OnCreateUser);
 

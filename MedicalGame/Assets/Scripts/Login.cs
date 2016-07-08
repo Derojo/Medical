@@ -190,7 +190,6 @@ public class Login : MonoBehaviour {
 	void OnFacebookLogin (bool success) {
 
 		if (success) {
-			// Optional stuff if you want to store the Facebook username inside the Gamedonia user profile
 			Dictionary<string,object> profile = new Dictionary<string, object>();
 			profile.Add("name", fbUserName);
 			profile.Add("color", "");
@@ -201,6 +200,7 @@ public class Login : MonoBehaviour {
 			profile.Add("wonAttr", 0);
 			profile.Add("friends", new Dictionary<string, object> ());
 			profile.Add("admin", false);
+			profile.Add("avatar", "");
 			GamedoniaUsers.UpdateUser(profile, OnLogin);
 
 		} else {

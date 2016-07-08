@@ -24,8 +24,8 @@ public class HomeStartUp : MonoBehaviour {
         //Getting rank image
         rankingImg.sprite = PlayerManager.I.GetRankSprite(PlayerManager.I.player.playerLvl);
         //Getting rank name
-        currentRanktxt.text = PlayerManager.I.player.playerRank;
-        currentLVL.text = "Je bent nu level " + PlayerManager.I.player.playerLvl.ToString() + " van de rank ";
+        currentRanktxt.text = "Rang : "+PlayerManager.I.player.playerRank;
+        currentLVL.text = "Je bent nu level " + PlayerManager.I.player.playerLvl.ToString();
        
     }
 	

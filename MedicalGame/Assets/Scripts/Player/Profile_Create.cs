@@ -65,6 +65,7 @@ public class Profile_Create : MonoBehaviour {
 		// Add filled in form to profile
 		ChangeProfileDictionary();
 		// Callback to Gamedonia server
+		Debug.Log("Here");
 		if (isValidated) {
 			loader.enableLoader ();
 			GamedoniaUsers.UpdateUser (LoggedInUser.profile, delegate (bool success) {
@@ -97,6 +98,7 @@ public class Profile_Create : MonoBehaviour {
 	}
 
 	private void ChangeProfileDictionary() {
+		Debug.Log("test");
 		isValidated = validateAll ();
 
 		if(isValidated) {
@@ -107,12 +109,14 @@ public class Profile_Create : MonoBehaviour {
 			LoggedInUser.profile ["hobby"] = p_hobby.text;
 			LoggedInUser.profile ["film"] = p_film.text;
             LoggedInUser.profile ["instelling"] = p_instelling.text;
-
+		Debug.Log("tes3t");
             // Store locally
             PlayerManager.I.changeProfile (new PlayerProfile (p_name.text, int.Parse (p_age.text), p_color.text, p_hobby.text, p_film.text, p_instelling.text));
 			PlayerManager.I.player.avatar = LoggedInUser.profile ["avatar"].ToString();
 			PlayerManager.I.player.admin = (LoggedInUser.profile ["admin"].ToString() == "True" ? true : false);
-			PlayerManager.I.player.playerLvl = int.Parse(LoggedInUser.profile ["lvl"].ToString());
+			Debug.Log("tes33t");
+			PlayerManager.I.player.playerLvl = int.Parse(LoggedInUser.profile ["lvl"].ToString());	
+			Debug.Log("343423");
 		}
 	}
 

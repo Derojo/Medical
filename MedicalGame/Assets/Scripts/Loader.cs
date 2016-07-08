@@ -21,13 +21,19 @@ public class Loader : Singleton<Loader> {
 		disableLoader ();
 	}
 
-	public void LoadScene(string scene) {
-		StartCoroutine(LoadSceneIE(scene));
+	public void LoadScene(string scene, bool loadWithAds = false) {
+		if(loadWithAds) {
+			AdManager.I.ShowAd("video");
+			Loader.I.enableLoader ();
+		}
+		StartCoroutine(LoadSceneIE(scene, true));
 	}
 
-	private IEnumerator LoadSceneIE(string scene) {
+	private IEnumerator LoadSceneIE(string scene, bool loadWithAds = false) {
 		if (!gameObject.activeSelf) {
-			enableLoader ();
+			if(!loadWithAds) {
+				enableLoader ();	
+			}
 		}
 		AsyncOperation async = SceneManager.LoadSceneAsync(scene);
 		while (!async.isDone) {

@@ -28,15 +28,49 @@ public class RuntimeData : Singleton<RuntimeData> {
 		GDPushService service = new GDPushService();
 		service.RegisterEvent += new RegisterEventHandler(OnGameUpdateNotification);
 		GamedoniaPushNotifications.AddService (service);
+		// In App purchases, request callback
+		GDInAppService reqService = new GDInAppService();
+		reqService.RegisterEvent += new InAppEventHandler(OnProductsRequested);
+		GamedoniaStoreInAppPurchases.AddRequestService(reqService);
+		// In App purchases, buyservice callback
+		GDInAppService buyService = new GDInAppService();
+		buyService.RegisterEvent += new InAppEventHandler(OnProductPurchased);
+		GamedoniaStoreInAppPurchases.AddPurchaseService(buyService);
 	}
-
-	public void startRandomMatch() {
-		int livesLeft = RuntimeData.I.livesAmount - MatchManager.I.getTotalActiveMatches();
-		if(livesLeft > 0) {
-			MatchManager.I.StartRandomMatch ();
+	
+	/* *******************************************************IN APP PURCHASES AREA *************************************************************************/
+	private void OnProductsRequested() {
+ 
+		if (GamedoniaStore.productsRequestResponse.success) {
+	 
+			foreach (KeyValuePair<string, Product> entry in GamedoniaStore.productsRequestResponse.products) {
+	 
+				Product product = (Product)entry.Value;
+				Debug.Log("Received Product: " + product.identifier + " price: " + product.priceLocale + " description: " + product.description);
+			}
+		} else {
+		 
+			Debug.Log ("Unable to request products!, message: " + GamedoniaStore.productsRequestResponse.message);
 		}
 	}
-
+	
+	private void OnProductPurchased() {
+ 
+		PurchaseResponse purchase = GamedoniaStore.purchaseResponse;
+		string details = "Purchase Result status: " + purchase.status + " for product identifier: " + purchase.identifier;
+		if (purchase.message != null && purchase.message.Length > 0) details += " message: " + purchase.message;
+		 
+		Debug.Log(details);
+	 
+		if (purchase.success) {
+	 
+			Debug.Log("Purchase success");
+			// UNLOCK YOUR NEW MAP
+		}
+	}
+	/***************************************************************IN APP PURCHASES END *************************************************************************/
+	
+	/********************************************************PUSH NOTIFICATIONS AREA ****************************************************************************/
 	// Process incoming notification
 	void OnGameUpdateNotification(Dictionary<string,object> notification) {
 		Scene currentScene = SceneManager.GetActiveScene();
@@ -174,6 +208,14 @@ public class RuntimeData : Singleton<RuntimeData> {
 		default:
 			// Do nothing
 			break;
+		}
+	}
+	/********************************************************PUSH NOTIFICATIONS AREA END ****************************************************************************/
+	
+	public void startRandomMatch() {
+		int livesLeft = RuntimeData.I.livesAmount - MatchManager.I.getTotalActiveMatches();
+		if(livesLeft > 0) {
+			MatchManager.I.StartRandomMatch ();
 		}
 	}
 }

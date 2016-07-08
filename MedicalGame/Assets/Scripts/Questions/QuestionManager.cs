@@ -378,12 +378,22 @@ public class QuestionManager : Singleton<QuestionManager> {
 	public void switchScene()
     {
 		MatchManager.I.clearCurrentCategory ();
+
         if(nextScene == "Home")
         {
             PlayerManager.I.player.rightAnswersRow = 0;
-        }
-		Loader.I.enableLoader ();
-		Loader.I.LoadScene (nextScene);
+			if(AdManager.I.playAddAfterQuestionWrong && AdManager.I.enableAds) {
+				Loader.I.LoadScene (nextScene, true);
+			}
+        } else {
+			if(AdManager.I.playAddAfterQuestionRight && AdManager.I.enableAds) {
+				Loader.I.LoadScene (nextScene);
+			}	
+		}
+		if(!AdManager.I.enableAds) {
+			Loader.I.enableLoader ();
+			Loader.I.LoadScene (nextScene);
+		}
 	}
     
 	private Button getButtonByAnswer(string Answer) {
