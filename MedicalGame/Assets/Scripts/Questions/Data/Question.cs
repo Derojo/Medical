@@ -17,9 +17,9 @@ public class Question {
 	// Sender id
 	[SerializeField] public string sID;
 	// questionApproved?
-	[SerializeField] public bool qAp;
+	[SerializeField] public int qAp;
 	
-	public Question( string id, int cat, string question, string A, string B, string C, string D, string correct, string senderID, bool qApproved) {
+	public Question( string id, int cat, string question, string A, string B, string C, string D, string correct, string senderID, int qApproved) {
 		q_Id = id;
 		cId = cat;
 		qT = question;

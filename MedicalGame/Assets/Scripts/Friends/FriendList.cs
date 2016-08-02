@@ -80,7 +80,7 @@ public class FriendList : MonoBehaviour {
             if (ammountOfAttributes > 4)
             {
                 inputField.transform.GetChild(14).gameObject.SetActive(false);
-                inputField.transform.GetChild(9).GetComponent<Text>().text = oppProfile["film"].ToString();
+                inputField.transform.GetChild(9).GetComponent<Text>().text = oppProfile["instelling"].ToString();
             }
 
         }
@@ -127,6 +127,9 @@ public class FriendList : MonoBehaviour {
                 if (success)
                 {
                     if (data != null) {
+						if (PlayerPrefs.GetInt("Vrienden worden?") == 0) {
+							AchievementManager.I.wantToBeFriends();
+						}
                         Dictionary<string, object> userData = (Dictionary<string, object>)data[0];
                         string id = userData["_id"].ToString();
                         if (!PlayerManager.I.friends.ContainsKey(id))

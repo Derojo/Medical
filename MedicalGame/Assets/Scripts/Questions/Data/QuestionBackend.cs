@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Gamedonia.Backend;
 
-[Prefab("QuestionBackend", false, "")]
+[Prefab("QuestionBackend", true, "")]
 public class QuestionBackend : Singleton<QuestionBackend>   {
 
 	private List<string> categories = new List<string>();
 	public Question currentQuestion;
+	public bool changeQuestion = false;
 	public string[] questionIds;
 	public bool questionLoaded = false;
 	public bool retrievedQuestions = false;
@@ -24,24 +25,25 @@ public class QuestionBackend : Singleton<QuestionBackend>   {
 
 		GamedoniaScripts.Run("getrandomquestion", parameters, delegate (bool success, object data) {
 			if (success) {
-				Debug.Log(data);
-				Dictionary<string,object> question = (Dictionary<string,object>)data;
-				currentQuestion = new Question(
-									question["_id"].ToString(), 
-									int.Parse(question["cId"].ToString()),
-									question["qT"].ToString(),
-									question["qA"].ToString(),
-									question["qB"].ToString(),
-									question["qC"].ToString(),
-									question["qD"].ToString(),
-									question["qCA"].ToString(),
-									question["sID"].ToString(),
-									(question["qAp"].ToString() == "True" ? true : false)
-								);
-			questionLoaded = true;
-			} else {
+				if(data != null && data != "undefined") {
+					Dictionary<string,object> question = (Dictionary<string,object>)data;
+					currentQuestion = new Question(
+										question["_id"].ToString(), 
+										int.Parse(question["cId"].ToString()),
+										question["qT"].ToString(),
+										question["qA"].ToString(),
+										question["qB"].ToString(),
+										question["qC"].ToString(),
+										question["qD"].ToString(),
+										question["qCA"].ToString(),
+										question["sID"].ToString(),
+										int.Parse(question["qAp"].ToString())
+									);
 				questionLoaded = true;
-				//TODO: the script throwed an error
+				} else {
+					setRandomQuestion(categoryID);
+					//TODO: the script throwed an error
+				}
 			}
 		});
 		return currentQuestion;
@@ -65,7 +67,7 @@ public class QuestionBackend : Singleton<QuestionBackend>   {
 									question["qD"].ToString(),
 									question["qCA"].ToString(),
 									question["sID"].ToString(),
-									(question["qAp"].ToString() == "True" ? true : false)
+									int.Parse(question["qAp"].ToString())
 								);
 					questionLoaded = true;
 			   }
@@ -99,7 +101,7 @@ public class QuestionBackend : Singleton<QuestionBackend>   {
 							questionD["qD"].ToString(),
 							questionD["qCA"].ToString(),
 							questionD["sID"].ToString(),
-							(questionD["qAp"].ToString() == "True" ? true : false)
+							int.Parse(questionD["qAp"].ToString())
 						);
 						questionList.Add(question);
 					}
@@ -119,7 +121,7 @@ public class QuestionBackend : Singleton<QuestionBackend>   {
 	
 	public List<Question> getNonApprovedQuestions() {
 		List<Question> questionList = new List<Question>();
-			GamedoniaData.Search("questions", "{\"qAp\":false}", delegate (bool success, IList data){
+			GamedoniaData.Search("questions", "{\"qAp\":0}", delegate (bool success, IList data){
 			if (success){
 				//TODO Your success processing
 			   if (data != null && data.Count > 0) {
@@ -136,7 +138,7 @@ public class QuestionBackend : Singleton<QuestionBackend>   {
 							questionD["qD"].ToString(),
 							questionD["qCA"].ToString(),
 							questionD["sID"].ToString(),
-							(questionD["qAp"].ToString() == "True" ? true : false)
+							int.Parse(questionD["qAp"].ToString())
 						);
 						questionList.Add(question);
 					}
@@ -153,10 +155,10 @@ public class QuestionBackend : Singleton<QuestionBackend>   {
 		return questionList;
 	}
 
-	public void ApproveQuestion(string questionID) {
+	public void SetQuestionState(string questionID, int stateId) {
 		Dictionary<string,object> question = new Dictionary<string,object>();
 		question["_id"] = questionID;
-		question["qAp"] = true;
+		question["qAp"] = stateId;
 		GamedoniaData.Update("questions", question, delegate (bool success, IDictionary data){
 			if (success){
 				//TODO Your success processing

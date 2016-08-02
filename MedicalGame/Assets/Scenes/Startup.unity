@@ -195,5 +195,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 615b40596e89f4ee5b0d5f84bbf1b7cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  androidPublickey: 
+  androidPublickey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgLkuDPMUw3BG6AomcO/OL4OaXvMNbmE2GFJetbq8KG90si/H5f2TFZy4GOKWNQB/Chsu92t7D3MgeksZsgF9AYNyn6T50HHsEvKybz6WEBUG4Evjbvgpe8A0d1/5Krs8KPJWz9djpmQ+gI/Sq4ZfOzRR1Oiv5fjbKW7S9PJ5cEAbZDSUTm0X+OVUe5GnJjPy4ZPCv9UDMIczYWxawzvibkiM4MXCcYpRAnnRJ1XgdXJRWxzbJcapxMwmhy/YksLtY0Bb3AHNAPLLuK1/FYgvCmHJQhmeW/MZy1Q/NlT4aHquaetz9K/fzFKNuAHS22utD84f2Zuf4JlUQrPFMI6j7QIDAQAB
   debug: 1

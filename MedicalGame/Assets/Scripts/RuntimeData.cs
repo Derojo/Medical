@@ -4,16 +4,29 @@ using System.Collections.Generic;
 using Gamedonia.Backend;
 using UnityEngine.SceneManagement;
 using LitJson_Gamedonia;
+using System;
 
 [Prefab("RuntimeData", true, "")]
 public class RuntimeData : Singleton<RuntimeData> {
 
-	public QuestionDatabase QuestionDatabase;
 	public int livesAmount = 0;
+	public bool noconnectionSceneLoaded = false;
 	// Use this for initialization
 
 	public bool Load() {return true;}
-
+	
+	void Update() {
+		/*
+		if (Application.platform == RuntimePlatform.Android)
+		{
+			if (Input.GetKey(KeyCode.Escape))
+			{
+				Application.Quit();
+				return;
+			}
+		}*/
+	}
+	
 	void Start () {
         //setting framerate
         QualitySettings.vSyncCount = 0;
@@ -28,47 +41,8 @@ public class RuntimeData : Singleton<RuntimeData> {
 		GDPushService service = new GDPushService();
 		service.RegisterEvent += new RegisterEventHandler(OnGameUpdateNotification);
 		GamedoniaPushNotifications.AddService (service);
-		// In App purchases, request callback
-		GDInAppService reqService = new GDInAppService();
-		reqService.RegisterEvent += new InAppEventHandler(OnProductsRequested);
-		GamedoniaStoreInAppPurchases.AddRequestService(reqService);
-		// In App purchases, buyservice callback
-		GDInAppService buyService = new GDInAppService();
-		buyService.RegisterEvent += new InAppEventHandler(OnProductPurchased);
-		GamedoniaStoreInAppPurchases.AddPurchaseService(buyService);
 	}
-	
-	/* *******************************************************IN APP PURCHASES AREA *************************************************************************/
-	private void OnProductsRequested() {
- 
-		if (GamedoniaStore.productsRequestResponse.success) {
-	 
-			foreach (KeyValuePair<string, Product> entry in GamedoniaStore.productsRequestResponse.products) {
-	 
-				Product product = (Product)entry.Value;
-				Debug.Log("Received Product: " + product.identifier + " price: " + product.priceLocale + " description: " + product.description);
-			}
-		} else {
-		 
-			Debug.Log ("Unable to request products!, message: " + GamedoniaStore.productsRequestResponse.message);
-		}
-	}
-	
-	private void OnProductPurchased() {
- 
-		PurchaseResponse purchase = GamedoniaStore.purchaseResponse;
-		string details = "Purchase Result status: " + purchase.status + " for product identifier: " + purchase.identifier;
-		if (purchase.message != null && purchase.message.Length > 0) details += " message: " + purchase.message;
-		 
-		Debug.Log(details);
-	 
-		if (purchase.success) {
-	 
-			Debug.Log("Purchase success");
-			// UNLOCK YOUR NEW MAP
-		}
-	}
-	/***************************************************************IN APP PURCHASES END *************************************************************************/
+
 	
 	/********************************************************PUSH NOTIFICATIONS AREA ****************************************************************************/
 	// Process incoming notification
@@ -101,6 +75,7 @@ public class RuntimeData : Singleton<RuntimeData> {
 							}
 							match.m_cp = matchD ["m_cp"].ToString ();
 							match.m_trns = turns;
+							match.m_date = matchD ["m_date"].ToString();
 							match.m_status = matchD ["m_status"].ToString ();
 							MatchManager.I.AddMatch(match, false, false);
 						}
@@ -144,6 +119,7 @@ public class RuntimeData : Singleton<RuntimeData> {
 							match.m_cc = 0;
 							match.m_trns = turns;
 							match.m_cp = PlayerManager.I.player.playerID;
+							match.m_date = matchD["m_date"].ToString();
 							match.m_status = matchD["m_status"].ToString();
 
 							if(currentScene.name == "Home") {
@@ -180,6 +156,7 @@ public class RuntimeData : Singleton<RuntimeData> {
 						finishMatch.m_cc = 0;
 						finishMatch.m_trns = turns;
 						finishMatch.m_cp = PlayerManager.I.player.playerID;
+						finishMatch.m_date = matchD ["m_date"].ToString();
 						finishMatch.m_status = matchD["m_status"].ToString();
 						if(matchD["m_won"].ToString() == PlayerManager.I.player.playerID) {
 							// Check if we can earn an attribute of our opponent
@@ -189,6 +166,7 @@ public class RuntimeData : Singleton<RuntimeData> {
 						if(currentScene.name == "Home") {
 							Loader.I.showFinishedPopup (oppName, matchD["m_won"].ToString());
 						}
+						GameObject.FindObjectOfType<CurrentMatches> ().updateLives();
 
 					} 
 				}
@@ -204,6 +182,7 @@ public class RuntimeData : Singleton<RuntimeData> {
 			MatchManager.I.Save ();
 			GameObject.FindObjectOfType<CurrentMatches> ().showInvites ();
 			GameObject.FindObjectOfType<CurrentMatches> ().deleteRow (matchDeny.m_ID);
+
 			break;
 		default:
 			// Do nothing
@@ -217,5 +196,12 @@ public class RuntimeData : Singleton<RuntimeData> {
 		if(livesLeft > 0) {
 			MatchManager.I.StartRandomMatch ();
 		}
+	}
+	
+	public string getCorrectDateTime(DateTime date) {
+		System.DateTime theTime = date;
+		
+		string returnValue = theTime.ToString("yyyy-MM-dd hh:mm:ss:tt", System.Globalization.CultureInfo.InvariantCulture);
+		return returnValue;
 	}
 }

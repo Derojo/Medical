@@ -6,6 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using Gamedonia.Backend;
 using LitJson_Gamedonia;
+using System;
 
 [Prefab("MatchManager", true, "")]
 public class MatchManager : Singleton<MatchManager> {
@@ -34,8 +35,8 @@ public class MatchManager : Singleton<MatchManager> {
 		matches = new List<Match> (); 
 		matches = matchManager.matches;
 	}
-
-
+	
+		
 	public void StartRandomMatch() {
 		currentMatchID = "";
 		currentCategory = 0;
@@ -43,10 +44,13 @@ public class MatchManager : Singleton<MatchManager> {
 		Loader.I.enableLoader ();
 
 		// Search for random fame in random queue tabel
-		GamedoniaData.Search("randomqueue", "{'uid': {$ne: '"+PlayerManager.I.player.playerID+"'}}", delegate (bool success, IList data){
+		
+		GamedoniaData.Search("randomqueue", "{'uid': {$nin:['"+PlayerManager.I.player.playerID+"'"+getPlayingFriendsIds()+"]}}", delegate (bool success, IList data){
 			if (success){
 				// If there isnt anyone waiting for a game we start a match then send it as an option to others
 				if(data == null || data.Count == 0) {
+					Debug.Log("not matches available");
+
 					Match match  = new Match();
 					// Add empty player since we dont know against we play yet
 					match.AddPlayer("");
@@ -56,20 +60,28 @@ public class MatchManager : Singleton<MatchManager> {
 					match.AddPlayer(PlayerManager.I.player.playerID);
 					// We are the current player
 					match.m_cp = PlayerManager.I.player.playerID;
+					// Set current Date
+					match.m_date = RuntimeData.I.getCorrectDateTime(System.DateTime.Now);
+					//Debug.Log(match.m_date);
+					//Debug.Log("random"+DateTime.Parse(match.m_date));
+					//string myDate = "30-12-2016 07:50:00:AM";
+					//DateTime dt1 = DateTime.ParseExact(myDate, "dd-MM-yyyy hh:mm:ss:tt", System.Globalization.CultureInfo.InvariantCulture);
 					// Add match to local list and gamedonia server
-					AddMatch(match, true, false, true);
+					 AddMatch(match, true, false, true);
 				} else { 
 					// We found a random player, delete entry from randomqueue
 					GamedoniaData.Delete("randomqueue",((IDictionary) data[0])["_id"].ToString(), null);
+
 					// Add player to friend list
 					if(!PlayerManager.I.friends.ContainsKey(((IDictionary) data[0])["uid"].ToString()) && ((IDictionary) data[0])["uid"].ToString() != "") {
 						PlayerManager.I.AddFriend(((IDictionary) data[0])["uid"].ToString());
 					}
-					// Get match from matches table
+
 					GamedoniaData.Search ("matches", "{_id: { $oid: '"+((IDictionary) data[0])["m_ID"].ToString()+"' } }", 1, "{m_trns:1}" , delegate (bool _success, IList match) {
 						if (success) {
 							if (data != null) {
 								Dictionary<string, object> matchD = (Dictionary<string, object>)match[0];
+								
 								List<Turn> turns = new List<Turn>();
 								// Convert incoming turn data to Turn class
 								List<object> t_turns = new List<object>();
@@ -81,7 +93,8 @@ public class MatchManager : Singleton<MatchManager> {
 
 								List<string> uids = JsonMapper.ToObject<List<string>>(JsonMapper.ToJson(matchD["u_ids"]));
 								uids[0] = PlayerManager.I.player.playerID;
-								Match existingMatch = new Match (matchD ["_id"].ToString (), uids, "", "", matchD ["m_status"].ToString (), 0, matchD ["m_cp"].ToString (), 0 ,turns);
+								Match existingMatch = new Match (matchD ["_id"].ToString (), uids, "", "", matchD ["m_status"].ToString (), 0, matchD ["m_cp"].ToString (), 0 , matchD ["m_date"].ToString());
+								existingMatch.m_trns = turns;
 								existingMatch.m_cp = PlayerManager.I.player.playerID;
 								existingMatch.m_status = "playing";
 								currentMatchID = existingMatch.m_ID;
@@ -89,10 +102,10 @@ public class MatchManager : Singleton<MatchManager> {
 							} 
 						}
 					});
-
 				}
 			}
 		});
+		
 
 	}
 
@@ -100,9 +113,6 @@ public class MatchManager : Singleton<MatchManager> {
 		Debug.Log ("STARTING FRIEND MATCH" + friendId);
 		Loader.I.enableLoader ();
         //checking for achiement
-        if (PlayerPrefs.GetInt("Vrienden worden?") == 0) {
-            PlayerManager.I.firstInvite = true;
-        }
    
         Match match  = new Match();
 		//  Add opponent
@@ -113,6 +123,9 @@ public class MatchManager : Singleton<MatchManager> {
 		match.m_status = "inviteStart";
 		// We are the current player
 		match.m_cp = PlayerManager.I.player.playerID;
+		// Set current Date
+		match.m_date = RuntimeData.I.getCorrectDateTime(System.DateTime.Now);
+		Debug.Log("Friend invite"+match.m_date);
 		// Add match to local list and gamedonia server
 		AddMatch(match, true, false, false);
 		Loader.I.LoadScene("Category");
@@ -147,6 +160,8 @@ public class MatchManager : Singleton<MatchManager> {
 				Save ();
 				GameObject.FindObjectOfType<CurrentMatches> ().showInvites ();
 				GameObject.FindObjectOfType<CurrentMatches> ().deleteRow (match.m_ID);
+				GameObject.FindObjectOfType<CurrentMatches> ().checkMatchCount();
+				
 			} 
 			else{
 				//TODO Your fail processing
@@ -217,7 +232,7 @@ public class MatchManager : Singleton<MatchManager> {
 				if(match.m_status == "inviteStart") {
 					match.m_status = "invite";
 				}
-
+				match.m_date = RuntimeData.I.getCorrectDateTime(System.DateTime.Now);
 				Dictionary<string, object> matchUpdate = MatchManager.I.getDictionaryMatch (match, null, true);
 				GamedoniaData.Update ("matches", matchUpdate);
 			} else {
@@ -265,6 +280,14 @@ public class MatchManager : Singleton<MatchManager> {
 		Save ();
 	}
 	
+	public void setWinner(Match match, string winner) {
+		match.m_status = "finished";
+		match.m_cp = winner;
+		Dictionary<string, object> matchUpdate =  MatchManager.I.getDictionaryMatch (match, null, true, winner);
+		GamedoniaData.Update("matches", matchUpdate);
+		Save ();
+	}
+	
 	public string getWinner(Match match = null, bool currentMatch = false) {
 		if(currentMatch) {
 			match = GetMatch(currentMatchID);
@@ -300,10 +323,7 @@ public class MatchManager : Singleton<MatchManager> {
 	}
 
 	public Match GetMatch(string match_ID) {
-		Debug.Log("Amount of matches"+matchManager.matches.Count);
-		if(matchManager.matches == null) {
-			Debug.Log("testtttt");
-		}
+
 		for (int i = 0; i < matchManager.matches.Count; i++) {
 			if (matchManager.matches[i].m_ID == match_ID) {
 				return matchManager.matches [i];
@@ -323,6 +343,17 @@ public class MatchManager : Singleton<MatchManager> {
 			}
 		}
 		return false;
+	}
+	
+	public string getPlayingFriendsIds() {
+		string friendsString = "";
+		for (int i = 0; i < matches.Count; i++) {
+			string opponentId = GetOppenentId(matches[i]);
+			if (matchManager.matches[i].m_status != "finished") {
+				friendsString+= ",'"+opponentId+"'";
+			}
+		}
+		return friendsString;
 	}
 	public void RemoveMatch(Match match = null, string matchID = "", bool completely = false, bool deleteInScene = false) {
 		if(match == null) {
@@ -371,7 +402,6 @@ public class MatchManager : Singleton<MatchManager> {
 								}
 							}
 						} else if(type =="opponent") {
-							Debug.Log("effefwe"); 
 							if (matchManager.matches [i].m_cp != pID) {
 								if (matchManager.matches [i].m_status != "invite") {
 									tempList.Add (matchManager.matches [i]);
@@ -393,13 +423,60 @@ public class MatchManager : Singleton<MatchManager> {
 		int amount = 0;
 		if(matches.Count > 0) {
 			for (int i = 0; i < matchManager.matches.Count; i++) {
-				if (matchManager.matches[i].m_status != "finished") {
+				if (matchManager.matches[i].m_status != "finished" && matchManager.matches[i].m_status != "invite" ) {
 					amount++;
 				}
 			}
 		}
+		Debug.Log(amount);
 		return amount;
 	}
+	
+	public void getAllMatchesOnStartGame() {
+		Debug.Log("get all matches on start game");
+		//	GamedoniaData.Search ("matches", "{'user_ids': {$in:['"+PlayerManager.I.player.playerID+"']}}", delegate (bool success, IList data) {
+		if(matches.Count == 0) {
+			Debug.Log("search matches for user");
+			Debug.Log("u_ids:'"+PlayerManager.I.player.playerID+"' }");
+			GamedoniaData.Search ("matches", "{u_ids:'"+PlayerManager.I.player.playerID+"' }", delegate (bool success, IList data) {
+				if (success) {
+					if (data != null) {
+						for(int i = 0; i < data.Count; i++) {
+							Debug.Log("Add match for user");
+							Dictionary<string, object> matchD = (Dictionary<string, object>)data[i];
+							
+							Match match  = new Match();
+							match.m_ID = matchD["_id"].ToString();
+							List<string> uids = JsonMapper.ToObject<List<string>> (JsonMapper.ToJson (matchD ["u_ids"]));
+							match.u_ids = uids;
+
+							List<Turn> turns = new List<Turn> ();
+							List<object> t_turns = new List<object> ();
+							t_turns = (List<object>)matchD ["m_trns"];
+							foreach (Dictionary<string, object> t_turn  in t_turns) {
+								Turn turn = new Turn (int.Parse (t_turn ["t_ID"].ToString ()), t_turn ["p_ID"].ToString (), t_turn ["q_ID"].ToString (), int.Parse (t_turn ["c_ID"].ToString ()), int.Parse (t_turn ["t_st"].ToString ()));
+								turns.Add (turn);
+							}
+							match.m_cp = matchD ["m_cp"].ToString ();
+							match.m_trns = turns;
+							match.m_date = matchD ["m_date"].ToString();
+							match.m_status = matchD ["m_status"].ToString ();
+							if(!matches.Contains (match)) {
+								AddMatch(match, false, false);
+							}
+							
+						}
+						MatchManager.I.checkUpdates = true;
+					} else {
+						MatchManager.I.checkUpdates = true;
+					}
+				} else {
+					MatchManager.I.checkUpdates = true;
+				}
+			});
+		}
+	}
+	
 	public void checkForUpdateMatches() {
 		currentMatchID = "";
 		currentCategory = 0;
@@ -443,6 +520,7 @@ public class MatchManager : Singleton<MatchManager> {
 										}
 										match.m_cp = matchD ["m_cp"].ToString ();
 										match.m_trns = turns;
+										match.m_date = matchD ["m_date"].ToString();
 										match.m_status = matchD ["m_status"].ToString ();
 										Save ();
 										checkUpdates = true;
@@ -452,10 +530,12 @@ public class MatchManager : Singleton<MatchManager> {
 								}
 							}
 						}
+						checkUpdates = true;
 					});
 				}
 				checkUpdates = true;
 			} 
+			checkUpdates = true;
 		} else {
 			checkUpdates = true;
 		}
@@ -484,12 +564,13 @@ public class MatchManager : Singleton<MatchManager> {
 							}
 							match.m_cp = matchD ["m_cp"].ToString ();
 							match.m_trns = turns;
+							match.m_date = matchD ["m_date"].ToString();
 							match.m_status = matchD ["m_status"].ToString ();
 							AddMatch(match, false, false);
 						}
 					}
 				}
-			}
+			} 
 		});
 	}
 
@@ -520,7 +601,6 @@ public class MatchManager : Singleton<MatchManager> {
 			if (match.m_trns != null) {
 				for (int i = 0; i < playerTurnL.Count; i++) {
 					if (playerTurnL [i].t_st == 1) {
-						Debug.Log("turn"+i);
 						playerScore++;
 					}
 				}
@@ -615,23 +695,16 @@ public class MatchManager : Singleton<MatchManager> {
 			file.Close();
 		}
 	}
-
-
-	public string GenerateMatchCode() {
-		int desiredCodeLength = 15;
-		string code = "";
-
-		char[] characters =  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".ToCharArray();
-		while(code.Length < desiredCodeLength) {
-			code += characters[Random.Range(0, characters.Length)];
-		}
-		if (!checkCode(code)) {
-			return(GenerateMatchCode ());
-		} else {
-			return code;
+	
+	public void RemoveLocalMatches() {
+		if(File.Exists(Application.persistentDataPath + "/matches.gd")) {
+			File.Delete( Application.persistentDataPath + "/matches.gd" );
+			matches = null;
+			matchManager = new Matches ();
+			matches = new List<Match> (); 
+			matches = matchManager.matches;
 		}
 	}
-
 	private bool checkCode(string code) {
 		for (int i = 0; i < matchManager.matches.Count; i++) {
 			if (matchManager.matches[i].m_ID == code) {
@@ -654,6 +727,7 @@ public class MatchManager : Singleton<MatchManager> {
 		dicMatch ["u_ids"] = match.u_ids;
 		dicMatch ["m_status"] = match.m_status;
 		dicMatch ["m_cp"] = match.m_cp;
+		dicMatch ["m_date"] = match.m_date;
 		dicMatch ["m_trns"] = match.m_trns;
 		if(playerWon != "") {
 			dicMatch ["m_won"] = playerWon;
@@ -668,6 +742,7 @@ public class MatchManager : Singleton<MatchManager> {
 
 		randomGame.Add("uid", PlayerManager.I.player.playerID);
 		randomGame.Add("nickname", PlayerManager.I.player.profile.name);
+		randomGame.Add("p_ID", PlayerManager.I.player.playerID);
 		randomGame.Add("m_ID", currentMatchID);
 
 		GamedoniaData.Create ("randomqueue", randomGame);

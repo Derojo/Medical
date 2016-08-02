@@ -19,7 +19,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_3_5;UNITY_5_3;UNITY_5;ENABLE_NEW_BUGREPORTER;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_SPRITE_POLYGON;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;INCLUDE_DIRECTX12;PLATFORM_SUPPORTS_MONO;ENABLE_LOCALIZATION;ENABLE_ANDROID_ATLAS_ETC1_COMPRESSION;ENABLE_EDITOR_TESTS_RUNNER;ENABLE_RUNTIME_GI;ENABLE_SUBSTANCE;ENABLE_GAMECENTER;ENABLE_NETWORK;ENABLE_LOG_MIXED_STACKTRACE;ENABLE_UNITYWEBREQUEST;ENABLE_TEXTUREID_MAP;PLAYERCONNECTION_LISTENS_FIXED_PORT;DEBUGGER_LISTENS_FIXED_PORT;PLATFORM_SUPPORTS_ADS_ID;SUPPORT_ENVIRONMENT_VARIABLES;PLATFORM_SUPPORTS_PROFILER;PLATFORM_HAS_NO_SUPPORT_FOR_BUCKET_ALLOCATOR;STRICTCPP_NEW_DELETE_SIGNATURES;WWW_USE_CURL;HAS_NEON_SKINNIG;UNITY_INPUT_SIMULATE_EVENTS;PLATFORM_ALWAYS_USES_STDOUT_FOR_LOG;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;UNITY_IOS;UNITY_IPHONE;UNITY_IPHONE_API;SUPPORT_MULTIPLE_DISPLAYS;ENABLE_IL2CPP;DEVELOPMENT_BUILD;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_OSX;ENABLE_IOS_ON_DEMAND_RESOURCES;ENABLE_IOS_APP_SLICING</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_2;UNITY_5_3;UNITY_5;UNITY_ADS;ENABLE_NEW_BUGREPORTER;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_SPRITE_POLYGON;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;INCLUDE_DIRECTX12;PLATFORM_SUPPORTS_MONO;ENABLE_LOCALIZATION;ENABLE_ANDROID_ATLAS_ETC1_COMPRESSION;ENABLE_EDITOR_TESTS_RUNNER;UNITY_ANDROID;UNITY_ANDROID_API;ENABLE_SUBSTANCE;ENABLE_TEXTUREID_MAP;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_LOG_MIXED_STACKTRACE;ENABLE_UNITYWEBREQUEST;PLATFORM_SUPPORTS_ADS_ID;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
@@ -38,10 +38,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>/Volumes/LaCie/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEngine.dll</HintPath>
+      <HintPath>D:/Program Files/Unity5/Editor/Data/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>/Volumes/LaCie/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEditor.dll</HintPath>
+      <HintPath>D:/Program Files/Unity5/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -86,18 +86,18 @@
      <Compile Include="Assets\Scripts\Achievements\Achievement.cs" />
      <Compile Include="Assets\Scripts\Achievements\AchievementList.cs" />
      <Compile Include="Assets\Scripts\Achievements\AchievementManager.cs" />
+     <Compile Include="Assets\Scripts\AdManager.cs" />
      <Compile Include="Assets\Scripts\AddUser.cs" />
+     <Compile Include="Assets\Scripts\ApproveQuestions.cs" />
      <Compile Include="Assets\Scripts\AudioManagerScript.cs" />
-     <Compile Include="Assets\Scripts\ButtonAudioScript.cs" />
      <Compile Include="Assets\Scripts\CanvasLoader.cs" />
      <Compile Include="Assets\Scripts\Categories.cs" />
-     <Compile Include="Assets\Scripts\ChatTestScript.cs" />
      <Compile Include="Assets\Scripts\CountDownTimer.cs" />
      <Compile Include="Assets\Scripts\Data\PrefabAttribute.cs" />
      <Compile Include="Assets\Scripts\Data\Singleton.cs" />
-     <Compile Include="Assets\Scripts\DestroyPopUpScript.cs" />
      <Compile Include="Assets\Scripts\Friends\FriendList.cs" />
      <Compile Include="Assets\Scripts\HomeStartUp.cs" />
+     <Compile Include="Assets\Scripts\InAppProducts\ProductManager.cs" />
      <Compile Include="Assets\Scripts\IntroScript.cs" />
      <Compile Include="Assets\Scripts\Loader.cs" />
      <Compile Include="Assets\Scripts\Login.cs" />
@@ -108,6 +108,7 @@
      <Compile Include="Assets\Scripts\Matches\EndScreenScript.cs" />
      <Compile Include="Assets\Scripts\Matches\MatchManager.cs" />
      <Compile Include="Assets\Scripts\Matches\ScrollEvent.cs" />
+     <Compile Include="Assets\Scripts\MyQuestions.cs" />
      <Compile Include="Assets\Scripts\Player\Data\Player.cs" />
      <Compile Include="Assets\Scripts\Player\Data\PlayerProfile.cs" />
      <Compile Include="Assets\Scripts\Player\Data\Rank.cs" />
@@ -117,22 +118,24 @@
      <Compile Include="Assets\Scripts\Player\ScrollEventProfile.cs" />
      <Compile Include="Assets\Scripts\Player\ShowPlayerInfoSmall.cs" />
      <Compile Include="Assets\Scripts\ProfilePicture.cs" />
+     <Compile Include="Assets\Scripts\QuestionFactory.cs" />
      <Compile Include="Assets\Scripts\Questions\Data\Question.cs" />
+     <Compile Include="Assets\Scripts\Questions\Data\QuestionBackend.cs" />
      <Compile Include="Assets\Scripts\Questions\Data\QuestionDatabase.cs" />
      <Compile Include="Assets\Scripts\Questions\QuestionManager.cs" />
      <Compile Include="Assets\Scripts\Registration.cs" />
      <Compile Include="Assets\Scripts\RuntimeData.cs" />
      <Compile Include="Assets\Scripts\SceneManagerScript.cs" />
-     <Compile Include="Assets\Scripts\Sound\BallBounce.cs" />
-     <Compile Include="Assets\Scripts\Sound\Popcorn.cs" />
      <Compile Include="Assets\Scripts\Startup.cs" />
      <Compile Include="Assets\Scripts\TextureScale.cs" />
      <Compile Include="Assets\Scripts\TimerScript.cs" />
      <Compile Include="Assets\Scripts\UtilResize.cs" />
+     <Compile Include="Assets\Scripts\VerificationCode.cs" />
      <Compile Include="Assets\Scripts\buildAvatar.cs" />
      <Compile Include="Assets\Scripts\clothchanger.cs" />
      <Compile Include="Assets\Scripts\foldOutScript.cs" />
-     <Compile Include="Assets\rotateObject.cs" />
+     <Compile Include="Assets\Scripts\rankingList.cs" />
+     <Compile Include="Assets\Scripts\rotateObject.cs" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />
@@ -169,6 +172,7 @@
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\_DepthOfField\DepthOfFieldDX11.shader" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\ContrastComposite.shader" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\_Antialiasing\FXAAPreset3.shader" />
+     <None Include="Assets\Movinarc\PackageUninstaller\README.txt" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\FisheyeShader.shader" />
      <None Include="Assets\Plugins\Android\facebook\res\layout\com_facebook_login_activity_layout.xml" />
      <None Include="Assets\Plugins\Android\facebook\res\drawable\com_facebook_top_button.xml" />
@@ -262,23 +266,26 @@
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\_BloomAndFlares\BlurAndFlares.shader" />
      <None Include="Assets\Plugins\OpenUDID\README.txt" />
      <None Include="Assets\Materials\Mobile\Textures\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendForBloom.shader" />
- <Reference Include="UnityEngine.UI">
- <HintPath>/Volumes/LaCie/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
- </Reference>
  <Reference Include="UnityEngine.Networking">
- <HintPath>/Volumes/LaCie/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ <HintPath>D:/Program Files/Unity5/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UI">
+ <HintPath>D:/Program Files/Unity5/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Advertisements">
+ <HintPath>D:/Program Files/Unity5/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
  </Reference>
  <Reference Include="DOTween">
- <HintPath>/Volumes/LaCie/Medical Game/Medical/MedicalGame/Assets/DOTween/DOTween.dll</HintPath>
+ <HintPath>D:/Documenten/Medical/MedicalGame/Assets/DOTween/DOTween.dll</HintPath>
  </Reference>
  <Reference Include="DOTween43">
- <HintPath>/Volumes/LaCie/Medical Game/Medical/MedicalGame/Assets/DOTween/DOTween43.dll</HintPath>
+ <HintPath>D:/Documenten/Medical/MedicalGame/Assets/DOTween/DOTween43.dll</HintPath>
  </Reference>
  <Reference Include="DOTween46">
- <HintPath>/Volumes/LaCie/Medical Game/Medical/MedicalGame/Assets/DOTween/DOTween46.dll</HintPath>
+ <HintPath>D:/Documenten/Medical/MedicalGame/Assets/DOTween/DOTween46.dll</HintPath>
  </Reference>
  <Reference Include="DOTween50">
- <HintPath>/Volumes/LaCie/Medical Game/Medical/MedicalGame/Assets/DOTween/DOTween50.dll</HintPath>
+ <HintPath>D:/Documenten/Medical/MedicalGame/Assets/DOTween/DOTween50.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

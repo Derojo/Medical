@@ -12,6 +12,8 @@ public class MyQuestions : MonoBehaviour {
 	public GameObject Smoke1;
 	public GameObject Smoke2;
 	public Color correctColor;
+	public Color inProgressColor;
+	public Color rejectedColor;
 	private List<Question> questions = new List<Question>();
 
 	// Use this for initialization
@@ -42,6 +44,7 @@ public class MyQuestions : MonoBehaviour {
 		while(!QuestionBackend.I.retrievedQuestions) {
 			yield return new WaitForSeconds(1f);
 		}
+		QuestionBackend.I.retrievedQuestions = false;
 		if(questions.Count > 0) {
 			for(int i =0; i < questions.Count; i++) {
 				GameObject questionRow = Instantiate(Resources.Load("QuestionRow")) as GameObject;
@@ -65,10 +68,21 @@ public class MyQuestions : MonoBehaviour {
 					content.transform.GetChild(4).GetComponent<Image>().color = correctColor;
 				}
 				content.transform.GetChild(5).GetChild(1).GetComponent<Text>().text = Categories.getCategoryNameById(questions[i].cId);
-				if(questions[i].qAp) {
+				if(questions[i].qAp == 0) {
+					questionRow.transform.GetChild(0).GetComponent<Image>().color = inProgressColor;
+					content.transform.GetChild(6).GetChild(3).gameObject.SetActive(true);
+				} else if(questions[i].qAp == 1) {
+					questionRow.transform.GetChild(0).GetComponent<Image>().color = correctColor;
 					content.transform.GetChild(6).GetChild(2).gameObject.SetActive(true);
 				} else {
+					questionRow.transform.GetChild(0).GetComponent<Image>().color = rejectedColor;
 					content.transform.GetChild(6).GetChild(1).gameObject.SetActive(true);
+
+					content.transform.GetChild(6).GetChild(1).GetChild(1).GetComponent<Button>().onClick.AddListener (delegate {
+						QuestionBackend.I.changeQuestion = true;
+						QuestionBackend.I.currentQuestion = questions[(i-1)];
+						Loader.I.LoadScene("QuestionFactory");
+					});
 				}
 			}
 		}

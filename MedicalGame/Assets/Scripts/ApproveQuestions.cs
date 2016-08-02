@@ -42,6 +42,7 @@ public class ApproveQuestions : MonoBehaviour {
 		while(!QuestionBackend.I.retrievedQuestions) {
 			yield return new WaitForSeconds(1f);
 		}
+		QuestionBackend.I.retrievedQuestions = false;
 		if(questions.Count > 0) {
 			for(int i =0; i < questions.Count; i++) {
 				GameObject questionRow = Instantiate(Resources.Load("QuestionRow")) as GameObject;
@@ -67,9 +68,20 @@ public class ApproveQuestions : MonoBehaviour {
 				content.transform.GetChild(5).GetChild(1).GetComponent<Text>().text = Categories.getCategoryNameById(questions[i].cId);
 				content.transform.GetChild(6).gameObject.SetActive(false);
 				content.transform.GetChild(7).gameObject.SetActive(true);
-				content.transform.GetChild(7).GetChild(0).GetComponent<Button> ().onClick.AddListener (delegate {
-					Debug.Log(questionRow.name);
-					QuestionBackend.I.ApproveQuestion(questionRow.name);
+
+				GamedoniaUsers.GetUser(questions[i].sID, delegate (bool success, GDUserProfile data) { 
+					if (success) {
+						Dictionary<string, object> playerInfo = data.profile;
+						content.transform.GetChild(7).GetChild(1).GetComponent<Text>().text  = playerInfo["name"].ToString();
+					}
+				});
+				content.transform.GetChild(8).gameObject.SetActive(true);
+				content.transform.GetChild(8).GetChild(0).GetComponent<Button> ().onClick.AddListener (delegate {
+					QuestionBackend.I.SetQuestionState(questionRow.name, 1);
+					deleteRow(questionRow.name);
+				});
+				content.transform.GetChild(8).GetChild(1).GetComponent<Button> ().onClick.AddListener (delegate {
+					QuestionBackend.I.SetQuestionState(questionRow.name, 2);
 					deleteRow(questionRow.name);
 				});
 				

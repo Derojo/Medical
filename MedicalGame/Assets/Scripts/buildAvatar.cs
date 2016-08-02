@@ -33,26 +33,35 @@ public class buildAvatar : MonoBehaviour {
             avatarString = PlayerManager.I.player.avatar;
 			setAvatar ();
         } else {
-			Match currentMatch = MatchManager.I.GetMatch(MatchManager.I.currentMatchID);
-			string opponentId = MatchManager.I.GetOppenentId(currentMatch);
-			if (opponentId != "") {
-				AvatarLoader.DOFade (1, 0.5f);
-				AvatarLoader.transform.DOLocalRotate (new Vector3 (0f,0f, 360), 1, RotateMode.FastBeyond360).SetLoops(-1);
-				RootHairstyle.gameObject.SetActive (false);
-				RootHead.gameObject.SetActive (false);
-				RootShirt.gameObject.SetActive (false);
-				RootTrouser.gameObject.SetActive (false);
-				PlayerManager.I.GetPlayerInformationById (opponentId);
-				StartCoroutine (SetOpponentAvatar (1f));
-			} else {
-				avatarString = "0_1_1_0_1_0_0_0";
-				setAvatar ();
+			if(MatchManager.I.currentMatchID != "") {
+				Match currentMatch = MatchManager.I.GetMatch(MatchManager.I.currentMatchID);
+				string opponentId = MatchManager.I.GetOppenentId(currentMatch);
+				if (opponentId != "") {
+					AvatarLoader.DOFade (1, 0.5f);
+					AvatarLoader.transform.DOLocalRotate (new Vector3 (0f,0f, 360), 1, RotateMode.FastBeyond360).SetLoops(-1);
+					RootHairstyle.gameObject.SetActive (false);
+					RootHead.gameObject.SetActive (false);
+					RootShirt.gameObject.SetActive (false);
+					RootTrouser.gameObject.SetActive (false);
+					PlayerManager.I.GetPlayerInformationById (opponentId);
+					StartCoroutine (SetOpponentAvatar (1f));
+				} else {
+					avatarString = "0_1_1_0_1_0_0_0";
+					setAvatar ();
+				}
 			}
-           
         }
 
 	}
+	
+	public void setCustomAvatarByString(string customAvatarString) {
+		avatarString = customAvatarString;
+		if(avatarString != "") {
+			setAvatar ();
+		}
 
+	}
+	
 	private void setAvatar() {
 		RootHairstyle.gameObject.SetActive (true);
 		RootHead.gameObject.SetActive (true);

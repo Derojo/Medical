@@ -3626,7 +3626,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1543177706
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4361,19 +4361,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22453176, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 85.74965
+      value: 71.38009
       objectReference: {fileID: 0}
     - target: {fileID: 22453176, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -45.15696
+      value: -37.01423
       objectReference: {fileID: 0}
     - target: {fileID: 22453176, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 141.4993
+      value: 112.76018
       objectReference: {fileID: 0}
     - target: {fileID: 22453176, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 86.31392
+      value: 70.02846
       objectReference: {fileID: 0}
     - target: {fileID: 22416976, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_AnchorMin.y
@@ -4385,19 +4385,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22416976, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 230.96895
+      value: 187.86026
       objectReference: {fileID: 0}
     - target: {fileID: 22416976, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -45.15696
+      value: -37.01423
       objectReference: {fileID: 0}
     - target: {fileID: 22416976, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 141.4993
+      value: 112.76018
       objectReference: {fileID: 0}
     - target: {fileID: 22416976, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 86.31392
+      value: 70.02846
       objectReference: {fileID: 0}
     - target: {fileID: 22474986, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_AnchorMin.y
@@ -4409,19 +4409,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22474986, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 376.18823
+      value: 304.34045
       objectReference: {fileID: 0}
     - target: {fileID: 22474986, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -45.15696
+      value: -37.01423
       objectReference: {fileID: 0}
     - target: {fileID: 22474986, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 141.4993
+      value: 112.76018
       objectReference: {fileID: 0}
     - target: {fileID: 22474986, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 86.31392
+      value: 70.02846
       objectReference: {fileID: 0}
     - target: {fileID: 22443334, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_AnchorMin.y
@@ -4433,19 +4433,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22443334, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 521.40753
+      value: 420.82062
       objectReference: {fileID: 0}
     - target: {fileID: 22443334, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -45.15696
+      value: -37.01423
       objectReference: {fileID: 0}
     - target: {fileID: 22443334, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 141.4993
+      value: 112.76018
       objectReference: {fileID: 0}
     - target: {fileID: 22443334, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 86.31392
+      value: 70.02846
       objectReference: {fileID: 0}
     - target: {fileID: 11467420, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_Colors.m_PressedColor.a

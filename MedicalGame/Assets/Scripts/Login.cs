@@ -25,7 +25,7 @@ public class Login : MonoBehaviour {
 	public GameObject errorLoginImg;
 	public Color errorColor;
 	public Color defaultColor;
-	public float waitForConnectionTime = 10;
+	public float waitForConnectionTime = 5;
 	private bool i_access = false;
 
 	private string email = "";
@@ -43,8 +43,10 @@ public class Login : MonoBehaviour {
 
 	void Awake() {
 		FacebookBinding.Init (facebookAppID);	
-		checkInternet ();
 		loader = GameObject.Find ("Loader").GetComponent<Loader> ();
+		loader.enableLoader();
+		checkInternet ();
+
 	}
 
 	void Start() {
@@ -70,6 +72,7 @@ public class Login : MonoBehaviour {
 
 	/** DEFAULT LOGIN **/
 	public void LoginUser() {
+		checkInternet ();
 		errorLogin.SetActive (false);
 		errorLoginImg.SetActive (false);
 		validateFields ();
@@ -88,8 +91,11 @@ public class Login : MonoBehaviour {
 					Debug.Log (statusMsg);
 				}
 			} else {
+					loader.disableLoader ();
+					loader.enableBackground ();
+					errorPopup.SetActive (true);
 				// Wait for connection, if there is a connection we try to login again
-				StartCoroutine (waitForConnection (waitForConnectionTime));
+				//StartCoroutine (waitForConnection (waitForConnectionTime));
 			}
 		}
 	}
@@ -138,6 +144,7 @@ public class Login : MonoBehaviour {
 	public void OnLogin (bool success) {
 		statusMsg = "";
 		if (success) {
+			MatchManager.I.RemoveLocalMatches();
 			// Set playerprefs loggedIn to true so we dont need to log in again via http
 			PlayerManager.I.player.loggedIn = true;
 			PlayerManager.I.Save ();
@@ -151,6 +158,7 @@ public class Login : MonoBehaviour {
 			loader.disableLoader();
 			errorMsg = GamedoniaBackend.getLastError().ToString();
 			int errorCode = GamedoniaBackend.getLastError ().httpErrorCode;
+
 			if (errorCode == 400 || errorCode == 401) {
 				//email_input.GetComponent<Outline> ().effectColor = errorColor;
 				//password_input.GetComponent<Outline> ().effectColor = errorColor;
@@ -160,6 +168,9 @@ public class Login : MonoBehaviour {
 			if (errorCode == 401) {
 				errorLogin.SetActive (true);
 				errorLoginImg.SetActive(true);
+			}
+			if(errorCode == -100) {
+				SceneManager.LoadScene("noconnection");
 			}
 		}
 
@@ -190,24 +201,49 @@ public class Login : MonoBehaviour {
 	void OnFacebookLogin (bool success) {
 
 		if (success) {
-			Dictionary<string,object> profile = new Dictionary<string, object>();
-			profile.Add("name", fbUserName);
-			profile.Add("color", "");
-			profile.Add("hobby", ""); 
-			profile.Add("film","");
-			profile.Add("age", 0);
-			profile.Add("lvl", 1);
-			profile.Add("wonAttr", 0);
-			profile.Add("friends", new Dictionary<string, object> ());
-			profile.Add("admin", false);
-			profile.Add("avatar", "");
-			GamedoniaUsers.UpdateUser(profile, OnLogin);
-
+			Debug.Log("searching or user");
+			GamedoniaUsers.GetMe(delegate (bool profilesuccess, GDUserProfile userProfile){
+			if (profilesuccess){
+				Debug.Log(userProfile);
+				if(userProfile.profile.Count != 0 ) {
+					if((bool)userProfile.profile ["created_profile"]) {
+						Debug.Log("exists continue to profile");
+						OnLogin(true);
+					} else {
+						addEmptyProfile();
+					}
+				} else {
+					addEmptyProfile();
+				}
+			}
+			else {
+				//TODO Your fail processing
+			}
+		});
+			
 		} else {
 			errorMsg = GamedoniaBackend.getLastError().ToString();
 			Debug.Log(errorMsg);
 		}
 
+	}
+	
+	private void addEmptyProfile() {
+		Dictionary<string,object> profile = new Dictionary<string, object>();
+		profile.Add("name", fbUserName);
+		profile.Add("color", "");
+		profile.Add("hobby", ""); 
+		profile.Add("film","");
+		profile.Add("age", 0);
+		profile.Add("lvl", 1);
+		profile.Add("instelling","");
+		profile.Add("wonAttr", 0);
+		profile.Add("friends", new Dictionary<string, object> ());
+		profile.Add("admin", false);
+		profile.Add("avatar", "");
+		
+		profile.Add("created_profile", false);
+		GamedoniaUsers.UpdateUser(profile, OnLogin);
 	}
 	private void OnFacebookMe(IDictionary data) {
 
@@ -232,9 +268,14 @@ public class Login : MonoBehaviour {
 	/** CHECK FOR INTERNET CONNECTION **/
 	private void checkInternet() {
 		GamedoniaBackend.isInternetConnectionAvailable(delegate (bool success) { 
+
 			if (success) { 
 				i_access = true;
 			} else {
+				int errorCode = GamedoniaBackend.getLastError ().httpErrorCode;
+				if(errorCode == -100) {
+					SceneManager.LoadScene("noconnection");
+				}
 				i_access = false;
 				errorMsg = "No internet access";
 				Debug.Log(errorMsg);

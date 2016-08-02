@@ -3,6 +3,8 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using Gamedonia.Backend;
+using System.Collections.Generic;
 
 [Prefab("Loader", true, "")]
 public class Loader : Singleton<Loader> {
@@ -73,7 +75,18 @@ public class Loader : Singleton<Loader> {
 		mini.SetActive (true);
 	}
 
-	public void showFinishedPopup(string playerName, string matchWon) {
+	public void showFinishedPopup(string playerName, string matchWon, string oppId = "") {
+		if(oppId != "") {
+				GamedoniaUsers.GetUser (oppId, delegate (bool success, GDUserProfile data) { 
+					if (success) {
+						Dictionary<string, object> oppProfile = new Dictionary<string, object> ();
+						oppProfile = data.profile;
+						playerName = oppProfile ["name"].ToString ();
+					} else {
+						
+					}
+				});
+		}
 		string infoText = "";
 		string infoTitle = "";
 		gameObject.GetComponent<Canvas> ().enabled = true;

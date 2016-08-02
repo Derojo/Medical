@@ -169,6 +169,7 @@ public class QuestionManager : Singleton<QuestionManager> {
 		while(!QuestionBackend.I.questionLoaded) {
 			yield return new WaitForSeconds (1f);
 		}
+		QuestionBackend.I.questionLoaded = false;
 		Loader.I.disableLoader();
 		defaultAvatars.transform.GetChild(0).transform.DOLocalMoveX (1f, 1f).SetEase(Ease.OutExpo);
 		defaultAvatars.transform.GetChild(0).transform.DOLocalMoveZ (-0.37f, 1f).SetEase(Ease.OutExpo);
@@ -377,6 +378,7 @@ public class QuestionManager : Singleton<QuestionManager> {
 	//switching scenes	
 	public void switchScene()
     {
+		QuestionBackend.I.currentQuestion = null;
 		MatchManager.I.clearCurrentCategory ();
 
         if(nextScene == "Home")

@@ -20,11 +20,11 @@ public class QuestionFactory : MonoBehaviour {
 		
 	public Dropdown categoryId;
 	public Dropdown correctAnswerId;
-	public Text QuestionTitleText;
-	public Text AnswerAText;
-	public Text AnswerBText;
-	public Text AnswerCText;
-	public Text AnswerDText;
+	public InputField QuestionTitleText;
+	public InputField AnswerAText;
+	public InputField AnswerBText;
+	public InputField AnswerCText;
+	public InputField AnswerDText;
 
 	public RectTransform content;
 	// Use this for initialization
@@ -44,11 +44,45 @@ public class QuestionFactory : MonoBehaviour {
 		smoke2.SetLoops(-1);
 		smoke2.Insert(0, Smoke2.GetComponent<Image>().DOFade(0, 15f));
 		smoke2.Insert(0, Smoke2.transform.DOScale(1.4f, 10f));
-		
-
+		Debug.Log(QuestionBackend.I.changeQuestion);
+		if(QuestionBackend.I.changeQuestion) {
+			Debug.Log("test");
+			SetQuestionInformation();
+		}
 
 	}
 	
+	private void SetQuestionInformation() {
+		QuestionTitle.SetActive(true);
+		QuestionTitleText.text = QuestionBackend.I.currentQuestion.qT;
+		categoryId.value = (QuestionBackend.I.currentQuestion.cId-1);
+		AnswerA.SetActive(true);
+		AnswerAText.text = QuestionBackend.I.currentQuestion.qA;
+		AnswerB.SetActive(true);
+		AnswerBText.text = QuestionBackend.I.currentQuestion.qB;
+		AnswerC.SetActive(true);
+		AnswerCText.text = QuestionBackend.I.currentQuestion.qC;
+		AnswerD.SetActive(true);
+		AnswerDText.text = QuestionBackend.I.currentQuestion.qD;
+		CorrectAnswer.SetActive(true);
+		int correctAnswer = 0;
+		string cAnswer = QuestionBackend.I.currentQuestion.qCA;
+		if(cAnswer == "A") {
+			correctAnswer = 0;
+		} else if(cAnswer == "B") {
+			correctAnswer = 1;
+		} else if(cAnswer == "C") {
+			correctAnswer = 2;
+		} else if(cAnswer == "D") {
+			correctAnswer = 3;
+		}
+		correctAnswerId.value = correctAnswer;
+		Submit.SetActive(true);
+		Submit.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = "Vraag aanpassen";
+		Submit.transform.GetChild(2).gameObject.SetActive(false);
+		Submit.transform.GetChild(3).gameObject.SetActive(false);
+		Submit.transform.GetChild(4).gameObject.SetActive(false);
+	}
 	
 	public void SetNextStep(int step) {
 		if(step == 2) {
@@ -93,6 +127,9 @@ public class QuestionFactory : MonoBehaviour {
 			correctAnswer = "D";
 		}
 		Dictionary<string,object> question = new Dictionary<string,object>();
+		if(QuestionBackend.I.changeQuestion) {
+			question["_id"] = QuestionBackend.I.currentQuestion.q_Id;
+		}
 		question["cId"] = (categoryId.value+1);
 		question["qT"] = QuestionTitleText.text;
 		question["qA"] = AnswerAText.text;
@@ -101,20 +138,35 @@ public class QuestionFactory : MonoBehaviour {
 		question["qD"] = AnswerDText.text;
 		question["qCA"] = correctAnswer;
 		question["sID"] = PlayerManager.I.player.playerID;
-		question["qAp"] = false;
+		question["qAp"] = 0;
 		
 		// Add 50 exp to the player
-		PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP += 50;
+		if(!QuestionBackend.I.changeQuestion) {
+			PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP += 50;
+		}
 		  
 		// Make the request to store the entity inside the desired collection
-		GamedoniaData.Create("questions", question, delegate (bool success, IDictionary data){
-			if (success){
-				Loader.I.LoadScene("QuestionAddedSuccess");
-				//TODO Your success processing 
-			}
-			else{
-				//TODO Your fail processing
-			}
-		});
+		if(!QuestionBackend.I.changeQuestion) {
+			GamedoniaData.Create("questions", question, delegate (bool success, IDictionary data){
+				if (success){
+					Loader.I.LoadScene("QuestionAddedSuccess");
+					//TODO Your success processing 
+				}
+				else{
+					//TODO Your fail processing
+				}
+			});
+		} else {
+			QuestionBackend.I.changeQuestion = false;
+			QuestionBackend.I.currentQuestion = null;
+			GamedoniaData.Update("questions", question, delegate (bool success, IDictionary data){
+				if (success){
+					Loader.I.LoadScene("MyQuestions");
+				} 
+				else{
+					//TODO Your fail processing
+				}
+			});
+		}
 	}
 }

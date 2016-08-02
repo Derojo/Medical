@@ -12,6 +12,7 @@ public class Startup : MonoBehaviour {
 	void Start () {
 		RuntimeData.I.Load ();
         AudioManagerScript.I.Load();
+		//ProductManager.I.Load();
         if(!PlayerManager.I.player.verificationComplete)
         {
             SceneManager.LoadScene("First_Login");
@@ -42,13 +43,27 @@ public class Startup : MonoBehaviour {
                 }
                 GamedoniaUsers.LoginUserWithSessionToken (delegate (bool success) {
 				    if (success) {
-					    SceneManager.LoadScene (sceneName);
-					    PlayerManager.I.LoadFriends ();
+						ProductManager.I.RequestProducts();
+						PlayerManager.I.LoadFriends ();
+						if(sceneName == "Home") {
+							Loader.I.enableLoader();
+							StartCoroutine(waitBeforeInformationIsProcessed());
+						} else {
+							SceneManager.LoadScene (sceneName);
+						}
 				    } else {
+						
 					    SceneManager.LoadScene ("Login");
 				    }
 			    });
 		    }
 	    }
     }//end start
+	
+	private IEnumerator waitBeforeInformationIsProcessed() {
+		while(PlayerManager.I.startUpDone) {
+			yield return new WaitForSeconds(1f);
+		}
+		SceneManager.LoadScene (sceneName);
+	}
 }// end class

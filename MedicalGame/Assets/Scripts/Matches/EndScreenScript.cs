@@ -16,6 +16,7 @@ public class EndScreenScript : MonoBehaviour {
 	public Text matchScore;
 
 	public GameObject AttributeInfo;
+	public GameObject AttributeInfoPlayer;
 	public GameObject AttributeTitle;
 	public GameObject AttributeValue;
     public Animator animControl;
@@ -36,8 +37,10 @@ public class EndScreenScript : MonoBehaviour {
 		string oppId = PlayerManager.I.currentOpponentInfo["_id"].ToString();
 
 		//set match score
-		matchScore.text = "Score: " + MatchManager.I.getMatchScore(MatchManager.I.currentMatchID, oppId);
-
+		matchScore.text = MatchManager.I.getMatchScore(MatchManager.I.currentMatchID, oppId);
+		
+		//set opponent name
+		AttributeInfoPlayer.GetComponent<Text>().text =  PlayerManager.I.currentOpponentInfo ["name"].ToString();
 
 		// Checking winner
 		if(MatchManager.I.tie) {
@@ -47,31 +50,34 @@ public class EndScreenScript : MonoBehaviour {
             animControl.SetBool("IsLosing", false);
 			animControl.SetBool("isWinning", false);
             AttributeInfo.SetActive(false);
+			AttributeInfoPlayer.GetComponent<Text> ().text = "Geen nieuw weetje van";
             AttributeTitle.GetComponent<Text>().text = "Gelijkspel!";
             AttributeValue.GetComponent<Text>().text = "Helaas, je hebt gelijkgespeeld en dus geen weetje vrijgespeeld";
+
 		} else if(MatchManager.I.winningMatch) {
 			wonMatch.SetActive(true);
 			PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP += 100;
             animControl.SetBool("IsWinning", true);
             if (MatchManager.I.lastAttributeKey != -1) {
 				StartCoroutine(showContinueButtonOverTime (2f));
-				AttributeInfo.GetComponent<Text> ().text = defaultInfoText + " " + PlayerManager.I.currentOpponentInfo ["name"];
 				AttributeTitle.GetComponent<Text> ().text = PlayerManager.I.GetAttributeTitleByKey (MatchManager.I.lastAttributeKey);
 				AttributeValue.GetComponent<Text> ().text = PlayerManager.I.GetPlayerAttribute (MatchManager.I.lastAttributeKey);
+				if(MatchManager.I.lastAttributeKey == 4) {
+					AchievementManager.I.UltimateMate();
+					AttributeInfoPlayer.GetComponent<Text> ().text = "Geen nieuw weetje van";
+					AttributeTitle.GetComponent<Text>().text = "Vrijgespeeld";
+				}
 			}
             else
             {
                 AchievementManager.I.UltimateMate();
 				continueButton.GetComponent<Image> ().DOFade (1, 1f);
-				AttributeInfo.SetActive (false);
-				AttributeTitle.SetActive (false);
-				AttributeValue.SetActive (false);
 			}
 		} else {
+			AttributeInfoPlayer.GetComponent<Text> ().text = "Geen nieuw weetje van";
 			lostMatch.SetActive(true);
             continueButton.GetComponent<Image>().DOFade(1, 1f);
             animControl.SetBool("IsLosing", true);
-            AttributeInfo.SetActive(false);
             AttributeTitle.GetComponent<Text>().text = "Jammer!";
             AttributeValue.GetComponent<Text>().text = "Helaas, je hebt niet gewonnen en dus geen weetje vrijgespeeld";
 

@@ -39,7 +39,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2b8b292f33483840a00336ca0c5aa64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableAds: 1
+  enableAds: 0
   playAddAfterQuestionWrong: 1
   playAddAfterQuestionRight: 0
 --- !u!1001 &100100000
@@ -55,7 +55,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enableAds
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: playAddAfterQuestionWrong

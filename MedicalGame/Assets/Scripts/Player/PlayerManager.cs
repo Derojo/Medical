@@ -26,6 +26,7 @@ public class PlayerManager : Singleton<PlayerManager> {
     public bool firstInviteAccept = false;
 	public bool changingAvatar = false;
 	public bool changingProfile = false;
+	public bool startUpDone = false;
 
 	void Awake() {
 
@@ -72,6 +73,7 @@ public class PlayerManager : Singleton<PlayerManager> {
 	public void LoadFriends() {
 		GamedoniaUsers.GetMe(delegate (bool success, GDUserProfile data){
 			if (success){
+				Debug.Log("I am here now");
 				friends = (Dictionary<string, object>)data.profile["friends"];
 				foreach (KeyValuePair<string, object> friend in friends) {
 					string friendKey = friend.Key;
@@ -85,6 +87,7 @@ public class PlayerManager : Singleton<PlayerManager> {
 						}
 					});
 				}
+				startUpDone = true;
 			}
 		});
 	}
@@ -232,7 +235,19 @@ public class PlayerManager : Singleton<PlayerManager> {
 
 		return attributesList;
 	}
+	
+	public int getTotalFriendAttributes(Dictionary<string, object> friends) {
+		Debug.Log(friends.Count);
+		int totalAttributes = 0;
+		foreach (KeyValuePair<string, object> friend in friends) {
+			List<int> attributes = GetFriendAttributes(friend.Key);
+			
+			totalAttributes+= attributes.Count;
 
+		}
+		
+		return totalAttributes;
+	}
 	public void UnlockNewAttribute(string id = "") {
 
 		// Get friend by id from dictionary

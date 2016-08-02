@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 [System.Serializable]
 public class Match {
@@ -19,12 +20,15 @@ public class Match {
 	[SerializeField] public string m_cp;
 	// Match current category
 	[SerializeField] public int m_cc;
+	// respond time
+	[SerializeField] public string m_date;
 	// Match turns
 	[SerializeField] public List<Turn> m_trns;
 
 
 
-	public Match( string _m_ID="", List<string> _u_ids = null, string _p_ID="", string _o_ID="", string _m_status="", int _m_ct=0, string _m_cp="", int _m_cc=0, List<Turn> _turn = null) {
+
+	public Match( string _m_ID="", List<string> _u_ids = null, string _p_ID="", string _o_ID="", string _m_status="", int _m_ct=0, string _m_cp="", int _m_cc=0, string matchDate = "",List<Turn> _turn = null) {
 		m_ID = _m_ID;
 		p_ID = _p_ID;
 		o_ID = _o_ID;
@@ -32,12 +36,14 @@ public class Match {
 		m_ct = _m_ct;
 		m_cp = _m_cp;
 		m_cc = _m_cc;
+		m_date = matchDate;
 		if (_turn != null) {
 			m_trns = _turn;
 		}
 		if (_u_ids != null) {
 			u_ids = _u_ids;
 		}
+
 	}
 
 	public void AddTurn(Turn _turn) {

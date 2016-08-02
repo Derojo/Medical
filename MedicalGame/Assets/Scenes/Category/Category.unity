@@ -2155,7 +2155,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23e5618f9b3208943969bb6cf9da52b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QuestionDatabase: {fileID: 0}
   livesAmount: 0
 --- !u!4 &1602794525
 Transform:
@@ -2495,7 +2494,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 0ce81ccf33ba48a43b80598918a6fc08, type: 2}
+  - {fileID: 2100000, guid: b757fd8eb27addb4eb7373cab06485ce, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
