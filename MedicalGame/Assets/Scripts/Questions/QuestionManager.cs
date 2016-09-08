@@ -282,13 +282,10 @@ public class QuestionManager : Singleton<QuestionManager> {
 				// Game ends when player has answered the 9th question correctly
 				if(newturnID == 9) {
 					MatchManager.I.ChangeLastTurn (newTurn, true, true);
-                    //check all after game achievements
-                    AchievementManager.I.checkAchievementsAfterGame();
+
                     //turn on to endscreen button
                     Continue.SetActive(false);
                     continueToEnd.SetActive(true);
-                    // add games played
-                    PlayerManager.I.player.playedMatches++;
                     StartCoroutine(ShowEndScreen());
 
                 /////////Check if players wins or loses//////

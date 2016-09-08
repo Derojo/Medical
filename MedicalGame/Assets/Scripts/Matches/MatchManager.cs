@@ -299,7 +299,7 @@ public class MatchManager : Singleton<MatchManager> {
 		string opponentId = GetOppenentId (match);
 		string score = getMatchScore(match.m_ID, opponentId);
 		string[] scoreArray = score.Split (new string[] {"-"}, System.StringSplitOptions.None);
-		Debug.Log(scoreArray[0]+":"+scoreArray[1]);
+
 		if(int.Parse(scoreArray[0]) > int.Parse(scoreArray[1])) {
 			// Player won
 			winner = PlayerManager.I.player.playerID;
@@ -315,9 +315,6 @@ public class MatchManager : Singleton<MatchManager> {
 		
 	}
 
-	public void getCurrentTurn() {
-
-	}
 
 	public void clearCurrentCategory() {
 		Match match = GetMatch (currentMatchID);

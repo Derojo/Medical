@@ -32,6 +32,8 @@ public class EndScreenScript : MonoBehaviour {
 	}
 
 	void Start() {
+		PlayerManager.I.player.playedMatches++;
+		AchievementManager.I.AchievementAfmaker();
 		defaultInfoText = AttributeInfo.GetComponent<Text>().text;
 		//		string oppId = MatchManager.I.GetOppenentId (null, MatchManager.I.currentMatchID);
 		string oppId = PlayerManager.I.currentOpponentInfo["_id"].ToString();
@@ -44,6 +46,7 @@ public class EndScreenScript : MonoBehaviour {
 
 		// Checking winner
 		if(MatchManager.I.tie) {
+			PlayerManager.I.player.wonMatchesRow = 0;
 			tieMatch.SetActive(true);
 			PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP += 50;
             continueButton.GetComponent<Image>().DOFade(1, 1f);
@@ -55,6 +58,9 @@ public class EndScreenScript : MonoBehaviour {
             AttributeValue.GetComponent<Text>().text = "Helaas, je hebt gelijkgespeeld en dus geen weetje vrijgespeeld";
 
 		} else if(MatchManager.I.winningMatch) {
+			PlayerManager.I.player.wonMatches++;
+			PlayerManager.I.player.wonMatchesRow++;
+			AchievementManager.I.checkAchievementsAfterWon();
 			wonMatch.SetActive(true);
 			PlayerManager.I.player.playerXP = PlayerManager.I.player.playerXP += 100;
             animControl.SetBool("IsWinning", true);
@@ -74,6 +80,7 @@ public class EndScreenScript : MonoBehaviour {
 				continueButton.GetComponent<Image> ().DOFade (1, 1f);
 			}
 		} else {
+			PlayerManager.I.player.wonMatchesRow = 0;
 			AttributeInfoPlayer.GetComponent<Text> ().text = "Geen nieuw weetje van";
 			lostMatch.SetActive(true);
             continueButton.GetComponent<Image>().DOFade(1, 1f);

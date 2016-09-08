@@ -78,7 +78,7 @@ public class AchievementList : MonoBehaviour {
 			fillAmount = getFillAmount(PlayerManager.I.player.wonMatches, 10);
 			currentValue = (PlayerManager.I.player.wonMatches >=10 ? 10 : PlayerManager.I.player.wonMatches);
 			progressionText = currentValue+"/10";
-		} else if(name == "Hatrick") {
+		} else if(name == "Hattrick") {
 			fillAmount = getFillAmount(PlayerManager.I.player.wonMatchesRow, 3);
 			currentValue = (PlayerManager.I.player.wonMatchesRow >=3 ? 3 : PlayerManager.I.player.wonMatchesRow);
 			progressionText = currentValue+"/3";

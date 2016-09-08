@@ -339,13 +339,12 @@ public class AchievementManager : Singleton<AchievementManager> {
     /************** Mulitple checks *********************/
 
     //Checking functions after game
-    public void checkAchievementsAfterGame()
+    public void checkAchievementsAfterWon()
     {
         AchievementWinner();
         AchievementOpDreef();
         AchievementHattrick();
         AchievementOnverslaanbaar();
-        AchievementAfmaker();
     }
 
     public void checkAchievementAfterAnswer()
