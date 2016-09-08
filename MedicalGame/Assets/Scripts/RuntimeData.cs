@@ -11,20 +11,35 @@ public class RuntimeData : Singleton<RuntimeData> {
 
 	public int livesAmount = 0;
 	public bool noconnectionSceneLoaded = false;
+	private bool pressedReturnButton = false;
 	// Use this for initialization
 
 	public bool Load() {return true;}
 	
 	void Update() {
-		/*
+		Scene currentScene = SceneManager.GetActiveScene();
 		if (Application.platform == RuntimePlatform.Android)
 		{
 			if (Input.GetKey(KeyCode.Escape))
 			{
-				Application.Quit();
-				return;
+				pressedReturnButton = false;
+				if(PlayerManager.I.player.loggedIn) {
+					if(!pressedReturnButton) {
+						pressedReturnButton = true;
+						if(currentScene.name == "Home") {
+							Application.Quit();
+							return;
+						} else {
+							Loader.I.enableLoader();
+							Loader.I.LoadScene("Home");
+						}
+					}
+				} else {
+					Application.Quit();
+					return;
+				}
 			}
-		}*/
+		}
 	}
 	
 	void Start () {
@@ -82,7 +97,8 @@ public class RuntimeData : Singleton<RuntimeData> {
 
 						if(currentScene.name == "Home") {
 							//GameObject.FindObjectOfType<CurrentMatches>().showInvites();
-							GameObject.FindObjectOfType<CurrentMatches> ().updateMatches ();							
+							GameObject.FindObjectOfType<CurrentMatches> ().updateMatches ();	
+							GameObject.FindObjectOfType<CurrentMatches> ().updateLives ();								
 						}
 					} 
 				}
@@ -182,7 +198,9 @@ public class RuntimeData : Singleton<RuntimeData> {
 			MatchManager.I.Save ();
 			GameObject.FindObjectOfType<CurrentMatches> ().showInvites ();
 			GameObject.FindObjectOfType<CurrentMatches> ().deleteRow (matchDeny.m_ID);
-
+			if(currentScene.name == "Home") {
+				GameObject.FindObjectOfType<CurrentMatches> ().updateLives ();
+			}
 			break;
 		default:
 			// Do nothing
@@ -195,6 +213,9 @@ public class RuntimeData : Singleton<RuntimeData> {
 		int livesLeft = RuntimeData.I.livesAmount - MatchManager.I.getTotalActiveMatches();
 		if(livesLeft > 0) {
 			MatchManager.I.StartRandomMatch ();
+		} else {
+			// Show response
+			Loader.I.showLivesPopup();
 		}
 	}
 	
@@ -203,5 +224,9 @@ public class RuntimeData : Singleton<RuntimeData> {
 		
 		string returnValue = theTime.ToString("yyyy-MM-dd hh:mm:ss:tt", System.Globalization.CultureInfo.InvariantCulture);
 		return returnValue;
+	}
+	
+	public void LogOut() {
+		PlayerManager.I.loggingOut();
 	}
 }

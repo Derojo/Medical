@@ -9,6 +9,7 @@ public class Profile_Create : MonoBehaviour {
 
 	// Main loader
 	public GameObject Loader;
+
 	// Input form fields
 	public InputField p_name;
 	public InputField p_age;
@@ -16,7 +17,7 @@ public class Profile_Create : MonoBehaviour {
 	public InputField p_hobby;
 	public InputField p_film;
     public InputField p_instelling;
-
+	public GameObject Response;
 	// state colors
 	public Color error_color;
 	public Color succes_color;
@@ -30,6 +31,8 @@ public class Profile_Create : MonoBehaviour {
 	private bool Errors = false;
 
 	private Loader loader = null;
+	private bool nameIsAvailable = true;
+	private bool searchComplete = false;
 
 
 
@@ -63,28 +66,8 @@ public class Profile_Create : MonoBehaviour {
 
 	public void AddUserInformation() {
 		// Add filled in form to profile
-		ChangeProfileDictionary();
+		StartCoroutine(processInformation());
 		// Callback to Gamedonia server
-
-		if (isValidated) {
-			loader.enableLoader ();
-			GamedoniaUsers.UpdateUser (LoggedInUser.profile, delegate (bool success) {
-
-					if (success) {
-						if (PlayerManager.I.changingProfile) {
-							Loader.SetActive (false);
-							SceneManager.LoadScene("Profile");
-						}
-						else {
-							Loader.SetActive (false);
-							PlayerManager.I.player.createdProfile = true;
-							
-							SceneManager.LoadScene("Avatar");
-						}
-
-	                } 	
-			}, true);
-		}
 	}
 
 	void OnGetMe(bool success, GDUserProfile userProfile) {
@@ -97,45 +80,30 @@ public class Profile_Create : MonoBehaviour {
 			errorMsg = GamedoniaBackend.getLastError().ToString();
 		}
 	}
-
-	private void ChangeProfileDictionary() {
-		Debug.Log("test");
-		isValidated = validateAll ();
-
-		if(isValidated) {
-			// Store to database
-			LoggedInUser.profile ["name"] =  p_name.text;
-			LoggedInUser.profile ["age"] = int.Parse (p_age.text);
-			LoggedInUser.profile ["color"] =  p_color.text;
-			LoggedInUser.profile ["hobby"] = p_hobby.text;
-			LoggedInUser.profile ["film"] = p_film.text;
-            LoggedInUser.profile ["instelling"] = p_instelling.text;
-			LoggedInUser.profile ["created_profile"] = true;
-
-            // Store locally
-            PlayerManager.I.changeProfile (new PlayerProfile (p_name.text, int.Parse (p_age.text), p_color.text, p_hobby.text, p_film.text, p_instelling.text));
-			PlayerManager.I.player.avatar = LoggedInUser.profile ["avatar"].ToString();
-			PlayerManager.I.player.admin = (LoggedInUser.profile ["admin"].ToString() == "True" ? true : false);
-			if (!PlayerManager.I.changingProfile) {
-				PlayerManager.I.player.playerLvl = int.Parse(LoggedInUser.profile ["lvl"].ToString());
-				int attributesAmount = PlayerManager.I.getTotalFriendAttributes((Dictionary<string, object>) LoggedInUser.profile["friends"]);
-				PlayerManager.I.player.playerWonAttr = attributesAmount;
-				LoggedInUser.profile ["wonAttr"] = attributesAmount;
+	
+	public void ValidateField(InputField inputfield) {
+		Debug.Log("validate field:"+inputfield.name);
+		Text icon = GameObject.Find (inputfield.name + "_check").GetComponent<Text> ();
+		bool nameCheck = false;
+		if(inputfield.name == "p_name") {
+			if(!nameIsAvailable) {
+				nameCheck = true;
+			} else {
+				nameCheck = false;
 			}
 		}
-	}
-
-	public void ValidateField(InputField inputfield) {
-		Text icon = GameObject.Find (inputfield.name + "_check").GetComponent<Text> ();
-		if (inputfield.text == "") {
+		if (inputfield.text == "" || nameCheck) {
 			Errors = true;
-			changeInputColor (inputfield, error_color);
-			inputfield.text = getErrorMessage(inputfield.name);
+			if(!nameCheck) {
+				changeInputColor (inputfield, error_color);
+				inputfield.text = getErrorMessage(inputfield.name);
+			}
 			// Hide succes icon if visibile
 			if (icon.enabled) {
 				icon.enabled = false;
 			}
 		} else {
+
 			if (inputfield.text != getErrorMessage (inputfield.name)) {
 				changeInputColor (inputfield, succes_color);
 				// Show succes icon
@@ -164,7 +132,11 @@ public class Profile_Create : MonoBehaviour {
 		return error;
 	}
 
-	private bool validateAll() {
+	private IEnumerator processInformation() {
+		checkAvailableName();
+		while(!searchComplete) {
+			yield return new WaitForSeconds(1);
+		}
 		bool returnValue = true;
 		foreach(KeyValuePair<string,string> error in errorData)
 		{
@@ -174,9 +146,82 @@ public class Profile_Create : MonoBehaviour {
 				returnValue = false;
 			}
 		}
-		return returnValue;
+		
+		if(returnValue && nameIsAvailable) {
+			// Store to database
+			LoggedInUser.profile ["name"] =  p_name.text;
+			LoggedInUser.profile ["age"] = int.Parse (p_age.text);
+			LoggedInUser.profile ["color"] =  p_color.text;
+			LoggedInUser.profile ["hobby"] = p_hobby.text;
+			LoggedInUser.profile ["film"] = p_film.text;
+            LoggedInUser.profile ["instelling"] = p_instelling.text;
+			LoggedInUser.profile ["created_profile"] = true;
+
+            // Store locally
+            PlayerManager.I.changeProfile (new PlayerProfile (p_name.text, int.Parse (p_age.text), p_color.text, p_hobby.text, p_film.text, p_instelling.text));
+			PlayerManager.I.player.avatar = LoggedInUser.profile ["avatar"].ToString();
+			PlayerManager.I.player.admin = (LoggedInUser.profile ["admin"].ToString() == "True" ? true : false);
+			if (!PlayerManager.I.changingProfile) {
+				PlayerManager.I.player.playerLvl = int.Parse(LoggedInUser.profile ["lvl"].ToString());
+				int attributesAmount = PlayerManager.I.getTotalFriendAttributes((Dictionary<string, object>) LoggedInUser.profile["friends"]);
+				PlayerManager.I.player.playerWonAttr = attributesAmount;
+				LoggedInUser.profile ["wonAttr"] = attributesAmount;
+			}
+			
+			loader.enableLoader ();
+			GamedoniaUsers.UpdateUser (LoggedInUser.profile, delegate (bool success) {
+
+					if (success) {
+						if (PlayerManager.I.changingProfile) {
+							Loader.SetActive (false);
+							SceneManager.LoadScene("Profile");
+						}
+						else {
+							Loader.SetActive (false);
+							PlayerManager.I.player.createdProfile = true;
+							
+							SceneManager.LoadScene("Avatar");
+						}
+
+	                } 	
+			}, true);
+		
+		}
 	}
 
+	private void checkAvailableName() {
+		searchComplete = false;
+		string checkName = p_name.text;
+		if(LoggedInUser.profile ["name"].ToString() != checkName) {
+			GamedoniaUsers.Search("{\"profile.name\":'" + checkName +"'}", delegate (bool success, IList data) { 
+				if (success) {
+					if(data != null && data.Count > 0) {
+						nameIsAvailable = false;
+						Response.SetActive(true);
+						searchComplete = true;
+						Debug.Log("name found");
+					} else {
+						nameIsAvailable = true;
+						Response.SetActive(false);
+						searchComplete = true;
+						Debug.Log("name not found");
+					}
+				} else {
+					Response.SetActive(false);
+					nameIsAvailable = false;
+					searchComplete = true;
+					Debug.Log("no success");
+					
+				}
+			});
+		} else {
+			nameIsAvailable = true;
+			searchComplete = true;
+			Response.SetActive(false);
+		}
+
+	}	
+	
 	private void fillExistingProfile() {
 		p_name.text = (LoggedInUser.profile ["name"].ToString() != "" ? LoggedInUser.profile ["name"].ToString() : "");
 		p_age.text = ( LoggedInUser.profile ["age"].ToString() != "0" ? LoggedInUser.profile ["age"].ToString () : "");

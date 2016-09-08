@@ -39,9 +39,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23e5618f9b3208943969bb6cf9da52b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QuestionDatabase: {fileID: 11400000, guid: 6de19d281d565d840ba9e3f10c5b248b, type: 2}
   livesAmount: 5
-  useAds: 1
+  noconnectionSceneLoaded: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

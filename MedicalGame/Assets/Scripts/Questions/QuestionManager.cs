@@ -259,22 +259,22 @@ public class QuestionManager : Singleton<QuestionManager> {
                 
 				switch (currentCategory)
 				{
-					case 7: //total right questions in veslavingszorg
+					case 1: //total right questions in veslavingszorg
                         PlayerManager.I.player.verslavingsAnswers++;
 						break;
-					case 8: //total right questions in ouderenzorg
+					case 2: //total right questions in ouderenzorg
                         PlayerManager.I.player.oldieAnswers++;
 						break;
-					case 9: //total right questions in ziekenhuiszorg
+					case 3: //total right questions in ziekenhuiszorg
 						PlayerManager.I.player.ziekenhuisAnswers++;
 						break;
-					case 10: //total right questions in algemenezorg
+					case 4: //total right questions in algemenezorg
                         PlayerManager.I.player.algemeenAnswers++;
 						break;
-					case 11: //total right questions in tand & huisarts
+					case 5: //total right questions in tand & huisarts
 						PlayerManager.I.player.artsAnswers++;
 						break;
-					case 12: //total right questions in gehandicaptenzorg
+					case 6: //total right questions in gehandicaptenzorg
 						PlayerManager.I.player.gehandicaptenAnswers++;
 						break;
 				}
@@ -307,7 +307,6 @@ public class QuestionManager : Singleton<QuestionManager> {
 					}
 					
                 }
-
 
 			/***************************** WRONG ANSWER ********************************/		
             } else {

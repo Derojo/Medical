@@ -25,7 +25,7 @@ public class CurrentMatches : MonoBehaviour {
 	public Text livesText;
 
 	// Use this for initialization
-	void Start () { 
+	void Start () {
 		StartLives();
 		if (MatchManager.I.matches != null && MatchManager.I.matches.Count > 0) {
 			int lives = RuntimeData.I.livesAmount - MatchManager.I.getTotalActiveMatches();
@@ -68,6 +68,7 @@ public class CurrentMatches : MonoBehaviour {
 		yield return new WaitForSeconds (0.1f);
 		updateMatches ();
 		Loader.I.disableLoader ();
+		Loader.I.CheckInternetConnection();
 	}
 
 	private IEnumerator FirstStartup() {

@@ -13,8 +13,10 @@ public class QuestionBackend : Singleton<QuestionBackend>   {
 	public string[] questionIds;
 	public bool questionLoaded = false;
 	public bool retrievedQuestions = false;
-		
+	private float processTime = 0;
+	
 	public Question setRandomQuestion(int categoryID){
+		StartCoroutine(processTimer());
 		currentQuestion = null;
 		//string[] questionIds = MatchManager.I.GetQuestionsInMatch ("5778fdfee4b006e8d75e6c3c");
 		string[] questionIds = MatchManager.I.GetQuestionsInMatch ();
@@ -51,6 +53,7 @@ public class QuestionBackend : Singleton<QuestionBackend>   {
 	}
 
 	public Question setQuestionById(string id) {
+				StartCoroutine(processTimer());
 		currentQuestion = null;
 			GamedoniaData.Search("questions", "{_id:{$oid:'"+id+"'}}", delegate (bool success, IList data){
 			if (success){
@@ -83,6 +86,7 @@ public class QuestionBackend : Singleton<QuestionBackend>   {
 	}
 	
 	public List<Question> getQuestionsByPlayerId() {
+				StartCoroutine(processTimer());
 		List<Question> questionList = new List<Question>();
 			GamedoniaData.Search("questions", "{\"sID\":\""+PlayerManager.I.player.playerID+"\"}", delegate (bool success, IList data){
 			if (success){
@@ -187,6 +191,18 @@ public class QuestionBackend : Singleton<QuestionBackend>   {
 				return 0;
 		}
 
+	}
+	
+	private IEnumerator processTimer() {
+		processTime = 0;
+		while(!questionLoaded) {
+			processTime = processTime+Time.deltaTime;
+			Debug.Log("Time passed:"+processTime);
+			yield return null;
+		}
+		if(processTime >= Loader.I.timeUntillMessage) {
+			Loader.I.ShowNoInternetPopup(true);
+		}
 	}
 
 		

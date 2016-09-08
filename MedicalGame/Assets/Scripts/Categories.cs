@@ -27,6 +27,7 @@ public class Categories : MonoBehaviour {
 
 	private List<Turn> playerTurns;
 	private List<Turn> oppTurns;
+	private bool clicked = false;
 
 	// Use this for initialization
 	void Start () {
@@ -133,7 +134,11 @@ public class Categories : MonoBehaviour {
 	}
 
 	public void PlayMatch() {
-		Loader.I.LoadScene ("Match");
+		if(!clicked) {
+			clicked = true;
+			Loader.I.LoadScene ("Match");
+		}
+
 	}
 
 	public void ToHome() {

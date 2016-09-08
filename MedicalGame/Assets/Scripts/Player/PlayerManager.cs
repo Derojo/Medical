@@ -351,8 +351,9 @@ public class PlayerManager : Singleton<PlayerManager> {
 
 	private void OnApplicationPause() { Save (); }
 
-    public void loggingOff()
+    public void loggingOut()
     {
+		Loader.I.enableLoader();
         GamedoniaUsers.LogoutUser(delegate (bool success)
         {
             if (success)
@@ -360,7 +361,7 @@ public class PlayerManager : Singleton<PlayerManager> {
                 player.playerID = "";
                 player.loggedIn = false;
                 player.createdProfile = false;
-                SceneManager.LoadScene("Startup");
+                SceneManager.LoadScene("Login");
             }
             else
             {

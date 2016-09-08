@@ -22,7 +22,8 @@ public class SceneManagerScript : MonoBehaviour
     //Loading Scenes
     public void LoadLevelPage(string changeScene)
     {
-        SceneManager.LoadScene(changeScene);
+		Loader.I.enableLoader();
+		Loader.I.LoadScene(changeScene);
     }
 
     public void ExitApp()
