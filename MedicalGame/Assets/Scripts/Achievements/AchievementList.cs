@@ -38,6 +38,7 @@ public class AchievementList : MonoBehaviour {
 	private void setProgessInformation(GameObject progression, string name) {
 		float fillAmount = 0;
 		string progressionText = "";
+		float currentValue = 0;
 		if(name == "Old School") {
 			fillAmount = getFillAmount(PlayerManager.I.player.oldieAnswers, 10);
 			progressionText = PlayerManager.I.player.oldieAnswers+"/10";
@@ -67,13 +68,20 @@ public class AchievementList : MonoBehaviour {
 			progressionText = PlayerManager.I.player.acceptedMatches+"/5";
 		} else if(name == "Afmaker") {
 			fillAmount = getFillAmount(PlayerManager.I.player.playedMatches, 5);
-			progressionText = PlayerManager.I.player.playedMatches+"/5";
+			currentValue = (PlayerManager.I.player.playedMatches >=5 ? 5 : PlayerManager.I.player.playedMatches);
+			progressionText = currentValue+"/5";
 		} else if(name == "Onverslaanbaar") {
 			fillAmount = getFillAmount(PlayerManager.I.player.wonMatchesRow, 10);
-			progressionText = PlayerManager.I.player.wonMatchesRow+"/10";
+			currentValue = (PlayerManager.I.player.wonMatchesRow >=10 ? 10 : PlayerManager.I.player.wonMatchesRow);
+			progressionText = currentValue+"/10";
 		}  else if(name == "Op dreef") {
 			fillAmount = getFillAmount(PlayerManager.I.player.wonMatches, 10);
-			progressionText = PlayerManager.I.player.wonMatches+"/10";
+			currentValue = (PlayerManager.I.player.wonMatches >=10 ? 10 : PlayerManager.I.player.wonMatches);
+			progressionText = currentValue+"/10";
+		} else if(name == "Hatrick") {
+			fillAmount = getFillAmount(PlayerManager.I.player.wonMatchesRow, 3);
+			currentValue = (PlayerManager.I.player.wonMatchesRow >=3 ? 3 : PlayerManager.I.player.wonMatchesRow);
+			progressionText = currentValue+"/3";
 		}
 		progression.transform.GetChild(0).GetComponent<Image>().fillAmount = fillAmount;
 		progression.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = progressionText;
