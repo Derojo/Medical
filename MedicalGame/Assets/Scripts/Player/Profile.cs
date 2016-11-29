@@ -34,7 +34,7 @@ public class Profile : MonoBehaviour {
 	WWW www;
 
 	void Start() {
-
+        PlayerManager.I.CheckLevelUp();
         //checking for clothes change achievement
         AchievementManager.I.AchievementStylist();
 

@@ -15,6 +15,7 @@ public class HomeStartUp : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        PlayerManager.I.CheckLevelUp();
         PlayerManager.I.currentOpponentInfo = null;
         lvlPopUp.SetActive(false);
         //Earning first achievement
@@ -25,8 +26,7 @@ public class HomeStartUp : MonoBehaviour {
         rankingImg.sprite = PlayerManager.I.GetRankSprite(PlayerManager.I.player.playerLvl);
         //Getting rank name
         currentRanktxt.text = "Rang : "+PlayerManager.I.player.playerRank;
-        currentLVL.text = "Je bent nu level " + PlayerManager.I.player.playerLvl.ToString();
-       
+        currentLVL.text = "Je bent nu level " + PlayerManager.I.player.playerLvl.ToString();       
     }
 	
 	// Update is called once per frame
@@ -39,7 +39,7 @@ public class HomeStartUp : MonoBehaviour {
             StartCoroutine(hideLvlUp());
         }
 	}
-
+	
     //Playing sound function
     public void onClick()
     {

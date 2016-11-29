@@ -13,7 +13,7 @@ SceneSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 6
+  serializedVersion: 7
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -37,12 +37,12 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 6
+  serializedVersion: 7
   m_GIWorkflowMode: 1
-  m_LightmapsMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -53,17 +53,22 @@ LightmapSettings:
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
-    serializedVersion: 3
+    serializedVersion: 4
     m_Resolution: 2
     m_BakeResolution: 40
     m_TextureWidth: 1024
     m_TextureHeight: 1024
+    m_AO: 0
     m_AOMaxDistance: 1
-    m_Padding: 2
     m_CompAOExponent: 0
+    m_CompAOExponentDirect: 0
+    m_Padding: 2
     m_LightmapParameters: {fileID: 0}
+    m_LightmapsBakeMode: 1
     m_TextureCompression: 1
+    m_DirectLightInLightProbes: 1
     m_FinalGather: 0
+    m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 1024
     m_ReflectionCompression: 2
   m_LightingDataAsset: {fileID: 112000001, guid: bbdc37809fc3c3d4e869adaa625e97cd,
@@ -135,7 +140,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400002, guid: 348c0b81f49014484a3ca399c316f68f, type: 2}
       propertyPath: ApiKey
-      value: 7396e918-a7d9-4115-b5a9-329bbb21f272
+      value: 2dd9d5ab-3e0f-41db-a7ba-5d4e3e8a8533
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 348c0b81f49014484a3ca399c316f68f, type: 2}
@@ -156,7 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   androidSenderId: 127272864481
-  clearBadgeOnActivate: 1
+  clearBadgeOnActivate: 0
   enableBadge: 1
   enableSound: 1
   enableAlert: 1
@@ -184,16 +189,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: 
---- !u!114 &1770743210
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1770743206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 615b40596e89f4ee5b0d5f84bbf1b7cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  androidPublickey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgLkuDPMUw3BG6AomcO/OL4OaXvMNbmE2GFJetbq8KG90si/H5f2TFZy4GOKWNQB/Chsu92t7D3MgeksZsgF9AYNyn6T50HHsEvKybz6WEBUG4Evjbvgpe8A0d1/5Krs8KPJWz9djpmQ+gI/Sq4ZfOzRR1Oiv5fjbKW7S9PJ5cEAbZDSUTm0X+OVUe5GnJjPy4ZPCv9UDMIczYWxawzvibkiM4MXCcYpRAnnRJ1XgdXJRWxzbJcapxMwmhy/YksLtY0Bb3AHNAPLLuK1/FYgvCmHJQhmeW/MZy1Q/NlT4aHquaetz9K/fzFKNuAHS22utD84f2Zuf4JlUQrPFMI6j7QIDAQAB
-  debug: 1

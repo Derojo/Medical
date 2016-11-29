@@ -74,12 +74,12 @@ public class RuntimeData : Singleton<RuntimeData> {
 				if (invitesuccess) {
 					if (data != null) {
 						Dictionary<string, object> matchD = (Dictionary<string, object>)data[0];
-						Match match = MatchManager.I.GetMatch(matchID);
-						if(match == null) {
-							match  = new Match();
-							match.m_ID = matchD["_id"].ToString();
+						Match matchInvite = MatchManager.I.GetMatch(matchID);
+						if(matchInvite == null) {
+                            matchInvite = new Match();
+                            matchInvite.m_ID = matchD["_id"].ToString();
 							List<string> uids = JsonMapper.ToObject<List<string>> (JsonMapper.ToJson (matchD ["u_ids"]));
-							match.u_ids = uids;
+                            matchInvite.u_ids = uids;
 							List<Turn> turns = new List<Turn> ();
 							List<object> t_turns = new List<object> ();
 							t_turns = (List<object>)matchD ["m_trns"];
@@ -88,11 +88,11 @@ public class RuntimeData : Singleton<RuntimeData> {
 								Turn turn = new Turn (int.Parse (t_turn ["t_ID"].ToString ()), t_turn ["p_ID"].ToString (), t_turn ["q_ID"].ToString (), int.Parse (t_turn ["c_ID"].ToString ()), int.Parse (t_turn ["t_st"].ToString ()));
 								turns.Add (turn);
 							}
-							match.m_cp = matchD ["m_cp"].ToString ();
-							match.m_trns = turns;
-							match.m_date = matchD ["m_date"].ToString();
-							match.m_status = matchD ["m_status"].ToString ();
-							MatchManager.I.AddMatch(match, false, false);
+                            matchInvite.m_cp = matchD ["m_cp"].ToString ();
+                            matchInvite.m_trns = turns;
+                            matchInvite.m_date = matchD ["m_date"].ToString();
+                            matchInvite.m_status = matchD ["m_status"].ToString ();
+							MatchManager.I.AddMatch(matchInvite, false, false);
 						}
 
 						if(currentScene.name == "Home") {
@@ -105,15 +105,17 @@ public class RuntimeData : Singleton<RuntimeData> {
 			});
 			break;
 		case "matchTurn":
-			
+            Debug.Log("matchTurn");
 			//TODO: process the message
 			Match match = MatchManager.I.GetMatch (matchID);
 			if (match != null) {
-				// Update match information
-				// Get match from gamedonia server
-				GamedoniaData.Search ("matches", "{_id: { $oid: '" + matchID +"' } }", delegate (bool success, IList data) {
+                    Debug.Log("search for matches");
+                    // Update match information
+                    // Get match from gamedonia server
+                    GamedoniaData.Search ("matches", "{_id: { $oid: '" + matchID +"' } }", delegate (bool success, IList data) {
 					if (success) {
 						if (data != null) {
+                            Debug.Log("Found match");
 							// *************** Server side match information ********************
 							Dictionary<string, object> matchD = (Dictionary<string, object>)data[0];
 							List<Turn> turns = new List<Turn>();

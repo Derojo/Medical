@@ -17,6 +17,7 @@ public class AchievementList : MonoBehaviour {
     {
         for (int i = 0; i < AchievementManager.I.achievementList.Count; i++)
         {
+			//PlayerPrefs.DeleteKey(AchievementManager.I.achievementList[i].Name);
             GameObject achievement = (GameObject)Instantiate(AchievementManager.I.achievementPrefab);
             AchievementManager.I.SetAchievementInfo("AchievementHolder", achievement, AchievementManager.I.achievementList[i].Name);
 			if(progressionNames.Contains(AchievementManager.I.achievementList[i].Name)) {

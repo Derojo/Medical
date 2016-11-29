@@ -19,7 +19,7 @@ public class QuestionManager : Singleton<QuestionManager> {
 	public Text VS;
 	public Text playerNameVS;
 	public Image playerRankImgVS;
-	public Text oppNameVS;
+    public Text oppNameVS;
 	public Image oppRankImgVS;
 	public Text timerText;
 	public Color colorOrange;
@@ -99,15 +99,15 @@ public class QuestionManager : Singleton<QuestionManager> {
 				}
 			} else {
 				// Get random question
-				//QuestionBackend.I.setQuestionById("577e17cde4b05c9036deda44"); 
+				//QuestionBackend.I.setQuestionById("57aa4968e4b0967309dd20c6"); 
 				QuestionBackend.I.setRandomQuestion (currentCategory);
 			}
 		} else {
-			//QuestionBackend.I.setQuestionById("577e17cde4b05c9036deda44"); 
-			QuestionBackend.I.setRandomQuestion (currentCategory);
-		}
-		
-		SetPlayersInformation ();
+            //QuestionBackend.I.setQuestionById("57aa4968e4b0967309dd20c6"); 
+            QuestionBackend.I.setRandomQuestion (currentCategory);
+        }
+
+        SetPlayersInformation ();
 		
 		if(playerTurnL.Count == 0) {
 			// Hide default avatars
@@ -178,13 +178,15 @@ public class QuestionManager : Singleton<QuestionManager> {
 		SetCategoryTitle ();
 		SetQuestionReady ();
 		if(QuestionBackend.I.currentQuestion.sID != "admin") {
+            Debug.Log("Show added by: "+QuestionBackend.I.currentQuestion.sID);
 			showAddedBy = true;
 			setAddedByInfo(QuestionBackend.I.currentQuestion.sID);
 		}
 	}
 	
 	private void setAddedByInfo(string playerID) {
-		GamedoniaUsers.GetUser(playerID, delegate (bool success, GDUserProfile data) { 
+        
+        GamedoniaUsers.GetUser(playerID, delegate (bool success, GDUserProfile data) { 
 			if (success) {
 				//returnInformation["name"] = data.profile["name"].ToString();
 				Dictionary<string, object> playerInfo = data.profile;
@@ -192,7 +194,7 @@ public class QuestionManager : Singleton<QuestionManager> {
 				addedBy.transform.GetChild(2).GetComponent<Text>().text = playerInfo["name"].ToString();
 			}
 		});
-	}
+    }
 	/** Check whether the given answer is correct or not correct, switch to next category or home scene according to the outcome**/
 	public void checkAnswer(string Answer) {
         // Hide Timer

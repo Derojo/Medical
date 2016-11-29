@@ -54,6 +54,7 @@ public class Registration : MonoBehaviour {
 			Credentials credentials = new Credentials();
 			credentials.email = email.text;
 			credentials.password = password.text;
+			Dictionary<string, object> emptyDictionary = new Dictionary<string, object> ();
 			GDUser user = new GDUser();
 			user.credentials = credentials;
 
@@ -66,7 +67,7 @@ public class Registration : MonoBehaviour {
 			user.profile.Add("instelling", "");
 			user.profile.Add("lvl", 1);
 			user.profile.Add("wonAttr", 1);
-			user.profile ["friends"] = new Dictionary<string, object> ();
+			user.profile.Add("friends", emptyDictionary);
 			user.profile.Add("avatar", "");
 			user.profile.Add("admin", false);
 			user.profile.Add("created_profile", false);

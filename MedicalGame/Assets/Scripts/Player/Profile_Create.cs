@@ -74,6 +74,7 @@ public class Profile_Create : MonoBehaviour {
 		if (success) {
 			LoggedInUser = userProfile;
 			// Set playerprefs, store so we dont need to use http requests when we dont need it
+			Debug.Log(LoggedInUser._id);
 			PlayerManager.I.player.playerID = LoggedInUser._id; // Player id
 			fillExistingProfile ();
 		}else {
@@ -166,6 +167,7 @@ public class Profile_Create : MonoBehaviour {
 				int attributesAmount = PlayerManager.I.getTotalFriendAttributes((Dictionary<string, object>) LoggedInUser.profile["friends"]);
 				PlayerManager.I.player.playerWonAttr = attributesAmount;
 				LoggedInUser.profile ["wonAttr"] = attributesAmount;
+
 			}
 			
 			loader.enableLoader ();

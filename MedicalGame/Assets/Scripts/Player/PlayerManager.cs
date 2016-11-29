@@ -17,7 +17,9 @@ public class PlayerManager : Singleton<PlayerManager> {
 
 	public Player player;
 	public Dictionary<string, object> currentOpponentInfo;
-	public Dictionary<string, object> friends;
+    public Dictionary<string, object> currentFriendInfo;
+    public string currentFriendId;
+    public Dictionary<string, object> friends;
 	public Dictionary<string, object> friendProfiles;
 	public bool Load() {return true;}
 	public bool lvlUp = false;
@@ -31,6 +33,7 @@ public class PlayerManager : Singleton<PlayerManager> {
 	void Awake() {
 
 		LoadPlayer ();
+		
 		if (friends == null) {
 			friends = new Dictionary<string, object>();
 			friendProfiles = new Dictionary<string, object>();
@@ -44,9 +47,16 @@ public class PlayerManager : Singleton<PlayerManager> {
 
 		CheckCurrentRank ();
 		CheckLevelUp ();
+		StartCoroutine(afterStartupDone());
 	}
 
-
+	private IEnumerator afterStartupDone() {
+		while(!PlayerManager.I.startUpDone) {
+			yield return null;
+		}
+        // Load functions after startup is done
+        CompareServerProfile();
+    }
 
 	public void Save() {
 		BinaryFormatter bf = new BinaryFormatter();
@@ -75,17 +85,20 @@ public class PlayerManager : Singleton<PlayerManager> {
 			if (success){
 				Debug.Log("I am here now");
 				friends = (Dictionary<string, object>)data.profile["friends"];
-				foreach (KeyValuePair<string, object> friend in friends) {
-					string friendKey = friend.Key;
-					GamedoniaUsers.GetUser (friendKey, delegate (bool succesFriends, GDUserProfile friendProfile) { 
-						if (succesFriends) {
-							Dictionary<string, object> oppProfile = new Dictionary<string, object>();
-							oppProfile = friendProfile.profile;
-							friendProfiles.Add(friendKey, oppProfile);
-						} else {
-							friends.Remove(friendKey);
-						}
-					});
+				Debug.Log(friends.Count);
+				if(friends.Count > 0) {
+					foreach (KeyValuePair<string, object> friend in friends) {
+						string friendKey = friend.Key;
+						GamedoniaUsers.GetUser (friendKey, delegate (bool succesFriends, GDUserProfile friendProfile) { 
+							if (succesFriends) {
+								Dictionary<string, object> oppProfile = new Dictionary<string, object>();
+								oppProfile = friendProfile.profile;
+								friendProfiles.Add(friendKey, oppProfile);
+							} else {
+								friends.Remove(friendKey);
+							}
+						});
+					}
 				}
 				startUpDone = true;
 			}
@@ -153,7 +166,12 @@ public class PlayerManager : Singleton<PlayerManager> {
 		return ranks [(CurrentRankKey () + 1)].name;
 	}
 
-	public Sprite GetRankSprite(int lvl = 0) {
+    public string GetRankName(int lvl = 0)
+    {
+        return ranks[(CurrentRankKey(lvl))].name;
+    }
+
+    public Sprite GetRankSprite(int lvl = 0) {
 		return ranks [CurrentRankKey(lvl)].sprite;
 	}
 
@@ -189,8 +207,10 @@ public class PlayerManager : Singleton<PlayerManager> {
 		if (XPSum <= 0) {
 			// Add 1 to new player level
 			player.playerLvl++;
-			//setting lvlUp bool to true for popup
-			lvlUp = true;
+            // Update server profile lvl
+            updateServerProfile(true, false);
+            //setting lvlUp bool to true for popup
+            lvlUp = true;
 			// Check new ranking
 			CheckCurrentRank();
 			// Remaining experience;
@@ -203,6 +223,32 @@ public class PlayerManager : Singleton<PlayerManager> {
 		}
 	}
 
+	private void CompareServerProfile() {
+		int attributesWon = getTotalFriendAttributes((Dictionary<string, object>) friends);
+
+        Dictionary<string, object> parameters = new Dictionary<string, object>() { { "attributesWon", attributesWon }, {"lvl", player.playerLvl}, { "admin", player.admin } };
+        GamedoniaScripts.Run("comparedata", parameters, delegate (bool success, object data) {
+            if (success)
+            {
+                //TODO: data contains the return values of the script
+                Dictionary<string, object> dataD = (Dictionary<string, object>)data;
+                if (player.admin.ToString() != dataD["admin"].ToString()) {
+                    Debug.Log("not the same");
+                    if (dataD["admin"].ToString() == "False") {
+                        player.admin = false; 
+                    }
+                    else {
+                        player.admin = true;
+                    }
+                }
+            }
+            else
+            {
+                //TODO: the script throwed an error
+            }
+        });
+	}
+	
 	public void AddFriend(string name) {
 		friends.Add (name, new List<int> ());
 		GamedoniaUsers.GetUser (name, delegate (bool success, GDUserProfile friendProfile) { 
@@ -237,14 +283,16 @@ public class PlayerManager : Singleton<PlayerManager> {
 	}
 	
 	public int getTotalFriendAttributes(Dictionary<string, object> friends) {
-		Debug.Log(friends.Count);
+		
 		int totalAttributes = 0;
-		foreach (KeyValuePair<string, object> friend in friends) {
-			List<int> attributes = GetFriendAttributes(friend.Key);
-			
-			totalAttributes+= attributes.Count;
-
+		if(friends.Count > 0) {
+			foreach (KeyValuePair<string, object> friend in friends) {
+				List<int> attributes = GetFriendAttributes(friend.Key);
+				
+				totalAttributes+= attributes.Count;
+			}
 		}
+
 		
 		return totalAttributes;
 	}
@@ -346,8 +394,24 @@ public class PlayerManager : Singleton<PlayerManager> {
 	}
 
 
+    private void updateServerProfile(bool lvl, bool attr)
+    {
+        Dictionary<string, object> updateProfile = new Dictionary<string, object>();
+        updateProfile["_id"] = player.playerID;
 
-	private void OnApplicationQuit() { Save (); }
+        if (lvl)
+        {
+            updateProfile["lvl"] = player.playerLvl;
+        }
+        if (attr)
+        {
+            updateProfile["wonAttr"] = getTotalFriendAttributes((Dictionary<string, object>)friends);
+        }
+
+        GamedoniaUsers.UpdateUser(updateProfile, delegate (bool success) { });
+    }
+
+    private void OnApplicationQuit() { Save (); }
 
 	private void OnApplicationPause() { Save (); }
 

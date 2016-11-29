@@ -6,7 +6,8 @@
 	<array/>
 	<key>requiredFrameworks</key>
 	<array>
-		<string>Security.framework</string>		
+		<string>Security.framework</string>
+		<string>AdSupport.framework</string>		
 	</array>
 	<key>pListAdditions</key>
 	<array/>
@@ -15,6 +16,7 @@
 	<key>linkerFlags</key>
 	<array>
 		<string>-ObjC</string>
+		<string>-lz</string>
 	</array>
 	<key>neverShowCompletedMessage</key>
 	<false/>

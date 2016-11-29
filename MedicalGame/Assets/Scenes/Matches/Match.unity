@@ -3283,7 +3283,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Femke Hof
+  m_Text: 
 --- !u!222 &632541112
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5365,7 +5365,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Weet jij ook een leuke vraag? Ga naar de fragenfabriek!
+  m_Text: Weet jij ook een leuke vraag? Ga naar de vragenfabriek!
 --- !u!222 &912740488
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ using Gamedonia.Backend;
 using UnityEngine.UI;
 using LitJson_Gamedonia;
 using DG.Tweening;
+using System.Linq;
 
 public class FriendList : MonoBehaviour {
 
@@ -24,21 +25,35 @@ public class FriendList : MonoBehaviour {
 			if(livesLeft  < 0 ) {
 				livesLeft = 0;
 			}
-			Debug.Log(livesLeft);
 		}
 		showFriends ();
 	}
 
 	
 	private void showFriends() {
-		foreach (KeyValuePair<string, object> friend in PlayerManager.I.friends) {
+        foreach (KeyValuePair<string, object> friend in PlayerManager.I.friends) {
             setFriendInformation(friend.Key);
         }
 
 	}
 
+    private void setFriendInformation(string id)
+    {
+        // Gameobject friendrow
+        GameObject friendRow = Instantiate(Resources.Load("FriendRow")) as GameObject;
+        string friendKey = id;
+        friendRow.name = friendKey;
+        friendRow.transform.SetParent(this.transform, false);
+        // Gameobjects texts-images
+        GameObject horizontal = friendRow.transform.GetChild(0).transform.GetChild(0).gameObject;
+        // Set information
+        Dictionary<string, object> oppProfile = (Dictionary<string, object>)PlayerManager.I.friendProfiles[friendKey];
+        horizontal.GetComponentInChildren<Text>().text = oppProfile["name"].ToString();
+        horizontal.GetComponentInChildren<Image>().sprite = PlayerManager.I.GetRankSprite(int.Parse(oppProfile["lvl"].ToString()));
+        friendRow.GetComponent<Button>().onClick.AddListener(delegate { goToFriend(oppProfile, friendKey); });
+    }
 
-	private void setFriendInformation(string id) {
+    /*private void setFriendInformation(string id) {
         GameObject friendRow = Instantiate(Resources.Load("FriendRow")) as GameObject;
 
         string friendKey = id;
@@ -86,20 +101,17 @@ public class FriendList : MonoBehaviour {
         }
         friendRow.transform.SetParent(this.transform, false);
     }
-	
-	private void startFriendMatch(string key) {
-		if(livesLeft > 0) {
-			if(!MatchManager.I.checkForPlayingWithFriend(key)) {
-				MatchManager.I.StartFriendMatch(key);
-			} else {
-				responseText.text = "Je kunt maar 1 potje tegelijk tegen iemand spelen!";
-				StartCoroutine(showResponse(2f));
-			}
-		} else {
-			responseText.text = "Je hebt niet genoeg levens om nog een potje te starten!";
-			StartCoroutine(showResponse(2f));
-		}
-	}
+	*/
+
+
+    private void goToFriend(Dictionary<string,object> oppProfile, string friendID) {
+        Loader.I.enableLoader();
+        PlayerManager.I.currentFriendInfo = oppProfile;
+        PlayerManager.I.currentFriendId = friendID;
+        Loader.I.LoadScene("Friend");
+    }
+
+
 
   /////////*****Friendsearch*****/////////
 

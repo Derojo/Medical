@@ -303,14 +303,12 @@ namespace Gamedonia.Backend {
 		// On Resume
 		private static void Resume()
 		{
-			Debug.Log ("RESUME");
 			if( Application.platform == RuntimePlatform.Android )
 				_Resume();
 		}	
 		
 		private static void _ClearNotifications() {
-
-			Debug.Log ("CLEAR NOTIFICATIONS");
+			
 			AndroidJNI.AttachCurrentThread(); 
 			
 			AndroidJavaClass pushClass = new AndroidJavaClass("com.gamedonia.pushnotifications.PushNotifications");						

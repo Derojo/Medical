@@ -3799,7 +3799,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 11407762, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22404098, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_LocalPosition.x
@@ -3976,7 +3976,8 @@ Prefab:
     - target: {fileID: 11407762, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11492878, guid: 8363301778096c944bbe8117d8d96de6,
+        type: 2}
     - target: {fileID: 11407762, guid: f70fe2987cecf084cbf8aadcea1dda52, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: LoadLevelPage

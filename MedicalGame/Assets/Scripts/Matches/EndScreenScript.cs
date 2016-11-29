@@ -52,8 +52,7 @@ public class EndScreenScript : MonoBehaviour {
             continueButton.GetComponent<Image>().DOFade(1, 1f);
             animControl.SetBool("IsLosing", false);
 			animControl.SetBool("isWinning", false);
-            AttributeInfo.SetActive(false);
-			AttributeInfoPlayer.GetComponent<Text> ().text = "Geen nieuw weetje van";
+            AttributeInfo.GetComponent<Text> ().text = "Geen nieuw weetje van";
             AttributeTitle.GetComponent<Text>().text = "Gelijkspel!";
             AttributeValue.GetComponent<Text>().text = "Helaas, je hebt gelijkgespeeld en dus geen weetje vrijgespeeld";
 

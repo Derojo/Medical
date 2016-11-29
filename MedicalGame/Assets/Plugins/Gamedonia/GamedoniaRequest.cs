@@ -278,6 +278,9 @@ namespace Gamedonia.Backend {
 			
 			string signature = HMACSHA1(secret, toSign);
 			
+			//if (GamedoniaBackend.INSTANCE.debug) {
+			//	Debug.Log("hmac:" + signature);
+			//	Debug.Log("Md5: " + contentMd5);
 			//}
 			return signature;
 						

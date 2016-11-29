@@ -197,7 +197,6 @@ public class QuestionBackend : Singleton<QuestionBackend>   {
 		processTime = 0;
 		while(!questionLoaded) {
 			processTime = processTime+Time.deltaTime;
-			Debug.Log("Time passed:"+processTime);
 			yield return null;
 		}
 		if(processTime >= Loader.I.timeUntillMessage) {
